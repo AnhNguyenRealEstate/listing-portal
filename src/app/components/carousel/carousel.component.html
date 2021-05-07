@@ -1,0 +1,9 @@
+<ngb-carousel *ngIf="imageSources && imageSources.length">
+    <ng-template ngbSlide *ngFor="let src of imageSources">
+      <div class="picsum-img-wrapper">
+        <img [src]="src" style="width: 100%; height: 50vh">
+      </div>
+      <div class="carousel-caption">
+      </div>
+    </ng-template>
+  </ngb-carousel>
