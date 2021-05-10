@@ -1,0 +1,72 @@
+<section>
+    <h1 class="h3">
+        Find Your New Home!
+    </h1>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4">
+            <div class="form-group">
+                <label class="col-form-label" for="propertyType">Property Type</label>
+                <select class="form-control" id="propertyType" [(ngModel)]="searchCriteria.propertyType">
+                    <option value=''>Any</option>
+                    <option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">{{type.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+            <div class="form-group">
+                <label class="col-form-label" for="locations">Location</label>
+                <select class="form-control" id="locations" [(ngModel)]="searchCriteria.location">
+                    <option value=''>Any</option>
+                    <option *ngFor="let type of locations | keyvalue" value="{{type.key}}">{{type.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+            <div class="form-group">
+                <label class="col-form-label" for="propertySizes">Property Sizes (m<sup>2</sup>)</label>
+                <select class="form-control" id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
+                    <option value=''>Any</option>
+                    <option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-xs-6 col-sm-4">
+            <div class="form-group">
+                <label class="col-form-label" for="priceRange">Price Range</label>
+                <div class="form-row d-flex justify-content-between" id="priceRange">
+                    <input type="number" [(ngModel)]="searchCriteria.minPrice" class="form-control w-46 d-inline" id="minPrice" placeholder="min price...">
+                    <input type="number" [(ngModel)]="searchCriteria.maxPrice" class="form-control w-46 d-inline" id="maxPrice" placeholder="max price...">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+            <div class="form-group">
+                <label class="col-form-label" for="bedrooms">Bedrooms</label>
+                <select class="form-control" id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
+                    <option value=''>Any</option>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3+'>3+</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+            <div class="form-group">
+                <label class="col-form-label" for="bathrooms">Bathrooms</label>
+                <select class="form-control" id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
+                    <option value=''>Any</option>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3+'>3+</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center pt-3">
+        <div class="col-xs-12 col-sm-3">
+            <button type="button" class="btn btn-primary w-100 h-150" (click)="getListings()">Get Listings!</button>
+        </div>
+    </div>
+</section>
