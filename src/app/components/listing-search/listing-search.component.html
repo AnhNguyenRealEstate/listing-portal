@@ -1,6 +1,9 @@
-<section *ngIf="desktopMode" class="container-fluid">
-    <app-search-bar class="pe-3"></app-search-bar>
+<section *ngIf="desktopMode" class="container">
 
+    <div class="pt-2 pb-3">
+        <app-search-bar class="pe-3"></app-search-bar>
+    </div>
+    
     <div class="row">
         <div class="col-4">
             <google-map height="400px" width="100%" [options]="mapOptions">

@@ -5,7 +5,7 @@ export interface Listing {
     title: string,
     description?: string,
     coverImage?: string | SafeUrl,
-    imageSources?: string[],
+    imageSources?: string[], //a listing could have 10+ images
     propertyType?: string,
     location?: string,
     price?: string,

@@ -15,6 +15,7 @@ import { ListingSearchComponent } from './components/listing-search/listing-sear
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';;
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     NavBarComponent,
     SearchBarComponent,
     SideNavComponent,
-    ListingSearchComponent
+    ListingSearchComponent,
+    ListingDetailsComponent
   ],
   imports: [
     BrowserModule,
