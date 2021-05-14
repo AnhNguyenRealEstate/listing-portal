@@ -1,16 +1,19 @@
+import { SafeUrl } from "@angular/platform-browser"
+
 export interface Listing {
     id: string,
     title: string,
-    description: string,
-    imageSources: string[],
-    propertyType: string,
-    location: string,
-    price: string,
-    propertySize: string,
-    bedrooms: string,
-    bathrooms: string,
-    forRent: boolean,
-    forSale: boolean
+    description?: string,
+    coverImage?: string | SafeUrl,
+    imageSources?: string[],
+    propertyType?: string,
+    location?: string,
+    price?: string,
+    propertySize?: string,
+    bedrooms?: string,
+    bathrooms?: string,
+    forRent?: boolean,
+    forSale?: boolean
 }
 
 export interface SearchCriteria {

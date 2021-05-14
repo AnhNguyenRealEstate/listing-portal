@@ -11,6 +11,10 @@ import { ListingSearchService } from './components/listing-search/listing-search
 import { SearchBarComponent } from './components/listing-search/search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
 import { SideNavComponent } from './components/sidenav/sidenav.component';
+import { ListingSearchComponent } from './components/listing-search/listing-search.componen';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';;
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -19,14 +23,19 @@ import { SideNavComponent } from './components/sidenav/sidenav.component';
     CarouselComponent,
     NavBarComponent,
     SearchBarComponent,
-    SideNavComponent
+    SideNavComponent,
+    ListingSearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    GoogleMapsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    InfiniteScrollModule
   ],
   providers: [ListingSearchService],
   bootstrap: [AppComponent]

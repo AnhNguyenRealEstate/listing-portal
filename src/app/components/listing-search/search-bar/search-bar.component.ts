@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SearchCriteria, PropertyTypes, Locations, PropertySizes } from '../listing-search.data';
 
 @Component({
     selector: 'app-search-bar',
-    templateUrl: 'search-bar.component.html',
-    styleUrls: ['search-bar.sass']
+    templateUrl: 'search-bar.component.html'
 })
 
 export class SearchBarComponent implements OnInit {
@@ -13,7 +13,7 @@ export class SearchBarComponent implements OnInit {
     locations = Locations;
     propertySizes = PropertySizes;
 
-    constructor() {
+    constructor(private router: Router) {
         this.searchCriteria = {
             propertyType: '',
             propertySize: '',
@@ -30,6 +30,10 @@ export class SearchBarComponent implements OnInit {
     }
 
     getListings() {
-        const test = this.searchCriteria;
-    }
+        //TODO: submit criteria to server, once the response comes back,
+        //save to listing-search service as observable?
+
+        this.router.navigateByUrl('/listings');
+
+    }  
 }
