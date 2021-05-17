@@ -16,6 +16,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';;
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
+import { ListingLocationService } from './components/listing-search/listing-location-data.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { ListingDetailsComponent } from './components/listing-search/listing-det
     HttpClientJsonpModule,
     InfiniteScrollModule
   ],
-  providers: [ListingSearchService],
+  providers: [ListingSearchService, ListingLocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

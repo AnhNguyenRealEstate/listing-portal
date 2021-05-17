@@ -1,22 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Listing } from '../listing-search.data';
+import { ListingSearchService } from '../listing-search.service';
 
 @Component({
     selector: 'app-listing-details',
     templateUrl: 'listing-details.component.html'
 })
 
-export class ListingDetailsComponent implements OnInit {
+export class ListingDetailsComponent implements OnInit, OnChanges {
+    @Input() listingId: string = '';
+    listing: Listing = {} as Listing;
 
-    constructor(private activatedRoute: ActivatedRoute) { 
+    constructor(private listingSearchService: ListingSearchService) {
     }
 
-    ngOnInit() { 
-        const listingId = this.activatedRoute.snapshot.params.listingId;
+    ngOnInit() {
+    }
 
-        //TODO: check the listing service to see if this listing is already retrieved
-        // if yes, bind the data and call the server to get more as necessary
-        // if not, call the server to retrieve the listing
+    async ngOnChanges() {
+        this.listing = await this.listingSearchService.getListingById(this.listingId);
     }
 }

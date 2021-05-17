@@ -1,33 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Listing, SearchCriteria } from './listing-search.data';
 
 @Injectable({ providedIn: 'root' })
 export class ListingSearchService {
-    listingIdLocationDataMap: Map<string, number[]> = new Map();
+    listings: Map<string ,Listing> = new Map<string, Listing>();
 
     constructor(private httpClient: HttpClient) {
-        for (let i = 0; i <= 4; i++) {
-            this.listingIdLocationDataMap.set(i.toString(),
-                [Math.round(Math.random() * 100), Math.round(Math.random() * 100)]);
-        }
+
     }
 
-    getListingsFromServer(): Observable<any> {
+    getListingsByCriteria(searchCriteria: SearchCriteria): Observable<any> {
+        // TODO: make http request to the server to retrieve the listings
+        // based on criteria
         return this.httpClient.get('');
     }
 
-    setLocationDataToListingId(listingId: string, locationData: number[]) {
-        if (locationData.length !== 2) {
-            return;
+    async getListingById(listingId: string): Promise<Listing> {
+        let listing = this.listings.get(listingId);
+        if(listing){
+            return listing;
         }
-        this.listingIdLocationDataMap.set(listingId, locationData);
+
+        // TODO: make request to the server to get the listing based on id
+        const response = await this.httpClient.get('').toPromise() as Listing;
+        return response;
     }
 
-    getLocationDataFromListingId(listingId: string) {
-        if (!listingId) {
-            return;
-        }
-        return this.listingIdLocationDataMap.get(listingId);
+    cacheListing(listing: Listing){
+        this.listings.set(listing.id, listing);
     }
 }
