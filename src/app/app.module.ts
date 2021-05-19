@@ -13,10 +13,13 @@ import { FormsModule } from '@angular/forms';
 import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { ListingSearchComponent } from './components/listing-search/listing-search.componen';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';;
+import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';;
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 import { ListingLocationService } from './components/listing-search/listing-location-data.service';
+import { LoadingSpinnerService } from './components/load-spinner/loading-spinner.service';
+import { LoadingInterceptorService } from './shared/loading-interceptor.service';
+import { LoadingSpinnerComponent } from './components/load-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { ListingLocationService } from './components/listing-search/listing-loca
     SearchBarComponent,
     SideNavComponent,
     ListingSearchComponent,
-    ListingDetailsComponent
+    ListingDetailsComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,12 @@ import { ListingLocationService } from './components/listing-search/listing-loca
     HttpClientJsonpModule,
     InfiniteScrollModule
   ],
-  providers: [ListingSearchService, ListingLocationService],
+  providers: [
+    ListingSearchService,
+    ListingLocationService,
+    LoadingSpinnerService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -20,5 +20,9 @@ export class ListingDetailsComponent implements OnInit, OnChanges {
 
     async ngOnChanges() {
         this.listing = await this.listingSearchService.getListingById(this.listingId);
+
+        this.listing.imageSources?.forEach(src => {
+            //TODO: get the images from Firebase
+        });
     }
 }
