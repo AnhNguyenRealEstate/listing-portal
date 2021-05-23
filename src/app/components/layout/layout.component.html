@@ -1,0 +1,25 @@
+<mat-toolbar class="navbar">
+    <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
+        <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
+    <a class="navbar-brand" href="/">
+        <i class="fa fa-home fa-2x brand-icon"></i>
+    </a>
+
+    <div class="d-none d-md-flex nav-links">
+        <a mat-button class="nav-link d-flex justify-content-end" [routerLink]="['/listings']">Listings</a>
+        <a mat-button class="nav-link d-flex justify-content-end" href="/about-us">About us</a>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
+        (click)="sidenav.toggle()">
+        <a mat-list-item [routerLink]="['/listings']">Listings</a>
+        <a mat-button href="/about-us">About us</a>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

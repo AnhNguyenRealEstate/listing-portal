@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
-import { ListingSearchComponent } from './components/listing-search/listing-search.componen';
+import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
         component: ListingDetailsComponent
       }
     ]
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent
   }
 ];
 

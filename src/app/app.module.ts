@@ -6,12 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { HomeComponent } from './components/home/home.component';
-import { NavBarComponent } from './components/navbar/navbar.component';
 import { ListingSearchService } from './components/listing-search/listing-search.service';
 import { SearchBarComponent } from './components/listing-search/search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
-import { SideNavComponent } from './components/sidenav/sidenav.component';
-import { ListingSearchComponent } from './components/listing-search/listing-search.componen';
+import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';;
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -20,18 +18,24 @@ import { ListingLocationService } from './components/listing-search/listing-loca
 import { LoadingSpinnerService } from './components/load-spinner/loading-spinner.service';
 import { LoadingInterceptorService } from './shared/loading-interceptor.service';
 import { LoadingSpinnerComponent } from './components/load-spinner/loading-spinner.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CarouselComponent,
-    NavBarComponent,
     SearchBarComponent,
-    SideNavComponent,
     ListingSearchComponent,
     ListingDetailsComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AboutUsComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,11 @@ import { LoadingSpinnerComponent } from './components/load-spinner/loading-spinn
     GoogleMapsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule
   ],
   providers: [
     ListingSearchService,

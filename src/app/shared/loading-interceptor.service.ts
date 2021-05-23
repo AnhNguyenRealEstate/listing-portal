@@ -14,12 +14,12 @@ export class LoadingInterceptorService implements HttpInterceptor {
     removeRequest(req: HttpRequest<any>) {
         const i = this.requests.indexOf(req);
         this.requests.splice(i, 1);
-        this.loadingSpinnerService.isLoading.next(this.requests.length > 0);
+        this.loadingSpinnerService.isLoading$$.next(this.requests.length > 0);
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.requests.push(req);
-        this.loadingSpinnerService.isLoading.next(true);
+        this.loadingSpinnerService.isLoading$$.next(true);
         return new Observable(observer => {
             const subscription = next.handle(req).subscribe(
                 event => {

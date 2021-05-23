@@ -1,7 +1,10 @@
-<section *ngIf="desktopMode" class="container">
-
+<section *ngIf="desktopMode" class="container pt-2">
+    <h1 class="page-title">
+        Listings Search
+    </h1>
+    <hr>
     <div class="pt-2 pb-3">
-        <app-search-bar class="pe-3"></app-search-bar>
+        <app-search-bar class="pe-3" [searchCriteria]="searchCriteria" (searchCompleted)="searchCompleted()"></app-search-bar>
     </div>
     
     <div class="row pb-3">

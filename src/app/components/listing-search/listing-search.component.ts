@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ListingLocationService } from './listing-location-data.service';
-import { Listing } from './listing-search.data';
+import { Listing, SearchCriteria } from './listing-search.data';
 import { ListingSearchService } from './listing-search.service';
 
 @Component({
@@ -13,7 +13,17 @@ import { ListingSearchService } from './listing-search.service';
 })
 
 export class ListingSearchComponent implements OnInit {
-    @Input() desktopMode: boolean = true;
+    desktopMode: boolean = true;
+    searchCriteria: SearchCriteria = {
+        propertyType: '',
+        propertySize: '',
+        location: '',
+        minPrice: 0,
+        maxPrice: Infinity,
+        bedrooms: '',
+        bathrooms: ''
+    } as SearchCriteria;
+
     currentListingId: string = '';
 
     defaultMapCenter: google.maps.LatLngLiteral = { lat: 10.728991, lng: 106.708200 };
@@ -41,9 +51,8 @@ export class ListingSearchComponent implements OnInit {
         private listingLocationService: ListingLocationService,
         private listingSearchService: ListingSearchService,
         private sanitizer: DomSanitizer) {
-        this.activatedRoute.params.subscribe(params => {
-            const test = params[''];
-            //TODO: make request to the server to get search results
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.searchCriteria.propertyType = params['propertyType'];
         });
     }
 
@@ -104,5 +113,10 @@ export class ListingSearchComponent implements OnInit {
         }
 
         //TODO: make request with listing address to find location data
+    }
+
+    searchCompleted() {
+        console.log("Search completed with the following criteria: ");
+        console.log(this.searchCriteria);
     }
 }

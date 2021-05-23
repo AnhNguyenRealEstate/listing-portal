@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-              <app-navbar></app-navbar>
+  template: ` 
               <div class="overlay">
-                <router-outlet></router-outlet>
+                <app-loading-spinner></app-loading-spinner>
+                <app-layout></app-layout>
               </div>
               
-              <footer class="d-flex justify-content-center pt-5 pb-4">
+              <footer class="d-flex justify-content-center pt-4 pb-4">
                   <span>Copyright @ Anh Nguyen Real Estate. All Rights Reserverd.</span>
               </footer>
             `
 })
 export class AppComponent {
-  title = 'listing-portal';
+  title = 'Anh Nguyen Real Estate';
 }

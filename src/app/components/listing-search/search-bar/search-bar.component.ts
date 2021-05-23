@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SearchCriteria, PropertyTypes, Locations, PropertySizes } from '../listing-search.data';
 
 @Component({
@@ -8,32 +8,34 @@ import { SearchCriteria, PropertyTypes, Locations, PropertySizes } from '../list
 })
 
 export class SearchBarComponent implements OnInit {
-    searchCriteria: SearchCriteria;
+    @Input() searchCriteria: SearchCriteria = {
+        propertyType: '',
+        propertySize: '',
+        location: '',
+        minPrice: 0,
+        maxPrice: Infinity,
+        bedrooms: '',
+        bathrooms: ''
+    } as SearchCriteria;
+
+    @Output() searchCompleted = new EventEmitter();
+    
     propertyTypes = PropertyTypes;
     locations = Locations;
     propertySizes = PropertySizes;
 
-    constructor(private router: Router) {
-        this.searchCriteria = {
-            propertyType: '',
-            propertySize: '',
-            location: '',
-            minPrice: 0,
-            maxPrice: Infinity,
-            bedrooms: '',
-            bathrooms: ''
-        } as SearchCriteria;
+    constructor(private httpClient: HttpClient) {
     }
 
     ngOnInit() {
 
     }
 
-    getListings() {
+    async getListings() {
         //TODO: submit criteria to server, once the response comes back,
-        //save to listing-search service as observable?
-
-        this.router.navigateByUrl('/listings');
-
+        //save the data to listing-search service
+        
+        //const response = await this.httpClient.get('').toPromise();
+        this.searchCompleted.emit();
     }  
 }
