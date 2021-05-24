@@ -28,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatInputModule, 
-    MatSliderModule
+    MatSliderModule,
+    MatDividerModule
   ],
   providers: [
     ListingSearchService,

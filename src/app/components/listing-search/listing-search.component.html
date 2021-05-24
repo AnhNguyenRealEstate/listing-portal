@@ -2,50 +2,57 @@
     <h1 class="page-title">
         Listings Search
     </h1>
-    <hr>
     <div class="pt-2 pb-3">
-        <app-search-bar class="pe-3" [searchCriteria]="searchCriteria" (searchCompleted)="searchCompleted()"></app-search-bar>
+        <app-search-bar class="pe-2" [searchCriteria]="searchCriteria" (searchCompleted)="searchCompleted()">
+        </app-search-bar>
     </div>
-    
-    <div class="row pb-3">
-        <div class="col-4">
-            <google-map height="400px" width="100%" [options]="mapOptions">
-                <map-marker *ngIf="mapMarker" [position]="mapMarker.position!" [label]="mapMarker.label!"></map-marker>
-            </google-map>
-        </div>
-        <div class="col-8">
-            <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-                (scrolled)="onScroll()">
-                <div *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
-                    <div class="card-header">
-                        {{result.title}}
-                    </div>
-                    
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4">
-                                <img *ngIf="result.coverImage" [src]="result.coverImage">
-                            </div>
-                            <div class="col-8">
-                                <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
-                                <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
-                                <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
-                                <a href="#" style="text-decoration: none;">
-                                    Details <i class="fa fa-arrow-right"></i>
-                                </a>
+    <mat-divider class="pb-2"></mat-divider>
+    <section>
+        <h2>Search Results</h2>
+        <div class="row pb-3">
+            <div class="col-4">
+                <google-map height="400px" width="100%" [options]="mapOptions">
+                    <map-marker *ngIf="mapMarker" [position]="mapMarker.position!" [label]="mapMarker.label!">
+                    </map-marker>
+                </google-map>
+
+            </div>
+            <div class="col-8">
+                <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                    (scrolled)="onScroll()">
+                    <div *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
+                        <div class="card-header h5">
+                            {{result.title}}
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img *ngIf="result.coverImage" [src]="result.coverImage">
+                                </div>
+                                <div class="col-8">
+                                    <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
+                                    <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
+                                    <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row" *ngIf="currentListingId">
-        <div class="col-12 listing-details">
-            <app-listing-details [listingId]="currentListingId"></app-listing-details>
+    </section>
+    
+    <section *ngIf="currentListingId">
+        <mat-divider class="pb-2"></mat-divider> 
+        <div class="row">
+            <div class="col-12 listing-details">
+                <app-listing-details [listingId]="currentListingId"></app-listing-details>
+            </div>
         </div>
-    </div>
+    </section>
 </section>
 
-<section *ngIf="!desktopMode"></section>
+<section *ngIf="!desktopMode">
+    
+</section>
