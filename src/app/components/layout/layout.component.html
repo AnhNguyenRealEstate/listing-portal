@@ -15,11 +15,12 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
         (click)="sidenav.toggle()">
-        <a mat-list-item [routerLink]="['/listings']">Listings</a>
+        <a mat-button [routerLink]="['/listings']">Listings</a>
         <a mat-button href="/about-us">About us</a>
     </mat-sidenav>
 
     <mat-sidenav-content>
+        <app-loading-spinner></app-loading-spinner>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

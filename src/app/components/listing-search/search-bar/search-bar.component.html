@@ -1,69 +1,79 @@
 <section class="pb-3">
     <div class="row">
         <div class="col-xs-6 col-sm-4">
-            <div class="form-group">
-                <label class="col-form-label" for="propertyType">Property Type</label>
-                <select class="form-control" id="propertyType" [(ngModel)]="searchCriteria.propertyType">
-                    <option value=''>Any</option>
-                    <option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">{{type.value}}</option>
-                </select>
-            </div>
+            <mat-form-field class="form-group">
+                <mat-label>Property Type</mat-label>
+                <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">{{type.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
         <div class="col-xs-6 col-sm-4">
-            <div class="form-group">
-                <label class="col-form-label" for="locations">Location</label>
-                <select class="form-control" id="locations" [(ngModel)]="searchCriteria.location">
-                    <option value=''>Any</option>
-                    <option *ngFor="let type of locations | keyvalue" value="{{type.key}}">{{type.value}}</option>
-                </select>
-            </div>
+            <mat-form-field>
+                <mat-label>Location</mat-label>
+                <mat-select id="locations" [(ngModel)]="searchCriteria.location">
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option *ngFor="let type of locations | keyvalue" value="{{type.key}}">{{type.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
         <div class="col-xs-6 col-sm-4">
-            <div class="form-group">
-                <label class="col-form-label" for="propertySizes">Property Sizes (m<sup>2</sup>)</label>
-                <select class="form-control" id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
-                    <option value=''>Any</option>
-                    <option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}</option>
-                </select>
-            </div>
+            <mat-form-field>
+                <mat-label>Property Sizes (m<sup>2</sup>)</mat-label>
+                <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
     <div class="row pt-2">
         <div class="col-xs-6 col-sm-4">
-            <div class="form-group">
-                <label class="col-form-label" for="priceRange">Price Range (USD)</label>
-                <div class="form-row d-flex justify-content-between" id="priceRange">
-                    <input type="number" [(ngModel)]="searchCriteria.minPrice" class="form-control w-46 d-inline" id="minPrice" placeholder="min price...">
-                    <input type="number" [(ngModel)]="searchCriteria.maxPrice" class="form-control w-46 d-inline" id="maxPrice" placeholder="max price...">
-                </div>
-            </div>
+            <mat-form-field class="form-group">
+                <mat-label>Bedrooms</mat-label>
+                <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option value='1'>1</mat-option>
+                    <mat-option value='2'>2</mat-option>
+                    <mat-option value='3+'>3+</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
         <div class="col-xs-6 col-sm-4">
-            <div class="form-group">
-                <label class="col-form-label" for="bedrooms">Bedrooms</label>
-                <select class="form-control" id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
-                    <option value=''>Any</option>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3+'>3+</option>
-                </select>
-            </div>
+            <mat-form-field>
+                <mat-label>Bathrooms</mat-label>
+                <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option value='1'>1</mat-option>
+                    <mat-option value='2'>2</mat-option>
+                    <mat-option value='3+'>3+</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-xs-6 col-sm-4">
+            <mat-form-field>
+                <mat-label>Min price</mat-label>
+                <input matInput type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
+                    id="minPrice" placeholder="min price...">
+            </mat-form-field>
         </div>
         <div class="col-xs-6 col-sm-4">
-            <div class="form-group">
-                <label class="col-form-label" for="bathrooms">Bathrooms</label>
-                <select class="form-control" id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
-                    <option value=''>Any</option>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3+'>3+</option>
-                </select>
-            </div>
+            <mat-form-field>
+                <mat-label>Max price</mat-label>
+                <input matInput type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
+                    id="maxPrice" placeholder="max price...">
+            </mat-form-field>
         </div>
     </div>
     <div class="row d-flex justify-content-center pt-3 pb-3">
         <div class="col-xs-12 col-sm-3">
-            <button type="button" class="btn btn-primary w-100 h-150" (click)="getListings()">Get Listings</button>
+            <button mat-stroked-button color="accent" class="w-100 h-150" (click)="getListings()">Get Listings</button>
         </div>
     </div>
 </section>

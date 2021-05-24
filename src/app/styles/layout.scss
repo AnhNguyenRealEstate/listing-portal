@@ -1,0 +1,28 @@
+.navbar {
+    background-color: $primary;
+}
+.brand-icon {
+    color: $accent;
+}
+
+.menu-button {
+    margin-right: 24px;
+    min-width: 0;
+    padding: 0;
+    line-height: normal;
+}
+
+.sidenav-container {
+    flex: 1;
+}
+
+.sidenav {
+    background: $primary;
+    min-width: 240px;
+    a {
+        display: block;
+        padding: 6px 24px;
+        width: 100%;
+        text-align: left;
+    }
+}

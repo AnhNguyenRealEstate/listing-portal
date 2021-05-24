@@ -24,6 +24,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { LayoutComponent } from './components/layout/layout.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { LayoutComponent } from './components/layout/layout.component';
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatInputModule, 
+    MatSliderModule
   ],
   providers: [
     ListingSearchService,

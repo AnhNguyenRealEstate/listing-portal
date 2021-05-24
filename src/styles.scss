@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import "custom-theme.scss";
+@import "app/styles/colors.scss";
+@import "app/styles/listing-search";
+@import "app/styles/search-bar";
+@import "app/styles/heights-widths";
+@import "app/app.component";
+@import "app/styles/layout";
+@import "app/styles/load-spinner";
+
+
+.header {
+    background-image: url("assets/images/background.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.black {
+    color: black;
+}
+
+.page-title {
+    padding-top: 1em;
+}

@@ -19,7 +19,7 @@ export class SearchBarComponent implements OnInit {
     } as SearchCriteria;
 
     @Output() searchCompleted = new EventEmitter();
-    
+
     propertyTypes = PropertyTypes;
     locations = Locations;
     propertySizes = PropertySizes;
@@ -34,8 +34,9 @@ export class SearchBarComponent implements OnInit {
     async getListings() {
         //TODO: submit criteria to server, once the response comes back,
         //save the data to listing-search service
-        
+
         //const response = await this.httpClient.get('').toPromise();
         this.searchCompleted.emit();
-    }  
+    }
+    
 }

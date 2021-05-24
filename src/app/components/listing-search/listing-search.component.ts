@@ -46,14 +46,10 @@ export class ListingSearchComponent implements OnInit {
     searchResults: Listing[] = [];
 
     constructor(
-        private activatedRoute: ActivatedRoute,
         private httpClient: HttpClient,
         private listingLocationService: ListingLocationService,
         private listingSearchService: ListingSearchService,
         private sanitizer: DomSanitizer) {
-        this.activatedRoute.queryParams.subscribe(params => {
-            this.searchCriteria.propertyType = params['propertyType'];
-        });
     }
 
     ngOnInit() {
