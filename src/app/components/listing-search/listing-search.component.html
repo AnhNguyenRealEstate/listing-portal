@@ -1,4 +1,4 @@
-<section *ngIf="desktopMode" class="container pt-2">
+<section class="container pt-2 d-none d-md-block">
     <h1 class="page-title">
         Listings Search
     </h1>
@@ -18,8 +18,8 @@
 
             </div>
             <div class="col-8">
-                <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-                    (scrolled)="onScroll()">
+                <div class="search-results-desktop" infiniteScroll [infiniteScrollDistance]="2"
+                    [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
                     <div *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
                         <div class="card-header h5">
                             {{result.title}}
@@ -42,9 +42,9 @@
             </div>
         </div>
     </section>
-    
+
     <section *ngIf="currentListingId">
-        <mat-divider class="pb-2"></mat-divider> 
+        <mat-divider class="pb-2"></mat-divider>
         <div class="row">
             <div class="col-12 listing-details">
                 <app-listing-details [listingId]="currentListingId"></app-listing-details>
@@ -53,6 +53,37 @@
     </section>
 </section>
 
-<section *ngIf="!desktopMode">
-    
+<section class="container pt-2 d-md-none" style="height: 700px">
+    <h1>
+        Listings Search
+    </h1>
+    <div class="row">
+        <div class="col">
+            <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+                <div *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
+                    <div class="card-header h5">
+                        {{result.title}}
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img width="100px" height="100px" *ngIf="result.coverImage" [src]="result.coverImage">
+                            </div>
+                            <div class="col-8">
+                                <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
+                                <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
+                                <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-controls-mobile">
+        <button mat-fab color="accent">
+            <mat-icon (click)="openSearchModal()">search</mat-icon>
+        </button>
+    </div>
 </section>

@@ -115,4 +115,8 @@ export class ListingSearchComponent implements OnInit {
         console.log("Search completed with the following criteria: ");
         console.log(this.searchCriteria);
     }
+
+    openSearchModal() {
+
+    }
 }
