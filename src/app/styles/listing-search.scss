@@ -2,3 +2,21 @@
     height: 400px;
     overflow-y: scroll;
 }
+
+.carousel-thumbnail {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .carousel-thumbnail-item {
+    cursor: pointer;
+  }
+  
+  .carousel-thumbnail-img {
+    width: 80px;
+    height: 60px;
+  }

@@ -4,10 +4,23 @@
             <h2>{{listing.title}}</h2>
         </div>
     </div>
-    <div class="row listing-images" style="height: 300px">
-        [Images go here]
+    <div class="row listing-images" *ngIf="listing.imageSources && listing.imageSources!.length">
+        <ngb-carousel #carousel [interval]="carouselInterval">
+            <ng-template ngbSlide *ngFor="let src of listing.imageSources; let i = index">
+                <div class="picsum-img-wrapper">
+                    <img [src]="src" style="width: 100%">
+                </div>
+            </ng-template>
+        </ngb-carousel>
+        <ul class="carousel-thumbnail">
+            <li class="carousel-thumbnail-item list-inline-item"
+                *ngFor="let src of listing.imageSources; let i = index" (click)="cycleToSlide(i)">
+                <a class="selected">
+                    <img class="carousel-thumbnail-img" [src]="src">
+                </a>
+            </li>
+        </ul>
     </div>
     <div class="row" style="height: 200px">
-        [Property descriptions go here]
     </div>
 </section>
