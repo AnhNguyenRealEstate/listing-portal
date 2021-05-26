@@ -135,7 +135,7 @@ export class ListingSearchComponent implements OnInit {
             if (!result) {
                 return;
             }
-            
+
             this.searchCriteria = result as SearchCriteria;
             debugger;
             // TODO: remove the following after correctly setting up search bar and firebase comm.

@@ -8,6 +8,10 @@ $warn: mat-color($app-warn);
     color: $primary;
 }
 
+.primary-color-background {
+    background-color: $primary;
+}
+
 .accent-color {
     color: $accent;
 }

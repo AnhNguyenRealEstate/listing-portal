@@ -12,6 +12,7 @@
     height: 100vh;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.286);
+    backdrop-filter: blur(6px);
     z-index: 9998;
     top: 0;
     left: 0;
