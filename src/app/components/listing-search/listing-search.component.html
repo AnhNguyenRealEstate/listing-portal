@@ -1,7 +1,8 @@
 <section class="container pt-2 d-none d-md-block">
     <h1 class="page-title">
-        Listings Search
+        Listings
     </h1>
+    <mat-divider class="pb-2"></mat-divider>
     <div class="pt-2 pb-3">
         <app-search-bar class="pe-2" [searchCriteria]="searchCriteria" (searchCompleted)="searchCompleted()">
         </app-search-bar>
@@ -18,26 +19,26 @@
 
             </div>
             <div class="col-8">
-                <div class="search-results-desktop" infiniteScroll [infiniteScrollDistance]="2"
-                    [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-                    <div *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
-                        <div class="card-header h5">
-                            {{result.title}}
-                        </div>
+                <div class="search-results-desktop">
+                    <mat-card *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
+                        <mat-card-title>
+                            <span class="h3">{{result.title}}</span>
+                        </mat-card-title>
 
-                        <div class="card-body">
+                        <mat-card-content>
                             <div class="row">
                                 <div class="col-4">
-                                    <img *ngIf="result.coverImage" [src]="result.coverImage">
+                                    <img mat-card-img *ngIf="result.coverImage" [src]="result.coverImage">
                                 </div>
                                 <div class="col-8">
                                     <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
                                     <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
                                     <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
+                                    <div>{{result.forRent? 'For Rent' : 'For Sale'}}</div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>
@@ -53,37 +54,66 @@
     </section>
 </section>
 
-<section class="container pt-2 d-md-none" style="height: 700px">
+<section class="container pt-2 py-2 d-md-none">
     <h1>
-        Listings Search
+        Listings
     </h1>
+    <mat-divider class="pb-2"></mat-divider>
+    <div class="row">
+        <div class="col-3">
+            <mat-icon color="accent">apartment</mat-icon>
+            <span class="ps-3">{{searchCriteria.propertyType || 'Any'}}</span>
+        </div>
+        <div class="col-3">
+            <mat-icon color="accent">location_on</mat-icon>
+            <span class="ps-3">{{searchCriteria.location || 'Any'}}</span>
+        </div>
+        <div class="col-6">
+            <mat-icon color="accent">photo_size_select_small</mat-icon>
+            <span class="ps-3">{{searchCriteria.propertySize || 'Any'}}</span>
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-3">
+            <mat-icon color="accent">bed</mat-icon>
+            <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
+        </div>
+        <div class="col-3">
+            <mat-icon color="accent">bathtub</mat-icon>
+            <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
+        </div>
+        <div class="col-6">
+            <mat-icon color="accent">attach_money</mat-icon>
+            <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}}</span>
+        </div>
+    </div>
+    <mat-divider class="pb-3"></mat-divider>
     <div class="row">
         <div class="col">
-            <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-                <div *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
-                    <div class="card-header h5">
-                        {{result.title}}
-                    </div>
+            <mat-card *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
+                <mat-card-title>
+                    <span class="h3">{{result.title}}</span>
+                </mat-card-title>
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4">
-                                <img width="100px" height="100px" *ngIf="result.coverImage" [src]="result.coverImage">
-                            </div>
-                            <div class="col-8">
-                                <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
-                                <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
-                                <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
-                            </div>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-4">
+                            <img width="100px" height="100px" *ngIf="result.coverImage" [src]="result.coverImage">
+                        </div>
+                        <div class="col-8">
+                            <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
+                            <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
+                            <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
+                            <div>{{result.forRent? 'For Rent' : 'For Sale'}}</div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
     <div class="float-controls-mobile">
         <button mat-fab color="accent">
-            <mat-icon (click)="openSearchModal()">search</mat-icon>
+            <mat-icon (click)="openSearchModal()">filter_alt</mat-icon>
         </button>
     </div>
 </section>

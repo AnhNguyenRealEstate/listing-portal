@@ -5,7 +5,7 @@ import { Listing, SearchCriteria } from './listing-search.data';
 
 @Injectable({ providedIn: 'root' })
 export class ListingSearchService {
-    listings: Map<string ,Listing> = new Map<string, Listing>();
+    listings: Map<string, Listing> = new Map<string, Listing>();
 
     constructor(private httpClient: HttpClient) {
 
@@ -19,7 +19,7 @@ export class ListingSearchService {
 
     async getListingById(listingId: string): Promise<Listing> {
         let listing = this.listings.get(listingId);
-        if(listing){
+        if (listing) {
             return listing;
         }
 
@@ -28,7 +28,14 @@ export class ListingSearchService {
         return response;
     }
 
-    cacheListing(listing: Listing){
-        this.listings.set(listing.id, listing);
+    cacheListing(listing: Listing) {
+        if (!this.listings.has(listing.id)) {
+            this.listings.set(listing.id, listing);
+
+        }
+    }
+
+    clearCache() {
+        this.listings = new Map<string, Listing>();
     }
 }

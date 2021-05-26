@@ -6,7 +6,7 @@ export class ListingLocationService {
 
     constructor() {
         //Random location data to demonstrate that Google Map works
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 50; i++) {
             this.listingIdLocationDataMap.set(i.toString(),
                 [Math.round(Math.random() * 100), Math.round(Math.random() * 100)]);
         }

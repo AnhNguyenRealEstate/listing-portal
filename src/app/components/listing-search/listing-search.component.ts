@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import { ListingLocationService } from './listing-location-data.service';
 import { Listing, SearchCriteria } from './listing-search.data';
 import { ListingSearchService } from './listing-search.service';
+import { SearchBarDialogComponent } from './search-bar/search-bar-dialog.component';
 
 @Component({
     selector: 'app-listing-search',
@@ -49,36 +50,37 @@ export class ListingSearchComponent implements OnInit {
         private httpClient: HttpClient,
         private listingLocationService: ListingLocationService,
         private listingSearchService: ListingSearchService,
-        private sanitizer: DomSanitizer) {
+        private sanitizer: DomSanitizer,
+        private dialog: MatDialog) {
     }
 
     ngOnInit() {
+        this.searchResults = [];
+        this.listingSearchService.clearCache();
         //TODO: This code belows randomly generates images for prototyping purposes
         // To be deleted and replaced with actual code to retrieve listings from the server
-        for (let i = 0; i < 4; i++) {
-            this.httpClient.get('https://picsum.photos/200', { responseType: 'blob' }).subscribe(response => {
+        for (let i = 0; i < 50; i++) {
+            this.httpClient.get(`https://picsum.photos/200?query=${i}`, { responseType: 'blob' }).subscribe(response => {
                 const blob = new Blob([response], { type: 'application/image' });
                 const unsafeImg = URL.createObjectURL(blob);
                 const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
 
+                const price = Math.round(Math.random() * i * 1000)
                 const listing = {
                     id: `${i}`,
                     title: `Property ${i}`,
                     coverImage: imageUrl,
                     location: `Random Street ${i}`,
-                    propertyType: ['Villa', 'Office', 'Townhouse', 'Apartment'][i],
-                    price: String(Math.round(Math.random() * i * 1000))
-                }
+                    propertyType: ['Villa', 'Office', 'Townhouse', 'Apartment'][i % 4],
+                    price: String(price),
+                    forRent: price > 3000
+                } as Listing;
                 this.searchResults.push(listing);
 
                 // After retrieving an entry, cache it
                 this.listingSearchService.cacheListing(listing);
             });
         }
-    }
-
-    onScroll() {
-        //TODO: get more search result?
     }
 
     viewListing(listingId: string) {
@@ -108,7 +110,7 @@ export class ListingSearchComponent implements OnInit {
             return;
         }
 
-        //TODO: make request with listing address to find location data
+        //TODO: make request with listing address to find location data using geocoding API
     }
 
     searchCompleted() {
@@ -117,6 +119,27 @@ export class ListingSearchComponent implements OnInit {
     }
 
     openSearchModal() {
+        const dialogPos = {
+            bottom: '150px'
+        } as DialogPosition;
+        const config = {
+            position: dialogPos,
+            height: '50%',
+            width: '90%',
+            data: this.searchCriteria
 
+        } as MatDialogConfig;
+        let dialogRef = this.dialog.open(SearchBarDialogComponent, config);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (!result) {
+                return;
+            }
+            
+            this.searchCriteria = result as SearchCriteria;
+            debugger;
+            // TODO: remove the following after correctly setting up search bar and firebase comm.
+            this.ngOnInit();
+        });
     }
 }
