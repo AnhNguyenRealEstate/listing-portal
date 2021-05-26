@@ -1,4 +1,4 @@
-<section class="container pt-2 d-none d-md-block">
+<section #desktopView class="container pt-2 d-none d-md-block">
     <h1 class="page-title">
         Listings
     </h1>
@@ -23,6 +23,7 @@
                     <mat-card *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
                         <mat-card-title>
                             <span class="h3">{{result.title}}</span>
+                            <hr>
                         </mat-card-title>
 
                         <mat-card-content>
@@ -34,7 +35,7 @@
                                     <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
                                     <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
                                     <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
-                                    <div>{{result.forRent? 'For Rent' : 'For Sale'}}</div>
+                                    <mat-chip color="accent">{{result.forRent? 'For Rent' : 'For Sale'}}</mat-chip>
                                 </div>
                             </div>
                         </mat-card-content>
@@ -54,43 +55,47 @@
     </section>
 </section>
 
-<section class="container pt-2 py-2 d-md-none">
+<section #mobileView class="container pt-2 py-2 d-md-none">
     <h1>
         Listings
     </h1>
     <mat-divider class="pb-2"></mat-divider>
     <div class="row">
-        <div class="col-3">
+        <div class="col-6">
             <mat-icon color="accent">apartment</mat-icon>
-            <span class="ps-3">{{searchCriteria.propertyType || 'Any'}}</span>
-        </div>
-        <div class="col-3">
-            <mat-icon color="accent">location_on</mat-icon>
-            <span class="ps-3">{{searchCriteria.location || 'Any'}}</span>
+            <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
         </div>
         <div class="col-6">
-            <mat-icon color="accent">photo_size_select_small</mat-icon>
-            <span class="ps-3">{{searchCriteria.propertySize || 'Any'}}</span>
+            <mat-icon color="accent">location_on</mat-icon>
+            <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
         </div>
     </div>
-    <div class="row pb-2">
-        <div class="col-3">
+    <div class="row">
+        <div class="col-6">
             <mat-icon color="accent">bed</mat-icon>
             <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-icon color="accent">bathtub</mat-icon>
             <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
         </div>
+        
+    </div>
+    <div class="row pb-2">
+        <div class="col-6">
+            <mat-icon color="accent">photo_size_select_small</mat-icon>
+            <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'Any'}}</span>
+            <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
+        </div>
         <div class="col-6">
             <mat-icon color="accent">attach_money</mat-icon>
-            <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}}</span>
+            <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
         </div>
     </div>
-    <mat-divider class="pb-3"></mat-divider>
+    <mat-divider color="primary" class="pb-3"></mat-divider>
     <div class="row">
         <div class="col">
-            <mat-card *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
+            <mat-card *ngFor="let result of searchResults" class="card mb-1" (click)="viewListingMobile(result.id)">
                 <mat-card-title>
                     <span class="h3">{{result.title}}</span>
                     <hr>
@@ -104,7 +109,11 @@
                             <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
                             <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
                             <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
-                            <div>{{result.forRent? 'For Rent' : 'For Sale'}}</div>
+                            <mat-chip-list >
+                                <mat-chip color="accent" selected (click)="$event.stopPropagation(); viewListing(result.id)">
+                                    {{result.forRent? 'Rent' : 'Sale'}}
+                                </mat-chip>
+                            </mat-chip-list>
                         </div>
                     </div>
                 </mat-card-content>

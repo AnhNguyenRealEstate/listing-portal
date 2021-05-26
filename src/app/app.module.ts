@@ -32,7 +32,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatBadgeModule } from '@angular/material/badge';
 import { SearchBarDialogComponent } from './components/listing-search/search-bar/search-bar-dialog.component';
+import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import { SearchBarDialogComponent } from './components/listing-search/search-bar
     LoadingSpinnerComponent,
     AboutUsComponent,
     LayoutComponent,
-    SearchBarDialogComponent
+    SearchBarDialogComponent,
+    ListingDetailsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +72,9 @@ import { SearchBarDialogComponent } from './components/listing-search/search-bar
     MatDividerModule,
     MatListModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule,
+    MatBadgeModule
   ],
   providers: [
     ListingSearchService,

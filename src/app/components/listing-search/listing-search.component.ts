@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ListingDetailsDialogComponent } from './listing-details/listing-details-dialog.component';
 import { ListingLocationService } from './listing-location-data.service';
-import { Listing, SearchCriteria } from './listing-search.data';
+import { Listing, Locations, PropertySizes, PropertyTypes, SearchCriteria } from './listing-search.data';
 import { ListingSearchService } from './listing-search.service';
 import { SearchBarDialogComponent } from './search-bar/search-bar-dialog.component';
 
@@ -14,7 +15,6 @@ import { SearchBarDialogComponent } from './search-bar/search-bar-dialog.compone
 })
 
 export class ListingSearchComponent implements OnInit {
-    desktopMode: boolean = true;
     searchCriteria: SearchCriteria = {
         propertyType: '',
         propertySize: '',
@@ -24,6 +24,10 @@ export class ListingSearchComponent implements OnInit {
         bedrooms: '',
         bathrooms: ''
     } as SearchCriteria;
+
+    propertyTypes = PropertyTypes;
+    locations = Locations;
+    propertySizes = PropertySizes;
 
     currentListingId: string = '';
 
@@ -114,22 +118,19 @@ export class ListingSearchComponent implements OnInit {
     }
 
     searchCompleted() {
-        console.log("Search completed with the following criteria: ");
-        console.log(this.searchCriteria);
+
     }
 
     openSearchModal() {
-        const dialogPos = {
-            bottom: '150px'
-        } as DialogPosition;
         const config = {
-            position: dialogPos,
-            height: '50%',
+            position: {
+                bottom: '150px'
+            } as DialogPosition,
+            height: 'auto',
             width: '90%',
             data: this.searchCriteria
-
         } as MatDialogConfig;
-        let dialogRef = this.dialog.open(SearchBarDialogComponent, config);
+        const dialogRef = this.dialog.open(SearchBarDialogComponent, config);
 
         dialogRef.afterClosed().subscribe(result => {
             if (!result) {
@@ -137,9 +138,17 @@ export class ListingSearchComponent implements OnInit {
             }
 
             this.searchCriteria = result as SearchCriteria;
-            debugger;
             // TODO: remove the following after correctly setting up search bar and firebase comm.
             this.ngOnInit();
         });
+    }
+
+    viewListingMobile(listingId: string) {
+        const config = {
+            height: '90%',
+            width: '90%',
+            data: listingId
+        } as MatDialogConfig;
+        this.dialog.open(ListingDetailsDialogComponent, config);
     }
 }
