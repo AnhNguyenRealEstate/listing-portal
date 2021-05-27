@@ -74,7 +74,7 @@ export class ListingSearchComponent implements OnInit {
                     id: `${i}`,
                     title: `Property ${i}`,
                     coverImage: imageUrl,
-                    location: `Random Street ${i}`,
+                    address: `Random Street ${i}`,
                     propertyType: ['Villa', 'Office', 'Townhouse', 'Apartment'][i % 4],
                     price: String(price),
                     forRent: price > 3000

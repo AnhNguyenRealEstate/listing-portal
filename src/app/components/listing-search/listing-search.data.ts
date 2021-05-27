@@ -8,6 +8,7 @@ export interface Listing {
     imageSources?: string[], //a listing could have 10+ images
     propertyType?: string,
     location?: string,
+    address?: string,
     price?: string,
     propertySize?: string,
     bedrooms?: string,

@@ -1,4 +1,4 @@
-<section #desktopView class="container pt-2 d-none d-md-block">
+<section #desktopView class="container pt-2 d-none d-lg-block">
     <h1 class="page-title">
         Listings
     </h1>
@@ -8,38 +8,47 @@
         </app-search-bar>
     </div>
     <mat-divider class="pb-2"></mat-divider>
-    <section>
-        <h2>Search Results</h2>
+    <section class="pb-2">
         <div class="row pb-3">
             <div class="col-4">
                 <google-map height="400px" width="100%" [options]="mapOptions">
                     <map-marker *ngIf="mapMarker" [position]="mapMarker.position!" [label]="mapMarker.label!">
                     </map-marker>
                 </google-map>
-
             </div>
             <div class="col-8">
-                <div class="search-results-desktop">
-                    <mat-card *ngFor="let result of searchResults" class="card mb-1" (click)="viewListing(result.id)">
-                        <mat-card-title>
-                            <span class="h3">{{result.title}}</span>
-                            <hr>
-                        </mat-card-title>
-
-                        <mat-card-content>
-                            <div class="row">
-                                <div class="col-4">
-                                    <img mat-card-img *ngIf="result.coverImage" [src]="result.coverImage">
+                <div class="search-results-desktop row">
+                    <div *ngFor="let result of searchResults" class="col-6">
+                        <mat-card class="mt-1 mb-3" (click)="viewListing(result.id)">
+                            <mat-card-title>
+                                <span style="font-size: medium">{{result.title}}</span>
+                                <hr>
+                            </mat-card-title>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img height="100px" width="100px" *ngIf="result.coverImage"
+                                            [src]="result.coverImage">
+                                    </div>
+                                    <div class="col-8">
+                                        <div *ngIf="result.propertyType">
+                                            <label>Type:</label> {{result.propertyType}}
+                                        </div>
+                                        <div *ngIf="result.address">
+                                            <label>Address:</label> {{result.address}}
+                                        </div>
+                                        <div *ngIf="result.price">
+                                            <label>Price:</label> ${{result.price}}
+                                        </div>
+                                        <mat-chip-list>
+                                            <mat-chip selected color="accent">{{result.forRent? 'Rent' : 'Sale'}}
+                                            </mat-chip>
+                                        </mat-chip-list>
+                                    </div>
                                 </div>
-                                <div class="col-8">
-                                    <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
-                                    <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
-                                    <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
-                                    <mat-chip color="accent">{{result.forRent? 'For Rent' : 'For Sale'}}</mat-chip>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,10 +64,11 @@
     </section>
 </section>
 
-<section #mobileView class="container pt-2 py-2 d-md-none">
+<section #mobileView class="container pt-2 py-2 d-lg-none">
     <h1>
         Listings
     </h1>
+
     <mat-divider class="pb-2"></mat-divider>
     <div class="row">
         <div class="col-6">
@@ -79,7 +89,7 @@
             <mat-icon color="accent">bathtub</mat-icon>
             <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
         </div>
-        
+
     </div>
     <div class="row pb-2">
         <div class="col-6">
@@ -92,12 +102,12 @@
             <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
         </div>
     </div>
-    <mat-divider color="primary" class="pb-3"></mat-divider>
+    <mat-divider class="pb-3"></mat-divider>
     <div class="row">
-        <div class="col">
-            <mat-card *ngFor="let result of searchResults" class="card mb-1" (click)="viewListingMobile(result.id)">
+        <div *ngFor="let result of searchResults" class="col-12 col-md-6">
+            <mat-card class="mt-2 mb-2 result-card-mobile" (click)="viewListingMobile(result.id)">
                 <mat-card-title>
-                    <span class="h3">{{result.title}}</span>
+                    <span style="font-size: medium">{{result.title}}</span>
                     <hr>
                 </mat-card-title>
                 <mat-card-content>
@@ -106,11 +116,21 @@
                             <img width="100px" height="100px" *ngIf="result.coverImage" [src]="result.coverImage">
                         </div>
                         <div class="col-8">
-                            <div *ngIf="result.propertyType"><label>Type:</label> {{result.propertyType}}</div>
-                            <div *ngIf="result.location"><label>Location:</label> {{result.location}}</div>
-                            <div *ngIf="result.price"><label>Price:</label> ${{result.price}}</div>
-                            <mat-chip-list >
-                                <mat-chip color="accent" selected (click)="$event.stopPropagation(); viewListing(result.id)">
+                            <div *ngIf="result.propertyType">
+                                <label>Type:</label>
+                                {{result.propertyType}}
+                            </div>
+                            <div *ngIf="result.address">
+                                <label>Address:</label>
+                                {{result.address}}
+                            </div>
+                            <div *ngIf="result.price">
+                                <label>Price:</label>
+                                {{result.price}} USD
+                            </div>
+                            <mat-chip-list>
+                                <mat-chip color="accent" selected
+                                    (click)="$event.stopPropagation(); viewListingMobile(result.id)">
                                     {{result.forRent? 'Rent' : 'Sale'}}
                                 </mat-chip>
                             </mat-chip-list>
@@ -120,6 +140,7 @@
             </mat-card>
         </div>
     </div>
+
     <div class="float-controls-mobile">
         <button mat-fab color="accent">
             <mat-icon (click)="openSearchModal()">filter_alt</mat-icon>
