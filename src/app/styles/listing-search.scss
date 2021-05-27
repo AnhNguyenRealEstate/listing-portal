@@ -4,10 +4,6 @@
   background-color: $primary-light;
 }
 
-.result-card-mobile {
-  box-shadow: 0px 0px 5px 1px black !important;
-}
-
 .carousel-thumbnail {
   list-style-type: none;
   padding: 0;
@@ -26,10 +22,23 @@
   height: 60px;
 }
 
+.result-card-mobile {
+  box-shadow: 0px 2px 3px 1px black !important;
+  background-color: $off-white;
+}
+
 .float-controls-mobile {
   top: auto !important;
   right: 20px !important;
   bottom: 75px !important;
   left: auto !important;
   position: fixed !important;
+}
+
+.listing-search-mobile-section {
+  background-color: $primary-light;
+}
+
+.mat-dialog-container, .listing-detail-dialog {
+  background-color: $off-white;
 }

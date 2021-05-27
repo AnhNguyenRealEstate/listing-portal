@@ -1,7 +1,8 @@
 @import "~@angular/material/theming";
 
 $primary: mat-color($app-primary, 600);
-$primary-light: mat-color($app-primary, 200);
+$primary-light: mat-color($app-primary, 50);
+$off-white: rgb(255, 255, 245);
 $accent: mat-color($app-accent, 600);
 $warn: mat-color($app-warn);
 

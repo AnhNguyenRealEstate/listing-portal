@@ -1,5 +1,5 @@
-<section *ngIf="listing">
-    <mat-card>
+
+    <mat-card *ngIf="listing" class="listing-detail-dialog">
         <mat-card-title>
             <div class="d-flex justify-content-between">
                 <span class="h3">{{listing.title}}</span>
@@ -32,4 +32,3 @@
             </div>
         </mat-card-footer>
     </mat-card>
-</section>
