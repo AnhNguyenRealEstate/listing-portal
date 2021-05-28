@@ -71,13 +71,14 @@ export class ListingSearchComponent implements OnInit {
                 const unsafeImg = URL.createObjectURL(blob);
                 const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
 
-                const price = Math.round(Math.random() * i * 1000)
+                const price = Math.ceil(Math.random() * i * 1000)
                 const listing = {
                     id: `${i}`,
                     title: `Property ${i}`,
                     coverImage: imageUrl,
                     address: `Random Street ${i}`,
                     propertyType: ['Villa', 'Office', 'Townhouse', 'Apartment'][i % 4],
+                    location: ['Riverpark Premier', 'Midtown Sakura', 'Le Jardin', 'Nam Phuc'][i % 4],
                     price: String(price),
                     forRent: price > 3000
                 } as Listing;
