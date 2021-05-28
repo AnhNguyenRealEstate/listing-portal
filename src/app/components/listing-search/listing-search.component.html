@@ -41,7 +41,8 @@
                                             <label>Price:</label> ${{result.price}}
                                         </div>
                                         <mat-chip-list>
-                                            <mat-chip selected color="accent">{{result.forRent? 'Rent' : 'Sale'}}
+                                            <mat-chip selected color="accent" (click)="viewListingMobile(result.id)">
+                                                {{result.forRent? 'For Rent' : 'For Sale'}}
                                             </mat-chip>
                                         </mat-chip-list>
                                     </div>
@@ -65,10 +66,7 @@
 </section>
 
 <section #mobileView class="container pt-2 py-2 d-lg-none listing-search-mobile-section">
-    <h1>
-        Listings
-    </h1>
-    <mat-divider class="pb-2"></mat-divider>
+    <mat-divider class="pt-1 pb-1"></mat-divider>
     <div class="row">
         <div class="col-6">
             <mat-icon color="accent">apartment</mat-icon>
@@ -101,36 +99,26 @@
             <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
         </div>
     </div>
-    <mat-divider class="pb-3"></mat-divider>
+    <mat-divider class="pb-2"></mat-divider>
     <div class="row">
         <div *ngFor="let result of searchResults" class="col-12 col-md-6">
-            <mat-card class="mt-2 mb-2 result-card-mobile" (click)="viewListingMobile(result.id)">
-                <mat-card-title>
-                    <span style="font-size: medium">{{result.title}}</span>
-                    <hr>
-                </mat-card-title>
+            <mat-card class="mt-1 mb-1 result-card-mobile" (click)="viewListingMobile(result.id)">
                 <mat-card-content>
                     <div class="row">
-                        <div class="col-4">
-                            <img width="100px" height="100px" *ngIf="result.coverImage" [src]="result.coverImage">
+                        <div class="col-6">
+                            <img width="150px" height="150px" *ngIf="result.coverImage" [src]="result.coverImage">
                         </div>
-                        <div class="col-8">
-                            <div *ngIf="result.propertyType">
-                                <label>Type:</label>
-                                {{result.propertyType}}
+                        <div class="col-6">
+                            <div style="font-size:large" >${{result.price}}</div>
+                            <div *ngIf="result.location">
+                                {{result.location}}
                             </div>
                             <div *ngIf="result.address">
-                                <label>Address:</label>
                                 {{result.address}}
                             </div>
-                            <div *ngIf="result.price">
-                                <label>Price:</label>
-                                {{result.price}} USD
-                            </div>
-                            <mat-chip-list>
-                                <mat-chip color="accent" selected
-                                    (click)="$event.stopPropagation(); viewListingMobile(result.id)">
-                                    {{result.forRent? 'Rent' : 'Sale'}}
+                            <mat-chip-list class="ps-1">
+                                <mat-chip class="listing-tag" selected (click)="viewListingMobile(result.id)">
+                                    {{result.forRent? 'For Rent' : 'For Sale'}}
                                 </mat-chip>
                             </mat-chip-list>
                         </div>
@@ -141,8 +129,8 @@
     </div>
 
     <div class="float-controls-mobile">
-        <button mat-fab color="accent">
-            <mat-icon (click)="openSearchModal()">filter_alt</mat-icon>
+        <button mat-fab color="accent" (click)="openSearchModal()">
+            <mat-icon>filter_alt</mat-icon>
         </button>
     </div>
 </section>

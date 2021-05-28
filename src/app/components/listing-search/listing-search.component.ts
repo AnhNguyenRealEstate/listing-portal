@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingDetailsDialogComponent } from './listing-details/listing-details-dialog.component';
 import { ListingLocationService } from './listing-location-data.service';
 import { Listing, Locations, PropertySizes, PropertyTypes, SearchCriteria } from './listing-search.data';
@@ -54,6 +55,7 @@ export class ListingSearchComponent implements OnInit {
         private httpClient: HttpClient,
         private listingLocationService: ListingLocationService,
         private listingSearchService: ListingSearchService,
+        private loadSpinnerService: LoadingSpinnerService,
         private sanitizer: DomSanitizer,
         private dialog: MatDialog) {
     }
@@ -143,12 +145,31 @@ export class ListingSearchComponent implements OnInit {
         });
     }
 
-    viewListingMobile(listingId: string) {
-        const config = {
-            height: '90%',
-            width: '90%',
-            data: listingId
-        } as MatDialogConfig;
-        this.dialog.open(ListingDetailsDialogComponent, config);
+    async viewListingMobile(listingId: string) {
+        const listing = await this.listingSearchService.getListingById(listingId);
+
+        // TODO: replace the code below and actually retrieve images from imageSources
+        // property
+        listing.imageSources = [];
+        for (let i = 0; i < 10; i++) {
+            this.httpClient.get(`https://picsum.photos/400/200?query=${i}`, { responseType: 'blob' }).subscribe(response => {
+                const blob = new Blob([response], { type: 'application/image' });
+                const unsafeImg = URL.createObjectURL(blob);
+                const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+                listing.imageSources!.push(imageUrl as string);
+            });
+        }
+
+        const isLoadingSub = this.loadSpinnerService.isLoading$.subscribe(isLoading => {
+            if (!isLoading) {
+                const config = {
+                    height: '95%',
+                    width: '100%',
+                    data: listing
+                } as MatDialogConfig;
+                isLoadingSub.unsubscribe();
+                this.dialog.open(ListingDetailsDialogComponent, config);
+            }
+        });
     }
 }
