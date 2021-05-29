@@ -1,6 +1,7 @@
 .navbar {
     background-color: $primary;
 }
+
 .brand-icon {
     color: $accent;
 }
@@ -29,6 +30,11 @@
 
 .mat-icon {
     vertical-align: middle;
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+    overflow: initial !important;
 }
 
 .footer {

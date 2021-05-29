@@ -66,40 +66,42 @@
 </section>
 
 <section #mobileView class="container pt-2 py-2 d-lg-none listing-search-mobile-section">
-    <mat-divider class="pt-1 pb-1"></mat-divider>
-    <div class="row">
-        <div class="col-6">
-            <mat-icon color="accent">apartment</mat-icon>
-            <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
+    <div class="sticky-criteria-panel">
+        <mat-divider class="pt-1 pb-1"></mat-divider>
+        <div class="row">
+            <div class="col-6">
+                <mat-icon color="accent">apartment</mat-icon>
+                <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
+            </div>
+            <div class="col-6">
+                <mat-icon color="accent">location_on</mat-icon>
+                <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
+            </div>
         </div>
-        <div class="col-6">
-            <mat-icon color="accent">location_on</mat-icon>
-            <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <mat-icon color="accent">bed</mat-icon>
-            <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
-        </div>
-        <div class="col-6">
-            <mat-icon color="accent">bathtub</mat-icon>
-            <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
-        </div>
+        <div class="row">
+            <div class="col-6">
+                <mat-icon color="accent">bed</mat-icon>
+                <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
+            </div>
+            <div class="col-6">
+                <mat-icon color="accent">bathtub</mat-icon>
+                <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
+            </div>
 
-    </div>
-    <div class="row pb-2">
-        <div class="col-6">
-            <mat-icon color="accent">photo_size_select_small</mat-icon>
-            <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'Any'}}</span>
-            <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
         </div>
-        <div class="col-6">
-            <mat-icon color="accent">attach_money</mat-icon>
-            <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
+        <div class="row pb-2">
+            <div class="col-6">
+                <mat-icon color="accent">photo_size_select_small</mat-icon>
+                <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'Any'}}</span>
+                <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
+            </div>
+            <div class="col-6">
+                <mat-icon color="accent">attach_money</mat-icon>
+                <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
+            </div>
         </div>
+        <mat-divider class="pb-2"></mat-divider>
     </div>
-    <mat-divider class="pb-2"></mat-divider>
     <div class="row">
         <div *ngFor="let result of searchResults" class="col-12 col-md-6">
             <mat-card class="mt-1 mb-1 result-card-mobile" (click)="viewListingMobile(result.id)">
@@ -109,7 +111,7 @@
                             <img width="150px" height="150px" *ngIf="result.coverImage" [src]="result.coverImage">
                         </div>
                         <div class="col-6">
-                            <div style="font-size:large" >${{result.price}}</div>
+                            <div style="font-size:large">${{result.price}}</div>
                             <div *ngIf="result.location">
                                 {{result.location}}
                             </div>

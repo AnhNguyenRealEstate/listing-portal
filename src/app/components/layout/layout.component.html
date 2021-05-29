@@ -1,19 +1,21 @@
 <mat-toolbar class="navbar">
-    <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
-        <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
-    </button>
     <a class="navbar-brand" href="/">
-        <span style="font-size: large" ><mat-icon color="accent">home</mat-icon></span>
+        <span style="font-size:x-large">
+            <mat-icon color="accent" inline="true">home</mat-icon>
+        </span>
     </a>
 
     <div class="d-none d-md-flex">
         <a mat-button [routerLink]="['/listings']">Listings</a>
         <a mat-button href="/about-us">About us</a>
     </div>
+    <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
+        <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
+    <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
         (click)="sidenav.toggle()">
         <a mat-button [routerLink]="['/listings']">Listings</a>
         <a mat-button href="/about-us">About us</a>

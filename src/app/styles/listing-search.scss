@@ -38,8 +38,17 @@
   background-color: white;
 }
 
-.mat-dialog-container, .listing-detail-dialog {
+.mat-dialog-container,
+.listing-detail-dialog {
   background-color: white;
+}
+
+.sticky-criteria-panel {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  background: white;
+  z-index: 1;
 }
 
 .listing-tag {
