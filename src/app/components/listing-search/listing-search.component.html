@@ -65,10 +65,10 @@
     </section>
 </section>
 
-<section #mobileView class="container pt-2 py-2 d-lg-none listing-search-mobile-section">
+<section #mobileView class="container-flex pt-2 py-2 d-lg-none listing-search-mobile-section">
     <div class="sticky-criteria-panel">
         <mat-divider class="pt-1 pb-1"></mat-divider>
-        <div class="row">
+        <div class="row ps-3">
             <div class="col-6">
                 <mat-icon color="accent">apartment</mat-icon>
                 <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
@@ -78,7 +78,7 @@
                 <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
             </div>
         </div>
-        <div class="row">
+        <div class="row ps-3">
             <div class="col-6">
                 <mat-icon color="accent">bed</mat-icon>
                 <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
@@ -89,7 +89,7 @@
             </div>
 
         </div>
-        <div class="row pb-2">
+        <div class="row ps-3 pb-2">
             <div class="col-6">
                 <mat-icon color="accent">photo_size_select_small</mat-icon>
                 <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'Any'}}</span>
@@ -100,9 +100,9 @@
                 <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
             </div>
         </div>
-        <mat-divider class="pb-2"></mat-divider>
     </div>
     <div class="row">
+        <mat-divider class="pb-2"></mat-divider>
         <div *ngFor="let result of searchResults" class="col-12 col-md-6">
             <mat-card class="mt-1 mb-1 result-card-mobile" (click)="viewListingMobile(result.id)">
                 <mat-card-content>
