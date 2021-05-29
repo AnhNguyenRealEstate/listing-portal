@@ -21,7 +21,7 @@ export class ListingSearchComponent implements OnInit {
         propertySize: '',
         location: '',
         minPrice: 0,
-        maxPrice: Infinity,
+        maxPrice: 9999,
         bedrooms: '',
         bathrooms: ''
     } as SearchCriteria;
@@ -71,7 +71,7 @@ export class ListingSearchComponent implements OnInit {
                 const unsafeImg = URL.createObjectURL(blob);
                 const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
 
-                const price = Math.ceil(Math.random() * i * 1000)
+                const price = Math.ceil(Math.random() * i * 1000);
                 const listing = {
                     id: `${i}`,
                     title: `Property ${i}`,

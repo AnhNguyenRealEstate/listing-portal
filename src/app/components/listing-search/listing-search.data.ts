@@ -42,7 +42,7 @@ export const Locations: { [key: string]: string } = {
 }
 
 export const PropertySizes: { [key: string]: string } = {
-    _50to100: '50 to 100',
+    _050to100: '50 to 100',
     _100to200: '100 to 200',
     _200to300: '200 to 300',
     _300to400: '300 to 400',
