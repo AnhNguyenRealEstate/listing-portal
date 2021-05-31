@@ -1,8 +1,10 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PageScrollService } from 'ngx-page-scroll-core';
 import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingDetailsDialogComponent } from './listing-details/listing-details-dialog.component';
 import { ListingLocationService } from './listing-location-data.service';
@@ -12,8 +14,7 @@ import { SearchBarDialogComponent } from './search-bar/search-bar-dialog.compone
 
 @Component({
     selector: 'app-listing-search',
-    templateUrl: 'listing-search.component.html',
-    styles: ['./listing-search.sass']
+    templateUrl: 'listing-search.component.html'
 })
 
 export class ListingSearchComponent implements OnInit {
@@ -58,7 +59,8 @@ export class ListingSearchComponent implements OnInit {
         private listingSearchService: ListingSearchService,
         private loadSpinnerService: LoadingSpinnerService,
         private sanitizer: DomSanitizer,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any) {
     }
 
     ngOnInit() {
@@ -132,7 +134,7 @@ export class ListingSearchComponent implements OnInit {
                 bottom: '10em'
             } as DialogPosition,
             height: 'auto',
-            width: 'auto', 
+            width: 'auto',
             scrollStrategy: new NoopScrollStrategy(),
             data: this.searchCriteria
         } as MatDialogConfig;
@@ -169,13 +171,21 @@ export class ListingSearchComponent implements OnInit {
             if (!isLoading) {
                 const config = {
                     height: '95%',
-                    width: 'auto', 
+                    width: 'auto',
                     scrollStrategy: new NoopScrollStrategy(),
                     data: listing
                 } as MatDialogConfig;
                 isLoadingSub.unsubscribe();
                 this.dialog.open(ListingDetailsDialogComponent, config);
             }
+        });
+    }
+
+    scrollTop() {
+        this.pageScrollService.scroll({
+            document: this.document,
+            scrollTarget: '.navbar',
+            duration: 250
         });
     }
 }

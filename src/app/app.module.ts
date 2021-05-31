@@ -36,6 +36,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { SearchBarDialogComponent } from './components/listing-search/search-bar/search-bar-dialog.component';
 import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
+import { NgxScrollTopModule } from 'ngx-scrolltop';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { ListingDetailsDialogComponent } from './components/listing-search/listi
     MatCardModule,
     MatDialogModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    NgxPageScrollCoreModule,
+    NgxScrollTopModule
   ],
   providers: [
     ListingSearchService,
