@@ -3,6 +3,10 @@ body {
     overflow-x: hidden;
 }
 
+body {
+    position: relative;
+}
+
 .navbar {
     background-color: $primary;
 }
@@ -41,6 +45,7 @@ mat-sidenav-container,
 mat-sidenav-content {
     overflow: initial !important; //allowing position sticky on criteria panel
 }
+
 
 .footer {
     background-color: $primary;

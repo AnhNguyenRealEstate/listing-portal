@@ -1,3 +1,4 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -66,12 +67,12 @@ export class ListingSearchComponent implements OnInit {
         //TODO: This code belows randomly generates images for prototyping purposes
         // To be deleted and replaced with actual code to retrieve listings from the server
         for (let i = 0; i < 50; i++) {
-            this.httpClient.get(`https://picsum.photos/200?query=${i}`, { responseType: 'blob' }).subscribe(response => {
+            const sub = this.httpClient.get(`https://picsum.photos/200?query=${i}`, { responseType: 'blob' }).subscribe(response => {
                 const blob = new Blob([response], { type: 'application/image' });
                 const unsafeImg = URL.createObjectURL(blob);
                 const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
 
-                const price = Math.ceil(Math.random() * i * 1000);
+                const price = Math.ceil(Math.random() * i * 100) + 500;
                 const listing = {
                     id: `${i}`,
                     title: `Property ${i}`,
@@ -86,6 +87,7 @@ export class ListingSearchComponent implements OnInit {
 
                 // After retrieving an entry, cache it
                 this.listingSearchService.cacheListing(listing);
+                sub.unsubscribe();
             });
         }
     }
@@ -127,18 +129,20 @@ export class ListingSearchComponent implements OnInit {
     openSearchModal() {
         const config = {
             position: {
-                bottom: '150px'
+                bottom: '10em'
             } as DialogPosition,
             height: 'auto',
-            width: '90%',
+            width: 'auto', 
+            scrollStrategy: new NoopScrollStrategy(),
             data: this.searchCriteria
         } as MatDialogConfig;
         const dialogRef = this.dialog.open(SearchBarDialogComponent, config);
 
-        dialogRef.afterClosed().subscribe(result => {
+        const sub = dialogRef.afterClosed().subscribe(result => {
             if (!result) {
                 return;
             }
+            sub.unsubscribe();
 
             this.searchCriteria = result as SearchCriteria;
             // TODO: remove the following after correctly setting up search bar and firebase comm.
@@ -165,7 +169,8 @@ export class ListingSearchComponent implements OnInit {
             if (!isLoading) {
                 const config = {
                     height: '95%',
-                    width: '100%',
+                    width: 'auto', 
+                    scrollStrategy: new NoopScrollStrategy(),
                     data: listing
                 } as MatDialogConfig;
                 isLoadingSub.unsubscribe();

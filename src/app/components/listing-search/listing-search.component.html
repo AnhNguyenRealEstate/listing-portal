@@ -66,73 +66,66 @@
 </section>
 
 <section #mobileView class="container-flex pt-2 py-2 d-lg-none listing-search-mobile-section">
-    <div class="sticky-criteria-panel">
-        <mat-divider class="pt-1 pb-1"></mat-divider>
-        <div class="row ps-3">
-            <div class="col-6">
-                <mat-icon color="accent">apartment</mat-icon>
-                <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
+    <mat-card class="sticky-criteria-panel" (click)="openSearchModal()">
+        <mat-card-content>
+            <div class="row ps-3">
+                <div class="col-6">
+                    <mat-icon color="accent">apartment</mat-icon>
+                    <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
+                </div>
+                <div class="col-6">
+                    <mat-icon color="accent">location_on</mat-icon>
+                    <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
+                </div>
             </div>
-            <div class="col-6">
-                <mat-icon color="accent">location_on</mat-icon>
-                <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
-            </div>
-        </div>
-        <div class="row ps-3">
-            <div class="col-6">
-                <mat-icon color="accent">bed</mat-icon>
-                <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
-            </div>
-            <div class="col-6">
-                <mat-icon color="accent">bathtub</mat-icon>
-                <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
-            </div>
+            <div class="row ps-3">
+                <div class="col-6">
+                    <mat-icon color="accent">bed</mat-icon>
+                    <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
+                </div>
+                <div class="col-6">
+                    <mat-icon color="accent">bathtub</mat-icon>
+                    <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
+                </div>
 
-        </div>
-        <div class="row ps-3 pb-2">
-            <div class="col-6">
-                <mat-icon color="accent">photo_size_select_small</mat-icon>
-                <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'Any'}}</span>
-                <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
             </div>
-            <div class="col-6">
-                <mat-icon color="accent">attach_money</mat-icon>
-                <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
+            <div class="row ps-3 pb-1">
+                <div class="col-6">
+                    <mat-icon color="accent">photo_size_select_small</mat-icon>
+                    <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'Any'}}</span>
+                    <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
+                </div>
+                <div class="col-6">
+                    <mat-icon color="accent">attach_money</mat-icon>
+                    <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
+                </div>
             </div>
-        </div>
-    </div>
+        </mat-card-content>
+    </mat-card>
     <div class="row">
-        <mat-divider class="pb-2"></mat-divider>
-        <div *ngFor="let result of searchResults" class="col-12 col-md-6">
-            <mat-card class="mt-1 mb-1 result-card-mobile" (click)="viewListingMobile(result.id)">
-                <mat-card-content>
-                    <div class="row">
-                        <div class="col-6">
-                            <img width="150px" height="150px" *ngIf="result.coverImage" [src]="result.coverImage">
-                        </div>
-                        <div class="col-6">
-                            <div style="font-size:large">${{result.price}}</div>
-                            <div *ngIf="result.location">
-                                {{result.location}}
-                            </div>
-                            <div *ngIf="result.address">
-                                {{result.address}}
-                            </div>
-                            <mat-chip-list class="ps-1">
-                                <mat-chip class="listing-tag" selected (click)="viewListingMobile(result.id)">
-                                    {{result.forRent? 'For Rent' : 'For Sale'}}
-                                </mat-chip>
-                            </mat-chip-list>
-                        </div>
+        <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
+            <mat-divider *ngIf="i"></mat-divider>
+            <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingMobile(result.id)">
+                <div class="row">
+                    <div class="col-6">
+                        <img *ngIf="result.coverImage" class="ps-2 result-preview-img-mobile" [src]="result.coverImage">
                     </div>
-                </mat-card-content>
-            </mat-card>
+                    <div class="col-6">
+                        <div class="pb-2" style="font-size:large">${{result.price}}</div>
+                        <div *ngIf="result.location">
+                            {{result.location}}
+                        </div>
+                        <div *ngIf="result.address">
+                            {{result.address}}
+                        </div>
+                        <mat-chip-list class="ps-2">
+                            <mat-chip class="listing-tag" selected (click)="viewListingMobile(result.id)">
+                                {{result.forRent? 'For Rent' : 'For Sale'}}
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="float-controls-mobile">
-        <button mat-fab color="accent" (click)="openSearchModal()">
-            <mat-icon>filter_alt</mat-icon>
-        </button>
     </div>
 </section>

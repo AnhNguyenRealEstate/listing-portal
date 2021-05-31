@@ -44,13 +44,20 @@
 }
 
 .sticky-criteria-panel {
-  position: sticky;
-  position: -webkit-sticky; /* For macOS/iOS Safari */
+  position: sticky !important;
+  position: -webkit-sticky !important; /* For macOS/iOS Safari */
   top: 0; /* Sets the sticky toolbar to be on top */
   background: white;
   z-index: 1;
+  box-shadow: 0px 0px 1px 0px !important;
+  border-radius: 15px !important;
 }
 
 .listing-tag {
   background-color: $accent-light !important;
+}
+
+.result-preview-img-mobile {
+  max-width: 100%;
+  max-height: 100%;
 }
