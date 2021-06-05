@@ -60,7 +60,8 @@ export class ListingSearchComponent implements OnInit {
         private loadSpinnerService: LoadingSpinnerService,
         private sanitizer: DomSanitizer,
         private dialog: MatDialog,
-        private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any) {
+        private pageScrollService: PageScrollService, 
+        @Inject(DOCUMENT) private document: any) {
     }
 
     ngOnInit() {
@@ -159,11 +160,12 @@ export class ListingSearchComponent implements OnInit {
         // property
         listing.imageSources = [];
         for (let i = 0; i < 10; i++) {
-            this.httpClient.get(`https://picsum.photos/400/200?query=${i}`, { responseType: 'blob' }).subscribe(response => {
+            const sub = this.httpClient.get(`https://picsum.photos/400/200?query=${i}`, { responseType: 'blob' }).subscribe(response => {
                 const blob = new Blob([response], { type: 'application/image' });
                 const unsafeImg = URL.createObjectURL(blob);
                 const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
                 listing.imageSources!.push(imageUrl as string);
+                sub.unsubscribe();
             });
         }
 

@@ -4,6 +4,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
+import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
         component: ListingDetailsComponent
       }
     ]
+  },
+  {
+    path: 'listing-upload',
+    component: ListingUploadComponent
   },
   {
     path: 'about-us',

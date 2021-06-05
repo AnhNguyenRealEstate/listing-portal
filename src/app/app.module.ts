@@ -38,6 +38,21 @@ import { SearchBarDialogComponent } from './components/listing-search/search-bar
 import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
 import { NgxScrollTopModule } from 'ngx-scrolltop';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { LoginComponent } from './components/login/login-dialog.component';
+import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { PERSISTENCE } from '@angular/fire/auth';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
+  authDomain: "listing-portal.firebaseapp.com",
+  projectId: "listing-portal",
+  storageBucket: "listing-portal.appspot.com",
+  messagingSenderId: "915781263857",
+  appId: "1:915781263857:web:b86316bef0494007f22450",
+  measurementId: "G-HRX75EES2C"
+};
 
 @NgModule({
   declarations: [
@@ -51,7 +66,9 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
     AboutUsComponent,
     LayoutComponent,
     SearchBarDialogComponent,
-    ListingDetailsDialogComponent
+    ListingDetailsDialogComponent,
+    LoginComponent,
+    ListingUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -78,13 +95,16 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
     MatChipsModule,
     MatBadgeModule,
     NgxPageScrollCoreModule,
-    NgxScrollTopModule
+    NgxScrollTopModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [
     ListingSearchService,
     ListingLocationService,
     LoadingSpinnerService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
+    { provide: PERSISTENCE, useValue: 'session' }
   ],
   bootstrap: [AppComponent]
 })

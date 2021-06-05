@@ -18,6 +18,7 @@
     <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
         (click)="sidenav.toggle()">
         <a mat-button [routerLink]="['/listings']">Listings</a>
+        <a mat-button [routerLink]="['/listing-upload']">Listing Upload</a>
         <a mat-button href="/about-us">About us</a>
     </mat-sidenav>
 
