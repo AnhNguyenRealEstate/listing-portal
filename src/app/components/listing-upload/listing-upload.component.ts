@@ -18,6 +18,8 @@ export class ListingUploadComponent implements OnInit {
     locations = Locations;
     propertySizes = PropertySizes;
 
+    files: File[] = [];
+
     constructor(
         private auth: AngularFireAuth,
         private firestore: AngularFirestore,
@@ -30,9 +32,6 @@ export class ListingUploadComponent implements OnInit {
                 authSub.unsubscribe();
             } else {
                 const config = {
-                    position: {
-                        bottom: '10em'
-                    } as DialogPosition,
                     height: 'auto',
                     width: 'auto',
                     disableClose: true,
@@ -44,10 +43,18 @@ export class ListingUploadComponent implements OnInit {
     }
 
     handleImageInput(event: any) {
+        const files = (event.target.files as FileList);
+        if (files.length === 0) {
+            return;
+        }
+
+        for (let i = 0; i < files.length; i++) {
+            this.files.push((event.target.files as FileList).item(i)!);
+        }
     }
 
-    submit() {
+    async submit() {
         return;
-        this.firestore.collection('listings').add(this.listing);
+        await this.firestore.collection('listings').add(this.listing);
     }
 }

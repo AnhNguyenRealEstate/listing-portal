@@ -1,4 +1,4 @@
-<section #desktopUploadView class="container pt-2 d-none d-lg-block">
+<section *ngIf="loggedIn" #desktopUploadView class="container pt-2 d-none d-lg-block">
     <h1>Listing Upload</h1>
     <mat-divider class="pb-2"></mat-divider>
     <div class="row">
@@ -7,8 +7,13 @@
     <button mat-flat-button (click)="submit()">Submit</button>
 </section>
 
-<section #mobileUploadView class="container pt-2 py-2 d-lg-none">
+<section *ngIf="loggedIn" #mobileUploadView class="container pt-2 py-2 d-lg-none">
     <div class="row">
+        <div class="col-12">
+            <h1 class="h3">
+                Upload a New Listing
+            </h1>
+        </div>
         <div class="col-6">
             <mat-form-field class="form-group" color="accent">
                 <mat-label>Property Type</mat-label>
@@ -77,10 +82,19 @@
             </mat-form-field>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-                <input #imageInput hidden="true" type="file" accept="image/*"onclick="this.value=null" (change)="handleImageInput($event)"/>
-                <button mat-flat-button color="accent" (click)="imageInput.click()">Images Upload</button>
+    <div class="row pb-2">
+        <div class="col-12 d-flex justify-content-end">
+            <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
+                (change)="handleImageInput($event)" />
+            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary" (click)="imageInput.click()">
+                <mat-icon>image</mat-icon>
+            </button>
+            <span class="ps-2 pe-2"></span>
+            <button mat-fab color="accent" (click)="submit()">
+                <mat-icon>save</mat-icon>
+            </button>
         </div>
     </div>
 </section>
+
+<section *ngIf="!loggedIn" style="height: 100vh"></section>

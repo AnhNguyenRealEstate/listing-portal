@@ -11,8 +11,7 @@ import { SearchBarComponent } from './components/listing-search/search-bar/searc
 import { FormsModule } from '@angular/forms';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';;
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 import { ListingLocationService } from './components/listing-search/listing-location-data.service';
 import { LoadingSpinnerService } from './components/load-spinner/loading-spinner.service';
@@ -36,13 +35,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { SearchBarDialogComponent } from './components/listing-search/search-bar/search-bar-dialog.component';
 import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
-import { NgxScrollTopModule } from 'ngx-scrolltop';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { LoginComponent } from './components/login/login-dialog.component';
 import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { PERSISTENCE } from '@angular/fire/auth';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -79,7 +78,6 @@ const firebaseConfig = {
     GoogleMapsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    InfiniteScrollModule,
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
@@ -95,9 +93,9 @@ const firebaseConfig = {
     MatChipsModule,
     MatBadgeModule,
     NgxPageScrollCoreModule,
-    NgxScrollTopModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NgIdleKeepaliveModule.forRoot()
   ],
   providers: [
     ListingSearchService,

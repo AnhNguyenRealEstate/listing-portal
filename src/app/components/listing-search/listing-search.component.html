@@ -1,4 +1,4 @@
-<section #desktopSearchView class="container pt-2 d-none d-lg-block">
+<section #desktopSearchView class="container-flex pt-2 ms-4 me-4 d-none d-lg-block">
     <h1 class="page-title">
         Listings
     </h1>
@@ -11,7 +11,7 @@
     <section class="pb-2">
         <div class="row pb-3">
             <div class="col-4">
-                <google-map height="400px" width="100%" [options]="mapOptions">
+                <google-map height="600px" width="100%" [options]="mapOptions">
                     <map-marker *ngIf="mapMarker" [position]="mapMarker.position!" [label]="mapMarker.label!">
                     </map-marker>
                 </google-map>

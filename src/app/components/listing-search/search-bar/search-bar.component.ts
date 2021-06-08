@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { pipe } from 'rxjs';
 import { SearchCriteria, PropertyTypes, Locations, PropertySizes } from '../listing-search.data';
 
 @Component({
@@ -24,7 +25,7 @@ export class SearchBarComponent implements OnInit {
     locations = Locations;
     propertySizes = PropertySizes;
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private firestore: AngularFirestore) {
     }
 
     ngOnInit() {
@@ -35,7 +36,12 @@ export class SearchBarComponent implements OnInit {
         //TODO: submit criteria to server, once the response comes back,
         //save the data to listing-search service
 
-        //const response = await this.httpClient.get('').toPromise();
+        // const response = await this.firestore.collection('listings', query => 
+        //                         query.where('', '==', '')
+        //                         .where('', '==', '')
+        //                         .where('', '==', '')
+        //                         .where('', '==', '')).get();
+        
         this.searchCompleted.emit();
     }
     

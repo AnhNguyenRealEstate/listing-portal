@@ -8,6 +8,12 @@
     <div class="d-none d-md-flex">
         <a mat-button [routerLink]="['/listings']">Listings</a>
         <a mat-button href="/about-us">About us</a>
+        <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
+            <mat-icon>login</mat-icon>
+        </a>
+        <a *ngIf="loggedIn" mat-button (click)="logout()">
+            <mat-icon>logout</mat-icon>
+        </a>
     </div>
     <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
         <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
@@ -18,8 +24,14 @@
     <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
         (click)="sidenav.toggle()">
         <a mat-button [routerLink]="['/listings']">Listings</a>
-        <a mat-button [routerLink]="['/listing-upload']">Listing Upload</a>
+        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-upload']">Upload</a>
         <a mat-button href="/about-us">About us</a>
+        <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
+            <mat-icon>login</mat-icon>
+        </a>
+        <a *ngIf="loggedIn" mat-button (click)="logout()">
+            <mat-icon>logout</mat-icon>
+        </a>
     </mat-sidenav>
 
     <mat-sidenav-content>

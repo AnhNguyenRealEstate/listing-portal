@@ -1,4 +1,4 @@
-<section>
+<section class="container-flex justify-content-between">
     <h1>Login</h1>
     <mat-divider class="pb-2"></mat-divider>
     <mat-form-field color="accent" class="d-block">
@@ -9,5 +9,5 @@
         <mat-label>Password</mat-label>
         <input matInput type="text" [(ngModel)]="password">
     </mat-form-field>
-    <button mat-flat-button (click)="login()">Login</button>
+    <button mat-flat-button color="accent" (click)="login()">Login</button>
 </section>
