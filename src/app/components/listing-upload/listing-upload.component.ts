@@ -2,7 +2,8 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AngularFireStorage } from "@angular/fire/storage";
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Listing, Locations, PropertySizes, PropertyTypes } from '../listing-search/listing-search.data';
 import { LoginComponent } from '../login/login-dialog.component';
 
@@ -23,6 +24,7 @@ export class ListingUploadComponent implements OnInit {
     constructor(
         private auth: AngularFireAuth,
         private firestore: AngularFirestore,
+        private storage: AngularFireStorage,
         private dialog: MatDialog) { }
 
     ngOnInit() {
@@ -53,8 +55,14 @@ export class ListingUploadComponent implements OnInit {
         }
     }
 
-    async submit() {
-        return;
-        await this.firestore.collection('listings').add(this.listing);
+    submit() {
+        const date = new Date();
+        const imageFolderName = `${this.listing.location}-${date.getMonth()}${date.getDate()}-${date.getHours()}${date.getMinutes()}`;
+        this.files.forEach((file, index) => {
+            this.storage.ref(`listing-images/${imageFolderName}/${index}`).put(file);
+        });
+        this.listing.imageSources = [`listing-images/${imageFolderName}`];
+        this.firestore.collection('listings').add(this.listing);
+        this.listing = {} as Listing;
     }
 }
