@@ -1,20 +1,18 @@
-import { SafeUrl } from "@angular/platform-browser"
-
 export interface Listing {
-    id: string,
-    title: string,
+    id?: string, // auto-generated Firebase Id
+    title?: string,
     description?: string,
-    coverImage?: string | SafeUrl,
-    imageSources?: string[], //a listing could have 10+ images
+    coverImage?: string,
+    imageFolderPath?: string;
+    imageSources?: string[],
     propertyType?: string,
     location?: string,
     address?: string,
-    price?: string,
-    propertySize?: string,
+    price?: number,
+    propertySize?: number,
     bedrooms?: string,
     bathrooms?: string,
-    forRent?: boolean,
-    forSale?: boolean
+    purpose?: 'For Rent' | 'For Sale'
 }
 
 export interface SearchCriteria {
@@ -27,6 +25,7 @@ export interface SearchCriteria {
     bathrooms: string
 }
 
+/* The database stores the keys of PropertTypes */
 export const PropertyTypes: { [key: string]: string } = {
     apartment: 'Apartment',
     villa: 'Villa',
@@ -34,6 +33,7 @@ export const PropertyTypes: { [key: string]: string } = {
     office: 'Office'
 }
 
+/* The database stores the keys of Locations */
 export const Locations: { [key: string]: string } = {
     riverparkPremier: 'Riverpark Premier',
     midtownSakura: 'Midtown Sakura',
@@ -41,6 +41,7 @@ export const Locations: { [key: string]: string } = {
     namPhuc: 'Nam Phuc'
 }
 
+/* The following const is used for searching purposes ONLY */
 export const PropertySizes: { [key: string]: string } = {
     _050to100: '50 to 100',
     _100to200: '100 to 200',

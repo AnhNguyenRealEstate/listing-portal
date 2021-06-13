@@ -1,7 +1,9 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { pipe } from 'rxjs';
+import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SearchCriteria, PropertyTypes, Locations, PropertySizes } from '../listing-search.data';
+import { ListingSearchService } from '../listing-search.service';
+import { SearchBarDialogComponent } from './search-bar-dialog.component';
 
 @Component({
     selector: 'app-search-bar',
@@ -9,7 +11,7 @@ import { SearchCriteria, PropertyTypes, Locations, PropertySizes } from '../list
 })
 
 export class SearchBarComponent implements OnInit {
-    @Input() searchCriteria: SearchCriteria = {
+    searchCriteria: SearchCriteria = {
         propertyType: '',
         propertySize: '',
         location: '',
@@ -19,30 +21,40 @@ export class SearchBarComponent implements OnInit {
         bathrooms: ''
     } as SearchCriteria;
 
+    @Input() mode: 'desktop' | 'mobile' = 'desktop';
+
     @Output() searchCompleted = new EventEmitter();
 
     propertyTypes = PropertyTypes;
     locations = Locations;
     propertySizes = PropertySizes;
 
-    constructor(private firestore: AngularFirestore) {
+    constructor(private dialog: MatDialog, private listingSearchService: ListingSearchService) {
     }
 
     ngOnInit() {
-
+       this.getListings();
     }
 
     async getListings() {
-        //TODO: submit criteria to server, once the response comes back,
-        //save the data to listing-search service
-
-        // const response = await this.firestore.collection('listings', query => 
-        //                         query.where('', '==', '')
-        //                         .where('', '==', '')
-        //                         .where('', '==', '')
-        //                         .where('', '==', '')).get();
-        
-        this.searchCompleted.emit();
+        this.listingSearchService.setSearchResults(
+            await this.listingSearchService.getListingsByCriteria(this.searchCriteria)
+        );
     }
-    
+
+    async openSearchModal() {
+        const config = {
+            position: { bottom: '10em' } as DialogPosition,
+            height: 'auto',
+            width: 'auto',
+            scrollStrategy: new NoopScrollStrategy(),
+            data: this.searchCriteria
+        } as MatDialogConfig;
+        const dialogRef = this.dialog.open(SearchBarDialogComponent, config);
+
+        const newCriteria = await dialogRef.afterClosed().toPromise<SearchCriteria>();
+        const results = await this.listingSearchService.getListingsByCriteria(newCriteria);
+        this.listingSearchService.setSearchResults(results);
+    }
+
 }

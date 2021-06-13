@@ -17,8 +17,8 @@ export class LayoutComponent {
         private router: Router,
         private auth: AngularFireAuth, 
         private dialog: MatDialog) {
-        this.auth.user.subscribe(user => {
-            this.loggedIn = !!(user && user.email);
+        this.auth.authState.subscribe(user => {
+            this.loggedIn = !!user?.email;
         });
     }
 

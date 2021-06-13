@@ -4,130 +4,34 @@
     </h1>
     <mat-divider class="pb-2"></mat-divider>
     <div class="pt-2 pb-3">
-        <app-search-bar class="pe-2" [searchCriteria]="searchCriteria" (searchCompleted)="searchCompleted()">
+        <app-search-bar class="pe-2" [mode]="'desktop'">
         </app-search-bar>
     </div>
     <mat-divider class="pb-2"></mat-divider>
     <section class="pb-2">
         <div class="row pb-3">
             <div class="col-4">
-                <google-map height="600px" width="100%" [options]="mapOptions">
-                    <map-marker *ngIf="mapMarker" [position]="mapMarker.position!" [label]="mapMarker.label!">
-                    </map-marker>
-                </google-map>
+                <app-listing-location></app-listing-location>
             </div>
             <div class="col-8">
-                <div class="search-results-desktop row">
-                    <div *ngFor="let result of searchResults" class="col-6">
-                        <mat-card class="mt-1 mb-3" (click)="viewListing(result.id)">
-                            <mat-card-title>
-                                <span style="font-size: medium">{{result.title}}</span>
-                                <hr>
-                            </mat-card-title>
-                            <mat-card-content>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img height="100px" width="100px" *ngIf="result.coverImage"
-                                            [src]="result.coverImage">
-                                    </div>
-                                    <div class="col-8">
-                                        <div *ngIf="result.propertyType">
-                                            <label>Type:</label> {{result.propertyType}}
-                                        </div>
-                                        <div *ngIf="result.address">
-                                            <label>Address:</label> {{result.address}}
-                                        </div>
-                                        <div *ngIf="result.price">
-                                            <label>Price:</label> ${{result.price}}
-                                        </div>
-                                        <mat-chip-list>
-                                            <mat-chip selected color="accent" (click)="viewListingMobile(result.id)">
-                                                {{result.forRent? 'For Rent' : 'For Sale'}}
-                                            </mat-chip>
-                                        </mat-chip-list>
-                                    </div>
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                </div>
+                <app-search-results [mode]="'desktop'"></app-search-results>
             </div>
         </div>
     </section>
 
-    <section *ngIf="currentListingId">
+    <section *ngIf="showListingDetails">
         <mat-divider class="pb-2"></mat-divider>
         <div class="row">
             <div class="col-12 listing-details">
-                <app-listing-details [listingId]="currentListingId"></app-listing-details>
+                <app-listing-details></app-listing-details>
             </div>
         </div>
     </section>
 </section>
 
 <section #mobileSearchView class="container-flex pt-2 py-2 d-lg-none listing-search-mobile-section">
-    <mat-card class="sticky-criteria-panel ms-1 me-1" (click)="openSearchModal()">
-        <mat-card-content>
-            <div class="row ps-3">
-                <div class="col-6">
-                    <mat-icon color="accent">apartment</mat-icon>
-                    <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
-                </div>
-                <div class="col-6">
-                    <mat-icon color="accent">location_on</mat-icon>
-                    <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
-                </div>
-            </div>
-            <div class="row ps-3">
-                <div class="col-6">
-                    <mat-icon color="accent">bed</mat-icon>
-                    <span class="ps-3">{{searchCriteria.bedrooms || 'Any'}}</span>
-                </div>
-                <div class="col-6">
-                    <mat-icon color="accent">bathtub</mat-icon>
-                    <span class="ps-3">{{searchCriteria.bathrooms || 'Any'}}</span>
-                </div>
-
-            </div>
-            <div class="row ps-3 pb-1">
-                <div class="col-6">
-                    <mat-icon color="accent">photo_size_select_small</mat-icon>
-                    <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'Any'}}</span>
-                    <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
-                </div>
-                <div class="col-6">
-                    <mat-icon color="accent">attach_money</mat-icon>
-                    <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
-    <div class="row">
-        <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
-            <mat-divider *ngIf="i"></mat-divider>
-            <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingMobile(result.id)">
-                <div class="row">
-                    <div class="col-6">
-                        <img *ngIf="result.coverImage" class="ps-2 result-preview-img-mobile" [src]="result.coverImage">
-                    </div>
-                    <div class="col-6">
-                        <div class="pb-2" style="font-size:large">${{result.price}}</div>
-                        <div *ngIf="result.location">
-                            {{result.location}}
-                        </div>
-                        <div *ngIf="result.address">
-                            {{result.address}}
-                        </div>
-                        <mat-chip-list class="ps-2">
-                            <mat-chip class="listing-tag" selected (click)="viewListingMobile(result.id)">
-                                {{result.forRent? 'For Rent' : 'For Sale'}}
-                            </mat-chip>
-                        </mat-chip-list>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-search-bar [mode]="'mobile'"></app-search-bar>
+    <app-search-results [mode]="'mobile'"></app-search-results>
 
     <div class="float-controls-mobile d-sm-none">
         <button mat-mini-fab (click)="scrollTop()">

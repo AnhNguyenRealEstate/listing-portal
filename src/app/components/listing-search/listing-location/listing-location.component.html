@@ -1,0 +1,6 @@
+<ng-container *ngIf="markerOptions && mapOptions">
+    <google-map height="600px" width="100%" [options]="mapOptions">
+        <map-marker *ngIf="markerOptions" [position]="markerOptions.position!" [label]="markerOptions.label!">
+        </map-marker>
+    </google-map>
+</ng-container>

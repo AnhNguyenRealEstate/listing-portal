@@ -4,7 +4,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Listing, Locations, PropertySizes, PropertyTypes } from '../listing-search/listing-search.data';
+import { Listing, Locations, PropertyTypes } from '../listing-search/listing-search.data';
 import { LoginComponent } from '../login/login-dialog.component';
 
 @Component({
@@ -17,7 +17,6 @@ export class ListingUploadComponent implements OnInit {
     listing: Listing = {} as Listing;
     propertyTypes = PropertyTypes;
     locations = Locations;
-    propertySizes = PropertySizes;
 
     files: File[] = [];
 
@@ -29,7 +28,7 @@ export class ListingUploadComponent implements OnInit {
 
     ngOnInit() {
         const authSub = this.auth.user.subscribe(user => {
-            if (user && user.email) {
+            if (user?.email) {
                 this.loggedIn = true;
                 authSub.unsubscribe();
             } else {
@@ -42,6 +41,10 @@ export class ListingUploadComponent implements OnInit {
                 this.dialog.open(LoginComponent, config);
             }
         });
+    }
+
+    onPurposeSelect(event: any) {
+        this.listing.purpose = event.value;
     }
 
     handleImageInput(event: any) {
@@ -61,7 +64,7 @@ export class ListingUploadComponent implements OnInit {
         this.files.forEach((file, index) => {
             this.storage.ref(`listing-images/${imageFolderName}/${index}`).put(file);
         });
-        this.listing.imageSources = [`listing-images/${imageFolderName}`];
+        this.listing.imageFolderPath = `listing-images/${imageFolderName}`;
         this.firestore.collection('listings').add(this.listing);
         this.listing = {} as Listing;
     }

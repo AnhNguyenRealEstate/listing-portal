@@ -1,0 +1,70 @@
+<ng-container *ngIf="mode === 'desktop'">
+    <div class="search-results-desktop row">
+        <div *ngIf="searchResults.length === 0">
+            No results match your criteria
+        </div>
+        <div *ngFor="let result of searchResults" class="col-6">
+            <mat-card class="mt-1 mb-3" (click)="viewListing(result)">
+                <mat-card-title>
+                    <span style="font-size: medium">{{result.title}}</span>
+                    <hr>
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-4">
+                            <img height="100px" width="100px" *ngIf="result.coverImage" [src]="result.coverImage">
+                        </div>
+                        <div class="col-8">
+                            <div *ngIf="result.propertyType">
+                                <label>Type:</label> {{result.propertyType}}
+                            </div>
+                            <div *ngIf="result.address">
+                                <label>Address:</label> {{result.address}}
+                            </div>
+                            <div *ngIf="result.price">
+                                <label>Price:</label> ${{result.price}}
+                            </div>
+                            <mat-chip-list>
+                                <mat-chip selected color="accent" (click)="viewListing(result)">
+                                    {{result.purpose}}
+                                </mat-chip>
+                            </mat-chip-list>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="mode === 'mobile'">
+    <div class="row">
+        <div *ngIf="searchResults.length === 0">
+            No results match your criteria
+        </div>
+        <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
+            <mat-divider *ngIf="i"></mat-divider>
+            <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingMobile(result)">
+                <div class="row">
+                    <div class="col-6">
+                        <img *ngIf="result.coverImage" class="ps-2 result-preview-img-mobile" [src]="result.coverImage">
+                    </div>
+                    <div class="col-6">
+                        <div class="pb-2" style="font-size:large">${{result.price}}</div>
+                        <div *ngIf="result.location">
+                            {{result.location}}
+                        </div>
+                        <div *ngIf="result.address">
+                            {{result.address}}
+                        </div>
+                        <mat-chip-list class="ps-2">
+                            <mat-chip class="listing-tag" selected (click)="viewListingMobile(result)">
+                                {{result.purpose}}
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

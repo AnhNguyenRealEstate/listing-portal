@@ -37,11 +37,8 @@
         <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>Property Sizes (m<sup>2</sup>)</mat-label>
-                <mat-select id="propertySizes" [(ngModel)]="listing.propertySize">
-                    <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}
-                    </mat-option>
-                </mat-select>
+                <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
+                    placeholder="Size...">
             </mat-form-field>
         </div>
         <div class="col-6">
@@ -73,6 +70,15 @@
                     placeholder="Price...">
             </mat-form-field>
         </div>
+        <div class="col-6">
+            <mat-form-field color="accent">
+                <mat-label>For Rent or For Sale</mat-label>
+                <mat-select (selectionChange)="onPurposeSelect($event)">
+                    <mat-option value='For Rent'>For Rent</mat-option>
+                    <mat-option value='For Sale'>For Sale</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -86,7 +92,8 @@
         <div class="col-12 d-flex justify-content-end">
             <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
                 (change)="handleImageInput($event)" />
-            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary" (click)="imageInput.click()">
+            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary"
+                (click)="imageInput.click()">
                 <mat-icon>image</mat-icon>
             </button>
             <span class="ps-2 pe-2"></span>
