@@ -60,10 +60,13 @@ export class ListingUploadComponent implements OnInit {
 
     submit() {
         const date = new Date();
-        const imageFolderName = `${this.listing.location}-${date.getMonth()}${date.getDate()}-${date.getHours()}${date.getMinutes()}`;
+        const imageFolderName = 
+        `${this.listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
+
         this.files.forEach((file, index) => {
             this.storage.ref(`listing-images/${imageFolderName}/${index}`).put(file);
         });
+        
         this.listing.imageFolderPath = `listing-images/${imageFolderName}`;
         this.firestore.collection('listings').add(this.listing);
         this.listing = {} as Listing;

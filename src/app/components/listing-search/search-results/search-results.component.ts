@@ -28,7 +28,7 @@ export class SearchResultsComponent implements OnInit {
     }
 
     viewListing(listing: Listing) {
-        this.listingLocationService.showLocationOnMap(listing.address!);
+        this.listingLocationService.showLocationOnMap(listing.id!, listing.address!);
         this.listingDetailsService.showListing(listing);
     }
 

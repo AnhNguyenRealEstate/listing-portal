@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -35,6 +36,8 @@ export class ListingLocationService {
         ...this.defaultMarkerOptions
     };;
 
+    private geoCoder = new google.maps.Geocoder();
+
     private mapOptions$$ = new BehaviorSubject<google.maps.MapOptions>(this._mapOptions);
     private mapOptions$ = this.mapOptions$$.asObservable();
 
@@ -58,13 +61,33 @@ export class ListingLocationService {
         return this.listingIdLocationDataMap.get(listingId);
     }
 
-    showLocationOnMap(listingId: string) {
+    async showLocationOnMap(listingId: string, address: string) {
         let coordinates = this.getCoordinatesFromListingId(listingId);
-        if (!coordinates) {
-            //TODO: make request with listing address to find location data using geocoding API
-            coordinates = [0, 1];
+        if (coordinates) {
+            this.setMapAndMarkerOptions(coordinates);
+            return;
         }
 
+        this.geoCoder.geocode({
+            address: address
+        }, (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK
+                && results[0]?.geometry?.location) {
+                coordinates = [
+                    results[0].geometry.location.lat(),
+                    results[0].geometry.location.lng()
+                ]
+            }
+            else {
+                coordinates = [this.centerOfPMHCoordinates.lat, this.centerOfPMHCoordinates.lng];
+            }
+            this.setMapAndMarkerOptions(coordinates);
+            this.setCoordinatesToListingId(listingId, coordinates);
+        });
+
+    }
+
+    private setMapAndMarkerOptions(coordinates: number[]) {
         this._mapOptions = {
             ...this.defaultMapOptions,
             center: { lat: coordinates[0], lng: coordinates[1] }
@@ -76,8 +99,6 @@ export class ListingLocationService {
             position: { lat: coordinates[0], lng: coordinates[1] }
         }
         this.markerOptions$$.next(this._markerOptions);
-
-        this.setCoordinatesToListingId(listingId, coordinates);
     }
 
     mapOptions() {

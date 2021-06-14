@@ -20,8 +20,8 @@ export class ListingSearchService {
                 ref => this.criteriaToDBQuery(ref, searchCriteria)
             ).get().toPromise();
 
-        // Must continue to filter based on minSize, maxSize and minPrice
-        // Firestore does not allow more than one range query
+        // Must continue to filter based on minSize, maxSize
+        // Firestore only allows range query on one field
         const minMaxSizes = this.propertySizesToMinMaxSizes(searchCriteria.propertySize);
         const minSize = minMaxSizes[0];
         const maxSize = minMaxSizes[1];
@@ -32,8 +32,7 @@ export class ListingSearchService {
             const listing = doc.data() as Listing;
             if (
                 listing.propertySize! > maxSize ||
-                listing.propertySize! < minSize ||
-                listing.price! < searchCriteria.minPrice) {
+                listing.propertySize! < minSize) {
                 continue;
             }
 
@@ -88,6 +87,7 @@ export class ListingSearchService {
         if (criteria.bedrooms) query = query.where('bedrooms', '==', criteria.bedrooms);
         if (criteria.location) query = query.where('location', '==', criteria.location);
         if (criteria.maxPrice) query = query.where('price', '<=', criteria.maxPrice);
+        if (criteria.minPrice) query = query.where('price', '>=', criteria.minPrice);
         if (criteria.propertyType) query = query.where('propertyType', '==', criteria.propertyType);
 
         return query as Query<DocumentData>;
