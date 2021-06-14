@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Locations, PropertySizes, PropertyTypes, SearchCriteria } from '../listing-search.data';
 
@@ -7,7 +7,7 @@ import { Locations, PropertySizes, PropertyTypes, SearchCriteria } from '../list
     templateUrl: 'search-bar-dialog.component.html'
 })
 
-export class SearchBarDialogComponent implements OnInit {
+export class SearchBarDialogComponent {
     searchCriteria: SearchCriteria = {
         propertyType: '',
         propertySize: '',
@@ -28,8 +28,6 @@ export class SearchBarDialogComponent implements OnInit {
     ) {
         this.searchCriteria = { ...this.data };
     }
-
-    ngOnInit() { }
 
     async getListings() {
         this.dialogRef.close(this.searchCriteria);
