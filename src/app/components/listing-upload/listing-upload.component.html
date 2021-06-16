@@ -1,10 +1,102 @@
 <section *ngIf="loggedIn" #desktopUploadView class="container pt-2 d-none d-lg-block">
-    <h1>Listing Upload</h1>
-    <mat-divider class="pb-2"></mat-divider>
     <div class="row">
-        All the fields go here
+        <div class="col-12">
+            <h1 class="h3">
+                Upload a New Listing
+            </h1>
+        </div>
+        <div class="col-3">
+            <mat-form-field class="form-group" color="accent">
+                <mat-label>Property Type</mat-label>
+                <mat-select id="propertyType" [(ngModel)]="listing.propertyType" required>
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">{{type.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>Location</mat-label>
+                <mat-select id="locations" [(ngModel)]="listing.location" required>
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option *ngFor="let type of locations | keyvalue" value="{{type.key}}">{{type.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>Property Sizes (m<sup>2</sup>)</mat-label>
+                <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
+                    placeholder="Size..." required>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>Bedrooms</mat-label>
+                <mat-select id="bedrooms" [(ngModel)]="listing.bedrooms" required>
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option value='1'>1</mat-option>
+                    <mat-option value='2'>2</mat-option>
+                    <mat-option value='3'>3</mat-option>
+                    <mat-option value='3+'>3+</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>Bathrooms</mat-label>
+                <mat-select id="bathrooms" [(ngModel)]="listing.bathrooms" required>
+                    <mat-option value=''>Any</mat-option>
+                    <mat-option value='1'>1</mat-option>
+                    <mat-option value='2'>2</mat-option>
+                    <mat-option value='3'>3</mat-option>
+                    <mat-option value='3+'>3+</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>Price</mat-label>
+                <input matInput type="number" [(ngModel)]="listing.price" class="d-inline" id="price"
+                    placeholder="Price..." required>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>For Rent or For Sale</mat-label>
+                <mat-select (selectionChange)="onPurposeSelect($event)" required>
+                    <mat-option value='For Rent'>For Rent</mat-option>
+                    <mat-option value='For Sale'>For Sale</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
-    <button mat-flat-button (click)="submit()">Submit</button>
+    <div class="row">
+        <div class="col">
+            <mat-form-field color="accent">
+                <mat-label>Description</mat-label>
+                <textarea matInput rows="25" [(ngModel)]="listing.description"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-12 d-flex justify-content-end">
+            <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
+                (change)="handleImageInput($event)" />
+            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary"
+                (click)="imageInput.click()">
+                <mat-icon>image</mat-icon>
+                <span>Select Images</span>
+            </button>
+            <span class="ps-2 pe-2"></span>
+            <button mat-fab color="accent" (click)="submit()">
+                <mat-icon>publish</mat-icon>
+                <span>Publish</span>
+            </button>
+        </div>
+    </div>
 </section>
 
 <section *ngIf="loggedIn" #mobileUploadView class="container pt-2 py-2 d-lg-none">
@@ -100,7 +192,7 @@
             </button>
             <span class="ps-2 pe-2"></span>
             <button mat-fab color="accent" (click)="submit()">
-                <mat-icon>save</mat-icon>
+                <mat-icon>publish</mat-icon>
             </button>
         </div>
     </div>

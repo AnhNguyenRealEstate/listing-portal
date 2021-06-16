@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Listing } from '../listing-search.data';
-
 import { ListingDetailsService } from './listing-details.service';
 
 @Component({
@@ -15,7 +14,6 @@ export class ListingDetailsComponent implements OnInit, OnDestroy {
     listing: Listing = {} as Listing;
     subscriptions = new Subscription();
 
-    //TODO: refactor into image preview component or so
     carouselInterval = 0;
     carousel: NgbCarousel | undefined;
     @ViewChild('carousel', { static: false }) set content(content: NgbCarousel) {

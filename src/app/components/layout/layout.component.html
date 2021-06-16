@@ -8,12 +8,12 @@
     <div class="d-none d-md-flex">
         <a mat-button [routerLink]="['/listings']">Listings</a>
         <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-upload']">Upload</a>
-        <a mat-button href="/about-us">About us</a>
+        <a mat-button href="/about-us">About Us</a>
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
-            <mat-icon>login</mat-icon>
+            Sign In
         </a>
         <a *ngIf="loggedIn" mat-button (click)="logout()">
-            <mat-icon>logout</mat-icon>
+            Sign Out
         </a>
     </div>
     <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
@@ -24,14 +24,25 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
         (click)="sidenav.toggle()">
-        <a mat-button [routerLink]="['/listings']">Listings</a>
-        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-upload']">Upload</a>
-        <a mat-button href="/about-us">About us</a>
+        <a mat-button [routerLink]="['/listings']">
+            <mat-icon>view_list</mat-icon>
+            <span class="ps-4">Listings</span>
+        </a>
+        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-upload']">
+            <mat-icon>upload</mat-icon>
+            <span>Upload</span>
+        </a>
+        <a mat-button href="/about-us">
+            <mat-icon>real_estate_agent</mat-icon>
+            <span class="ps-4">About Us</span>
+        </a>
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
             <mat-icon>login</mat-icon>
+            <span class="ps-4">Sign In</span>
         </a>
         <a *ngIf="loggedIn" mat-button (click)="logout()">
             <mat-icon>logout</mat-icon>
+            <span class="ps-4">Sign Out</span>
         </a>
     </mat-sidenav>
 
