@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login-dialog.component';
+import { LoginService } from '../login/login.service';
 
 @Component({
     selector: 'app-layout',
@@ -15,11 +16,10 @@ export class LayoutComponent {
 
     constructor(
         private router: Router,
-        private auth: AngularFireAuth, 
+        private auth: AngularFireAuth,
+        private loginService: LoginService,
         private dialog: MatDialog) {
-        this.auth.authState.subscribe(user => {
-            this.loggedIn = !!user?.email;
-        });
+        this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn);
     }
 
     showLoginModal() {

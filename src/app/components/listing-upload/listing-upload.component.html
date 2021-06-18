@@ -1,4 +1,4 @@
-<section *ngIf="loggedIn" #desktopUploadView class="container pt-2 d-none d-lg-block">
+<section #desktopUploadView class="container pt-2 d-none d-lg-block">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
@@ -99,7 +99,7 @@
     </div>
 </section>
 
-<section *ngIf="loggedIn" #mobileUploadView class="container pt-2 py-2 d-lg-none">
+<section #mobileUploadView class="container pt-2 py-2 d-lg-none">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
@@ -197,5 +197,3 @@
         </div>
     </div>
 </section>
-
-<section *ngIf="!loggedIn" style="height: 100vh"></section>

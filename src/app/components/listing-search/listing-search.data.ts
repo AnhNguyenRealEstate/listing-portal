@@ -1,10 +1,12 @@
+import { SafeUrl } from "@angular/platform-browser"
+
 export interface Listing {
     id?: string, // auto-generated Firebase Id
     title?: string,
     description?: string,
-    coverImage?: string,
+    coverImage?: string | SafeUrl,
     imageFolderPath?: string;
-    imageSources?: string[],
+    imageSources?: string[] | SafeUrl[],
     propertyType?: string,
     location?: string,
     address?: string,

@@ -30,7 +30,11 @@
         </a>
         <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-upload']">
             <mat-icon>upload</mat-icon>
-            <span>Upload</span>
+            <span class="ps-4">Upload</span>
+        </a>
+        <a mat-button [routerLink]="['/listing-generator']">
+            <mat-icon>settings</mat-icon>
+            <span class="ps-4">Generate Listings</span>
         </a>
         <a mat-button href="/about-us">
             <mat-icon>real_estate_agent</mat-icon>

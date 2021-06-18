@@ -1,0 +1,7 @@
+<section class="container-flex pt-2 ms-4 me-4" style="height: 100vh">
+    <mat-form-field color="accent">
+        <mat-label>Number of Listings</mat-label>
+        <input matInput [(ngModel)]="listingsToGenerate" type="number" placeholder="# of listings...">
+    </mat-form-field>
+    <button mat-button (click)="generateData()">Generate</button>
+</section>

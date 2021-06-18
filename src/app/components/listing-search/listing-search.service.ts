@@ -54,6 +54,10 @@ export class ListingSearchService {
                 'listings'
             ).get().toPromise();
 
+        if (!dbResponse) {
+            return undefined;
+        }
+
         const listingRef = dbResponse.docs.find(doc => doc.id === listingId);
         if (!listingRef) {
             return undefined;

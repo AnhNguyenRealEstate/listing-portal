@@ -16,7 +16,7 @@ export class SearchBarComponent implements OnInit {
         propertySize: '',
         location: '',
         minPrice: 0,
-        maxPrice: Infinity,
+        maxPrice: 9999,
         bedrooms: '',
         bathrooms: ''
     } as SearchCriteria;
@@ -33,13 +33,13 @@ export class SearchBarComponent implements OnInit {
     }
 
     ngOnInit() {
-       this.getListings();
+       // this.getListings();
     }
 
     async getListings() {
-        this.listingSearchService.setSearchResults(
-            await this.listingSearchService.getListingsByCriteria(this.searchCriteria)
-        );
+        // this.listingSearchService.setSearchResults(
+        //     await this.listingSearchService.getListingsByCriteria(this.searchCriteria)
+        // );
     }
 
     async openSearchModal() {

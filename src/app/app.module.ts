@@ -45,6 +45,8 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
 import { ListingDetailsService } from './components/listing-search/listing-details/listing-details.service';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
+import { DataGeneratorService } from './components/data-generator/data-generator.service';
+import { DataGeneratorComponent } from './components/data-generator/data-generator.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -72,7 +74,8 @@ const firebaseConfig = {
     ListingDetailsDialogComponent,
     LoginComponent,
     ListingUploadComponent,
-    ListingLocationComponent
+    ListingLocationComponent,
+    DataGeneratorComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ const firebaseConfig = {
     LoadingSpinnerService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
     { provide: PERSISTENCE, useValue: 'session' },
-    ListingDetailsService
+    ListingDetailsService,
+    DataGeneratorService
   ],
   bootstrap: [AppComponent]
 })
