@@ -33,13 +33,13 @@ export class SearchBarComponent implements OnInit {
     }
 
     ngOnInit() {
-       // this.getListings();
+       this.getListings();
     }
 
     async getListings() {
-        // this.listingSearchService.setSearchResults(
-        //     await this.listingSearchService.getListingsByCriteria(this.searchCriteria)
-        // );
+        this.listingSearchService.setSearchResults(
+            await this.listingSearchService.getListingsByCriteria(this.searchCriteria)
+        );
     }
 
     async openSearchModal() {

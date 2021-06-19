@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     templateUrl: 'login-dialog.component.html'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     userName: string = '';
     password: string = '';
 
@@ -15,14 +15,10 @@ export class LoginComponent implements OnInit {
         public dialogRef: MatDialogRef<LoginComponent>,
         public auth: AngularFireAuth) { }
 
-    ngOnInit() {
-        // use firebase here to ask user to sign in
-    }
-
     login() {
         this.auth
             .signInWithEmailAndPassword(this.userName, this.password)
-            .then(response => {
+            .then(() => {
                 this.dialogRef.close(true);
             })
             .catch(error => {

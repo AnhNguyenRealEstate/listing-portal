@@ -1,6 +1,9 @@
 <section *ngIf="listing" class="listing-detail-dialog">
-    <div class="d-flex justify-content-between">
-        <span class="h3">{{listing.title}}</span>
+    <div class="d-flex justify-content-between" style="vertical-align: middle;">
+        <button mat-icon-button color="accent" (click)="dialogRef.close();">
+            <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+        <span class="h3 pt-2">{{listing.location}}</span>
     </div>
     <hr>
 

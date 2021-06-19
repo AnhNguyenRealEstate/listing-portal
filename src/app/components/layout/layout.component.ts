@@ -31,7 +31,7 @@ export class LayoutComponent {
     }
 
     logout() {
-        this.auth.signOut().then(response => {
+        this.auth.signOut().then(() => {
             this.router.navigateByUrl('');
         });
     }

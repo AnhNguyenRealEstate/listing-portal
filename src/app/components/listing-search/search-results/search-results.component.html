@@ -1,6 +1,6 @@
 <ng-container *ngIf="mode === 'desktop'">
     <div class="search-results-desktop row">
-        <div *ngIf="searchResults.length === 0" style="height: 100vh">
+        <div *ngIf="searchResults.length === 0" >
             <div class="d-flex justify-content-center no-result-icon">
                 <mat-icon [inline]="true">search_off</mat-icon>
             </div>
@@ -43,38 +43,41 @@
 </ng-container>
 
 <ng-container *ngIf="mode === 'mobile'">
-    <div class="row">
-        <div *ngIf="searchResults.length === 0" style="height: 100vh">
-            <div class="d-flex justify-content-center no-result-icon">
-                <mat-icon [inline]="true">search_off</mat-icon>
+    <section class="container-flex ps-2 pe-2">
+        <div class="row">
+            <div *ngIf="searchResults.length === 0">
+                <div class="d-flex justify-content-center no-result-icon">
+                    <mat-icon [inline]="true">search_off</mat-icon>
+                </div>
+                <div class="d-flex justify-content-center" style="font-size: larger">
+                    No result matches your criteria
+                </div>
             </div>
-            <div class="d-flex justify-content-center">
-                No result matches your criteria
-            </div>
-        </div>
-        <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
-            <mat-divider *ngIf="i"></mat-divider>
-            <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingDetailsMobile(result)">
-                <div class="row">
-                    <div class="col-6">
-                        <img *ngIf="result.coverImage" class="ps-2 result-preview-img-mobile" [src]="result.coverImage">
-                    </div>
-                    <div class="col-6">
-                        <div class="pb-2" style="font-size:large">${{result.price}}</div>
-                        <div *ngIf="result.location">
-                            {{result.location}}
+            <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
+                <mat-divider *ngIf="i"></mat-divider>
+                <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingDetailsMobile(result)">
+                    <div class="row">
+                        <div class="col-6">
+                            <img *ngIf="result.coverImage" class="result-preview-img-mobile"
+                                [src]="result.coverImage">
                         </div>
-                        <div *ngIf="result.address">
-                            {{result.address}}
+                        <div class="col-6">
+                            <div class="pb-2" style="font-size:large">${{result.price}}</div>
+                            <div *ngIf="result.location">
+                                {{result.location}}
+                            </div>
+                            <div *ngIf="result.address">
+                                {{result.address}}
+                            </div>
+                            <mat-chip-list class="ps-2" *ngIf="result.purpose">
+                                <mat-chip class="listing-tag" selected (click)="viewListingDetailsMobile(result)">
+                                    <span>{{result.purpose}}</span>
+                                </mat-chip>
+                            </mat-chip-list>
                         </div>
-                        <mat-chip-list class="ps-2" *ngIf="result.purpose">
-                            <mat-chip class="listing-tag" selected (click)="viewListingDetailsMobile(result)">
-                                <span>{{result.purpose}}</span>
-                            </mat-chip>
-                        </mat-chip-list>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </ng-container>

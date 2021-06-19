@@ -14,4 +14,8 @@ export class DataGeneratorComponent {
     generateData() {
         this.generator.generateListings(this.listingsToGenerate);
     }
+
+    deleteAll() {
+
+    }
 }

@@ -41,32 +41,29 @@ export class DataGeneratorService {
         }
     }
 
-    async generateImageSrcs(listing: Listing, numberOfImages: number = 10) {
+    generateImageSrcs(listing: Listing, numberOfImages: number = 2) {
         if (!listing) {
             return;
         }
 
         listing.imageSources = [] as SafeUrl[];
         for (let i = 0; i < numberOfImages; i++) {
-            const response = await this.httpClient
+            this.httpClient
                 .get(
                     `https://picsum.photos/200?query=${i}`,
                     { responseType: 'blob' }
-                ).toPromise().catch(error => console.log(error));
-            if (!response) {
-                continue;
-            }
+                ).subscribe(response => {
+                    const blob = new Blob([response], { type: 'application/image' });
+                    const unsafeImg = URL.createObjectURL(blob);
+                    const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
 
-            const blob = new Blob([response], { type: 'application/image' });
-            const unsafeImg = URL.createObjectURL(blob);
-            const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+                    (listing.imageSources as SafeUrl[]).push(imageUrl);
 
-            listing.imageSources.push(imageUrl);
-
-            const isFirstImg = i === 0;
-            if (isFirstImg) {
-                listing.coverImage = imageUrl;
-            }
+                    const isFirstImg = i === 0;
+                    if (isFirstImg) {
+                        listing.coverImage = imageUrl;
+                    }
+                });
         }
     }
 }

@@ -38,10 +38,11 @@ export class ListingSearchService {
 
             listing.id = doc.id;
 
-            if (listing.imageFolderPath) {
-                const imageList = await this.storage.ref(listing.imageFolderPath).listAll().toPromise();
-                listing.coverImage = await imageList.items[0].getDownloadURL();
-            }
+            //TODO: remove for prod
+            // if (listing.imageFolderPath) {
+            //     const imageList = await this.storage.ref(listing.imageFolderPath).listAll().toPromise();
+            //     listing.coverImage = await imageList.items[0].getDownloadURL();
+            // }
 
             results.push(listing);
         }

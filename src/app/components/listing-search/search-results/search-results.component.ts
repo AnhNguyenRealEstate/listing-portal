@@ -28,8 +28,9 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription.add(this.listingSearchService.searchResults().subscribe(results => {
             this.searchResults = results;
+            //TODO: comment this out after finishing up
             for (let i = 0; i < this.searchResults.length; i++) {
-                this.generator.generateImageSrcs(this.searchResults[i]);
+                this.generator.generateImageSrcs(this.searchResults[i], 2);
             }
         }));
     }
@@ -45,8 +46,10 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
     viewListingDetailsMobile(listing: Listing) {
         const config = {
-            height: '95%',
-            width: 'auto',
+            maxWidth: '100vw',
+            maxHeight: '100vh',
+            height: '100%',
+            width: '100%',
             scrollStrategy: new NoopScrollStrategy(),
             data: listing
         } as MatDialogConfig;
