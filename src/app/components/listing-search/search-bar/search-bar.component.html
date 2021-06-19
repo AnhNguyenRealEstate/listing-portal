@@ -80,7 +80,7 @@
 </section>
 
 <ng-container *ngIf="mode === 'mobile'">
-    <mat-card class="sticky-criteria-panel ms-1 me-1" (click)="openSearchModal()">
+    <mat-card class="ms-1 me-1" (click)="openSearchModal()">
         <mat-card-content>
             <div class="row ps-3">
                 <div class="col-6">
@@ -113,6 +113,9 @@
                     <mat-icon color="accent">attach_money</mat-icon>
                     <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
                 </div>
+            </div>
+            <div *ngIf="numberOfResults > 0" class="row ps-3">
+                <span style="font:lighter; font-style:italic">Showing {{numberOfResults}} listings</span>
             </div>
         </mat-card-content>
     </mat-card>

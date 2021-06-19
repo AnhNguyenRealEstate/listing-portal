@@ -11,6 +11,9 @@ import { SearchBarDialogComponent } from './search-bar-dialog.component';
 })
 
 export class SearchBarComponent implements OnInit {
+    @Input() mode: 'desktop' | 'mobile' = 'desktop';
+    @Output() searchCompleted = new EventEmitter();
+
     searchCriteria: SearchCriteria = {
         propertyType: '',
         propertySize: '',
@@ -21,13 +24,11 @@ export class SearchBarComponent implements OnInit {
         bathrooms: ''
     } as SearchCriteria;
 
-    @Input() mode: 'desktop' | 'mobile' = 'desktop';
-
-    @Output() searchCompleted = new EventEmitter();
-
     propertyTypes = PropertyTypes;
     locations = Locations;
     propertySizes = PropertySizes;
+
+    numberOfResults: number = 0;
 
     constructor(private dialog: MatDialog, private listingSearchService: ListingSearchService) {
     }
@@ -37,9 +38,9 @@ export class SearchBarComponent implements OnInit {
     }
 
     async getListings() {
-        this.listingSearchService.setSearchResults(
-            await this.listingSearchService.getListingsByCriteria(this.searchCriteria)
-        );
+        const results = await this.listingSearchService.getListingsByCriteria(this.searchCriteria);
+        this.numberOfResults = results.length;
+        this.listingSearchService.setSearchResults(results);
     }
 
     async openSearchModal() {
