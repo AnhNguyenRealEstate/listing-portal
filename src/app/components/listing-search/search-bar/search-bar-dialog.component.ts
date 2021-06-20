@@ -8,15 +8,7 @@ import { Locations, PropertySizes, PropertyTypes, SearchCriteria } from '../list
 })
 
 export class SearchBarDialogComponent {
-    searchCriteria: SearchCriteria = {
-        propertyType: '',
-        propertySize: '',
-        location: '',
-        minPrice: 0,
-        maxPrice: Infinity,
-        bedrooms: '',
-        bathrooms: ''
-    } as SearchCriteria;
+    searchCriteria: SearchCriteria = {} as SearchCriteria;
 
     propertyTypes = PropertyTypes;
     locations = Locations;
@@ -29,7 +21,7 @@ export class SearchBarDialogComponent {
         this.searchCriteria = { ...this.data };
     }
 
-    async getListings() {
-        this.dialogRef.close(this.searchCriteria);
+    getListings() {
+        this.dialogRef.close({isSearchBtnClick: true, criteria: this.searchCriteria});
     }
 }

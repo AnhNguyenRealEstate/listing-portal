@@ -37,13 +37,13 @@ export class SearchBarComponent implements OnInit {
        this.getListings();
     }
 
-    async getListings() {
-        const results = await this.listingSearchService.getListingsByCriteria(this.searchCriteria);
-        this.numberOfResults = results.length;
+    async getListings(criteria: SearchCriteria = this.searchCriteria) {
+        const results = await this.listingSearchService.getListingsByCriteria(criteria);
         this.listingSearchService.setSearchResults(results);
+        this.numberOfResults = results.length;
     }
 
-    async openSearchModal() {
+    openSearchModal() {
         const config = {
             position: { bottom: '10em' } as DialogPosition,
             height: 'auto',
@@ -53,9 +53,11 @@ export class SearchBarComponent implements OnInit {
         } as MatDialogConfig;
         const dialogRef = this.dialog.open(SearchBarDialogComponent, config);
 
-        const newCriteria = await dialogRef.afterClosed().toPromise<SearchCriteria>();
-        const results = await this.listingSearchService.getListingsByCriteria(newCriteria);
-        this.listingSearchService.setSearchResults(results);
+        dialogRef.afterClosed().subscribe(result => {
+            if(result?.isSearchBtnClick){
+                this.getListings(result.criteria);
+            }
+        });
     }
 
 }
