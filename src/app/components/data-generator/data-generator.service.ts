@@ -17,6 +17,7 @@ export class DataGeneratorService {
     }
 
     generateListings(numberOfEntries: number) {
+        const firebaseRef = this.firestore.collection('listings');
         for (let i = 0; i < numberOfEntries; i++) {
             const price = Math.ceil(Math.random() * i * 100) + 500;
             const listing = {
@@ -37,33 +38,37 @@ export class DataGeneratorService {
                 .catch(error => console.log(error));
             listing.imageFolderPath = `listing-images/${imageFolderName}`;
 
-            this.firestore.collection('listings').add(listing).catch(error => console.log(error));
+            firebaseRef.add(listing).catch(error => console.log(error));
         }
     }
 
-    generateImageSrcs(listing: Listing, numberOfImages: number = 2) {
+    async generateImageSrcs(listing: Listing, numberOfImages: number = 2) {
         if (!listing) {
             return;
         }
 
         listing.imageSources = [] as SafeUrl[];
         for (let i = 0; i < numberOfImages; i++) {
-            this.httpClient
+            const response = await this.httpClient
                 .get(
                     `https://picsum.photos/200?query=${i}`,
                     { responseType: 'blob' }
-                ).subscribe(response => {
-                    const blob = new Blob([response], { type: 'application/image' });
-                    const unsafeImg = URL.createObjectURL(blob);
-                    const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+                ).toPromise().catch(error => console.log(error));
 
-                    (listing.imageSources as SafeUrl[]).push(imageUrl);
+            if (!response) {
+                continue;
+            }
 
-                    const isFirstImg = i === 0;
-                    if (isFirstImg) {
-                        listing.coverImage = imageUrl;
-                    }
-                });
+            const blob = new Blob([response], { type: 'application/image' });
+            const unsafeImg = URL.createObjectURL(blob);
+            const imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+
+            (listing.imageSources as SafeUrl[]).push(imageUrl);
+
+            const isFirstImg = i === 0;
+            if (isFirstImg) {
+                listing.coverImage = imageUrl;
+            }
         }
     }
 }

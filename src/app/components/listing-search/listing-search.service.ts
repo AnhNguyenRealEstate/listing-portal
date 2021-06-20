@@ -18,7 +18,11 @@ export class ListingSearchService {
             .collection(
                 'listings',
                 ref => this.criteriaToDBQuery(ref, searchCriteria)
-            ).get().toPromise();
+            ).get().toPromise().catch(error => console.log(error));
+
+        if (!dbResponse) {
+            return [];
+        }
 
         // Must continue to filter based on minSize, maxSize
         // Firestore only allows range query on one field
@@ -53,7 +57,7 @@ export class ListingSearchService {
         const dbResponse = await this.firestore
             .collection(
                 'listings'
-            ).get().toPromise();
+            ).get().toPromise().catch(error => console.log(error));
 
         if (!dbResponse) {
             return undefined;
