@@ -47,6 +47,7 @@ import { ListingDetailsService } from './components/listing-search/listing-detai
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
 import { DataGeneratorService } from './components/data-generator/data-generator.service';
 import { DataGeneratorComponent } from './components/data-generator/data-generator.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -103,7 +104,8 @@ const firebaseConfig = {
     NgxPageScrollCoreModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    NgIdleKeepaliveModule.forRoot()
+    NgIdleKeepaliveModule.forRoot(),
+    NgImageSliderModule
   ],
   providers: [
     ListingSearchService,

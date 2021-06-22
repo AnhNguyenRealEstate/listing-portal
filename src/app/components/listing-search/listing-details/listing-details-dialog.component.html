@@ -7,14 +7,8 @@
     </div>
     <hr>
 
-    <div class="row pb-2 listing-images" *ngIf="listing.imageSources && listing.imageSources!.length">
-        <ngb-carousel #carousel [interval]="carouselInterval">
-            <ng-template ngbSlide *ngFor="let src of listing.imageSources">
-                <div class="picsum-img-wrapper">
-                    <img [src]="src" style="width: 100%">
-                </div>
-            </ng-template>
-        </ngb-carousel>
+    <div class="row pb-2 listing-images" *ngIf="listing.imageSources?.length">
+       <ng-image-slider [images]="images"></ng-image-slider>
     </div>
 
     <p>

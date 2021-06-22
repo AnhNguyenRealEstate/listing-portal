@@ -56,7 +56,7 @@ export class DataGeneratorService {
                 ).toPromise().catch(error => console.log(error));
 
             if (!response) {
-                continue;
+                return;
             }
 
             const blob = new Blob([response], { type: 'application/image' });
