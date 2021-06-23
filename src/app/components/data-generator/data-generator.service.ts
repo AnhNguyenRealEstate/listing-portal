@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing, Locations, PropertyTypes } from '../listing-search/listing-search.data';
 import { SafeUrl } from "@angular/platform-browser";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -13,9 +13,11 @@ export class DataGeneratorService {
         private sanitizer: DomSanitizer,
         private firestore: AngularFirestore,
         private storage: AngularFireStorage) {
-
     }
 
+    propertyTypes = PropertyTypes;
+    locations = Locations;
+    
     generateListings(numberOfEntries: number) {
         const firebaseRef = this.firestore.collection('listings');
         for (let i = 0; i < numberOfEntries; i++) {
@@ -24,8 +26,8 @@ export class DataGeneratorService {
                 id: `${i}`,
                 title: `Property ${i}`,
                 address: `${(i + 1) * 10} Nguyen Duc Canh, Tan Phong, District 7, Ho Chi Minh City`,
-                propertyType: ['Villa', 'Office', 'Townhouse', 'Apartment'][i % 4],
-                location: ['Riverpark Premier', 'Midtown Sakura', 'Le Jardin', 'Nam Phuc'][i % 4],
+                propertyType: this.propertyTypes[i % 4],
+                location: this.locations[i % 4],
                 price: price,
                 purpose: price > 3000 ? 'For Sale' : 'For Rent',
                 bathrooms: i % 4,
@@ -82,9 +84,11 @@ export class DataGeneratorService {
             return;
         }
 
+        debugger;
+
         const docs = dbResponse.docs;
         for (let i = 0; i < docs.length; i++) {
-            this.storage.ref((docs[i].data() as Listing).imageFolderPath!).delete();
+            await this.storage.ref((docs[i].data() as Listing).imageFolderPath!).delete().toPromise();
             await firestoreRef.doc(docs[i].id).delete();
         }
     }

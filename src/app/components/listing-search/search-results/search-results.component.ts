@@ -30,7 +30,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
             this.searchResults = results;
             //TODO: comment this out after finishing up
             for (let i = 0; i < this.searchResults.length; i++) {
-                this.generator.generateImageSrcs(this.searchResults[i], 2);
+                //this.generator.generateImageSrcs(this.searchResults[i], 2);
             }
         }));
     }

@@ -1,3 +1,16 @@
-<section style="height: 100vh">
+<section class="d-none d-md-block">
     <app-carousel></app-carousel>
+</section>
+
+<section class="d-md-none background-mobile">
+    <div style="height: 50vh">
+    </div>
+    <div class="backdrop" (click)="goToListings()">
+        <div class="ps-4">
+            <a href="/listings" style="color: black; text-decoration: none;">
+                <p style="font-size: 24px; padding-top: 25%">Browse Our Listings <mat-icon>trending_flat</mat-icon>
+                </p>
+            </a>
+        </div>
+    </div>
 </section>

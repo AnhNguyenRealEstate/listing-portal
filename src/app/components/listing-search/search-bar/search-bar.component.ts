@@ -55,6 +55,7 @@ export class SearchBarComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if(result?.isSearchBtnClick){
+                this.searchCriteria = result.criteria;
                 this.getListings(result.criteria);
             }
         });

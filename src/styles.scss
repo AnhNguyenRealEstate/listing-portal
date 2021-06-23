@@ -9,11 +9,18 @@
 @import "app/styles/load-spinner";
 
 
-.header {
-    background-image: url("assets/images/background.jpg");
+.background-mobile {
+    background-image: url("assets/images/background_mobile.jpg");
     background-size: cover;
     background-position: center;
     position: relative;
+    height: 100vh;
+}
+
+.backdrop {
+    backdrop-filter: blur(5px);
+    height: 50vh;
+    bottom: 0; 
 }
 
 .black {
