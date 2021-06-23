@@ -23,11 +23,13 @@ export class DataGeneratorService {
             const listing = {
                 id: `${i}`,
                 title: `Property ${i}`,
-                address: `${i} Nguyen Duc Canh, District 7, Ho Chi Minh City`,
+                address: `${(i + 1) * 10} Nguyen Duc Canh, Tan Phong, District 7, Ho Chi Minh City`,
                 propertyType: ['Villa', 'Office', 'Townhouse', 'Apartment'][i % 4],
                 location: ['Riverpark Premier', 'Midtown Sakura', 'Le Jardin', 'Nam Phuc'][i % 4],
                 price: price,
-                purpose: price > 3000 ? 'For Sale' : 'For Rent'
+                purpose: price > 3000 ? 'For Sale' : 'For Rent',
+                bathrooms: i % 4,
+                bedrooms: i % 5
             } as Listing;
 
             const date = new Date();
@@ -42,7 +44,7 @@ export class DataGeneratorService {
         }
     }
 
-    async generateImageSrcs(listing: Listing, numberOfImages: number = 2) {
+    async generateImageSrcs(listing: Listing, numberOfImages: number) {
         if (!listing) {
             return;
         }
@@ -51,7 +53,7 @@ export class DataGeneratorService {
         for (let i = 0; i < numberOfImages; i++) {
             const response = await this.httpClient
                 .get(
-                    `https://picsum.photos/200?query=${i}`,
+                    `https://picsum.photos/200?random&t=${Math.random()}`,
                     { responseType: 'blob' }
                 ).toPromise().catch(error => console.log(error));
 
@@ -69,6 +71,21 @@ export class DataGeneratorService {
             if (isFirstImg) {
                 listing.coverImage = imageUrl;
             }
+        }
+    }
+
+    async deleteAll() {
+        const firestoreRef = this.firestore.collection('listings');
+        const dbResponse = await firestoreRef.get().toPromise().catch(error => console.log(error));
+
+        if (!dbResponse) {
+            return;
+        }
+
+        const docs = dbResponse.docs;
+        for (let i = 0; i < docs.length; i++) {
+            this.storage.ref((docs[i].data() as Listing).imageFolderPath!).delete();
+            await firestoreRef.doc(docs[i].id).delete();
         }
     }
 }

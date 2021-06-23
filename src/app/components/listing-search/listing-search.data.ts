@@ -12,8 +12,8 @@ export interface Listing {
     address?: string,
     price?: number,
     propertySize?: number,
-    bedrooms?: string,
-    bathrooms?: string,
+    bedrooms?: number,
+    bathrooms?: number,
     purpose?: 'For Rent' | 'For Sale'
 }
 

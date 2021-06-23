@@ -1,6 +1,6 @@
 <ng-container *ngIf="mode === 'desktop'">
     <div class="search-results-desktop row">
-        <div *ngIf="searchResults.length === 0" >
+        <div *ngIf="searchResults.length === 0">
             <div class="d-flex justify-content-center no-result-icon">
                 <mat-icon [inline]="true">search_off</mat-icon>
             </div>
@@ -58,8 +58,7 @@
                 <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingDetailsMobile(result)">
                     <div class="row">
                         <div class="col-6">
-                            <img *ngIf="result.coverImage" class="result-preview-img-mobile"
-                                [src]="result.coverImage">
+                            <img *ngIf="result.coverImage" class="result-preview-img-mobile" [src]="result.coverImage">
                         </div>
                         <div class="col-6">
                             <div class="pb-2" style="font-size:large">${{result.price}}</div>
@@ -68,6 +67,10 @@
                             </div>
                             <div *ngIf="result.address">
                                 {{result.address}}
+                            </div>
+                            <div *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
+                                <mat-icon color="accent" class="pe-2">bed</mat-icon><span class="pe-4">{{result.bedrooms}}</span>
+                                <mat-icon color="accent"  class="pe-2">bathtub</mat-icon> <span>{{result.bathrooms}}</span>
                             </div>
                             <mat-chip-list class="ps-2" *ngIf="result.purpose">
                                 <mat-chip class="listing-tag" selected (click)="viewListingDetailsMobile(result)">
