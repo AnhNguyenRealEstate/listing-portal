@@ -1,13 +1,48 @@
-<section class="container pt-2" style="height: 100vh">
-    <h1 class="page-title">About Us</h1>
-    <hr>
-    <p>
-        <span class="d-block">
-            We are proud to be one of the longest-serving real-estate brokerages in Phu My Hung. 
-        </span>
-        <span class="d-block">
-            Ever since 2008, we have served over a thousand clients, with unwavering
-            committments to customer satisfactions.
-        </span>
-    </p>
+<section #aboutUsDesktop class="container-flex background-mobile d-none d-sm-block">
+    <div class="backdrop ps-3 pe-3" style="height: 90vh">
+        <h1 class="page-title" style="color: darkslategray">About Us</h1>
+        <hr>
+        <div class="row">
+            <span class="d-block col-4 pt-4 pb-4" style="font-size: 60px; color: gray;">
+                {{thisYear - startYear}}+ Years
+            </span>
+            <div class="col-8">
+                <span class="d-block pb-2" style="color: darkslategray">
+                    We are proud to be one of the longest-serving real-estate brokerages in District 7, Ho Chi Minh City.
+                </span>
+                <span class="d-block" style="color: darkslategray">
+                    Founded in 2008, we have served over a thousand clients, with unwavering
+                    committments to customer satisfactions.
+                </span>
+            </div>
+        </div>
+        <hr>
+    </div>
+</section>
+
+<section #aboutUsMobile class="container-flex background-mobile d-sm-none">
+    <div class="backdrop ps-3 pe-3" style="height: 90vh">
+        <h1 class="page-title" style="color: darkslategray">About Us</h1>
+        <hr>
+        <div class="row">
+            <div class="col-5">
+                <span class="d-block pt-4 pb-4" style="font-size: 48px; color: gray;">
+                    {{thisYear - startYear}}+
+                </span>
+                <span class="d-block pt-4 pb-4" style="font-size: 48px; color: gray;">
+                    Years
+                </span>
+            </div>
+            <div class="col-7">
+                <span class="d-block pb-2" style="color: darkslategray">
+                    We are proud to be one of the longest-serving real-estate brokerages in District 7, Ho Chi Minh City.
+                </span>
+                <span class="d-block" style="color: darkslategray">
+                    Founded in 2008, we have served over a thousand clients, with unwavering
+                    committments to customer satisfactions.
+                </span>
+            </div>
+        </div>
+        <hr>
+    </div>
 </section>
