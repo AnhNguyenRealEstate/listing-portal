@@ -8,6 +8,7 @@
     <div class="d-none d-md-flex">
         <a mat-button [routerLink]="['/listings']">Listings</a>
         <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-upload']">Upload</a>
+        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">Edit Listings</a>
         <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-generator']">Generate</a>
         <a mat-button href="/about-us">About Us</a>
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">

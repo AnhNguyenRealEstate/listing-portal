@@ -49,6 +49,7 @@ import { DataGeneratorService } from './components/data-generator/data-generator
 import { DataGeneratorComponent } from './components/data-generator/data-generator.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -76,6 +77,7 @@ const firebaseConfig = {
     ListingDetailsDialogComponent,
     LoginComponent,
     ListingUploadComponent,
+    ListingEditComponent,
     ListingLocationComponent,
     DataGeneratorComponent,
     ContactUsComponent

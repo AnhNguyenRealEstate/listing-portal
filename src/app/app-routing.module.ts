@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { DataGeneratorComponent } from './components/data-generator/data-generator.component';
 import { HomeComponent } from './components/home/home.component';
+import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
@@ -26,6 +27,13 @@ const routes: Routes = [
   {
     path: 'listing-upload',
     component: ListingUploadComponent,
+    canActivate: [
+      LoginService
+    ]
+  },
+  {
+    path: 'listing-edit',
+    component: ListingEditComponent,
     canActivate: [
       LoginService
     ]

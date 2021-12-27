@@ -1,0 +1,109 @@
+<section class="container-flex">
+    <div class="ps-3 pe-3" style="height: 90vh">
+        <div class="row">
+            <div class="col-3">
+                <button mat-button color="accent" (click)="openAddModal()">
+                    <mat-icon class="pe-1">plus</mat-icon>
+                    New Listing
+                </button>
+                <mat-card *ngFor="let listing of listings" (click)="showSelected(listing)">
+                    <mat-card-content>
+                        [Info about listing]
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-9">
+                <div *ngIf="listingToShow === undefined">
+                    Select a listing
+                </div>
+                <div *ngIf="listingToShow !== undefined">
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-form-field class="form-group" color="accent">
+                                <mat-label>Property Type</mat-label>
+                                <mat-select id="propertyType" [(ngModel)]="listingToShow.propertyType" required>
+                                    <mat-option value=''>Any</mat-option>
+                                    <mat-option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">
+                                        {{type.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field color="accent">
+                                <mat-label>Location</mat-label>
+                                <mat-select id="locations" [(ngModel)]="listingToShow.location" required>
+                                    <mat-option value=''>Any</mat-option>
+                                    <mat-option *ngFor="let type of locations | keyvalue" value="{{type.key}}">
+                                        {{type.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field color="accent">
+                                <mat-label>Property Sizes (m<sup>2</sup>)</mat-label>
+                                <input matInput type="number" [(ngModel)]="listingToShow.propertySize" class="d-inline"
+                                    id="propertySize" placeholder="Size..." required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field color="accent">
+                                <mat-label>Bedrooms</mat-label>
+                                <input matInput id="bedrooms" type="number" [(ngModel)]="listingToShow.bedrooms"
+                                    class="d-inline" placeholder="# of bedrooms..." required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field color="accent">
+                                <mat-label>Bathrooms</mat-label>
+                                <input matInput id="bathrooms" type="number" [(ngModel)]="listingToShow.bathrooms"
+                                    class="d-inline" placeholder="# of bathrooms..." required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field color="accent">
+                                <mat-label>Price</mat-label>
+                                <input matInput type="number" [(ngModel)]="listingToShow.price" class="d-inline"
+                                    id="price" placeholder="Price..." required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field color="accent">
+                                <mat-label>For Rent or For Sale</mat-label>
+                                <mat-select (selectionChange)="onPurposeSelect($event)" required>
+                                    <mat-option value='For Rent'>For Rent</mat-option>
+                                    <mat-option value='For Sale'>For Sale</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field color="accent">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput rows="25" [(ngModel)]="listingToShow.description"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col-12 d-flex justify-content-end">
+                            <input #imageInput multiple hidden="true" type="file" accept="image/*"
+                                onclick="this.value=null" (change)="handleImageInput($event)" />
+                            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary"
+                                (click)="imageInput.click()">
+                                <mat-icon>image</mat-icon>
+                                <span>Select Images</span>
+                            </button>
+                            <span class="ps-2 pe-2"></span>
+                            <button mat-fab color="accent" (click)="submit()">
+                                <mat-icon>publish</mat-icon>
+                                <span>Publish</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

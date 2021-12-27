@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-prod": "ng build --prod --aot --outputHashing=all",
-    "deploy": "npm run build-prod && ng deploy --repo='https://github.com/nguyentrungtu/nguyentrungtu.github.io'"
+    "deploy": "npm run build-prod && ng deploy --repo='https://github.com/nguyentrungtu/nguyentrungtu.github.io'" 
   },
   "private": true,
   "dependencies": {
