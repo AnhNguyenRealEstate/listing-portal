@@ -66,6 +66,6 @@ export class ListingEditComponent implements OnInit {
     }
 
     submit() {
-
+        //TODO: create submit functionality
     }
 }

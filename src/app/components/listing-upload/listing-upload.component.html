@@ -71,11 +71,19 @@
             </mat-form-field>
         </div>
     </div>
+    <div *ngIf="imageSrcs?.length" style="overflow-x: scroll">
+        <div class="d-inline" *ngFor="let imgSrc of imageSrcs">
+            <img [src]="imgSrc" height="200" width="200">
+            <button class="remove-image-btn" (click)="removeImage(imgSrc)" aria-label="Remove image">
+                x
+            </button>
+        </div>
+    </div>
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">
             <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
                 (change)="handleImageInput($event)" />
-            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary"
+            <button mat-fab color="default" [matBadge]="imageFiles.length" matBadgeColor="primary"
                 (click)="imageInput.click()">
                 <mat-icon>image</mat-icon>
                 <span>Select Images</span>
@@ -162,11 +170,19 @@
             </mat-form-field>
         </div>
     </div>
+    <div *ngIf="imageSrcs?.length" style="overflow-x: scroll">
+        <div class="d-inline" *ngFor="let imgSrc of imageSrcs">
+            <img [src]="imgSrc" height="200" width="200">
+            <button class="remove-image-btn" (click)="removeImage(imgSrc)" aria-label="Remove image">
+                x
+            </button>
+        </div>
+    </div>
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">
             <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
                 (change)="handleImageInput($event)" />
-            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary"
+            <button mat-fab color="default" [matBadge]="imageFiles.length" matBadgeColor="primary"
                 (click)="imageInput.click()">
                 <mat-icon>image</mat-icon>
             </button>

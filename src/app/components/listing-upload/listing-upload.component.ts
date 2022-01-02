@@ -13,7 +13,8 @@ export class ListingUploadComponent {
     propertyTypes = PropertyTypes;
     locations = Locations;
 
-    files: File[] = [];
+    imageFiles: File[] = [];
+    imageSrcs: string[] = [];
 
     constructor(
         private firestore: AngularFirestore,
@@ -31,8 +32,26 @@ export class ListingUploadComponent {
         }
 
         for (let i = 0; i < files.length; i++) {
-            this.files.push((event.target.files as FileList).item(i)!);
+            const file = files.item(i)!;
+            this.imageFiles.push(file);
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                if (reader.result) {
+                    this.imageSrcs.push(reader.result as string)
+                }
+            }
         }
+    }
+
+    removeImage(imgSrc: string) {
+        this.imageSrcs.forEach((src, index) => {
+            if (src === imgSrc){
+                this.imageSrcs.splice(index, 1);
+                this.imageFiles.splice(index, 1);
+            } 
+        });
     }
 
     submit() {
@@ -40,9 +59,9 @@ export class ListingUploadComponent {
         const imageFolderName =
             `${this.listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
 
-        for (let i = 0; i < this.files.length; i++) {
+        for (let i = 0; i < this.imageFiles.length; i++) {
             this.storage.ref(`listing-images/${imageFolderName}/${i}`)
-                .put(this.files[i]).catch(error => console.log(error));
+                .put(this.imageFiles[i]).catch(error => console.log(error));
         }
 
         this.listing.imageFolderPath = `listing-images/${imageFolderName}`;

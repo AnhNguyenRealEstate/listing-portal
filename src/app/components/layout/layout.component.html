@@ -34,6 +34,10 @@
             <mat-icon>upload</mat-icon>
             <span class="ps-3">Upload</span>
         </a>
+        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">
+            <mat-icon>edit</mat-icon>
+            <span class="ps-3">Edit Listings</span>
+        </a>
         <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-generator']">
             <mat-icon>settings</mat-icon>
             <span class="ps-3">Generate</span>

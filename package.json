@@ -10,7 +10,8 @@
     "e2e": "ng e2e",
     "build-prod": "ng build --prod --aot --outputHashing=all",
     "deploy": "npm run build-prod && ng deploy --repo='https://github.com/nguyentrungtu/nguyentrungtu.github.io'",
-    "build-docker": "docker build -t listing-portal:latest \".\" "
+    "build-docker": "docker build -t listing-portal:latest \".\" ",
+    "start-docker": "docker run -dp 3000:80 --name listing-portal -t listing-portal:latest"
   },
   "private": true,
   "dependencies": {
