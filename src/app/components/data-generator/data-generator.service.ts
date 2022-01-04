@@ -84,8 +84,6 @@ export class DataGeneratorService {
             return;
         }
 
-        debugger;
-
         const docs = dbResponse.docs;
         for (let i = 0; i < docs.length; i++) {
             await this.storage.ref((docs[i].data() as Listing).imageFolderPath!).delete().toPromise();

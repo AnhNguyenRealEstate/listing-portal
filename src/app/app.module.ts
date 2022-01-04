@@ -33,6 +33,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SearchBarDialogComponent } from './components/listing-search/search-bar/search-bar-dialog.component';
 import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
@@ -41,7 +42,7 @@ import { ListingUploadComponent } from './components/listing-upload/listing-uplo
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { PERSISTENCE } from '@angular/fire/auth';
-import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; 
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
 import { ListingDetailsService } from './components/listing-search/listing-details/listing-details.service';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
@@ -105,6 +106,7 @@ const firebaseConfig = {
     MatDialogModule,
     MatChipsModule,
     MatBadgeModule,
+    MatSnackBarModule,
     NgxPageScrollCoreModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,

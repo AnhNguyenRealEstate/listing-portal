@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { Listing, Locations, PropertyTypes } from '../listing-search/listing-search.data';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-listing-upload',
@@ -19,6 +20,7 @@ export class ListingUploadComponent {
     constructor(
         private firestore: AngularFirestore,
         private storage: AngularFireStorage,
+        private snackbar: MatSnackBar
     ) { }
 
     onPurposeSelect(event: any) {
@@ -47,14 +49,14 @@ export class ListingUploadComponent {
 
     removeImage(imgSrc: string) {
         this.imageSrcs.forEach((src, index) => {
-            if (src === imgSrc){
+            if (src === imgSrc) {
                 this.imageSrcs.splice(index, 1);
                 this.imageFiles.splice(index, 1);
-            } 
+            }
         });
     }
 
-    submit() {
+    async submit() {
         const date = new Date();
         const imageFolderName =
             `${this.listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
@@ -65,7 +67,10 @@ export class ListingUploadComponent {
         }
 
         this.listing.imageFolderPath = `listing-images/${imageFolderName}`;
-        this.firestore.collection('listings').add(this.listing).catch(error => console.log(error));
+        await this.firestore.collection('listings').add(this.listing).catch(error => console.log(error));
         this.listing = {} as Listing;
+        this.snackbar.open("Listing published 🎉", "Dismiss", {
+            duration: 3000
+        });
     }
 }

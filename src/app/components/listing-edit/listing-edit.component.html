@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col-6" style="height: 80vh; overflow-y: scroll">
-                <mat-card class="mb-2" *ngFor="let listing of listings" (click)="showSelected(listing)">
+                <mat-card class="mb-2" *ngFor="let listing of listings; let i = index" (click)="showSelected(listing, i)">
                     <mat-card-content>
                         <div class="row">
                             <div class="col-6">
@@ -122,12 +122,10 @@
                             <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary"
                                 (click)="imageInput.click()">
                                 <mat-icon>image</mat-icon>
-                                <span>Select Images</span>
                             </button>
                             <span class="ps-2 pe-2"></span>
                             <button mat-fab color="accent" (click)="submit()">
                                 <mat-icon>publish</mat-icon>
-                                <span>Publish</span>
                             </button>
                         </div>
                     </div>

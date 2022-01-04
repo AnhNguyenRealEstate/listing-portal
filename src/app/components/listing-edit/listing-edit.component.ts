@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Listing, Locations, PropertyTypes } from '../listing-search/listing-search.data';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-listing-edit',
@@ -12,8 +13,12 @@ import { ListingUploadComponent } from '../listing-upload/listing-upload.compone
 
 export class ListingEditComponent implements OnInit {
     listings: Listing[] = [];
+    dbReferences: string[] = [];
+
     files: File[] = [];
     listingToShow: Listing | undefined = undefined;
+    currentReferenceId: string = "";
+
     subs = new Subscription();
 
     propertyTypes = PropertyTypes;
@@ -21,15 +26,18 @@ export class ListingEditComponent implements OnInit {
 
     constructor(
         private firestore: AngularFirestore,
-        private dialog: MatDialog) { }
+        private dialog: MatDialog,
+        private snackbar: MatSnackBar) { }
 
     ngOnInit() {
         this.subs.add(this.firestore.collection('listings').snapshotChanges().subscribe(data => {
-            const newListings = [];
+            const listings = [];
             for (let i = 0; i < data.length; i++) {
-                newListings.push(data[i].payload.doc.data() as Listing);
+                const doc = data[i].payload.doc;
+                listings.push(doc.data() as Listing);
+                this.dbReferences.push(doc.id);
             }
-            this.listings = newListings;
+            this.listings = listings;
         }));
     }
 
@@ -37,12 +45,12 @@ export class ListingEditComponent implements OnInit {
         this.subs.unsubscribe();
     }
 
-    showSelected(listing: Listing) {
+    showSelected(listing: Listing, index: number) {
         this.listingToShow = listing;
+        this.currentReferenceId = this.dbReferences[index];
     }
 
     openAddModal() {
-        // TODO: add new listing to firebase
         const config = {
             height: '100%',
             width: '100%'
@@ -65,7 +73,14 @@ export class ListingEditComponent implements OnInit {
         }
     }
 
-    submit() {
-        //TODO: create submit functionality
+    async submit() {
+        if (!this.listingToShow) {
+            return;
+        }
+
+        await this.firestore.collection("listings").doc(this.currentReferenceId).update(this.listingToShow!);
+        this.snackbar.open("Changes saved ✅", "Dismiss", {
+            duration: 3000
+        })
     }
 }
