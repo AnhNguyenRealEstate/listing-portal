@@ -6,15 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { HomeComponent } from './components/home/home.component';
-import { ListingSearchService } from './components/listing-search/listing-search.service';
 import { SearchBarComponent } from './components/listing-search/search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
-import { ListingLocationService } from './components/listing-search/listing-location/listing-location.service';
-import { LoadingSpinnerService } from './components/load-spinner/loading-spinner.service';
 import { LoadingInterceptorService } from './shared/loading-interceptor.service';
 import { LoadingSpinnerComponent } from './components/load-spinner/loading-spinner.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
@@ -34,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SearchBarDialogComponent } from './components/listing-search/search-bar/search-bar-dialog.component';
 import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
@@ -44,9 +42,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { PERSISTENCE } from '@angular/fire/auth';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
-import { ListingDetailsService } from './components/listing-search/listing-details/listing-details.service';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
-import { DataGeneratorService } from './components/data-generator/data-generator.service';
 import { DataGeneratorComponent } from './components/data-generator/data-generator.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
@@ -107,6 +103,7 @@ const firebaseConfig = {
     MatChipsModule,
     MatBadgeModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
     NgxPageScrollCoreModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
@@ -114,13 +111,8 @@ const firebaseConfig = {
     NgImageSliderModule
   ],
   providers: [
-    ListingSearchService,
-    ListingLocationService,
-    LoadingSpinnerService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
-    { provide: PERSISTENCE, useValue: 'session' },
-    ListingDetailsService,
-    DataGeneratorService
+    { provide: PERSISTENCE, useValue: 'session' }
   ],
   bootstrap: [AppComponent]
 })

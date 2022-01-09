@@ -1,16 +1,15 @@
 <section class="container-flex">
     <div class="ps-3 pe-3" style="height: 90vh">
-        <div class="row mt-1 mb-1">
-            <div class="col-6 d-flex justify-content-center">
-                <button mat-button color="accent" (click)="openAddModal()">
-                    <mat-icon class="pe-1">add</mat-icon>
-                    <span class="ps-3">New Listing</span>
-                </button>
-            </div>
-        </div>
         <div class="row">
             <div class="col-6" style="height: 80vh; overflow-y: scroll">
-                <mat-card class="mb-2" *ngFor="let listing of listings; let i = index" (click)="showSelected(listing, i)">
+                <div class="row d-flex justify-content-center">
+                    <button mat-button color="accent" (click)="openUploadModal()" style="height: 6rem; width: 100%">
+                        <mat-icon class="pe-1">add</mat-icon>
+                        <span class="ps-3">New Listing</span>
+                    </button>
+                </div>
+                <mat-card class="mb-2" *ngFor="let listing of listings; let i = index"
+                    (click)="showSelected(listing, i)">
                     <mat-card-content>
                         <div class="row">
                             <div class="col-6">
@@ -39,96 +38,27 @@
                             </div>
                         </div>
                     </mat-card-content>
+                    <mat-card-footer class="d-flex justify-content-end">
+                        <button mat-raised-button>
+                            <mat-icon>archive</mat-icon>
+                        </button>
+                        <button mat-raised-button (click)="deleteListing(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-footer>
                 </mat-card>
             </div>
-            <div class="col-6">
+            <div class="col-6" *ngIf="listings?.length">
                 <div *ngIf="listingToShow === undefined">
-                    Select a listing
+                    <span class="ps-4" style="color: #dadce0;
+                    font: 50px/1.25 Google Sans, Helvetica Neue, sans-serif;
+                    margin-bottom: 24px;
+                    margin-top: 24px;">Select a listing</span>
                 </div>
-                <div *ngIf="listingToShow !== undefined">
-                    <div class="row">
-                        <div class="col-3">
-                            <mat-form-field class="form-group" color="accent">
-                                <mat-label>Property Type</mat-label>
-                                <mat-select id="propertyType" [(ngModel)]="listingToShow.propertyType" required>
-                                    <mat-option value=''>Any</mat-option>
-                                    <mat-option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">
-                                        {{type.value}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-3">
-                            <mat-form-field color="accent">
-                                <mat-label>Location</mat-label>
-                                <mat-select id="locations" [(ngModel)]="listingToShow.location" required>
-                                    <mat-option value=''>Any</mat-option>
-                                    <mat-option *ngFor="let type of locations | keyvalue" value="{{type.key}}">
-                                        {{type.value}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-3">
-                            <mat-form-field color="accent">
-                                <mat-label>Property Sizes (m<sup>2</sup>)</mat-label>
-                                <input matInput type="number" [(ngModel)]="listingToShow.propertySize" class="d-inline"
-                                    id="propertySize" placeholder="Size..." required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-3">
-                            <mat-form-field color="accent">
-                                <mat-label>Bedrooms</mat-label>
-                                <input matInput id="bedrooms" type="number" [(ngModel)]="listingToShow.bedrooms"
-                                    class="d-inline" placeholder="# of bedrooms..." required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-3">
-                            <mat-form-field color="accent">
-                                <mat-label>Bathrooms</mat-label>
-                                <input matInput id="bathrooms" type="number" [(ngModel)]="listingToShow.bathrooms"
-                                    class="d-inline" placeholder="# of bathrooms..." required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-3">
-                            <mat-form-field color="accent">
-                                <mat-label>Price</mat-label>
-                                <input matInput type="number" [(ngModel)]="listingToShow.price" class="d-inline"
-                                    id="price" placeholder="Price..." required>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-3">
-                            <mat-form-field color="accent">
-                                <mat-label>For Rent or For Sale</mat-label>
-                                <mat-select (selectionChange)="onPurposeSelect($event)" required>
-                                    <mat-option value='For Rent'>For Rent</mat-option>
-                                    <mat-option value='For Sale'>For Sale</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <mat-form-field color="accent">
-                                <mat-label>Description</mat-label>
-                                <textarea matInput rows="25" [(ngModel)]="listingToShow.description"></textarea>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col-12 d-flex justify-content-end">
-                            <input #imageInput multiple hidden="true" type="file" accept="image/*"
-                                onclick="this.value=null" (change)="handleImageInput($event)" />
-                            <button mat-fab color="default" [matBadge]="files.length" matBadgeColor="primary"
-                                (click)="imageInput.click()">
-                                <mat-icon>image</mat-icon>
-                            </button>
-                            <span class="ps-2 pe-2"></span>
-                            <button mat-fab color="accent" (click)="submit()">
-                                <mat-icon>publish</mat-icon>
-                            </button>
-                        </div>
-                    </div>
+                <div *ngIf="listingToShow !== undefined" style="height: 80vh; overflow-y: scroll">
+                    <app-listing-upload [listing]="listingToShow" [isEditMode]="true"
+                        [dbReferenceId]="dbReferenceId">
+                    </app-listing-upload>
                 </div>
             </div>
         </div>

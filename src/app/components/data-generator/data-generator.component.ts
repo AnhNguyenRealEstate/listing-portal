@@ -7,7 +7,7 @@ import { DataGeneratorService } from './data-generator.service';
 })
 
 export class DataGeneratorComponent {
-    listingsToGenerate: number = 1;
+    listingsToGenerate: number = 15;
 
     constructor(
         private generator: DataGeneratorService,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Listing } from '../listing-search.data';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ListingDetailsService {
     private listing$$ = new BehaviorSubject<Listing>({});
     private listing$ = this.listing$$.asObservable();

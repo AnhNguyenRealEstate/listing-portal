@@ -1,27 +1,54 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from "@angular/fire/firestore";
-import { AngularFireStorage } from "@angular/fire/storage";
-import { Listing, Locations, PropertyTypes } from '../listing-search/listing-search.data';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Listing } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppDataService } from 'src/app/shared/app-data.service';
+import { Subscription } from 'rxjs';
+import { ListingUploadService } from './listing-upload.service';
+import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
 
 @Component({
     selector: 'app-listing-upload',
     templateUrl: 'listing-upload.component.html'
 })
+export class ListingUploadComponent implements OnInit, OnDestroy {
+    @Input() listing: Listing = {} as Listing;
+    @Input() isEditMode = false;
+    @Input() snackbarMessage: string = '';
+    @Input() dbReferenceId: string = '';
 
-export class ListingUploadComponent {
-    listing: Listing = {} as Listing;
-    propertyTypes = PropertyTypes;
-    locations = Locations;
+    modalTitle: string = '';
+
+    propertyTypes: string[] = [];
+    locations: string[] = [];
 
     imageFiles: File[] = [];
     imageSrcs: string[] = [];
 
+    subs: Subscription = new Subscription();
+
     constructor(
-        private firestore: AngularFirestore,
-        private storage: AngularFireStorage,
-        private snackbar: MatSnackBar
-    ) { }
+        private snackbar: MatSnackBar,
+        private appDataService: AppDataService,
+        private listingUploadService: ListingUploadService,
+        private loadingSpinnerService: LoadingSpinnerService
+    ) {
+    }
+
+    async ngOnInit() {
+        this.subs.add(this.appDataService.propertyTypes().subscribe(data => {
+            this.propertyTypes = data;
+        }));
+
+        this.subs.add(this.appDataService.locations().subscribe(data => {
+            this.locations = data;
+        }));
+
+        this.imageSrcs = await this.listingUploadService.getListingImages(this.listing.imageFolderPath!);
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
+    }
 
     onPurposeSelect(event: any) {
         this.listing.purpose = event.value;
@@ -56,21 +83,29 @@ export class ListingUploadComponent {
         });
     }
 
-    async submit() {
-        const date = new Date();
-        const imageFolderName =
-            `${this.listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
+    /* Uploads a new listing and create a new image storage path for related images */
+    async publishListing() {
+        this.loadingSpinnerService.startLoadingSpinner();
 
-        for (let i = 0; i < this.imageFiles.length; i++) {
-            this.storage.ref(`listing-images/${imageFolderName}/${i}`)
-                .put(this.imageFiles[i]).catch(error => console.log(error));
-        }
+        await this.listingUploadService.publishListing(this.listing, this.imageFiles);
 
-        this.listing.imageFolderPath = `listing-images/${imageFolderName}`;
-        await this.firestore.collection('listings').add(this.listing).catch(error => console.log(error));
         this.listing = {} as Listing;
+        this.imageFiles = [];
+        this.imageSrcs = [];
+
+        this.loadingSpinnerService.stopLoadingSpinner();
+
         this.snackbar.open("Listing published 🎉", "Dismiss", {
             duration: 3000
         });
+    }
+
+    /* Save any editting on the listing and its image storage */
+    async saveEdit() {
+        await this.listingUploadService.saveEdit(this.listing, this.imageFiles, this.dbReferenceId);
+
+        this.snackbar.open("Changes saved ✅", "Dismiss", {
+            duration: 3000
+        })
     }
 }

@@ -1,22 +1,38 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Listing, Locations, PropertyTypes } from '../listing-search/listing-search.data';
 import { SafeUrl } from "@angular/platform-browser";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Subscription } from 'rxjs';
+import { AppDataService } from 'src/app/shared/app-data.service';
 
 @Injectable({ providedIn: 'root' })
-export class DataGeneratorService {
+export class DataGeneratorService implements OnDestroy {
+    propertyTypes: string[] = [];
+    locations: string[] = [];
+    subs: Subscription = new Subscription();
+    
     constructor(
         private httpClient: HttpClient,
         private sanitizer: DomSanitizer,
         private firestore: AngularFirestore,
-        private storage: AngularFireStorage) {
+        private storage: AngularFireStorage,
+        private appDataService : AppDataService) {
+
+            this.subs.add(this.appDataService.propertyTypes().subscribe(data => {
+                this.propertyTypes = data;
+            }));
+            
+            this.subs.add(this.appDataService.locations().subscribe(data => {
+                this.locations = data;
+            }));
     }
 
-    propertyTypes = PropertyTypes;
-    locations = Locations;
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
+    }
     
     generateListings(numberOfEntries: number) {
         const firebaseRef = this.firestore.collection('listings');
@@ -86,7 +102,10 @@ export class DataGeneratorService {
 
         const docs = dbResponse.docs;
         for (let i = 0; i < docs.length; i++) {
-            await this.storage.ref((docs[i].data() as Listing).imageFolderPath!).delete().toPromise();
+            const allImgs = await this.storage.storage.ref((docs[i].data() as Listing).imageFolderPath!).listAll();
+            for(let i = 0; i < allImgs.items.length; i ++){
+                allImgs.items[i].delete();
+            }
             await firestoreRef.doc(docs[i].id).delete();
         }
     }

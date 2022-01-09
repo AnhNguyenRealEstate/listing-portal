@@ -2,27 +2,29 @@
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
-                Upload a New Listing
+                {{modalTitle}}
             </h1>
         </div>
         <div class="col-3">
             <mat-form-field class="form-group" color="accent">
                 <mat-label>Property Type</mat-label>
-                <mat-select id="propertyType" [(ngModel)]="listing.propertyType" required>
-                    <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">{{type.value}}
+                <input id="propertyType" matInput type="text" aria-label="Property Type"
+                    [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType">
+                <mat-autocomplete #propertyTypesAuto="matAutocomplete">
+                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
                     </mat-option>
-                </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
                 <mat-label>Location</mat-label>
-                <mat-select id="locations" [(ngModel)]="listing.location" required>
-                    <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of locations | keyvalue" value="{{type.key}}">{{type.value}}
+                <input id="locations" matInput type="text" aria-label="Location" [matAutocomplete]="locationsAuto"
+                    [(ngModel)]="listing.location">
+                <mat-autocomplete #locationsAuto="matAutocomplete">
+                    <mat-option *ngFor="let location of locations" value="{{location}}">{{location}}
                     </mat-option>
-                </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="col-3">
@@ -56,7 +58,7 @@
         <div class="col-3">
             <mat-form-field color="accent">
                 <mat-label>For Rent or For Sale</mat-label>
-                <mat-select (selectionChange)="onPurposeSelect($event)" required>
+                <mat-select (selectionChange)="onPurposeSelect($event)" [(ngModel)]="listing.purpose" required>
                     <mat-option value='For Rent'>For Rent</mat-option>
                     <mat-option value='For Sale'>For Sale</mat-option>
                 </mat-select>
@@ -66,14 +68,22 @@
     <div class="row">
         <div class="col">
             <mat-form-field color="accent">
-                <mat-label>Description</mat-label>
-                <textarea matInput rows="25" [(ngModel)]="listing.description"></textarea>
+                <mat-label>Address</mat-label>
+                <input matInput id="address" type="text" aria-label="Address" [(ngModel)]="listing.address">
             </mat-form-field>
         </div>
     </div>
-    <div *ngIf="imageSrcs?.length" style="overflow-x: scroll">
-        <div class="d-inline" *ngFor="let imgSrc of imageSrcs">
-            <img [src]="imgSrc" height="200" width="200">
+    <div class="row">
+        <div class="col">
+            <mat-form-field color="accent">
+                <mat-label>Description</mat-label>
+                <textarea matInput style="height: 25vh" [(ngModel)]="listing.description"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="imageSrcs?.length" style="overflow-x: scroll; height: 40vh">
+        <div class="d-inline" *ngFor="let imgSrc of imageSrcs" style="height:15rem; width:15rem">
+            <img [src]="imgSrc" height="200rem" width="200rem">
             <button class="remove-image-btn" (click)="removeImage(imgSrc)" aria-label="Remove image">
                 x
             </button>
@@ -88,8 +98,11 @@
                 <mat-icon>image</mat-icon>
             </button>
             <span class="ps-2 pe-2"></span>
-            <button mat-fab color="accent" (click)="submit()">
+            <button *ngIf="!isEditMode" mat-fab color="accent" (click)="publishListing()">
                 <mat-icon>publish</mat-icon>
+            </button>
+            <button *ngIf="isEditMode" mat-fab color="accent" (click)="saveEdit()">
+                <mat-icon>save</mat-icon>
             </button>
         </div>
     </div>
@@ -99,27 +112,29 @@
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
-                Upload a New Listing
+                {{modalTitle}}
             </h1>
         </div>
         <div class="col-6">
             <mat-form-field class="form-group" color="accent">
                 <mat-label>Property Type</mat-label>
-                <mat-select id="propertyType" [(ngModel)]="listing.propertyType" required>
-                    <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">{{type.value}}
+                <input id="propertyType" matInput type="text" aria-label="Property Type"
+                    [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType">
+                <mat-autocomplete #propertyTypesAuto="matAutocomplete">
+                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
                     </mat-option>
-                </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>Location</mat-label>
-                <mat-select id="locations" [(ngModel)]="listing.location" required>
-                    <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of locations | keyvalue" value="{{type.key}}">{{type.value}}
+                <input id="locations" matInput type="text" aria-label="Location" [matAutocomplete]="locationsAuto"
+                    [(ngModel)]="listing.location">
+                <mat-autocomplete #locationsAuto="matAutocomplete">
+                    <mat-option *ngFor="let location of locations" value="{{location}}">{{location}}
                     </mat-option>
-                </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="col-6">
@@ -153,7 +168,7 @@
         <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>For Rent or For Sale</mat-label>
-                <mat-select (selectionChange)="onPurposeSelect($event)" required>
+                <mat-select [(ngModel)]="listing.purpose" (selectionChange)="onPurposeSelect($event)" required>
                     <mat-option value='For Rent'>For Rent</mat-option>
                     <mat-option value='For Sale'>For Sale</mat-option>
                 </mat-select>
@@ -163,14 +178,22 @@
     <div class="row">
         <div class="col">
             <mat-form-field color="accent">
+                <mat-label>Address</mat-label>
+                <input matInput id="address" type="text" aria-label="Address" [(ngModel)]="listing.address">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-form-field color="accent">
                 <mat-label>Description</mat-label>
-                <textarea matInput rows="25" [(ngModel)]="listing.description"></textarea>
+                <textarea matInput [(ngModel)]="listing.description" style="height: 25vh"></textarea>
             </mat-form-field>
         </div>
     </div>
     <div *ngIf="imageSrcs?.length" style="overflow-x: scroll">
         <div class="d-inline" *ngFor="let imgSrc of imageSrcs">
-            <img [src]="imgSrc" height="200" width="200">
+            <img [src]="imgSrc" height="200rem" width="auto">
             <button class="remove-image-btn" (click)="removeImage(imgSrc)" aria-label="Remove image">
                 x
             </button>
@@ -185,8 +208,11 @@
                 <mat-icon>image</mat-icon>
             </button>
             <span class="ps-2 pe-2"></span>
-            <button mat-fab color="accent" (click)="submit()">
+            <button *ngIf="!isEditMode" mat-fab color="accent" (click)="publishListing()">
                 <mat-icon>publish</mat-icon>
+            </button>
+            <button *ngIf="isEditMode" mat-fab color="accent" (click)="saveEdit()">
+                <mat-icon>save</mat-icon>
             </button>
         </div>
     </div>

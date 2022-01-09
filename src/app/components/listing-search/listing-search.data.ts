@@ -14,7 +14,8 @@ export interface Listing {
     propertySize?: number,
     bedrooms?: number,
     bathrooms?: number,
-    purpose?: 'For Rent' | 'For Sale'
+    purpose?: 'For Rent' | 'For Sale',
+    archived?: boolean
 }
 
 export interface SearchCriteria {

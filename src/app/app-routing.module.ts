@@ -7,7 +7,7 @@ import { ListingEditComponent } from './components/listing-edit/listing-edit.com
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
-import { LoginService } from './components/login/login.service';
+import { RouteGuardService } from './components/login/login.service';
 
 const routes: Routes = [
   {
@@ -28,21 +28,21 @@ const routes: Routes = [
     path: 'listing-upload',
     component: ListingUploadComponent,
     canActivate: [
-      LoginService
+      RouteGuardService
     ]
   },
   {
     path: 'listing-edit',
     component: ListingEditComponent,
     canActivate: [
-      LoginService
+      RouteGuardService
     ]
   },
   {
     path: 'listing-generator',
     component: DataGeneratorComponent,
     canActivate: [
-      LoginService
+      RouteGuardService
     ]
   },
   {

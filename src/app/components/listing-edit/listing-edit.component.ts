@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Listing, Locations, PropertyTypes } from '../listing-search/listing-search.data';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
+import { ListingEditService } from './listing-edit.service';
 
 @Component({
     selector: 'app-listing-edit',
@@ -17,7 +20,7 @@ export class ListingEditComponent implements OnInit {
 
     files: File[] = [];
     listingToShow: Listing | undefined = undefined;
-    currentReferenceId: string = "";
+    dbReferenceId: string = "";
 
     subs = new Subscription();
 
@@ -27,14 +30,17 @@ export class ListingEditComponent implements OnInit {
     constructor(
         private firestore: AngularFirestore,
         private dialog: MatDialog,
-        private snackbar: MatSnackBar) { }
+        private snackbar: MatSnackBar,
+        private listingEditService: ListingEditService,
+        private loadingSpinnerService: LoadingSpinnerService) { }
 
     ngOnInit() {
         this.subs.add(this.firestore.collection('listings').snapshotChanges().subscribe(data => {
             const listings = [];
             for (let i = 0; i < data.length; i++) {
                 const doc = data[i].payload.doc;
-                listings.push(doc.data() as Listing);
+                const listing = doc.data() as Listing;
+                listings.push(listing);
                 this.dbReferences.push(doc.id);
             }
             this.listings = listings;
@@ -47,10 +53,10 @@ export class ListingEditComponent implements OnInit {
 
     showSelected(listing: Listing, index: number) {
         this.listingToShow = listing;
-        this.currentReferenceId = this.dbReferences[index];
+        this.dbReferenceId = this.dbReferences[index];
     }
 
-    openAddModal() {
+    openUploadModal() {
         const config = {
             height: '100%',
             width: '100%'
@@ -58,28 +64,20 @@ export class ListingEditComponent implements OnInit {
         this.dialog.open(ListingUploadComponent, config);
     }
 
-    onPurposeSelect(event: any) {
-        this.listingToShow!.purpose = event.value;
+    /* Change archived property of the listing */
+    async archiveListing() {
+        //TODO
     }
 
-    handleImageInput(event: any) {
-        const files = (event.target.files as FileList);
-        if (files.length === 0) {
-            return;
-        }
+    /* Completely remove the listing from DB */
+    async deleteListing(index: number) {
+        this.loadingSpinnerService.startLoadingSpinner();
 
-        for (let i = 0; i < files.length; i++) {
-            this.files.push((event.target.files as FileList).item(i)!);
-        }
-    }
+        await this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
+        this.listingToShow = undefined;
 
-    async submit() {
-        if (!this.listingToShow) {
-            return;
-        }
-
-        await this.firestore.collection("listings").doc(this.currentReferenceId).update(this.listingToShow!);
-        this.snackbar.open("Changes saved ✅", "Dismiss", {
+        this.loadingSpinnerService.stopLoadingSpinner();
+        this.snackbar.open("Listing deleted 🗑", "Dismiss", {
             duration: 3000
         })
     }
