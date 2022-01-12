@@ -1,8 +1,11 @@
 .remove-image-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 36px;
+    color: white;
+    height: 36px;
+    padding: 6px;
     position: relative;
-    top: -80px;
     right: 30px;
-    border-radius: 50%;
-    border: whitesmoke;
-    background: whitesmoke;
+    bottom: 50px;
+    width: 36px;
 }

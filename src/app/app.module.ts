@@ -47,6 +47,8 @@ import { DataGeneratorComponent } from './components/data-generator/data-generat
 import { NgImageSliderModule } from 'ng-image-slider';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { RTEditorComponent } from './components/rich-text-editor/rich-text-editor.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -77,7 +79,8 @@ const firebaseConfig = {
     ListingEditComponent,
     ListingLocationComponent,
     DataGeneratorComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    RTEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     NgIdleKeepaliveModule.forRoot(),
-    NgImageSliderModule
+    NgImageSliderModule,
+    EditorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
