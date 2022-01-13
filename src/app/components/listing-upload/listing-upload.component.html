@@ -185,12 +185,10 @@
     </div>
     <div class="row">
         <div class="col">
-            <mat-form-field color="accent">
-                <mat-label>Description</mat-label>
-                <div class="mat-form-field-wrapper">
-                    <app-editor [listing]="listing"></app-editor>
-                </div>
-            </mat-form-field>
+            <mat-label>Description</mat-label>
+            <div class="mat-form-field-wrapper">
+                <app-editor [listing]="listing"></app-editor>
+            </div>
         </div>
     </div>
     <div *ngIf="imageSrcs?.length" style="display:block; overflow: auto;">

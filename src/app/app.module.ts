@@ -49,6 +49,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { RTEditorComponent } from './components/rich-text-editor/rich-text-editor.component';
+import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -80,7 +81,8 @@ const firebaseConfig = {
     ListingLocationComponent,
     DataGeneratorComponent,
     ContactUsComponent,
-    RTEditorComponent
+    RTEditorComponent,
+    TimeoutComponent
   ],
   imports: [
     BrowserModule,

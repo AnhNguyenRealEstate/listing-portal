@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
-import { Keepalive } from '@ng-idle/keepalive';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { SessionTimeoutService } from './components/session-timeout/session-timeout.service';
 
 @Component({
   selector: 'app-root',
@@ -16,26 +13,11 @@ import { Keepalive } from '@ng-idle/keepalive';
 export class AppComponent implements OnInit {
   title = 'Anh Nguyen Real Estate';
 
-  idleState = 'Not started.';
-  lastPing?: Date = undefined;
-
-  constructor(private idle: Idle, private keepalive: Keepalive, private router: Router, private auth: AngularFireAuth) {
-
+  constructor(
+    private timeoutService: SessionTimeoutService) {
   }
 
   ngOnInit() {
-    // this.idle.setIdle(5);
-    // this.idle.setTimeout(0);
-    // // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
-    // this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
-    // this.idle.onTimeout.subscribe(() => {
-    //   this.idleState = 'Timed out!';
-    //   this.auth.signOut();
-    //   this.router.navigate(['/']);
-    // });
-    // // sets the ping interval to 15 seconds
-    // this.keepalive.interval(15);
-    // this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
-    // this.idle.watch();
+    this.timeoutService.setTimeout();
   }
 }

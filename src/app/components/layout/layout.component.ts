@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login-dialog.component';
-import { RouteGuardService } from '../login/login.service';
+import { RouteGuardService } from '../../shared/route-guard.service';
 
 @Component({
     selector: 'app-layout',

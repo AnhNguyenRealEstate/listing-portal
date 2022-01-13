@@ -72,7 +72,7 @@ export class ListingEditComponent implements OnInit {
     /* Completely remove the listing from DB */
     async deleteListing(index: number) {
         this.loadingSpinnerService.startLoadingSpinner();
-
+        console.log(`Deleting listing with address ${this.listings[index].address} and image folder ${this.listings[index].imageFolderPath}`);
         await this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
         this.listingToShow = undefined;
 
