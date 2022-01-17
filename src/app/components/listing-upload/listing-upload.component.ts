@@ -8,7 +8,8 @@ import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
 
 @Component({
     selector: 'app-listing-upload',
-    templateUrl: 'listing-upload.component.html'
+    templateUrl: 'listing-upload.component.html',
+    styleUrls: ['./listing-upload.component.scss']
 })
 export class ListingUploadComponent implements OnInit, OnDestroy {
     @Input() listing: Listing = {} as Listing;
@@ -25,6 +26,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     imageSrcs: string[] = [];
 
     subs: Subscription = new Subscription();
+    showSpinner: boolean = false;
 
     constructor(
         private snackbar: MatSnackBar,

@@ -8,6 +8,7 @@
 @import "app/styles/layout";
 @import "app/styles/load-spinner";
 @import "app/styles/buttons";
+@import "app/styles/text.scss";
 
 .background-mobile {
     background-image: url("assets/images/background_mobile.jpg");
@@ -20,10 +21,6 @@
 .backdrop {
     backdrop-filter: blur(5px);
     height: 30vh;
-}
-
-.black {
-    color: black;
 }
 
 .page-title {

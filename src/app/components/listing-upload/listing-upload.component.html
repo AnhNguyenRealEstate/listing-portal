@@ -1,17 +1,23 @@
-<section #desktopUploadView class="container pt-2 d-none d-lg-block">
+<div *ngIf="!imageSrcs.length" class="d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
+</div>
+<section #desktopUploadView class="container pt-2 d-none d-lg-block" *ngIf="imageSrcs.length">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
                 {{modalTitle}}
             </h1>
         </div>
+    </div>
+    <div class="row">
         <div class="col-3">
             <mat-form-field class="form-group" color="accent">
                 <mat-label>Property Type</mat-label>
                 <input id="propertyType" matInput type="text" aria-label="Property Type"
                     [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType">
                 <mat-autocomplete #propertyTypesAuto="matAutocomplete">
-                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
+                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">
+                        {{type}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
@@ -81,9 +87,9 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="imageSrcs?.length" style="display:block; overflow: auto;">
-        <div class="d-inline" *ngFor="let imgSrc of imageSrcs" style="height: 200px; width: 200px">
-            <img [src]="imgSrc" height="200px" width="200px" style="object-fit: contain">
+    <div class="row image-container" *ngIf="imageSrcs?.length">
+        <div class="d-inline listing-image-group" *ngFor="let imgSrc of imageSrcs">
+            <img [src]="imgSrc" class="listing-image">
             <button class="remove-image-btn" (click)="removeImage(imgSrc)" aria-label="Remove image">
                 x
             </button>
@@ -108,7 +114,7 @@
     </div>
 </section>
 
-<section #mobileUploadView class="container pt-2 py-2 d-lg-none">
+<section #mobileUploadView class="container pt-2 py-2 d-lg-none" *ngIf="imageSrcs.length">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
@@ -191,9 +197,9 @@
             </div>
         </div>
     </div>
-    <div *ngIf="imageSrcs?.length" style="display:block; overflow: auto;">
-        <div class="d-inline" *ngFor="let imgSrc of imageSrcs">
-            <img [src]="imgSrc" height="200px" width="200px" style="object-fit: contain">
+    <div class="row image-container" *ngIf="imageSrcs?.length">
+        <div class="d-inline listing-image-group" *ngFor="let imgSrc of imageSrcs">
+            <img [src]="imgSrc" class="listing-image">
             <button class="remove-image-btn" (click)="removeImage(imgSrc)" aria-label="Remove image">
                 x
             </button>
