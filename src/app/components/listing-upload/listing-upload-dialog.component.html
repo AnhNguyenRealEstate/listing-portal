@@ -1,28 +1,25 @@
-<div *ngIf="isEditMode && !imageSrcs.length" class="d-flex justify-content-center">
+<div *ngIf="isEditMode && !imageSrcs.length" class="d-flex justify-content-center" style="margin-top: 40vh">
     <mat-spinner></mat-spinner>
 </div>
-<section #desktopUploadView class="container pt-2 d-none d-lg-block" *ngIf="!isEditMode || imageSrcs.length">
+<section #mobileUploadView class="container pt-2 py-2 d-lg-none" *ngIf="!isEditMode || imageSrcs.length">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
                 {{modalTitle}}
             </h1>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field class="form-group" color="accent">
                 <mat-label>Property Type</mat-label>
                 <input id="propertyType" matInput type="text" aria-label="Property Type"
                     [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType">
                 <mat-autocomplete #propertyTypesAuto="matAutocomplete">
-                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">
-                        {{type}}
+                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>Location</mat-label>
                 <input id="locations" matInput type="text" aria-label="Location" [matAutocomplete]="locationsAuto"
@@ -33,38 +30,38 @@
                 </mat-autocomplete>
             </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>Property Sizes (m<sup>2</sup>)</mat-label>
                 <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
                     placeholder="Size..." required>
             </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>Bedrooms</mat-label>
                 <input matInput id="bedrooms" type="number" [(ngModel)]="listing.bedrooms" class="d-inline"
                     placeholder="# of bedrooms..." required>
             </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>Bathrooms</mat-label>
                 <input matInput id="bathrooms" type="number" [(ngModel)]="listing.bathrooms" class="d-inline"
                     placeholder="# of bathrooms..." required>
             </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>Price</mat-label>
                 <input matInput type="number" [(ngModel)]="listing.price" class="d-inline" id="price"
                     placeholder="Price..." required>
             </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>For Rent or For Sale</mat-label>
-                <mat-select (selectionChange)="onPurposeSelect($event)" [(ngModel)]="listing.purpose" required>
+                <mat-select [(ngModel)]="listing.purpose" (selectionChange)="onPurposeSelect($event)" required>
                     <mat-option value='For Rent'>For Rent</mat-option>
                     <mat-option value='For Sale'>For Sale</mat-option>
                 </mat-select>
@@ -75,7 +72,7 @@
         <div class="col">
             <mat-form-field color="accent">
                 <mat-label>Address</mat-label>
-                <input matInput id="address" type="text" aria-label="Address" [(ngModel)]="listing.address">
+                <input matInput id="address" type="text" aria-label="Address" [(ngModel)]="listing.address" required>
             </mat-form-field>
         </div>
     </div>

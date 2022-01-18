@@ -50,6 +50,7 @@ import { ListingEditComponent } from './components/listing-edit/listing-edit.com
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { RTEditorComponent } from './components/rich-text-editor/rich-text-editor.component';
 import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
+import { ListingUploadDialogComponent } from './components/listing-upload/listing-upload-dialog.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -82,7 +83,8 @@ const firebaseConfig = {
     DataGeneratorComponent,
     ContactUsComponent,
     RTEditorComponent,
-    TimeoutComponent
+    TimeoutComponent,
+    ListingUploadDialogComponent
   ],
   imports: [
     BrowserModule,

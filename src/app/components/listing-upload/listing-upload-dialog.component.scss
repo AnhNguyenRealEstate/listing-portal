@@ -1,0 +1,27 @@
+.image-container {
+    display: block;
+    overflow: auto;
+}
+
+.listing-image {
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+}
+
+.listing-image-group {
+    height: 200px;
+    width: 200px;
+}
+
+.remove-image-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 36px;
+    color: white;
+    height: 36px;
+    padding: 6px;
+    position: relative;
+    right: 30px;
+    bottom: 50px;
+    width: 36px;
+}

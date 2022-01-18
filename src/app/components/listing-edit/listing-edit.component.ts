@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Listing } from '../listing-search/listing-search.data';
+import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingEditService } from './listing-edit.service';
@@ -34,13 +35,14 @@ export class ListingEditComponent implements OnInit {
     ngOnInit() {
         this.subs.add(this.firestore.collection('listings').snapshotChanges().subscribe(data => {
             const listings = [];
+            this.dbReferences = [];
             for (let i = 0; i < data.length; i++) {
                 const doc = data[i].payload.doc;
                 const listing = doc.data() as Listing;
                 listings.push(listing);
                 this.dbReferences.push(doc.id);
             }
-            this.listings = listings;
+            this.listings = listings; //Updating the listings all at once
         }));
     }
 
@@ -53,25 +55,67 @@ export class ListingEditComponent implements OnInit {
         this.dbReferenceId = this.dbReferences[index];
     }
 
-    openUploadModal() {
+    showSelectedAsDialog(listing: Listing, index: number) {
+        this.listingToShow = listing;
+        this.dbReferenceId = this.dbReferences[index];
         const config = {
-            height: '100%',
+            height: '90%',
+            width: '100%',
+            data: {
+                listing: listing,
+                dbReferenceId: this.dbReferenceId,
+                isEditMode: true
+            }
+        } as MatDialogConfig;
+        this.dialog.open(ListingUploadDialogComponent, config);
+    }
+
+    openUploadModalDesktop() {
+        const config = {
+            height: '90%',
             width: '100%'
         } as MatDialogConfig;
         this.dialog.open(ListingUploadComponent, config);
     }
 
-    /* Change archived property of the listing */
-    async archiveListing() {
-        //TODO
+    openUploadModalMobile() {
+        const config = {
+            height: '90%',
+            width: '100%',
+            data: {
+                listing: {} as Listing,
+                dbReferenceId: '',
+                isEditMode: false
+            }
+        } as MatDialogConfig;
+        this.dialog.open(ListingUploadDialogComponent, config);
+    }
+
+    async archiveListing(event: Event, index: number) {
+        event.stopPropagation();
+
+        this.loadingSpinnerService.startLoadingSpinner();
+        await this.listingEditService.archiveListing(this.dbReferences[index]);
+        this.loadingSpinnerService.stopLoadingSpinner();
+    }
+
+    async unarchiveListing(event: Event, index: number) {
+        event.stopPropagation();
+
+        this.loadingSpinnerService.startLoadingSpinner();
+        await this.listingEditService.unarchiveListing(this.dbReferences[index]);
+        this.loadingSpinnerService.stopLoadingSpinner();
     }
 
     /* Completely remove the listing from DB */
-    async deleteListing(index: number) {
+    async deleteListing(event: Event, index: number) {
+        event.stopPropagation();
+
         this.loadingSpinnerService.startLoadingSpinner();
         //console.log(`Deleting listing with address ${this.listings[index].address} and image folder ${this.listings[index].imageFolderPath}`);
         await this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
         this.listingToShow = undefined;
+        this.dbReferenceId = '';
 
         this.loadingSpinnerService.stopLoadingSpinner();
         this.snackbar.open("Listing deleted 🗑", "Dismiss", {

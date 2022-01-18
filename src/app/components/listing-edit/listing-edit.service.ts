@@ -10,8 +10,8 @@ export class ListingEditService {
         private storage: AngularFireStorage) { }
 
     /* Completely remove the listing from DB */
-    async deleteListing(listingToRemove: Listing, dbRefId: string) {
-        const allImages = await this.storage.storage.ref(listingToRemove.imageFolderPath!).listAll();
+    async deleteListing(listing: Listing, dbRefId: string) {
+        const allImages = await this.storage.storage.ref(listing.imageFolderPath!).listAll();
         allImages.items.forEach(image => {
             image.delete();
         });
@@ -20,7 +20,11 @@ export class ListingEditService {
     }
 
     /* Change archived property of the listing */
-    async archiveListing() {
-        //TODO
+    async archiveListing(dbRefId: string) {
+        await this.firestore.collection("listings").doc(dbRefId).update({ archived: true });
+    }
+
+    async unarchiveListing(dbRefId: string) {
+        await this.firestore.collection("listings").doc(dbRefId).update({ archived: false });
     }
 }

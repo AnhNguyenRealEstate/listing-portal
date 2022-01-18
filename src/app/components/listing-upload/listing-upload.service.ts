@@ -35,6 +35,8 @@ export class ListingUploadService {
                 .catch(error => console.log(error));
         }));
 
+        listing.coverImage = await this.storage.storage.ref(imageFolderPath).child('0').getDownloadURL();
+
         await this.firestore.collection('listings')
             .add(listing)
             .catch(error => console.log(error));
@@ -58,15 +60,18 @@ export class ListingUploadService {
     /* Save any editting on the listing and its image storage */
     async saveEdit(listing: Listing, imageFiles: File[], dbReferenceId: string) {
         const allImages = await this.storage.storage.ref(listing.imageFolderPath!).listAll();
-        allImages.items.forEach(image => {
-            image.delete();
-        });
 
-        for (let i = 0; i < imageFiles.length; i++) {
-            this.storage.ref(`${listing.imageFolderPath}/${i}`)
-                .put(imageFiles[i])
+        await Promise.all(allImages.items.map(async (image) => {
+            await image.delete();
+        }))
+
+        await Promise.all(imageFiles.map(async (file, index) => {
+            await this.storage.ref(`${listing.imageFolderPath}/${index}`)
+                .put(file)
                 .catch(error => console.log(error));
-        }
+        }));
+
+        listing.coverImage = await this.storage.storage.ref(listing.imageFolderPath).child('0').getDownloadURL();
 
         await this.firestore.collection("listings").doc(dbReferenceId).update(listing!);
     }

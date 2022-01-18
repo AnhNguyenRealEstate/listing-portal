@@ -2,7 +2,7 @@
     <div class="ps-3 pe-3" style="height: 90vh">
         <div class="row ">
             <div class="col-6 d-flex justify-content-center">
-                <button mat-button class="add-listing-btn" color="accent" (click)="openUploadModal()">
+                <button mat-button class="add-listing-btn" color="accent" (click)="openUploadModalDesktop()">
                     <mat-icon class="pe-1">add</mat-icon>
                     <span class="ps-3">New Listing</span>
                 </button>
@@ -35,29 +35,35 @@
                                     <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
                                     <span>{{listing.bathrooms}}</span>
                                 </div>
-                                <mat-chip-list class="ps-2" *ngIf="listing.purpose">
-                                    <mat-chip class="listing-tag" selected>
+                                <mat-chip-list class="ps-2">
+                                    <mat-chip class="listing-tag">
                                         <span>{{listing.purpose}}</span>
+                                    </mat-chip>
+                                    <mat-chip class="listing-tag">
+                                        <span>{{listing.archived? 'Archived' : 'Active'}}</span>
                                     </mat-chip>
                                 </mat-chip-list>
                             </div>
                         </div>
                     </mat-card-content>
                     <mat-card-footer class="d-flex justify-content-end">
-                        <button mat-raised-button>
+                        <button mat-raised-button *ngIf="!listing.archived" (click)="archiveListing($event, i)">
                             <mat-icon>archive</mat-icon>
                         </button>
-                        <button mat-raised-button (click)="deleteListing(i)">
+                        <button mat-raised-button *ngIf="listing.archived" (click)="unarchiveListing($event, i)">
+                            <mat-icon>unarchive</mat-icon>
+                        </button>
+                        <button mat-raised-button (click)="deleteListing($event, i)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </mat-card-footer>
                 </mat-card>
             </div>
-            <div class="col-6 listing-edit-result-view" *ngIf="listings?.length">
+            <div class="col-6 listing-edit-detail-view" *ngIf="listings?.length">
                 <div *ngIf="listingToShow === undefined">
                     <span class="ps-4 listing-edit-select-a-listing-text">Select a listing</span>
                 </div>
-                <div *ngIf="listingToShow !== undefined" >
+                <div *ngIf="listingToShow !== undefined">
                     <app-listing-upload [listing]="listingToShow" [isEditMode]="true" [dbReferenceId]="dbReferenceId">
                     </app-listing-upload>
                 </div>
@@ -67,5 +73,66 @@
 </section>
 
 <section #editMobileView class="container-flex pt-2 py-2 d-lg-none">
-
+    <div class="ps-3 pe-3" style="height: 90vh">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <button mat-button class="add-listing-btn" color="accent" (click)="openUploadModalMobile()">
+                    <mat-icon class="pe-1">add</mat-icon>
+                    <span class="ps-3">New Listing</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 container-flex ps-2 pe-2">
+                <mat-card *ngIf="!listings?.length" class="mb-2 d-flex justify-content-center">
+                    <mat-spinner class="d-block"></mat-spinner>
+                </mat-card>
+                <mat-card class="mb-2" *ngFor="let listing of listings; let i = index"
+                    (click)="showSelectedAsDialog(listing, i)">
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-6">
+                                <img *ngIf="listing.coverImage" class="result-preview-img-mobile"
+                                    [src]="listing.coverImage">
+                            </div>
+                            <div class="col-6">
+                                <div class="pb-2 font-large">${{listing.price}}</div>
+                                <div *ngIf="listing.location">
+                                    {{listing.location}}
+                                </div>
+                                <div *ngIf="listing.address">
+                                    {{listing.address}}
+                                </div>
+                                <div *ngIf="listing.bedrooms !== undefined && listing.bathrooms !== undefined">
+                                    <mat-icon color="accent" class="pe-2">bed</mat-icon><span
+                                        class="pe-4">{{listing.bedrooms}}</span>
+                                    <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
+                                    <span>{{listing.bathrooms}}</span>
+                                </div>
+                                <mat-chip-list class="ps-2" *ngIf="listing.purpose">
+                                    <mat-chip class="listing-tag" selected>
+                                        <span>{{listing.purpose}}</span>
+                                    </mat-chip>
+                                    <mat-chip class="listing-tag">
+                                        <span>{{listing.archived? 'Archived' : 'Active'}}</span>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-footer class="d-flex justify-content-end">
+                        <button mat-raised-button *ngIf="!listing.archived" (click)="archiveListing($event, i)">
+                            <mat-icon>archive</mat-icon>
+                        </button>
+                        <button mat-raised-button *ngIf="listing.archived" (click)="unarchiveListing($event, i)">
+                            <mat-icon>unarchive</mat-icon>
+                        </button>
+                        <button mat-raised-button (click)="deleteListing($event, i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+        </div>
+    </div>
 </section>
