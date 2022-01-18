@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AppDataService } from 'src/app/shared/app-data.service';
 import { Listing } from '../listing-search/listing-search.data';
+import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
 
 @Injectable({ providedIn: 'root' })
 export class ListingUploadService {
@@ -11,8 +12,9 @@ export class ListingUploadService {
 
     constructor(private firestore: AngularFirestore,
         private storage: AngularFireStorage,
-        private appDataService: AppDataService) {
-
+        private appDataService: AppDataService,
+        private imageCompress: NgxImageCompressService
+    ) {
         this.appDataService.propertyTypes().subscribe(data => {
             this.propertyTypes = data;
         });
@@ -29,13 +31,7 @@ export class ListingUploadService {
         const imageFolderPath = `listing-images/${imageFolderName}`;
         listing.imageFolderPath = imageFolderPath;
 
-        await Promise.all(imageFiles.map(async (file, index) => {
-            await this.storage.ref(`${imageFolderPath}/${index}`)
-                .put(file)
-                .catch(error => console.log(error));
-        }));
-
-        listing.coverImage = await this.storage.storage.ref(imageFolderPath).child('0').getDownloadURL();
+        await this.storeListingImages(imageFiles, imageFolderPath);
 
         await this.firestore.collection('listings')
             .add(listing)
@@ -59,19 +55,14 @@ export class ListingUploadService {
 
     /* Save any editting on the listing and its image storage */
     async saveEdit(listing: Listing, imageFiles: File[], dbReferenceId: string) {
-        const allImages = await this.storage.storage.ref(listing.imageFolderPath!).listAll();
+        const imageFolderPath = listing.imageFolderPath!;
+        const allImages = await this.storage.storage.ref(imageFolderPath).listAll();
 
         await Promise.all(allImages.items.map(async (image) => {
             await image.delete();
         }))
 
-        await Promise.all(imageFiles.map(async (file, index) => {
-            await this.storage.ref(`${listing.imageFolderPath}/${index}`)
-                .put(file)
-                .catch(error => console.log(error));
-        }));
-
-        listing.coverImage = await this.storage.storage.ref(listing.imageFolderPath).child('0').getDownloadURL();
+        await this.storeListingImages(imageFiles, imageFolderPath);
 
         await this.firestore.collection("listings").doc(dbReferenceId).update(listing!);
     }
@@ -84,5 +75,27 @@ export class ListingUploadService {
             result.push(url);
         }
         return result;
+    }
+
+    async dataUrlToFile(dataUrl: string, fileName: string): Promise<File> {
+        const res: Response = await fetch(dataUrl);
+        const blob: Blob = await res.blob();
+        return new File([blob], fileName, { type: 'image/png' });
+    }
+
+    async storeListingImages(imageFiles: File[], imageFolderPath: string) {
+        await Promise.all(imageFiles.map(async (file, index) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async () => {
+                if (reader.result) {
+                    const compressedImgAsBase64 = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up);
+                    const compressedImg = await this.dataUrlToFile(compressedImgAsBase64, file.name);
+                    await this.storage.ref(`${imageFolderPath}/${index}`)
+                        .put(compressedImg)
+                        .catch(error => console.log(error));
+                }
+            }
+        }));
     }
 }

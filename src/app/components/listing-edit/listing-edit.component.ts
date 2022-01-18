@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -27,21 +28,25 @@ export class ListingEditComponent implements OnInit {
 
     constructor(
         private firestore: AngularFirestore,
+        private storage: AngularFireStorage,
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
         private listingEditService: ListingEditService,
         private loadingSpinnerService: LoadingSpinnerService) { }
 
     ngOnInit() {
-        this.subs.add(this.firestore.collection('listings').snapshotChanges().subscribe(data => {
-            const listings = [];
+        this.subs.add(this.firestore.collection('listings').snapshotChanges().subscribe(async data => {
+            const listings: Listing[] = [];
             this.dbReferences = [];
+
             for (let i = 0; i < data.length; i++) {
                 const doc = data[i].payload.doc;
                 const listing = doc.data() as Listing;
+                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0`).getDownloadURL();
                 listings.push(listing);
                 this.dbReferences.push(doc.id);
             }
+
             this.listings = listings; //Updating the listings all at once
         }));
     }

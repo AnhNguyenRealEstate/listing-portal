@@ -51,6 +51,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { RTEditorComponent } from './components/rich-text-editor/rich-text-editor.component';
 import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
 import { ListingUploadDialogComponent } from './components/listing-upload/listing-upload-dialog.component';
+import { NgxImageCompressService } from "ngx-image-compress";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
@@ -120,7 +121,8 @@ const firebaseConfig = {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
-    { provide: PERSISTENCE, useValue: 'session' }
+    { provide: PERSISTENCE, useValue: 'session' },
+    NgxImageCompressService
   ],
   bootstrap: [AppComponent]
 })
