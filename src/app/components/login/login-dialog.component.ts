@@ -10,6 +10,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class LoginComponent {
     userName: string = '';
     password: string = '';
+    hide: boolean = true;
 
     constructor(
         public dialogRef: MatDialogRef<LoginComponent>,

@@ -11,6 +11,7 @@ export interface Listing {
     location?: string,
     address?: string,
     price?: number,
+    currency?: 'USD' | 'VND'
     propertySize?: number,
     bedrooms?: number,
     bathrooms?: number,

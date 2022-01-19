@@ -53,19 +53,24 @@
         </div>
         <div class="col-6">
             <mat-form-field color="accent">
-                <mat-label>Price</mat-label>
-                <input matInput type="number" [(ngModel)]="listing.price" class="d-inline" id="price"
-                    placeholder="Price..." required>
-            </mat-form-field>
-        </div>
-        <div class="col-6">
-            <mat-form-field color="accent">
                 <mat-label>For Rent or For Sale</mat-label>
                 <mat-select [(ngModel)]="listing.purpose" (selectionChange)="onPurposeSelect($event)" required>
                     <mat-option value='For Rent'>For Rent</mat-option>
                     <mat-option value='For Sale'>For Sale</mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="col-12">
+            <div class="price-input-group">
+                <mat-form-field color="accent">
+                    <mat-label>Price</mat-label>
+                    <input matInput type="text" [(ngModel)]="listing.price" id="price" placeholder="0" required>
+                    <mat-select [(ngModel)]="listing.currency" required>
+                        <mat-option value='USD'>US$</mat-option>
+                        <mat-option value='VND'>đ</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
     </div>
     <div class="row">

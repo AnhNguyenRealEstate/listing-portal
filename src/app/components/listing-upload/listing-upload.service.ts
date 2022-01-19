@@ -70,10 +70,12 @@ export class ListingUploadService {
     async getListingImages(storagePath: string): Promise<string[]> {
         const allImages = await this.storage.storage.ref(storagePath).listAll();
         const result: string[] = [];
-        for (let i = 0; i < allImages.items.length; i++) {
-            const url = await allImages.items[i].getDownloadURL();
+
+        await Promise.all(allImages.items.map(async (image) => {
+            const url = await image.getDownloadURL();
             result.push(url);
-        }
+        }));
+
         return result;
     }
 

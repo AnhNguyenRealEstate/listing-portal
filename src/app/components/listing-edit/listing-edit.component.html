@@ -22,7 +22,7 @@
                                     [src]="listing.coverImage">
                             </div>
                             <div class="col-6">
-                                <div class="pb-2 font-large">${{listing.price}}</div>
+                                <div class="pb-2 font-large">{{listing.currency}} {{listing.price}}</div>
                                 <div *ngIf="listing.location">
                                     {{listing.location}}
                                 </div>
@@ -43,20 +43,23 @@
                                         <span>{{listing.archived? 'Archived' : 'Active'}}</span>
                                     </mat-chip>
                                 </mat-chip-list>
+                                <div class="d-flex justify-content-end" style="position: absolute; top: 0; right: 0;">
+                                    <button mat-raised-button *ngIf="!listing.archived"
+                                        (click)="archiveListing($event, i)">
+                                        <mat-icon color="accent">archive</mat-icon>
+                                    </button>
+                                    <button mat-raised-button *ngIf="listing.archived"
+                                        (click)="unarchiveListing($event, i)">
+                                        <mat-icon color="accent">unarchive</mat-icon>
+                                    </button>
+                                    <span class="ps-2"></span>
+                                    <button mat-raised-button (click)="deleteListing($event, i)">
+                                        <mat-icon color="accent">delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </mat-card-content>
-                    <mat-card-footer class="d-flex justify-content-end">
-                        <button mat-raised-button *ngIf="!listing.archived" (click)="archiveListing($event, i)">
-                            <mat-icon>archive</mat-icon>
-                        </button>
-                        <button mat-raised-button *ngIf="listing.archived" (click)="unarchiveListing($event, i)">
-                            <mat-icon>unarchive</mat-icon>
-                        </button>
-                        <button mat-raised-button (click)="deleteListing($event, i)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-card-footer>
                 </mat-card>
             </div>
             <div class="col-6 listing-edit-detail-view" *ngIf="listings?.length">
@@ -94,9 +97,23 @@
                             <div class="col-6">
                                 <img *ngIf="listing.coverImage" class="result-preview-img-mobile"
                                     [src]="listing.coverImage">
+                                <div class="d-flex justify-content-center">
+                                    <button mat-icon-button color="default" *ngIf="!listing.archived"
+                                        (click)="archiveListing($event, i)">
+                                        <mat-icon color="accent">archive</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="default" *ngIf="listing.archived"
+                                        (click)="unarchiveListing($event, i)">
+                                        <mat-icon color="accent">unarchive</mat-icon>
+                                    </button>
+                                    <span class="ps-2 pe-2"></span>
+                                    <button mat-icon-button color="default" (click)="deleteListing($event, i)">
+                                        <mat-icon color="accent">delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="col-6">
-                                <div class="pb-2 font-large">${{listing.price}}</div>
+                                <div class="pb-2 font-large">{{listing.currency}} {{listing.price}}</div>
                                 <div *ngIf="listing.location">
                                     {{listing.location}}
                                 </div>
@@ -120,17 +137,6 @@
                             </div>
                         </div>
                     </mat-card-content>
-                    <mat-card-footer class="d-flex justify-content-end">
-                        <button mat-raised-button *ngIf="!listing.archived" (click)="archiveListing($event, i)">
-                            <mat-icon>archive</mat-icon>
-                        </button>
-                        <button mat-raised-button *ngIf="listing.archived" (click)="unarchiveListing($event, i)">
-                            <mat-icon>unarchive</mat-icon>
-                        </button>
-                        <button mat-raised-button (click)="deleteListing($event, i)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-card-footer>
                 </mat-card>
             </div>
         </div>
