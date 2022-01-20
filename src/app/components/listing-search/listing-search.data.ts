@@ -29,22 +29,6 @@ export interface SearchCriteria {
     bathrooms: string
 }
 
-/* The database stores the keys of PropertTypes */
-export const PropertyTypes: { [key: string]: string } = {
-    apartment: 'Apartment',
-    villa: 'Villa',
-    townhouse: 'Townhouse',
-    office: 'Office'
-}
-
-/* The database stores the keys of Locations */
-export const Locations: { [key: string]: string } = {
-    riverparkPremier: 'Riverpark Premier',
-    midtownSakura: 'Midtown Sakura',
-    leJardin: 'Le Jardin',
-    namPhuc: 'Nam Phuc'
-}
-
 /* The following const is used for searching purposes ONLY */
 export const PropertySizes: { [key: string]: string } = {
     _050to100: '50 to 100',

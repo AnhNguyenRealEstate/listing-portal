@@ -2,7 +2,6 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { DataGeneratorService } from '../../data-generator/data-generator.service';
 import { ListingDetailsDialogComponent } from '../listing-details/listing-details-dialog.component';
 import { ListingDetailsService } from '../listing-details/listing-details.service';
 import { ListingLocationService } from '../listing-location/listing-location.service';
@@ -22,16 +21,11 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     constructor(private listingSearchService: ListingSearchService,
         private listingLocationService: ListingLocationService,
         private listingDetailsService: ListingDetailsService,
-        private generator: DataGeneratorService,
         private dialog: MatDialog) { }
 
     ngOnInit() {
         this.subscription.add(this.listingSearchService.searchResults().subscribe(results => {
             this.searchResults = results;
-            //TODO: comment this out after finishing up
-            for (let i = 0; i < this.searchResults.length; i++) {
-                this.generator.generateImageSrcs(this.searchResults[i], 2);
-            }
         }));
     }
 

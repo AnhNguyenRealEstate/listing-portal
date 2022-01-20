@@ -5,7 +5,7 @@
                 <mat-label>Property Type</mat-label>
                 <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
                     <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of propertyTypes | keyvalue" value="{{type.key}}">{{type.value}}
+                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -15,7 +15,7 @@
                 <mat-label>Location</mat-label>
                 <mat-select id="locations" [(ngModel)]="searchCriteria.location">
                     <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of locations | keyvalue" value="{{type.key}}">{{type.value}}
+                    <mat-option *ngFor="let loc of locations " value="{{loc}}">{{loc}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -85,11 +85,11 @@
             <div class="row ps-3">
                 <div class="col-6">
                     <mat-icon color="accent">apartment</mat-icon>
-                    <span class="ps-3">{{ propertyTypes[searchCriteria.propertyType] || 'Any'}}</span>
+                    <span class="ps-3">{{ searchCriteria.propertyType || 'Any'}}</span>
                 </div>
                 <div class="col-6">
                     <mat-icon color="accent">location_on</mat-icon>
-                    <span class="ps-3">{{ locations[searchCriteria.location] || 'Any'}}</span>
+                    <span class="ps-3">{{ searchCriteria.location || 'Any'}}</span>
                 </div>
             </div>
             <div class="row ps-3">

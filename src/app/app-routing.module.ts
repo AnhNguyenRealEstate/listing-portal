@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { DataGeneratorComponent } from './components/data-generator/data-generator.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
@@ -34,13 +33,6 @@ const routes: Routes = [
   {
     path: 'listing-edit',
     component: ListingEditComponent,
-    canActivate: [
-      RouteGuardService
-    ]
-  },
-  {
-    path: 'listing-generator',
-    component: DataGeneratorComponent,
     canActivate: [
       RouteGuardService
     ]

@@ -43,7 +43,6 @@ import { PERSISTENCE } from '@angular/fire/auth';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
-import { DataGeneratorComponent } from './components/data-generator/data-generator.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
@@ -81,7 +80,6 @@ const firebaseConfig = {
     ListingUploadComponent,
     ListingEditComponent,
     ListingLocationComponent,
-    DataGeneratorComponent,
     ContactUsComponent,
     RTEditorComponent,
     TimeoutComponent,

@@ -1,7 +1,9 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { SearchCriteria, PropertyTypes, Locations, PropertySizes } from '../listing-search.data';
+import { Subscription } from 'rxjs';
+import { AppDataService } from 'src/app/shared/app-data.service';
+import { SearchCriteria, PropertySizes } from '../listing-search.data';
 import { ListingSearchService } from '../listing-search.service';
 import { SearchBarDialogComponent } from './search-bar-dialog.component';
 
@@ -24,17 +26,32 @@ export class SearchBarComponent implements OnInit {
         bathrooms: ''
     } as SearchCriteria;
 
-    propertyTypes = PropertyTypes;
-    locations = Locations;
+    propertyTypes: string[] = [];
+    locations: string[] = [];
+    
     propertySizes = PropertySizes;
+
+    subs: Subscription = new Subscription();
 
     numberOfResults: number = 0;
 
-    constructor(private dialog: MatDialog, private listingSearchService: ListingSearchService) {
+    constructor(
+        private dialog: MatDialog,
+        private listingSearchService: ListingSearchService,
+        private appDataService: AppDataService
+    ) {
     }
 
     ngOnInit() {
-       this.getListings();
+        this.subs.add(this.appDataService.propertyTypes().subscribe(data => {
+            this.propertyTypes = data;
+        }));
+
+        this.subs.add(this.appDataService.locations().subscribe(data => {
+            this.locations = data;
+        }));
+
+        this.getListings();
     }
 
     async getListings(criteria: SearchCriteria = this.searchCriteria) {
@@ -54,7 +71,7 @@ export class SearchBarComponent implements OnInit {
         const dialogRef = this.dialog.open(SearchBarDialogComponent, config);
 
         dialogRef.afterClosed().subscribe(result => {
-            if(result?.isSearchBtnClick){
+            if (result?.isSearchBtnClick) {
                 this.searchCriteria = result.criteria;
                 this.getListings(result.criteria);
             }
