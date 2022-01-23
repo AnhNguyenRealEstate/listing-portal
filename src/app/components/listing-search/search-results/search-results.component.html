@@ -11,7 +11,7 @@
         <div *ngFor="let result of searchResults" class="col-6">
             <mat-card class="mt-1 mb-3" (click)="viewListingDetails(result)">
                 <mat-card-title>
-                    <span class="font-medium">{{result.title}}</span>
+                    <span class="font-medium">{{result.location}} - {{result.currency === 'USD'? '$' : 'đ'}}{{result.price}}</span> 
                     <hr>
                 </mat-card-title>
                 <mat-card-content>
@@ -21,13 +21,10 @@
                         </div>
                         <div class="col-8">
                             <div *ngIf="result.propertyType">
-                                <label>Type:</label> {{result.propertyType}}
+                                {{result.propertyType}}
                             </div>
                             <div *ngIf="result.address">
-                                <label>Address:</label> {{result.address}}
-                            </div>
-                            <div *ngIf="result.price">
-                                <label>Price:</label> ${{result.price}}
+                                {{result.address}}
                             </div>
                             <mat-chip-list *ngIf="result.purpose">
                                 <mat-chip selected color="accent" (click)="viewListingDetails(result)">
@@ -69,8 +66,10 @@
                                 {{result.address}}
                             </div>
                             <div *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
-                                <mat-icon color="accent" class="pe-2">bed</mat-icon><span class="pe-4">{{result.bedrooms}}</span>
-                                <mat-icon color="accent"  class="pe-2">bathtub</mat-icon> <span>{{result.bathrooms}}</span>
+                                <mat-icon color="accent" class="pe-2">bed</mat-icon><span
+                                    class="pe-4">{{result.bedrooms}}</span>
+                                <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
+                                <span>{{result.bathrooms}}</span>
                             </div>
                             <mat-chip-list class="ps-2" *ngIf="result.purpose">
                                 <mat-chip class="listing-tag" selected (click)="viewListingDetailsMobile(result)">

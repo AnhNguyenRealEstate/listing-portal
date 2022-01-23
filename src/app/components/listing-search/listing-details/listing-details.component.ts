@@ -27,6 +27,8 @@ export class ListingDetailsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscriptions.add(this.listingDetailsService.listingToShow().subscribe(listing => {
+            if(!listing.location) return;
+            
             this.listing = listing;
             this.showListing = true;
         }));

@@ -2,6 +2,7 @@
     <mat-spinner></mat-spinner>
 </div>
 <section #desktopUploadView class="container pt-2 d-none d-lg-block" *ngIf="!isEditMode || imageSrcs.length">
+    <app-loading-spinner></app-loading-spinner>
     <div class="row">
         <div class="col-12">
             <h1 class="h3">

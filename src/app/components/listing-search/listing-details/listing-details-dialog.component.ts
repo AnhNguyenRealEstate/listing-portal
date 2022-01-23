@@ -16,35 +16,11 @@ export class ListingDetailsDialogComponent implements OnInit {
 
     constructor(
         public dialogRef: MatDialogRef<ListingDetailsDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) private listingData: Listing,
-        private httpClient: HttpClient) {
+        @Inject(MAT_DIALOG_DATA) private listingData: Listing) {
         this.listing = this.listingData;
     }
 
-    async ngOnInit() {
-        if (!this.listing.imageSources) {
-            return;
-        }
-
-        for (let i = 0; i < this.listing.imageSources.length; i++) {
-            const response = await this.httpClient
-                .get(
-                    `https://picsum.photos/200?query=${i}`,
-                    { responseType: 'blob' }
-                ).toPromise().catch(error => console.log(error));
-
-            if (!response) {
-                return;
-            }
-            
-            const blob = new Blob([response], { type: 'application/image' });
-            const unsafeImg = URL.createObjectURL(blob);
-
-            this.images.push({
-                image: unsafeImg,
-                thumbImage: unsafeImg,
-                alt: `Image ${i}`
-            });
-        }
+    ngOnInit() {
+        //TODO
     }
 }

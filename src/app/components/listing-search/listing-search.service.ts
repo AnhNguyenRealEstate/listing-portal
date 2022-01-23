@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { AngularFirestore, DocumentData, Query } from '@angular/fire/firestore';
+import { AngularFirestore, CollectionReference, DocumentData, Query } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class ListingSearchService {
     async getListingsByCriteria(searchCriteria: SearchCriteria): Promise<Listing[]> {
         const results: Listing[] = [];
         const dbResponse = await this.firestore
-            .collection(
+            .collection<Listing>(
                 'listings',
                 ref => this.criteriaToDBQuery(ref, searchCriteria)
             ).get().toPromise().catch(error => console.log(error));
@@ -23,6 +23,8 @@ export class ListingSearchService {
         if (!dbResponse) {
             return [];
         }
+
+        //TODO: filter by min price and max price as well
 
         // Must continue to filter based on minSize, maxSize
         // Firestore only allows range query on one field
@@ -37,6 +39,11 @@ export class ListingSearchService {
             if (
                 listing.propertySize! > maxSize ||
                 listing.propertySize! < minSize) {
+                continue;
+            }
+            if (
+                listing.price! > searchCriteria.maxPrice ||
+                listing.price! < searchCriteria.minPrice) {
                 continue;
             }
 
@@ -88,15 +95,24 @@ export class ListingSearchService {
         this.searchResults$$.next(value);
     }
 
-    private criteriaToDBQuery(ref: DocumentData, criteria: SearchCriteria): Query<DocumentData> {
-        let query = ref;
-        if (criteria.bathrooms) query = query.where('bathrooms', '==', criteria.bathrooms);
-        if (criteria.bedrooms) query = query.where('bedrooms', '==', criteria.bedrooms);
+    private criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
+        let query = ref.orderBy('price', 'desc');
+        if (criteria.bathrooms) {
+            if (criteria.bathrooms === '3+') {
+                query = query.where('bathrooms', '>=', 3);
+            } else {
+                query = query.where('bathrooms', '==', Number(criteria.bathrooms));
+            }
+        }
+        if (criteria.bedrooms) {
+            if (criteria.bedrooms === '3+') {
+                query = query.where('bedrooms', '>=', 3);
+            } else {
+                query = query.where('bedrooms', '==', Number(criteria.bedrooms));
+            }
+        }
         if (criteria.location) query = query.where('location', '==', criteria.location);
-        if (criteria.maxPrice) query = query.where('price', '<=', criteria.maxPrice);
-        if (criteria.minPrice) query = query.where('price', '>=', criteria.minPrice);
         if (criteria.propertyType) query = query.where('propertyType', '==', criteria.propertyType);
-
         return query as Query<DocumentData>;
     }
 

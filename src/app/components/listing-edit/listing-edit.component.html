@@ -1,5 +1,5 @@
 <section #editDesktopView class="container-flex pt-2 ms-4 me-4 d-none d-lg-block">
-    <div class="ps-3 pe-3" style="height: 90vh">
+    <div class="ps-3 pe-3">
         <div class="row ">
             <div class="col-6 d-flex justify-content-center">
                 <button mat-button class="add-listing-btn" color="accent" (click)="openUploadModalDesktop()">
@@ -36,10 +36,10 @@
                                     <span>{{listing.bathrooms}}</span>
                                 </div>
                                 <mat-chip-list class="ps-2">
-                                    <mat-chip class="listing-tag">
+                                    <mat-chip>
                                         <span>{{listing.purpose}}</span>
                                     </mat-chip>
-                                    <mat-chip class="listing-tag">
+                                    <mat-chip>
                                         <span>{{listing.archived? 'Archived' : 'Active'}}</span>
                                     </mat-chip>
                                 </mat-chip-list>
@@ -67,8 +67,13 @@
                     <span class="ps-4 listing-edit-select-a-listing-text">Select a listing</span>
                 </div>
                 <div *ngIf="listingToShow !== undefined">
-                    <app-listing-upload [listing]="listingToShow" [isEditMode]="true" [dbReferenceId]="dbReferenceId">
-                    </app-listing-upload>
+                    <mat-card>
+                        <mat-card-content>
+                            <app-listing-upload [listing]="listingToShow" [isEditMode]="true"
+                                [dbReferenceId]="dbReferenceId">
+                            </app-listing-upload>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>

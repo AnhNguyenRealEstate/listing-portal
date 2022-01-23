@@ -45,7 +45,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
             this.locations = data;
         }));
 
-        this.imageSrcs = await this.listingUploadService.getListingImages(this.listing.imageFolderPath!);
+        await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles);
     }
 
     ngOnDestroy(): void {
@@ -104,7 +104,9 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
 
     /* Save any editting on the listing and its image storage */
     async saveEdit() {
+        this.loadingSpinnerService.startLoadingSpinner();
         await this.listingUploadService.saveEdit(this.listing, this.imageFiles, this.dbReferenceId);
+        this.loadingSpinnerService.stopLoadingSpinner();
 
         this.snackbar.open("Changes saved ✅", "Dismiss", {
             duration: 3000
