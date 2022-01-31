@@ -67,7 +67,7 @@ export class ListingUploadService {
             }
         }
 
-        await this.firestore.collection("listings").doc(dbReferenceId).update(listing!);
+        await this.firestore.collection(FirestoreCollections.listings).doc(dbReferenceId).update(listing!);
 
         await this.updateAppData(this.locations, listing.location!, this.metadata.metadataKeys.locations);
         await this.updateAppData(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
@@ -76,7 +76,7 @@ export class ListingUploadService {
     /**
      * Get a listing's images from Firebase Storage
      * @param storagePath Firebase Storage path of the listing's images
-     * @param imageSrcs Array to store the images' url
+     * @param imageSrcs Array to store the images' urls
      * @param imageFiles Array to store the actual image data
      */
     async getListingImages(storagePath: string, imageSrcs: string[], imageFiles: File[]): Promise<any> {
@@ -112,8 +112,11 @@ export class ListingUploadService {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = async () => {
-                const compressedImgAsBase64 = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up);
-                const compressedImg = await this.dataUrlToFile(compressedImgAsBase64, file.name);
+                const compressedImgAsBase64Url = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up);
+                const response = await fetch(compressedImgAsBase64Url);
+                const data = await response.blob();
+                const compressedImg = new File([data], file.name, { type: file.type });
+
                 await Promise.all([
                     this.storage.ref(`${imageFolderPath}/${index}_compressed`)
                         .put(compressedImg)
@@ -149,11 +152,5 @@ export class ListingUploadService {
         const imageFolderName =
             `${listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
         return `listing-images/${imageFolderName}`;
-    }
-
-    private async dataUrlToFile(dataUrl: string, fileName: string): Promise<File> {
-        const res: Response = await fetch(dataUrl);
-        const blob: Blob = await res.blob();
-        return new File([blob], fileName, { type: 'image/png' });
     }
 }

@@ -51,7 +51,7 @@ export class ListingSearchService {
             if (listing.imageFolderPath) {
                 const folderRef = this.storage.storage.ref(listing.imageFolderPath);
                 listing.coverImage = await (await folderRef.listAll())
-                    .items.find(item => item.name.indexOf('_raw') != -1)
+                    .items.find(item => item.name.indexOf('_compressed') != -1)
                     ?.getDownloadURL();
             }
 
