@@ -2,7 +2,8 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { AppDataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/app-data.service';
+import { LoadSpinnerService } from '../../load-spinner/loading-spinner.service';
 import { SearchCriteria, PropertySizes } from '../listing-search.data';
 import { ListingSearchService } from '../listing-search.service';
 import { SearchBarDialogComponent } from './search-bar-dialog.component';
@@ -38,16 +39,17 @@ export class SearchBarComponent implements OnInit {
     constructor(
         private dialog: MatDialog,
         private listingSearchService: ListingSearchService,
-        private appDataService: AppDataService
+        private metadata: MetadataService,
+        private loadSpinner: LoadSpinnerService
     ) {
     }
 
     ngOnInit() {
-        this.subs.add(this.appDataService.propertyTypes().subscribe(data => {
+        this.subs.add(this.metadata.propertyTypes().subscribe(data => {
             this.propertyTypes = data;
         }));
 
-        this.subs.add(this.appDataService.locations().subscribe(data => {
+        this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
 
@@ -55,9 +57,11 @@ export class SearchBarComponent implements OnInit {
     }
 
     async getListings(criteria: SearchCriteria = this.searchCriteria) {
+        this.loadSpinner.start();
         const results = await this.listingSearchService.getListingsByCriteria(criteria);
         this.listingSearchService.setSearchResults(results);
         this.numberOfResults = results.length;
+        this.loadSpinner.stop();
     }
 
     openSearchModal() {

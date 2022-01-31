@@ -7,8 +7,9 @@ import { Subscription } from 'rxjs';
 import { Listing } from '../listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
-import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
+import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingEditService } from './listing-edit.service';
+import { FirestoreCollections } from '../../shared/globals';
 
 @Component({
     selector: 'app-listing-edit',
@@ -32,17 +33,17 @@ export class ListingEditComponent implements OnInit {
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
         private listingEditService: ListingEditService,
-        private loadingSpinnerService: LoadingSpinnerService) { }
+        private loadingSpinnerService: LoadSpinnerService) { }
 
     ngOnInit() {
-        this.subs.add(this.firestore.collection('listings').snapshotChanges().subscribe(async data => {
+        this.subs.add(this.firestore.collection(FirestoreCollections.listings).snapshotChanges().subscribe(async data => {
             const listings: Listing[] = [];
             this.dbReferences = [];
 
             for (let i = 0; i < data.length; i++) {
                 const doc = data[i].payload.doc;
                 const listing = doc.data() as Listing;
-                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0`).getDownloadURL();
+                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0_compressed`).getDownloadURL();
                 listings.push(listing);
                 this.dbReferences.push(doc.id);
             }
@@ -99,30 +100,30 @@ export class ListingEditComponent implements OnInit {
     async archiveListing(event: Event, index: number) {
         event.stopPropagation();
 
-        this.loadingSpinnerService.startLoadingSpinner();
+        this.loadingSpinnerService.start();
         await this.listingEditService.archiveListing(this.dbReferences[index]);
-        this.loadingSpinnerService.stopLoadingSpinner();
+        this.loadingSpinnerService.stop();
     }
 
     async unarchiveListing(event: Event, index: number) {
         event.stopPropagation();
 
-        this.loadingSpinnerService.startLoadingSpinner();
+        this.loadingSpinnerService.start();
         await this.listingEditService.unarchiveListing(this.dbReferences[index]);
-        this.loadingSpinnerService.stopLoadingSpinner();
+        this.loadingSpinnerService.stop();
     }
 
     /* Completely remove the listing from DB */
     async deleteListing(event: Event, index: number) {
         event.stopPropagation();
 
-        this.loadingSpinnerService.startLoadingSpinner();
-        //console.log(`Deleting listing with address ${this.listings[index].address} and image folder ${this.listings[index].imageFolderPath}`);
+        this.loadingSpinnerService.start();
+
         await this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
         this.listingToShow = undefined;
         this.dbReferenceId = '';
 
-        this.loadingSpinnerService.stopLoadingSpinner();
+        this.loadingSpinnerService.stop();
         this.snackbar.open("Listing deleted 🗑", "Dismiss", {
             duration: 3000
         })

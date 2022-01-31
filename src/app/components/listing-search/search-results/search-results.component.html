@@ -11,20 +11,26 @@
         <div *ngFor="let result of searchResults" class="col-6">
             <mat-card class="mt-1 mb-3" (click)="viewListingDetails(result)">
                 <mat-card-title>
-                    <span class="font-medium">{{result.location}} - {{result.currency === 'USD'? '$' : 'đ'}}{{result.price}}</span> 
+                    <span class="font-medium">{{result.location}} | {{result.currency === 'USD'? '$' : 'đ'}}{{result.price}}</span> 
                     <hr>
                 </mat-card-title>
                 <mat-card-content>
                     <div class="row">
-                        <div class="col-4">
-                            <img height="100px" width="100px" *ngIf="result.coverImage" [src]="result.coverImage">
+                        <div class="col-6">
+                            <img height="200px" width="200px" *ngIf="result.coverImage" [src]="result.coverImage">
                         </div>
-                        <div class="col-8">
-                            <div *ngIf="result.propertyType">
+                        <div class="col-6">
+                            <div class="pb-2" *ngIf="result.propertyType">
                                 {{result.propertyType}}
                             </div>
-                            <div *ngIf="result.address">
+                            <div class="pb-2" *ngIf="result.address">
                                 {{result.address}}
+                            </div>
+                            <div class="pb-2" *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
+                                <mat-icon color="accent" class="pe-2">bed</mat-icon><span
+                                    class="pe-4">{{result.bedrooms}}</span>
+                                <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
+                                <span>{{result.bathrooms}}</span>
                             </div>
                             <mat-chip-list *ngIf="result.purpose">
                                 <mat-chip selected color="accent" (click)="viewListingDetails(result)">

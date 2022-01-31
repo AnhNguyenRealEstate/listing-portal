@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { AppDataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/app-data.service';
 import { Listing } from '../listing-search/listing-search.data';
 import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
+import { FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })
 export class ListingUploadService {
@@ -12,18 +13,19 @@ export class ListingUploadService {
 
     constructor(private firestore: AngularFirestore,
         private storage: AngularFireStorage,
-        private appDataService: AppDataService,
+        private metadata: MetadataService,
         private imageCompress: NgxImageCompressService
     ) {
-        this.appDataService.propertyTypes().subscribe(data => {
+        this.metadata.propertyTypes().subscribe(data => {
             this.propertyTypes = data;
         });
-        this.appDataService.locations().subscribe(data => {
+        this.metadata.locations().subscribe(data => {
             this.locations = data;
         });
     }
 
-    /* Uploads a new listing and create a new image storage path for related images 
+    /**
+    Uploads a new listing and its images
     1. Store images 
     2. Add the new listing
     Images must be stored first because in case of interruption, there won't be a null pointer 
@@ -33,76 +35,111 @@ export class ListingUploadService {
         listing.imageFolderPath = imageFolderPath;
 
         await this.storeListingImages(imageFiles, imageFolderPath);
-
-        const result = await this.firestore.collection('listings')
+        await this.firestore.collection(FirestoreCollections.listings)
             .add(listing)
             .catch(error => console.log(error));
-
-        this.updateAppData(this.locations, listing.location!, 'locations');
-        this.updateAppData(this.propertyTypes, listing.propertyType!, 'property-types');
-
-        return result;
+        await this.updateAppData(this.locations, listing.location!, this.metadata.metadataKeys.locations);
+        await this.updateAppData(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
     }
 
-    /* Save any editting on the listing and its image storage 
-        1. Create a new folder containing the listing's images
-        2. Assign this new folder to the listing's imageFolderPath prop
-        3. Delete the old folder
+    /**  Save any changes made to the listing and its images
     */
-    async saveEdit(listing: Listing, imageFiles: File[], dbReferenceId: string) {
-        const oldFolderPath = listing.imageFolderPath!;
-        const newFolderPath = this.createImageStoragePath(listing);
-        await this.storeListingImages(imageFiles, newFolderPath);
+    async saveEdit(listing: Listing, dbReferenceId: string, imageFiles: File[], updateImages: boolean) {
+        /**
+         * Overwrite db images with new images
+         * If the length of imageFiles is shorter than the amount of files on db, remove the old and extra images
+         * Update the listing's attributes
+         */
 
-        listing.imageFolderPath = newFolderPath;
-        const result = await this.firestore.collection("listings").doc(dbReferenceId).update(listing!);
+        if (updateImages) {
+            const imageFolderRef = this.storage.storage.ref(listing.imageFolderPath!);
+            const numOfImagesOnStorage = (await imageFolderRef.listAll()).items.length;
+            const numOfImagesUploaded_AdjustedForRawAndCompressed = imageFiles.length * 2;
 
-        await this.storage.storage.ref(oldFolderPath).delete();
+            await this.storeListingImages(imageFiles, listing.imageFolderPath!);
+            if (numOfImagesUploaded_AdjustedForRawAndCompressed < numOfImagesOnStorage) {
+                const imagesOnStorage = (await imageFolderRef.listAll()).items;
+                await Promise.all(imagesOnStorage.map(async (img, index) => {
+                    if (index + 1 > numOfImagesUploaded_AdjustedForRawAndCompressed) {
+                        await img.delete();
+                    }
+                }));
+            }
+        }
 
-        return result;
+        await this.firestore.collection("listings").doc(dbReferenceId).update(listing!);
+
+        await this.updateAppData(this.locations, listing.location!, this.metadata.metadataKeys.locations);
+        await this.updateAppData(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
     }
 
-    async getListingImages(storagePath: string, imageSrcs: string[], imageFiles: File[]): Promise<void> {
+    /**
+     * Get a listing's images from Firebase Storage
+     * @param storagePath Firebase Storage path of the listing's images
+     * @param imageSrcs Array to store the images' url
+     * @param imageFiles Array to store the actual image data
+     */
+    async getListingImages(storagePath: string, imageSrcs: string[], imageFiles: File[]): Promise<any> {
         const allImages = await this.storage.storage.ref(storagePath).listAll();
+
+        imageSrcs.push(...new Array<string>(allImages.items.length));
+        imageFiles.push(...new Array<File>(allImages.items.length));
 
         await Promise.all(allImages.items.map(async (image, index) => {
             const url = await image.getDownloadURL();
-            imageSrcs.push(url);
-
             const response = await fetch(url);
             const data = await response.blob();
+            const contentType = response.headers.get('content-type') || '';
             const metadata = {
-                type: 'image/jpeg'
+                type: contentType
             };
-            let file = new File([data], `${index}.jpg`, metadata);
-            imageFiles.push(file)
-        }));
-    }
+            const fileExtension = contentType.split('/').pop() || '';
+            const file = new File([data], `${index}.${fileExtension}`, metadata);
+            imageFiles[index] = file;
 
-    private async storeListingImages(imageFiles: File[], imageFolderPath: string) {
-        await Promise.all(imageFiles.map(async (file, index) => {
             const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = async () => {
-                if (reader.result) {
-                    const compressedImgAsBase64 = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up);
-                    const compressedImg = await this.dataUrlToFile(compressedImgAsBase64, file.name);
-                    await this.storage.ref(`${imageFolderPath}/${index}`)
-                        .put(compressedImg)
-                        .catch(error => console.log(error));
-                }
+            reader.readAsDataURL(data);
+            reader.onloadend = () => {
+                imageSrcs[index] = reader.result as string;
             }
         }));
     }
 
-    private async updateAppData(currentList: string[], newEntry: string, attributeToUpdate: string) {
-        if (currentList.indexOf(newEntry) == -1) {
-            const newList = [...currentList];
+    private async storeListingImages(imageFiles: File[], imageFolderPath: string) {
+        if (!imageFiles.length) return;
+
+        await Promise.all(imageFiles.map(async (file, index) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async () => {
+                const compressedImgAsBase64 = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up);
+                const compressedImg = await this.dataUrlToFile(compressedImgAsBase64, file.name);
+                await Promise.all([
+                    this.storage.ref(`${imageFolderPath}/${index}_compressed`)
+                        .put(compressedImg)
+                        .catch(error => console.log(error)),
+                    this.storage.ref(`${imageFolderPath}/${index}_raw`)
+                        .put(file)
+                        .catch(error => console.log(error))
+                ]);
+            }
+        }));
+    }
+
+    /**
+     * Update app-data on Firestore. "app-data" contains data that should be synced in real-time
+     * @param currentEntries A list of items from a specific attribute in app-data
+     * @param newEntry A new entry that may or may not exist in said list
+     * @param attributeToUpdate Name of said attribute. Ex: 'locations'
+     */
+    private async updateAppData(currentEntries: string[], newEntry: string, attributeToUpdate: string) {
+        if (currentEntries.indexOf(newEntry) == -1) {
+            const newList = [...currentEntries];
             newList.push(newEntry);
             newList.sort((a, b) => a.localeCompare(b));
 
-            await this.firestore.collection('app-data')
-                .doc('listing-data')
+            await this.firestore.collection(FirestoreCollections.metadata)
+                .doc(FirestoreDocs.listingMetadata)
                 .update({ [attributeToUpdate]: newList });
         }
     }

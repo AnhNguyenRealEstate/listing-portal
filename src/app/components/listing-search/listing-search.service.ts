@@ -3,6 +3,7 @@ import { Listing, SearchCriteria } from './listing-search.data';
 import { AngularFirestore, CollectionReference, DocumentData, Query } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
+import { FirestoreCollections } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })
 export class ListingSearchService {
@@ -16,7 +17,7 @@ export class ListingSearchService {
         const results: Listing[] = [];
         const dbResponse = await this.firestore
             .collection<Listing>(
-                'listings',
+                FirestoreCollections.listings,
                 ref => this.criteriaToDBQuery(ref, searchCriteria)
             ).get().toPromise().catch(error => console.log(error));
 
@@ -24,10 +25,6 @@ export class ListingSearchService {
             return [];
         }
 
-        //TODO: filter by min price and max price as well
-
-        // Must continue to filter based on minSize, maxSize
-        // Firestore only allows range query on one field
         const minMaxSizes = this.propertySizesToMinMaxSizes(searchCriteria.propertySize);
         const minSize = minMaxSizes[0];
         const maxSize = minMaxSizes[1];
@@ -36,6 +33,8 @@ export class ListingSearchService {
         for (let i = 0; i < docs.length; i++) {
             const doc = docs[i];
             const listing = doc.data() as Listing;
+
+            // Range queries to be done here as Firestore does not allow it
             if (
                 listing.propertySize! > maxSize ||
                 listing.propertySize! < minSize) {
@@ -50,7 +49,10 @@ export class ListingSearchService {
             listing.id = doc.id;
 
             if (listing.imageFolderPath) {
-                listing.coverImage = await this.storage.storage.ref(listing.imageFolderPath).child('0').getDownloadURL();
+                const folderRef = this.storage.storage.ref(listing.imageFolderPath);
+                listing.coverImage = await (await folderRef.listAll())
+                    .items.find(item => item.name.indexOf('_raw') != -1)
+                    ?.getDownloadURL();
             }
 
             results.push(listing);
@@ -61,7 +63,7 @@ export class ListingSearchService {
     async getListingById(listingId: string): Promise<Listing | undefined> {
         const dbResponse = await this.firestore
             .collection(
-                'listings'
+                FirestoreCollections.listings
             ).get().toPromise().catch(error => console.log(error));
 
         if (!dbResponse) {

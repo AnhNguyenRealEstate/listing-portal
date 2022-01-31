@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { LoadSpinnerService } from '../../load-spinner/loading-spinner.service';
 import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
 
@@ -22,15 +23,20 @@ export class ListingDetailsComponent implements OnInit, OnDestroy {
         }
     }
     
-    constructor(private listingDetailsService: ListingDetailsService) {
+    constructor(
+        private listingDetailsService: ListingDetailsService,
+        private loadSpinner: LoadSpinnerService) {
     }
 
     ngOnInit() {
-        this.subscriptions.add(this.listingDetailsService.listingToShow().subscribe(listing => {
+        this.subscriptions.add(this.listingDetailsService.listingToShow().subscribe(async listing => {
             if(!listing.location) return;
             
+            this.loadSpinner.start();
             this.listing = listing;
+            this.listing.imageSources = await this.listingDetailsService.getImageSrcs(listing.imageFolderPath!);
             this.showListing = true;
+            this.loadSpinner.stop();
         }));
     }
 

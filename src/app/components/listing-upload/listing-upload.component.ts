@@ -1,17 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Listing } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AppDataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/app-data.service';
 import { Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
-import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
+import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 
 @Component({
     selector: 'app-listing-upload',
     templateUrl: 'listing-upload.component.html',
     styleUrls: ['./listing-upload.component.scss']
 })
-export class ListingUploadComponent implements OnInit, OnDestroy {
+export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     @Input() listing: Listing = {} as Listing;
     @Input() isEditMode = false;
     @Input() snackbarMessage: string = '';
@@ -24,28 +24,35 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
 
     imageFiles: File[] = [];
     imageSrcs: string[] = [];
+    imageFilesModified: boolean = false;
 
     subs: Subscription = new Subscription();
     showSpinner: boolean = false;
 
     constructor(
         private snackbar: MatSnackBar,
-        private appDataService: AppDataService,
+        private metadata: MetadataService,
         private listingUploadService: ListingUploadService,
-        private loadingSpinnerService: LoadingSpinnerService
+        private loadSpinner: LoadSpinnerService
     ) {
     }
 
     async ngOnInit() {
-        this.subs.add(this.appDataService.propertyTypes().subscribe(data => {
+        this.subs.add(this.metadata.propertyTypes().subscribe(data => {
             this.propertyTypes = data;
         }));
 
-        this.subs.add(this.appDataService.locations().subscribe(data => {
+        this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
+    }
 
-        await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles);
+    async ngOnChanges(changes: SimpleChanges) {
+        if (changes.listing && changes.listing.currentValue) {
+            this.loadSpinner.start();
+            await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles);
+            this.loadSpinner.stop();
+        }
     }
 
     ngOnDestroy(): void {
@@ -74,6 +81,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
                 }
             }
         }
+
+        this.imageFilesModified = true;
     }
 
     removeImage(imgSrc: string) {
@@ -83,11 +92,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
                 this.imageFiles.splice(index, 1);
             }
         });
+
+        this.imageFilesModified = true;
     }
 
     /* Uploads a new listing and create a new image storage path for related images */
     async publishListing() {
-        this.loadingSpinnerService.startLoadingSpinner();
+        this.loadSpinner.start();
 
         await this.listingUploadService.publishListing(this.listing, this.imageFiles);
 
@@ -95,7 +106,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         this.imageFiles = [];
         this.imageSrcs = [];
 
-        this.loadingSpinnerService.stopLoadingSpinner();
+        this.loadSpinner.stop();
 
         this.snackbar.open("Listing published 🎉", "Dismiss", {
             duration: 3000
@@ -104,10 +115,11 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
 
     /* Save any editting on the listing and its image storage */
     async saveEdit() {
-        this.loadingSpinnerService.startLoadingSpinner();
-        await this.listingUploadService.saveEdit(this.listing, this.imageFiles, this.dbReferenceId);
-        this.loadingSpinnerService.stopLoadingSpinner();
+        this.loadSpinner.start();
+        await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
+        this.loadSpinner.stop();
 
+        this.imageFilesModified = false;
         this.snackbar.open("Changes saved ✅", "Dismiss", {
             duration: 3000
         })

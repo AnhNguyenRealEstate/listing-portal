@@ -1,13 +1,13 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoadingSpinnerService } from '../components/load-spinner/loading-spinner.service';
+import { LoadSpinnerService } from '../components/load-spinner/loading-spinner.service';
 
 @Injectable({ providedIn: 'root' })
 export class LoadingInterceptorService implements HttpInterceptor {
     private requests: HttpRequest<any>[] = [];
 
-    constructor(private loadingSpinnerService: LoadingSpinnerService) {
+    constructor(private loadingSpinnerService: LoadSpinnerService) {
 
     }
 

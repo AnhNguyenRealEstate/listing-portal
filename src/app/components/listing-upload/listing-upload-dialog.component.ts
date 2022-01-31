@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { AppDataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/app-data.service';
 import { Listing } from '../listing-search/listing-search.data';
-import { LoadingSpinnerService } from '../load-spinner/loading-spinner.service';
+import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingUploadService } from './listing-upload.service';
 
 @Component({
@@ -25,15 +25,16 @@ export class ListingUploadDialogComponent implements OnInit {
 
     imageFiles: File[] = [];
     imageSrcs: string[] = [];
+    imageFilesModified: boolean = false;
 
     subs: Subscription = new Subscription();
     showSpinner: boolean = false;
 
     constructor(
-        private appDataService: AppDataService,
+        private metadata: MetadataService,
         private listingUploadService: ListingUploadService,
         private snackbar: MatSnackBar,
-        private loadingSpinnerService: LoadingSpinnerService,
+        private loadingSpinnerService: LoadSpinnerService,
         public dialogRef: MatDialogRef<ListingUploadDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private data: any
     ) {
@@ -45,11 +46,11 @@ export class ListingUploadDialogComponent implements OnInit {
     async ngOnInit() {
         this.modalTitle = this.isEditMode ? 'Edit listing' : 'Upload new listing';
 
-        this.subs.add(this.appDataService.propertyTypes().subscribe(data => {
+        this.subs.add(this.metadata.propertyTypes().subscribe(data => {
             this.propertyTypes = data;
         }));
 
-        this.subs.add(this.appDataService.locations().subscribe(data => {
+        this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
 
@@ -82,6 +83,8 @@ export class ListingUploadDialogComponent implements OnInit {
                 }
             }
         }
+
+        this.imageFilesModified = true;
     }
 
     removeImage(imgSrc: string) {
@@ -91,11 +94,13 @@ export class ListingUploadDialogComponent implements OnInit {
                 this.imageFiles.splice(index, 1);
             }
         });
+
+        this.imageFilesModified = true;
     }
 
     /* Uploads a new listing and create a new image storage path for related images */
     async publishListing() {
-        this.loadingSpinnerService.startLoadingSpinner();
+        this.loadingSpinnerService.start();
 
         await this.listingUploadService.publishListing(this.listing, this.imageFiles);
 
@@ -103,7 +108,7 @@ export class ListingUploadDialogComponent implements OnInit {
         this.imageFiles = [];
         this.imageSrcs = [];
 
-        this.loadingSpinnerService.stopLoadingSpinner();
+        this.loadingSpinnerService.stop();
 
         this.snackbar.open("Listing published 🎉", "Dismiss", {
             duration: 3000
@@ -112,10 +117,10 @@ export class ListingUploadDialogComponent implements OnInit {
 
     /* Save any editting on the listing and its image storage */
     async saveEdit() {
-        this.loadingSpinnerService.startLoadingSpinner();
-        await this.listingUploadService.saveEdit(this.listing, this.imageFiles, this.dbReferenceId);
-        this.loadingSpinnerService.stopLoadingSpinner();
-        
+        this.loadingSpinnerService.start();
+        await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
+        this.loadingSpinnerService.stop();
+
         this.snackbar.open("Changes saved ✅", "Dismiss", {
             duration: 3000
         })

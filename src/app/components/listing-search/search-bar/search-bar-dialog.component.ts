@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { AppDataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/app-data.service';
 import { PropertySizes, SearchCriteria } from '../listing-search.data';
 
 @Component({
@@ -20,7 +20,7 @@ export class SearchBarDialogComponent implements OnInit, OnDestroy {
     subs: Subscription = new Subscription();
 
     constructor(
-        private appDataService: AppDataService,
+        private metadata: MetadataService,
         public dialogRef: MatDialogRef<SearchBarDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private data: SearchCriteria
     ) {
@@ -28,11 +28,11 @@ export class SearchBarDialogComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subs.add(this.appDataService.propertyTypes().subscribe(data => {
+        this.subs.add(this.metadata.propertyTypes().subscribe(data => {
             this.propertyTypes = data;
         }));
 
-        this.subs.add(this.appDataService.locations().subscribe(data => {
+        this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
     }

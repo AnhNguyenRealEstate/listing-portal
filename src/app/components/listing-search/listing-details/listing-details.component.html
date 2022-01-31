@@ -1,14 +1,14 @@
 <section *ngIf="showListing" class="container">
     <div class="row">
         <div class="col-12">
-            <h2>{{listing.title}}</h2>
+            <h2>{{listing.location}} | {{listing.currency === 'USD'? '$' : 'đ'}}{{listing.price}} - <span>Details</span></h2>
         </div>
     </div>
-    <div class="row listing-images" *ngIf="listing.imageSources && listing.imageSources!.length">
+    <div class="row listing-images pb-4" *ngIf="listing.imageSources && listing.imageSources!.length">
         <ngb-carousel #carousel [interval]="carouselInterval">
             <ng-template ngbSlide *ngFor="let src of listing.imageSources">
                 <div class="picsum-img-wrapper">
-                    <img [src]="src" style="width: 100%">
+                    <img [src]="src" style="width: 40%">
                 </div>
             </ng-template>
         </ngb-carousel>
@@ -21,6 +21,9 @@
             </li>
         </ul>
     </div>
-    <div class="row" style="height: 200px">
+    <div class="row">
+        <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
+        <p *ngIf="listing.description" [innerHtml]="listing.description">
+        </p>
     </div>
 </section>
