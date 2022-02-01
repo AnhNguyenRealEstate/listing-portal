@@ -2,7 +2,7 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { MetadataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/metadata.service';
 import { LoadSpinnerService } from '../../load-spinner/loading-spinner.service';
 import { SearchCriteria, PropertySizes } from '../listing-search.data';
 import { ListingSearchService } from '../listing-search.service';

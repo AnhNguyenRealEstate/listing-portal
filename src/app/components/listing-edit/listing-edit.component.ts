@@ -9,7 +9,7 @@ import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-d
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingEditService } from './listing-edit.service';
-import { FirestoreCollections } from '../../shared/globals';
+import { FirestoreCollections, ImageFileVersion } from '../../shared/globals';
 
 @Component({
     selector: 'app-listing-edit',
@@ -43,7 +43,7 @@ export class ListingEditComponent implements OnInit {
             for (let i = 0; i < data.length; i++) {
                 const doc = data[i].payload.doc;
                 const listing = doc.data() as Listing;
-                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0_compressed`).getDownloadURL();
+                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`).getDownloadURL();
                 listings.push(listing);
                 this.dbReferences.push(doc.id);
             }

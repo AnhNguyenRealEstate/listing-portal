@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MetadataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/metadata.service';
 import { Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
@@ -22,7 +22,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     propertyTypes: string[] = [];
     locations: string[] = [];
 
-    imageFiles: File[] = [];
+    imageFiles: ListingImageFile[] = [];
     imageSrcs: string[] = [];
     imageFilesModified: boolean = false;
 
@@ -71,7 +71,11 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
-            this.imageFiles.push(file);
+
+            const newImageFile = {
+                raw: file
+            } as ListingImageFile;
+            this.imageFiles.push(newImageFile);
 
             const reader = new FileReader();
             reader.readAsDataURL(file);

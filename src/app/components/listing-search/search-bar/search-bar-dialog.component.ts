@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { MetadataService } from 'src/app/shared/app-data.service';
+import { MetadataService } from 'src/app/shared/metadata.service';
 import { PropertySizes, SearchCriteria } from '../listing-search.data';
 
 @Component({

@@ -4,6 +4,7 @@ export interface Listing {
     description?: string,
     coverImage?: string, // Download url or data url, input for img.src
     imageFolderPath?: string;
+    images?: ListingImageFile[];
     imageSources?: string[],
     propertyType?: string,
     location?: string,
@@ -15,6 +16,11 @@ export interface Listing {
     bathrooms?: number,
     purpose?: 'For Rent' | 'For Sale',
     archived?: boolean
+}
+
+export interface ListingImageFile {
+    compressed: File,
+    raw: File
 }
 
 export interface SearchCriteria {

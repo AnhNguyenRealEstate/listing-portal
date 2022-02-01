@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { MetadataService } from 'src/app/shared/app-data.service';
-import { Listing } from '../listing-search/listing-search.data';
+import { MetadataService } from 'src/app/shared/metadata.service';
+import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
-import { FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
+import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs, ImageFileVersion } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })
 export class ListingUploadService {
@@ -30,7 +30,7 @@ export class ListingUploadService {
     2. Add the new listing
     Images must be stored first because in case of interruption, there won't be a null pointer 
     for imageFolderPath in the newly-created listing */
-    async publishListing(listing: Listing, imageFiles: File[]) {
+    async publishListing(listing: Listing, imageFiles: ListingImageFile[]) {
         const imageFolderPath = this.createImageStoragePath(listing);
         listing.imageFolderPath = imageFolderPath;
 
@@ -38,29 +38,29 @@ export class ListingUploadService {
         await this.firestore.collection(FirestoreCollections.listings)
             .add(listing)
             .catch(error => console.log(error));
-        await this.updateAppData(this.locations, listing.location!, this.metadata.metadataKeys.locations);
-        await this.updateAppData(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
+        await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
+        await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
     }
 
     /**  Save any changes made to the listing and its images
     */
-    async saveEdit(listing: Listing, dbReferenceId: string, imageFiles: File[], updateImages: boolean) {
+    async saveEdit(listing: Listing, dbReferenceId: string, imageFiles: ListingImageFile[], updateImages: boolean) {
         /**
          * Overwrite db images with new images
-         * If the length of imageFiles is shorter than the amount of files on db, remove the old and extra images
+         * If the length of imageFiles is shorter than the amount of files on db, remove the old/extra images
          * Update the listing's attributes
          */
 
         if (updateImages) {
             const imageFolderRef = this.storage.storage.ref(listing.imageFolderPath!);
             const numOfImagesOnStorage = (await imageFolderRef.listAll()).items.length;
-            const numOfImagesUploaded_AdjustedForRawAndCompressed = imageFiles.length * 2;
+            const numOfImagesUploaded = imageFiles.length;
 
             await this.storeListingImages(imageFiles, listing.imageFolderPath!);
-            if (numOfImagesUploaded_AdjustedForRawAndCompressed < numOfImagesOnStorage) {
+            if (numOfImagesUploaded < numOfImagesOnStorage) {
                 const imagesOnStorage = (await imageFolderRef.listAll()).items;
                 await Promise.all(imagesOnStorage.map(async (img, index) => {
-                    if (index + 1 > numOfImagesUploaded_AdjustedForRawAndCompressed) {
+                    if (index + 1 > numOfImagesUploaded) {
                         await img.delete();
                     }
                 }));
@@ -69,24 +69,16 @@ export class ListingUploadService {
 
         await this.firestore.collection(FirestoreCollections.listings).doc(dbReferenceId).update(listing!);
 
-        await this.updateAppData(this.locations, listing.location!, this.metadata.metadataKeys.locations);
-        await this.updateAppData(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
+        await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
+        await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
     }
 
     /**
      * Get a listing's images from Firebase Storage
-     * @param storagePath Firebase Storage path of the listing's images
-     * @param imageSrcs Array to store the images' urls
-     * @param imageFiles Array to store the actual image data
      */
-    async getListingImages(storagePath: string, imageSrcs: string[], imageFiles: File[]): Promise<any> {
-        const allImages = await this.storage.storage.ref(storagePath).listAll();
+    async getListingImages(storagePath: string, imageSrcs: string[], imageFiles: ListingImageFile[]): Promise<any> {
 
-        imageSrcs.push(...new Array<string>(allImages.items.length));
-        imageFiles.push(...new Array<File>(allImages.items.length));
-
-        await Promise.all(allImages.items.map(async (image, index) => {
-            const url = await image.getDownloadURL();
+        async function getFile(url: string, index: number) {
             const response = await fetch(url);
             const data = await response.blob();
             const contentType = response.headers.get('content-type') || '';
@@ -94,35 +86,56 @@ export class ListingUploadService {
                 type: contentType
             };
             const fileExtension = contentType.split('/').pop() || '';
-            const file = new File([data], `${index}.${fileExtension}`, metadata);
-            imageFiles[index] = file;
+            return new File([data], `${index}.${fileExtension}`, metadata);
+        }
+
+        let allImages = (await this.storage.storage.ref(storagePath).listAll()).items;
+
+        imageSrcs.push(...new Array<string>(allImages.length));
+        imageFiles.push(...new Array<ListingImageFile>(allImages.length));
+
+        await Promise.all(allImages.map(async (imageFile, index) => {
+            const file_compressed = await getFile(
+                await imageFile.child(ImageFileVersion.compressed).getDownloadURL(),
+                index
+            );
+            const file_raw = await getFile(
+                await imageFile.child(ImageFileVersion.raw).getDownloadURL(),
+                index
+            );
+            imageFiles[index] = {
+                compressed: file_compressed,
+                raw: file_raw
+            }
 
             const reader = new FileReader();
-            reader.readAsDataURL(data);
+            reader.readAsDataURL(file_compressed);
             reader.onloadend = () => {
                 imageSrcs[index] = reader.result as string;
             }
         }));
     }
 
-    private async storeListingImages(imageFiles: File[], imageFolderPath: string) {
+    private async storeListingImages(imageFiles: ListingImageFile[], imageFolderPath: string) {
         if (!imageFiles.length) return;
 
         await Promise.all(imageFiles.map(async (file, index) => {
             const reader = new FileReader();
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file.raw);
             reader.onload = async () => {
-                const compressedImgAsBase64Url = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up);
-                const response = await fetch(compressedImgAsBase64Url);
-                const data = await response.blob();
-                const compressedImg = new File([data], file.name, { type: file.type });
+                if (!file.compressed) {
+                    const compressedImgAsBase64Url = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up, 75);
+                    const response = await fetch(compressedImgAsBase64Url);
+                    const data = await response.blob();
+                    file.compressed = new File([data], file.raw.name, { type: file.raw.type });
+                }
 
                 await Promise.all([
-                    this.storage.ref(`${imageFolderPath}/${index}_compressed`)
-                        .put(compressedImg)
+                    this.storage.ref(`${imageFolderPath}/${index}/${ImageFileVersion.compressed}`)
+                        .put(file.compressed)
                         .catch(error => console.log(error)),
-                    this.storage.ref(`${imageFolderPath}/${index}_raw`)
-                        .put(file)
+                    this.storage.ref(`${imageFolderPath}/${index}/${ImageFileVersion.raw}`)
+                        .put(file.raw)
                         .catch(error => console.log(error))
                 ]);
             }
@@ -130,12 +143,9 @@ export class ListingUploadService {
     }
 
     /**
-     * Update app-data on Firestore. "app-data" contains data that should be synced in real-time
-     * @param currentEntries A list of items from a specific attribute in app-data
-     * @param newEntry A new entry that may or may not exist in said list
-     * @param attributeToUpdate Name of said attribute. Ex: 'locations'
+     * Update metadata on Firestore. Metadata contains data that should be synced in real-time
      */
-    private async updateAppData(currentEntries: string[], newEntry: string, attributeToUpdate: string) {
+    private async updateMetadata(currentEntries: string[], newEntry: string, attributeToUpdate: string) {
         if (currentEntries.indexOf(newEntry) == -1) {
             const newList = [...currentEntries];
             newList.push(newEntry);
@@ -151,6 +161,6 @@ export class ListingUploadService {
         const date = new Date();
         const imageFolderName =
             `${listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
-        return `listing-images/${imageFolderName}`;
+        return `${FirebaseStorageFolders.listingImages}/${imageFolderName}`;
     }
 }

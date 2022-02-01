@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { MetadataService } from 'src/app/shared/app-data.service';
-import { Listing } from '../listing-search/listing-search.data';
+import { MetadataService } from 'src/app/shared/metadata.service';
+import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingUploadService } from './listing-upload.service';
 
@@ -23,7 +23,7 @@ export class ListingUploadDialogComponent implements OnInit {
     propertyTypes: string[] = [];
     locations: string[] = [];
 
-    imageFiles: File[] = [];
+    imageFiles: ListingImageFile[] = [];
     imageSrcs: string[] = [];
     imageFilesModified: boolean = false;
 
@@ -73,7 +73,11 @@ export class ListingUploadDialogComponent implements OnInit {
 
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
-            this.imageFiles.push(file);
+            
+            const newImageFile = {
+                raw: file
+            } as ListingImageFile;
+            this.imageFiles.push(newImageFile);
 
             const reader = new FileReader();
             reader.readAsDataURL(file);

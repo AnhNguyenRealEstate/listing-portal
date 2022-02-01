@@ -3,7 +3,7 @@ import { Listing, SearchCriteria } from './listing-search.data';
 import { AngularFirestore, CollectionReference, DocumentData, Query } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
-import { FirestoreCollections } from 'src/app/shared/globals';
+import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })
 export class ListingSearchService {
@@ -49,10 +49,7 @@ export class ListingSearchService {
             listing.id = doc.id;
 
             if (listing.imageFolderPath) {
-                const folderRef = this.storage.storage.ref(listing.imageFolderPath);
-                listing.coverImage = await (await folderRef.listAll())
-                    .items.find(item => item.name.indexOf('_compressed') != -1)
-                    ?.getDownloadURL();
+                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`).getDownloadURL();
             }
 
             results.push(listing);
