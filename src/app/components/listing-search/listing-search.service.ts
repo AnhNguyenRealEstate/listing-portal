@@ -19,7 +19,7 @@ export class ListingSearchService {
             .collection<Listing>(
                 FirestoreCollections.listings,
                 ref => this.criteriaToDBQuery(ref, searchCriteria)
-            ).get().toPromise().catch(error => console.log(error));
+            ).get().toPromise().catch(() => { });
 
         if (!dbResponse) {
             return [];
@@ -61,7 +61,7 @@ export class ListingSearchService {
         const dbResponse = await this.firestore
             .collection(
                 FirestoreCollections.listings
-            ).get().toPromise().catch(error => console.log(error));
+            ).get().toPromise().catch(() => { });
 
         if (!dbResponse) {
             return undefined;

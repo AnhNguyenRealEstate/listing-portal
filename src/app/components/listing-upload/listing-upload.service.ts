@@ -37,7 +37,7 @@ export class ListingUploadService {
         await this.storeListingImages(imageFiles, imageFolderPath);
         await this.firestore.collection(FirestoreCollections.listings)
             .add(listing)
-            .catch(error => console.log(error));
+            .catch(() => { });
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
         await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
     }
@@ -45,23 +45,27 @@ export class ListingUploadService {
     /**  Save any changes made to the listing and its images
     */
     async saveEdit(listing: Listing, dbReferenceId: string, imageFiles: ListingImageFile[], updateImages: boolean) {
-        /**
-         * Overwrite db images with new images
-         * If the length of imageFiles is shorter than the amount of files on db, remove the old/extra images
-         * Update the listing's attributes
-         */
-
         if (updateImages) {
+            /**
+             * Overwrite db images with new images
+             * If the length of imageFiles is shorter than the amount of files on db, remove the old/extra images
+             * Update the listing's attributes
+             */
             const imageFolderRef = this.storage.storage.ref(listing.imageFolderPath!);
-            const numOfImagesOnStorage = (await imageFolderRef.listAll()).items.length;
+            const numOfImagesOnStorage = (await imageFolderRef.listAll()).prefixes.length;
             const numOfImagesUploaded = imageFiles.length;
 
             await this.storeListingImages(imageFiles, listing.imageFolderPath!);
             if (numOfImagesUploaded < numOfImagesOnStorage) {
-                const imagesOnStorage = (await imageFolderRef.listAll()).items;
+                const imagesOnStorage = (await imageFolderRef.listAll()).prefixes;
                 await Promise.all(imagesOnStorage.map(async (img, index) => {
                     if (index + 1 > numOfImagesUploaded) {
-                        await img.delete();
+                        await Promise.all(
+                            [
+                                img.child(ImageFileVersion.compressed).delete(),
+                                img.child(ImageFileVersion.raw).delete()
+                            ]
+                        )
                     }
                 }));
             }
@@ -89,17 +93,17 @@ export class ListingUploadService {
             return new File([data], `${index}.${fileExtension}`, metadata);
         }
 
-        let allImages = (await this.storage.storage.ref(storagePath).listAll()).items;
+        let allImages = (await this.storage.storage.ref(storagePath).listAll()).prefixes;
 
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));
 
         await Promise.all(allImages.map(async (imageFile, index) => {
-            const file_compressed = await getFile(
+            let file_compressed = await getFile(
                 await imageFile.child(ImageFileVersion.compressed).getDownloadURL(),
                 index
             );
-            const file_raw = await getFile(
+            let file_raw = await getFile(
                 await imageFile.child(ImageFileVersion.raw).getDownloadURL(),
                 index
             );
@@ -127,16 +131,16 @@ export class ListingUploadService {
                     const compressedImgAsBase64Url = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up, 75);
                     const response = await fetch(compressedImgAsBase64Url);
                     const data = await response.blob();
-                    file.compressed = new File([data], file.raw.name, { type: file.raw.type });
+                    file.compressed = new File([data], `${file.raw.name}_${ImageFileVersion.compressed}`, { type: file.raw.type });
                 }
 
                 await Promise.all([
                     this.storage.ref(`${imageFolderPath}/${index}/${ImageFileVersion.compressed}`)
                         .put(file.compressed)
-                        .catch(error => console.log(error)),
+                        .catch(() => { }),
                     this.storage.ref(`${imageFolderPath}/${index}/${ImageFileVersion.raw}`)
                         .put(file.raw)
-                        .catch(error => console.log(error))
+                        .catch(() => { })
                 ]);
             }
         }));
