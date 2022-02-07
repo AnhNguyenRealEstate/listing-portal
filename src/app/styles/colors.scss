@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 $primary: mat.get-color-from-palette($app-primary, 300);
 $primary-light: mat.get-color-from-palette($app-primary, 50);
