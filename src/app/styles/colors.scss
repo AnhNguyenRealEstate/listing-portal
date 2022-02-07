@@ -1,11 +1,11 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
-$primary: mat-color($app-primary, 300);
-$primary-light: mat-color($app-primary, 50);
+$primary: mat.get-color-from-palette($app-primary, 300);
+$primary-light: mat.get-color-from-palette($app-primary, 50);
 $off-white: rgb(255, 255, 245);
-$accent: mat-color($app-accent, 600);
-$accent-light: mat-color($app-accent, 100);
-$warn: mat-color($app-warn);
+$accent: mat.get-color-from-palette($app-accent, 600);
+$accent-light: mat.get-color-from-palette($app-accent, 100);
+$warn: mat.get-color-from-palette($app-warn);
 
 .primary-color {
     color: $primary;
