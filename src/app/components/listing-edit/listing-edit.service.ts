@@ -1,35 +1,46 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { Firestore, deleteDoc, updateDoc, doc, collection } from '@angular/fire/firestore';
+import { deleteObject, listAll, ref, Storage } from '@angular/fire/storage';
 import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { Listing } from '../listing-search/listing-search.data';
 
 @Injectable({ providedIn: 'root' })
 export class ListingEditService {
+
     constructor(
-        private firestore: AngularFirestore,
-        private storage: AngularFireStorage) { }
+        private firestore: Firestore,
+        private storage: Storage) {
+    }
 
     /* Completely remove the listing from DB */
     async deleteListing(listing: Listing, dbRefId: string) {
-        const allImages = (await this.storage.storage.ref(listing.imageFolderPath!).listAll()).prefixes;
+        const allImages = (await listAll(ref(this.storage, listing.imageFolderPath!))).prefixes;
         await Promise.all(allImages.map(async image => {
             await Promise.all(
                 [
-                    image.child(ImageFileVersion.compressed).delete(),
-                    image.child(ImageFileVersion.raw).delete()
+                    deleteObject(ref(image, ImageFileVersion.compressed)),
+                    deleteObject(ref(image, ImageFileVersion.raw))
+
                 ]
             );
         }));
-        await this.firestore.collection(FirestoreCollections.listings).doc(dbRefId).delete();
+        await deleteDoc(doc(this.firestore, dbRefId));
     }
 
     /* Change archived property of the listing */
     async archiveListing(dbRefId: string) {
-        await this.firestore.collection(FirestoreCollections.listings).doc(dbRefId).update({ archived: true });
+        await updateDoc(
+            doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
+            'archived',
+            true
+        );
     }
 
     async unarchiveListing(dbRefId: string) {
-        await this.firestore.collection(FirestoreCollections.listings).doc(dbRefId).update({ archived: false });
+        await updateDoc(
+            doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
+            'archived',
+            false
+        );
     }
 }

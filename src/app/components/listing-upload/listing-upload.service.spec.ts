@@ -1,38 +1,39 @@
 import { TestBed } from "@angular/core/testing";
-import { AngularFirestore, AngularFirestoreModule } from "@angular/fire/firestore";
-import { AngularFireStorage } from "@angular/fire/storage";
+import { collection, doc, Firestore, FirestoreModule, getDoc, getFirestore, provideFirestore } from "@angular/fire/firestore";
+import { Storage } from "@angular/fire/storage";
 import { MetadataService } from "src/app/shared/metadata.service";
 import { ListingUploadService } from "./listing-upload.service"
 import { NgxImageCompressService } from "ngx-image-compress";
 import { Listing, ListingImageFile } from "../listing-search/listing-search.data";
 import { FirestoreCollections } from "src/app/shared/globals";
 import { ListingEditService } from "../listing-edit/listing-edit.service";
-import { AngularFireModule } from "@angular/fire";
 import { firebaseConfig } from 'src/app/shared/globals';
+import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 
 describe('Listing Upload Service', () => {
     let listingUpload: ListingUploadService;
     let listingEdit: ListingEditService;
-    let firestore: AngularFirestore;
-    let storage: AngularFireStorage;
+    let firestore: Firestore;
+    let storage: Storage;
     let metadata: MetadataService;
     let imgCompress: NgxImageCompressService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                AngularFireModule.initializeApp(firebaseConfig),
-                AngularFirestoreModule],
+                provideFirebaseApp(() => initializeApp(firebaseConfig)),
+                provideFirestore(() => getFirestore()),
+                FirestoreModule],
             providers: [
-                AngularFirestore,
-                AngularFireStorage,
+                Firestore,
+                Storage,
                 MetadataService,
                 NgxImageCompressService
             ]
         })
 
-        firestore = TestBed.inject(AngularFirestore);
-        storage = TestBed.inject(AngularFireStorage);
+        firestore = TestBed.inject(Firestore);
+        storage = TestBed.inject(Storage);
         metadata = TestBed.inject(MetadataService);
         imgCompress = TestBed.inject(NgxImageCompressService);
 
@@ -78,11 +79,11 @@ describe('Listing Upload Service', () => {
         expect(testDocId).toBeTruthy();
 
 
-        const doc = await firestore.collection(FirestoreCollections.listings).doc(testDocId).get().toPromise();
-        const uploadedListing = doc.data() as Listing;
-        const uploadedListingId = doc.id;
+        const response = await getDoc(doc(collection(firestore, FirestoreCollections.listings), testDocId));
+        const uploadedListing = response.data() as Listing;
+        const uploadedListingId = response.id;
 
-        expect(doc.exists).toBe(true);
+        expect(response.exists).toBe(true);
         expect(uploadedListingId).toBe(testDocId);
         expect(uploadedListing.imageFolderPath!.indexOf(uploadedListing.location!) != -1).toBe(true);
 

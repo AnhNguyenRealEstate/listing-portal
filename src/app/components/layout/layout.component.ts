@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login-dialog.component';
@@ -16,7 +16,7 @@ export class LayoutComponent {
 
     constructor(
         private router: Router,
-        private auth: AngularFireAuth,
+        private auth: Auth,
         private loginService: RouteGuardService,
         private dialog: MatDialog) {
         this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn);

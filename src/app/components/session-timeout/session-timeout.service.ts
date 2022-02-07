@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
@@ -15,7 +15,7 @@ export class SessionTimeoutService {
     constructor(private idle: Idle,
         private keepalive: Keepalive,
         private router: Router,
-        private auth: AngularFireAuth,
+        private auth: Auth,
         private routeGuardService: RouteGuardService,
         private dialog: MatDialog) { }
 

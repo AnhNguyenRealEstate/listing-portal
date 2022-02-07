@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/firestore';
+import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
@@ -11,8 +11,8 @@ export class ListingUploadService {
     private propertyTypes: string[] = [];
     private locations: string[] = [];
 
-    constructor(private firestore: AngularFirestore,
-        private storage: AngularFireStorage,
+    constructor(private firestore: Firestore,
+        private storage: Storage,
         private metadata: MetadataService,
         private imageCompress: NgxImageCompressService
     ) {
@@ -35,7 +35,7 @@ export class ListingUploadService {
         listing.imageFolderPath = imageFolderPath;
 
         await this.storeListingImages(imageFiles, imageFolderPath);
-        const docRef = await this.firestore.collection(FirestoreCollections.listings).add(listing);
+        const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
         await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
 
@@ -51,19 +51,19 @@ export class ListingUploadService {
              * If the length of imageFiles is shorter than the amount of files on db, remove the old/extra images
              * Update the listing's attributes
              */
-            const imageFolderRef = this.storage.storage.ref(listing.imageFolderPath!);
-            const numOfImagesOnStorage = (await imageFolderRef.listAll()).prefixes.length;
+            const imageFolderRef = ref(this.storage, listing.imageFolderPath!);
+            const numOfImagesOnStorage = (await listAll(imageFolderRef)).prefixes.length;
             const numOfImagesUploaded = imageFiles.length;
 
             await this.storeListingImages(imageFiles, listing.imageFolderPath!);
             if (numOfImagesUploaded < numOfImagesOnStorage) {
-                const imagesOnStorage = (await imageFolderRef.listAll()).prefixes;
+                const imagesOnStorage = (await listAll(imageFolderRef)).prefixes;
                 await Promise.all(imagesOnStorage.map(async (img, index) => {
                     if (index + 1 > numOfImagesUploaded) {
                         await Promise.all(
                             [
-                                img.child(ImageFileVersion.compressed).delete(),
-                                img.child(ImageFileVersion.raw).delete()
+                                deleteObject(ref(img, ImageFileVersion.compressed)),
+                                deleteObject(ref(img, ImageFileVersion.raw))
                             ]
                         )
                     }
@@ -71,7 +71,7 @@ export class ListingUploadService {
             }
         }
 
-        await this.firestore.collection(FirestoreCollections.listings).doc(dbReferenceId).update(listing!);
+        await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { data: listing })
 
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
         await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
@@ -93,18 +93,19 @@ export class ListingUploadService {
             return new File([data], `${index}.${fileExtension}`, metadata);
         }
 
-        let allImages = (await this.storage.storage.ref(storagePath).listAll()).prefixes;
+        let allImages = (await listAll(ref(this.storage, storagePath))).prefixes;
 
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));
 
         await Promise.all(allImages.map(async (imageFile, index) => {
             let file_compressed = await getFile(
-                await imageFile.child(ImageFileVersion.compressed).getDownloadURL(),
+                await getDownloadURL(ref(imageFile, ImageFileVersion.compressed)),
                 index
             );
+
             let file_raw = await getFile(
-                await imageFile.child(ImageFileVersion.raw).getDownloadURL(),
+                await getDownloadURL(ref(imageFile, ImageFileVersion.raw)),
                 index
             );
             imageFiles[index] = {
@@ -135,12 +136,12 @@ export class ListingUploadService {
                 }
 
                 await Promise.all([
-                    this.storage.ref(`${imageFolderPath}/${index}/${ImageFileVersion.compressed}`)
-                        .put(file.compressed)
-                        .catch(() => { }),
-                    this.storage.ref(`${imageFolderPath}/${index}/${ImageFileVersion.raw}`)
-                        .put(file.raw)
-                        .catch(() => { })
+                    uploadBytes(
+                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.compressed}`), file.compressed
+                    ).catch(() => { }),
+                    uploadBytes(
+                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.compressed}`), file.raw
+                    ).catch(() => { })
                 ]);
             }
         }));
@@ -155,9 +156,11 @@ export class ListingUploadService {
             newList.push(newEntry);
             newList.sort((a, b) => a.localeCompare(b));
 
-            await this.firestore.collection(FirestoreCollections.metadata)
-                .doc(FirestoreDocs.listingMetadata)
-                .update({ [attributeToUpdate]: newList });
+            await updateDoc(
+                doc(this.firestore, `${FirestoreCollections.metadata}/${FirestoreDocs.listingMetadata}`),
+                attributeToUpdate,
+                newList
+            )
         }
     }
 

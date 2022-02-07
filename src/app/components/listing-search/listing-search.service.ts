@@ -1,25 +1,48 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { AngularFirestore, CollectionReference, DocumentData, Query } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { Firestore, CollectionReference, DocumentData, orderBy, Query, query, where, collection, getDoc, doc } from '@angular/fire/firestore';
+import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
+import { getDocs } from '@firebase/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class ListingSearchService {
     private searchResults$$ = new BehaviorSubject<Listing[]>([]);
     private searchResults$ = this.searchResults$$.asObservable();
 
-    constructor(private firestore: AngularFirestore, private storage: AngularFireStorage) {
+    constructor(private firestore: Firestore, private storage: Storage) {
     }
 
     async getListingsByCriteria(searchCriteria: SearchCriteria): Promise<Listing[]> {
+
+        function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
+            let q = query(ref, orderBy('price', 'desc'));
+            if (criteria.bathrooms) {
+                if (criteria.bathrooms === '3+') {
+                    q = query(q, where('bathrooms', '>=', 3));
+                } else {
+                    q = query(q, where('bathrooms', '==', Number(criteria.bathrooms)));
+                }
+            }
+            if (criteria.bedrooms) {
+                if (criteria.bedrooms === '3+') {
+                    q = query(q, where('bedrooms', '>=', 3));
+                } else {
+                    q = query(q, where('bedrooms', '==', Number(criteria.bedrooms)));
+                }
+            }
+            if (criteria.location) q = query(q, where('location', '==', criteria.location));
+            if (criteria.propertyType) q = query(q, where('propertyType', '==', criteria.propertyType));
+            return q as Query<DocumentData>;
+        }
+
+
         const results: Listing[] = [];
-        const dbResponse = await this.firestore
-            .collection<Listing>(
-                FirestoreCollections.listings,
-                ref => this.criteriaToDBQuery(ref, searchCriteria)
-            ).get().toPromise().catch(() => { });
+        const dbResponse = await getDocs(
+            criteriaToDBQuery(collection(this.firestore, FirestoreCollections.listings),
+                searchCriteria
+            ));
 
         if (!dbResponse) {
             return [];
@@ -49,7 +72,7 @@ export class ListingSearchService {
             listing.id = doc.id;
 
             if (listing.imageFolderPath) {
-                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`).getDownloadURL();
+                listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
             }
 
             results.push(listing);
@@ -57,33 +80,24 @@ export class ListingSearchService {
         return results;
     }
 
+    /**
+     * Get a listing from Firestore by its Id
+     * @param listingId The Firebase Id of the listing
+     * @returns A Promise that resolves to a Listing object or undefined if Firebase Id is invalid
+     */
     async getListingById(listingId: string): Promise<Listing | undefined> {
-        const dbResponse = await this.firestore
-            .collection(
-                FirestoreCollections.listings
-            ).get().toPromise().catch(() => { });
+        const dbResponse = await getDoc(doc(collection(this.firestore, FirestoreCollections.listings), listingId)).catch(() => { });
 
         if (!dbResponse) {
             return undefined;
         }
 
-        const listingRef = dbResponse.docs.find(doc => doc.id === listingId);
+        const listingRef = dbResponse.ref
         if (!listingRef) {
             return undefined;
         }
 
-        const listing = listingRef?.data() as Listing;
-        if (!listing.imageFolderPath) {
-            return listing;
-        }
-
-        listing.imageSources = [];
-        const images = await this.storage.ref(listing.imageFolderPath).listAll().toPromise();
-        for (let i = 0; i < images.items.length; i++) {
-            listing.imageSources.push(await images.items[i].getDownloadURL());
-        }
-
-        return listing;
+        return dbResponse.data() as Listing;
     }
 
     searchResults() {
@@ -92,27 +106,6 @@ export class ListingSearchService {
 
     setSearchResults(value: Listing[]) {
         this.searchResults$$.next(value);
-    }
-
-    private criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
-        let query = ref.orderBy('price', 'desc');
-        if (criteria.bathrooms) {
-            if (criteria.bathrooms === '3+') {
-                query = query.where('bathrooms', '>=', 3);
-            } else {
-                query = query.where('bathrooms', '==', Number(criteria.bathrooms));
-            }
-        }
-        if (criteria.bedrooms) {
-            if (criteria.bedrooms === '3+') {
-                query = query.where('bedrooms', '>=', 3);
-            } else {
-                query = query.where('bedrooms', '==', Number(criteria.bedrooms));
-            }
-        }
-        if (criteria.location) query = query.where('location', '==', criteria.location);
-        if (criteria.propertyType) query = query.where('propertyType', '==', criteria.propertyType);
-        return query as Query<DocumentData>;
     }
 
     private propertySizesToMinMaxSizes(propertySizes: string): number[] {

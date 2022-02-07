@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { collection, doc, Firestore, getDoc, onSnapshot } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FirestoreCollections, FirestoreDocs } from './globals';
 
@@ -13,10 +13,10 @@ export class MetadataService {
         locations: "locations"
     });
 
-    constructor(private firestore: AngularFirestore) {
-        const listingDataDoc = this.firestore.collection(FirestoreCollections.metadata).doc(FirestoreDocs.listingMetadata);
-        listingDataDoc.snapshotChanges().subscribe(dbResponse => {
-            const metadata = dbResponse.payload.data() as any;
+    constructor(private firestore: Firestore) {
+        const listingMetadataDoc = doc(collection(this.firestore, FirestoreCollections.metadata), FirestoreDocs.listingMetadata);
+        onSnapshot(listingMetadataDoc, dbResponse => {
+            const metadata = dbResponse.data() as any;
 
             const propertyTypes = metadata[this.metadataKeys.propertyTypes];
             if (propertyTypes?.length) {

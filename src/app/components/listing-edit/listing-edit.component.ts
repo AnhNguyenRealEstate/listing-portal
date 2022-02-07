@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { collection, DocumentData, Firestore, onSnapshot } from '@angular/fire/firestore';
+import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -28,22 +28,22 @@ export class ListingEditComponent implements OnInit {
     subs = new Subscription();
 
     constructor(
-        private firestore: AngularFirestore,
-        private storage: AngularFireStorage,
+        private firestore: Firestore,
+        private storage: Storage,
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
         private listingEditService: ListingEditService,
         private loadingSpinnerService: LoadSpinnerService) { }
 
     ngOnInit() {
-        this.subs.add(this.firestore.collection(FirestoreCollections.listings).snapshotChanges().subscribe(async data => {
+        this.subs.add(onSnapshot(collection(this.firestore, FirestoreCollections.listings), async data => {
             const listings: Listing[] = [];
             this.dbReferences = [];
 
-            for (let i = 0; i < data.length; i++) {
-                const doc = data[i].payload.doc;
+            for (let i = 0; i < data.docs.length; i++) {
+                const doc: DocumentData = data.docs[i].data();
                 const listing = doc.data() as Listing;
-                listing.coverImage = await this.storage.storage.ref(`${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`).getDownloadURL();
+                listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
                 listings.push(listing);
                 this.dbReferences.push(doc.id);
             }

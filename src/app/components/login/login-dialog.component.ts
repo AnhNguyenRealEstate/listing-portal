@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Auth, browserSessionPersistence, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -14,22 +14,19 @@ export class LoginComponent {
 
     constructor(
         public dialogRef: MatDialogRef<LoginComponent>,
-        public auth: AngularFireAuth) { }
+        public auth: Auth) { }
 
-    login() {
-        this.auth
-            .signInWithEmailAndPassword(this.userName, this.password)
-            .then(() => {
-                this.dialogRef.close(true);
-            })
-            .catch(error => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                if (errorCode === 'auth/wrong-password') {
-                    alert('Wrong password.');
-                } else {
-                    alert(errorMessage);
-                }
-            })
+    async login() {
+        await this.auth.setPersistence(browserSessionPersistence);
+        await signInWithEmailAndPassword(this.auth, this.userName, this.password).catch(error => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                alert(errorMessage);
+            }
+        });
+        this.dialogRef.close(true);
     }
 }

@@ -37,9 +37,8 @@ import { ListingDetailsDialogComponent } from './components/listing-search/listi
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { LoginComponent } from './components/login/login-dialog.component';
 import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { PERSISTENCE } from '@angular/fire/auth';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
@@ -102,15 +101,14 @@ import { firebaseConfig } from './shared/globals';
     MatSnackBarModule,
     MatAutocompleteModule,
     NgxPageScrollCoreModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirestore(() => getFirestore()),
     NgIdleKeepaliveModule.forRoot(),
     NgImageSliderModule,
     EditorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
-    { provide: PERSISTENCE, useValue: 'session' },
     NgxImageCompressService
   ],
   bootstrap: [AppComponent]
