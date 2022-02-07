@@ -41,7 +41,7 @@ export class ListingEditComponent implements OnInit {
             this.dbReferences = [];
 
             for (let i = 0; i < data.docs.length; i++) {
-                const doc: DocumentData = data.docs[i].data();
+                const doc: DocumentData = data.docs[i];
                 const listing = doc.data() as Listing;
                 listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
                 listings.push(listing);

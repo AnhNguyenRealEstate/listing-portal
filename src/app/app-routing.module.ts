@@ -5,8 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
-import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
-import { RouteGuardService } from './shared/route-guard.service';
+import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const routes: Routes = [
   {
@@ -24,18 +23,12 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'listing-upload',
-    component: ListingUploadComponent,
-    canActivate: [
-      RouteGuardService
-    ]
-  },
-  {
     path: 'listing-edit',
     component: ListingEditComponent,
     canActivate: [
-      RouteGuardService
-    ]
+      AuthGuard
+    ],
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['/']) }
   },
   {
     path: 'about-us',
@@ -44,7 +37,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

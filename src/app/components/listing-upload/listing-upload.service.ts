@@ -140,7 +140,7 @@ export class ListingUploadService {
                         ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.compressed}`), file.compressed
                     ).catch(() => { }),
                     uploadBytes(
-                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.compressed}`), file.raw
+                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.raw}`), file.raw
                     ).catch(() => { })
                 ]);
             }

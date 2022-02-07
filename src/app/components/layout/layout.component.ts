@@ -3,7 +3,7 @@ import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login-dialog.component';
-import { RouteGuardService } from '../../shared/route-guard.service';
+import { LoginService } from '../login/login.service';
 
 @Component({
     selector: 'app-layout',
@@ -17,7 +17,7 @@ export class LayoutComponent {
     constructor(
         private router: Router,
         private auth: Auth,
-        private loginService: RouteGuardService,
+        private loginService: LoginService,
         private dialog: MatDialog) {
         this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn);
     }

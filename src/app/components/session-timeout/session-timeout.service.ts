@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { filter } from 'rxjs/operators';
-import { RouteGuardService } from '../../shared/route-guard.service';
+import { LoginService } from '../login/login.service';
 import { TimeoutComponent } from './session-timeout.component';
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +16,7 @@ export class SessionTimeoutService {
         private keepalive: Keepalive,
         private router: Router,
         private auth: Auth,
-        private routeGuardService: RouteGuardService,
+        private routeGuardService: LoginService,
         private dialog: MatDialog) { }
 
     setTimeout() {

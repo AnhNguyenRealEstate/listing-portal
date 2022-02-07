@@ -11,6 +11,7 @@ export class LoginComponent {
     userName: string = '';
     password: string = '';
     hide: boolean = true;
+    successful: boolean = true;
 
     constructor(
         public dialogRef: MatDialogRef<LoginComponent>,
@@ -19,14 +20,22 @@ export class LoginComponent {
     async login() {
         await this.auth.setPersistence(browserSessionPersistence);
         await signInWithEmailAndPassword(this.auth, this.userName, this.password).catch(error => {
+            this.successful = false;
             const errorCode = error.code;
             const errorMessage = error.message;
-            if (errorCode === 'auth/wrong-password') {
-                alert('Wrong password.');
-            } else {
-                alert(errorMessage);
+
+            switch (errorCode) {
+                case 'auth/wrong-password':
+                case 'auth/invalid-email':
+                    alert('Please enter valid username/password');
+                    break;
+                default:
+                    alert(errorMessage);
             }
         });
-        this.dialogRef.close(true);
+
+        if (this.successful) {
+            this.dialogRef.close(true);
+        }
     }
 }
