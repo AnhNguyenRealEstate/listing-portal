@@ -51,16 +51,7 @@ import { RTEditorComponent } from './components/rich-text-editor/rich-text-edito
 import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
 import { ListingUploadDialogComponent } from './components/listing-upload/listing-upload-dialog.component';
 import { NgxImageCompressService } from "ngx-image-compress";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
-  authDomain: "listing-portal.firebaseapp.com",
-  projectId: "listing-portal",
-  storageBucket: "listing-portal.appspot.com",
-  messagingSenderId: "915781263857",
-  appId: "1:915781263857:web:b86316bef0494007f22450",
-  measurementId: "G-HRX75EES2C"
-};
+import { firebaseConfig } from './shared/globals';
 
 @NgModule({
   declarations: [

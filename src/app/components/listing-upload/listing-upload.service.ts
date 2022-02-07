@@ -25,21 +25,21 @@ export class ListingUploadService {
     }
 
     /**
-    Uploads a new listing and its images
+    Uploads a new listing and its images. Returns the Firestore ID of the listing.
     1. Store images 
     2. Add the new listing
     Images must be stored first because in case of interruption, there won't be a null pointer 
     for imageFolderPath in the newly-created listing */
-    async publishListing(listing: Listing, imageFiles: ListingImageFile[]) {
+    async publishListing(listing: Listing, imageFiles: ListingImageFile[]): Promise<string> {
         const imageFolderPath = this.createImageStoragePath(listing);
         listing.imageFolderPath = imageFolderPath;
 
         await this.storeListingImages(imageFiles, imageFolderPath);
-        await this.firestore.collection(FirestoreCollections.listings)
-            .add(listing)
-            .catch(() => { });
+        const docRef = await this.firestore.collection(FirestoreCollections.listings).add(listing);
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
         await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
+
+        return docRef.id;
     }
 
     /**  Save any changes made to the listing and its images
