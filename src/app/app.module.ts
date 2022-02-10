@@ -38,7 +38,7 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { LoginComponent } from './components/login/login-dialog.component';
 import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { connectFirestoreEmulator, enableIndexedDbPersistence, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
@@ -51,10 +51,10 @@ import { TimeoutComponent } from './components/session-timeout/session-timeout.c
 import { ListingUploadDialogComponent } from './components/listing-upload/listing-upload-dialog.component';
 import { NgxImageCompressService } from "ngx-image-compress";
 import { firebaseConfig } from './shared/globals';
-import { Auth, getAuth, provideAuth } from '@angular/fire/auth';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
-import { provideStorage } from '@angular/fire/storage';
-import { AuthGuard } from '@angular/fire/auth-guard';
+import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -106,9 +106,27 @@ import { AuthGuard } from '@angular/fire/auth-guard';
     MatAutocompleteModule,
     NgxPageScrollCoreModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage()),
-    provideAuth(() => getAuth()),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      if (!environment.production) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+      }
+      return firestore;
+    }),
+    provideStorage(() => {
+      const storage = getStorage();
+      if (!environment.production) {
+        connectStorageEmulator(storage, 'localhost', 9199);
+      }
+      return storage;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (!environment.production) {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+      }
+      return auth;
+    }),
     NgIdleKeepaliveModule.forRoot(),
     NgImageSliderModule,
     EditorModule

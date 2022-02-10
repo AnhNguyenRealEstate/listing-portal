@@ -11,7 +11,9 @@
     "build-prod": "ng build --configuration production --aot --outputHashing=all",
     "deploy": "npm run build-prod && ng deploy --repo='https://github.com/nguyentrungtu/nguyentrungtu.github.io'",
     "build-docker": "docker build -t listing-portal:latest \".\" ",
-    "start-docker": "docker run -dp 3000:80 --name listing-portal -t listing-portal:latest"
+    "start-docker": "docker run -dp 3000:80 --name listing-portal -t listing-portal:latest",
+    "start-offlinedb": "firebase emulators:start --import=./offline-db --export-on-exit",
+    "clean-offlinedb": "lsof -t -i:9199 -i:8080 -i:9099 -i:5001 -i:9000 -i:5050 -i:8085 -i:4000 | xargs kill -9"
   },
   "private": true,
   "dependencies": {

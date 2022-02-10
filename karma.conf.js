@@ -18,6 +18,9 @@ module.exports = function (config) {
         // the possible options are listed at https://jasmine.github.io/api/edge/Configuration.html
         // for example, you can disable the random execution with `random: false`
         // or set a specific seed with `seed: 4321`
+        stopSpecOnExpectationFailure: true,
+        stopOnSpecFailure: true,
+        random: false
       },
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -36,12 +39,18 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
+    autoWatch: false,
     browsers: ['ChromeHeadless'],
-    singleRun: false,
-    restartOnFileChange: true,
+    singleRun: true,
+    restartOnFileChange: false,
     browserConsoleLogOptions: {
       level: 'log'
+    },
+    files: [
+      { pattern: 'test-assets/listing-upload-test-files/*.jpg', watched: false, included: false, served: true }
+    ],
+    proxies: {
+      '/test-assets/': '/base/test-assets/'
     }
   });
 };

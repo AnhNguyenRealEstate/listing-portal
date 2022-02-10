@@ -5,6 +5,7 @@ import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
 import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs, ImageFileVersion } from 'src/app/shared/globals';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ListingUploadService {
@@ -122,6 +123,10 @@ export class ListingUploadService {
     }
 
     private async storeListingImages(imageFiles: ListingImageFile[], imageFolderPath: string) {
+        if (!environment.production) {
+            return;
+        }
+        
         if (!imageFiles.length) return;
 
         await Promise.all(imageFiles.map(async (file, index) => {
@@ -137,11 +142,13 @@ export class ListingUploadService {
 
                 await Promise.all([
                     uploadBytes(
-                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.compressed}`), file.compressed
-                    ).catch(() => { }),
+                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.compressed}`),
+                        file.compressed
+                    ).catch(),
                     uploadBytes(
-                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.raw}`), file.raw
-                    ).catch(() => { })
+                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.raw}`),
+                        file.raw
+                    ).catch()
                 ]);
             }
         }));

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, DocumentData, Firestore, onSnapshot } from '@angular/fire/firestore';
+import { collection, DocumentData, Firestore, onSnapshot, query } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
 import { Listing } from '../listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingEditService } from './listing-edit.service';
 import { FirestoreCollections, ImageFileVersion } from '../../shared/globals';
+import { Unsubscribe } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-listing-edit',
@@ -25,7 +25,7 @@ export class ListingEditComponent implements OnInit {
     listingToShow: Listing | undefined = undefined;
     dbReferenceId: string = "";
 
-    subs = new Subscription();
+    snapshotCancel: Unsubscribe = () => { };
 
     constructor(
         private firestore: Firestore,
@@ -36,12 +36,11 @@ export class ListingEditComponent implements OnInit {
         private loadingSpinnerService: LoadSpinnerService) { }
 
     ngOnInit() {
-        this.subs.add(onSnapshot(collection(this.firestore, FirestoreCollections.listings), async data => {
+        this.snapshotCancel = onSnapshot(collection(this.firestore, FirestoreCollections.listings), async snapshot => {
             const listings: Listing[] = [];
             this.dbReferences = [];
-
-            for (let i = 0; i < data.docs.length; i++) {
-                const doc: DocumentData = data.docs[i];
+            for (let i = 0; i < snapshot.docs.length; i++) {
+                const doc: DocumentData = snapshot.docs[i];
                 const listing = doc.data() as Listing;
                 listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
                 listings.push(listing);
@@ -49,11 +48,11 @@ export class ListingEditComponent implements OnInit {
             }
 
             this.listings = listings; //Updating the listings all at once
-        }));
+        });
     }
 
     ngOnDestroy() {
-        this.subs.unsubscribe();
+        this.snapshotCancel();
     }
 
     showSelected(listing: Listing, index: number) {
