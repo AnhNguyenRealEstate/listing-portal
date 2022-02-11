@@ -5,6 +5,7 @@ import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { getDocs } from '@firebase/firestore';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ListingSearchService {
@@ -37,6 +38,16 @@ export class ListingSearchService {
             return q as Query<DocumentData>;
         }
 
+        function propertySizesToMinMaxSizes(propertySizes: string): number[] {
+            switch (propertySizes) {
+                case '_050to100': return [50, 100];
+                case '_100to200': return [100, 200];
+                case '_200to300': return [200, 300];
+                case '_300to400': return [300, 400];
+                case '_400plus': return [400, 9999];
+                default: return [0, 9999];
+            }
+        }
 
         const results: Listing[] = [];
         const dbResponse = await getDocs(
@@ -48,7 +59,7 @@ export class ListingSearchService {
             return [];
         }
 
-        const minMaxSizes = this.propertySizesToMinMaxSizes(searchCriteria.propertySize);
+        const minMaxSizes = propertySizesToMinMaxSizes(searchCriteria.propertySize);
         const minSize = minMaxSizes[0];
         const maxSize = minMaxSizes[1];
 
@@ -71,8 +82,10 @@ export class ListingSearchService {
 
             listing.id = doc.id;
 
-            if (listing.imageFolderPath) {
-                listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
+            if (environment.production) {
+                if (listing.imageFolderPath) {
+                    listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
+                }
             }
 
             results.push(listing);
@@ -88,12 +101,7 @@ export class ListingSearchService {
     async getListingById(listingId: string): Promise<Listing | undefined> {
         const dbResponse = await getDoc(doc(collection(this.firestore, FirestoreCollections.listings), listingId)).catch(() => { });
 
-        if (!dbResponse) {
-            return undefined;
-        }
-
-        const listingRef = dbResponse.ref
-        if (!listingRef) {
+        if (!(dbResponse && dbResponse.exists())) {
             return undefined;
         }
 
@@ -106,16 +114,5 @@ export class ListingSearchService {
 
     setSearchResults(value: Listing[]) {
         this.searchResults$$.next(value);
-    }
-
-    private propertySizesToMinMaxSizes(propertySizes: string): number[] {
-        switch (propertySizes) {
-            case '_050to100': return [50, 100];
-            case '_100to200': return [100, 200];
-            case '_200to300': return [200, 300];
-            case '_300to400': return [300, 400];
-            case '_400plus': return [400, 9999];
-            default: return [0, 9999];
-        }
     }
 }

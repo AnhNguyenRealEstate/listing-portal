@@ -123,10 +123,6 @@ export class ListingUploadService {
     }
 
     private async storeListingImages(imageFiles: ListingImageFile[], imageFolderPath: string) {
-        if (!environment.production) {
-            return;
-        }
-        
         if (!imageFiles.length) return;
 
         await Promise.all(imageFiles.map(async (file, index) => {
@@ -138,6 +134,10 @@ export class ListingUploadService {
                     const response = await fetch(compressedImgAsBase64Url);
                     const data = await response.blob();
                     file.compressed = new File([data], `${file.raw.name}_${ImageFileVersion.compressed}`, { type: file.raw.type });
+                }
+
+                if (!environment.production) {
+                    return;
                 }
 
                 await Promise.all([
