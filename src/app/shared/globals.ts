@@ -12,14 +12,13 @@ export const FirestoreDocs = Object.freeze({
 });
 
 export const firebaseConfig = Object.freeze({
-    apiKey: "AIzaSyA1XM_nSp9m-vmO2FiDA8IyARQEAMEPJyA",
-    authDomain: "listing-portal.firebaseapp.com",
-    databaseURL: "https://listing-portal-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "listing-portal",
-    storageBucket: "listing-portal.appspot.com",
-    messagingSenderId: "915781263857",
-    appId: "1:915781263857:web:b86316bef0494007f22450",
-    measurementId: "G-HRX75EES2C"
+    apiKey: "AIzaSyBlBLGg-mQjFNN3FNm_Y6dvMzcee79nw_8",
+    authDomain: "listing-portal-ec7bf.firebaseapp.com",
+    projectId: "listing-portal-ec7bf",
+    storageBucket: "listing-portal-ec7bf.appspot.com",
+    messagingSenderId: "361764945676",
+    appId: "1:361764945676:web:aa972f9208ba750e591329",
+    measurementId: "G-WQK0ZD96R3"
 });
 
 export const ImageFileVersion = Object.freeze({

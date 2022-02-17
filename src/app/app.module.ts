@@ -37,7 +37,8 @@ import { ListingDetailsDialogComponent } from './components/listing-search/listi
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { LoginComponent } from './components/login/login-dialog.component';
 import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
+import { getAnalytics, provideAnalytics } from "@angular/fire/analytics";
 import { connectFirestoreEmulator, enableIndexedDbPersistence, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
@@ -55,6 +56,7 @@ import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
 import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { environment } from 'src/environments/environment';
     ContactUsComponent,
     RTEditorComponent,
     TimeoutComponent,
-    ListingUploadDialogComponent
+    ListingUploadDialogComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -127,6 +130,7 @@ import { environment } from 'src/environments/environment';
       }
       return auth;
     }),
+    provideAnalytics(() => getAnalytics(getApp())),
     NgIdleKeepaliveModule.forRoot(),
     NgImageSliderModule,
     EditorModule

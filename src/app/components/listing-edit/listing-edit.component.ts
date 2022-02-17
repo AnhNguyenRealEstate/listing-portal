@@ -36,7 +36,7 @@ export class ListingEditComponent implements OnInit {
         private loadingSpinnerService: LoadSpinnerService) { }
 
     ngOnInit() {
-        this.snapshotCancel = onSnapshot(collection(this.firestore, FirestoreCollections.listings), async snapshot => {
+        this.snapshotCancel = onSnapshot(query(collection(this.firestore, FirestoreCollections.listings)), async snapshot => {
             const listings: Listing[] = [];
             this.dbReferences = [];
             for (let i = 0; i < snapshot.docs.length; i++) {

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "listing-portal"
-  }
+    "listing-portal": "listing-portal-ec7bf"
+  },
+  "targets": {}
 }
