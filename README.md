@@ -34,3 +34,6 @@ Browse the Firebase Emulator page (default is localhost:4000), add app-data as a
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Service tests (**.service.spec.ts) are all integration tests that involve multiple services that interacts with Firebase. These have to be ran one by one, as they are async tests that may overlap. Run `ng test --include='**/[folder-name]/**.service.spec.ts'` to run individual tests.
+
+## Deploying to Firebase
+Run `npm run deploy -- -m [your comment]` to deploy to Firebase.

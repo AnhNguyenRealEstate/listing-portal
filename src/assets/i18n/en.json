@@ -1,0 +1,60 @@
+{
+    "about_us": {
+        "company_intro_1_title": "{{tenure}}+ Years",
+        "company_intro_1": "Founded in 2008, we are proud to be one of the longest-serving real-estate brokerages in District 7, Ho Chi Minh City.",
+        "company_intro_2_title": "1000+ Customers Annually",
+        "company_intro_2": "We have served over ten thousand clients, with unwavering commitment to customer satisfactions.",
+        "office_address": "168 Ha Huy Tap, Tan Phong Ward, District 7, Ho Chi Minh City",
+        "first_contact": "Tel: +84 91 378 0858 | Ms. Anh"
+    },
+    "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
+    "home": {
+        "browse_listings": "Browse Our Listings",
+        "anh_nguyen": "Anh Nguyen",
+        "real_estate": "Real Estate Ltd"
+    },
+    "layout": {
+        "listings": "Listings",
+        "layout.edit_listings": "Edit Listings",
+        "about_us": "About Us",
+        "sign_in": "Sign In",
+        "sign_out": "Sign Out"
+    },
+    "listing_edit": {
+        "new_Listing": "New Listing",
+        "select_a_listing": "Select a listing"
+    },
+    "search_results.no_results": "No result matches your criteria",
+    "listing_search.page_title": "Listings",
+    "search_bar": {
+        "property_type": "Property Type",
+        "location": "Location",
+        "property_sizes": "Property Sizes",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "min_price": "Min price",
+        "max_price": "Max price",
+        "get_listings": "Get Listings"
+    },
+    "listing_upload": {
+        "property_type": "Property Type",
+        "location": "Location",
+        "property_sizes": "Property Sizes",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "purpose": "For Rent or For Sale",
+        "price": "Price",
+        "address": "Address",
+        "description": "Description"
+    },
+    "login": {
+        "username": "Username",
+        "password": "Password",
+        "login": "Login",
+        "wrong_email_pw": "Please enter valid username/password'"
+    },
+    "session_timeout": {
+        "title": "Inactivity Warning",
+        "warning": "You have been inactive and will be signed out in 5 minutes"
+    }
+}

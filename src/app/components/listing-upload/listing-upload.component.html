@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-3">
             <mat-form-field class="form-group" color="accent">
-                <mat-label>Property Type</mat-label>
+                <mat-label>{{ 'listing_upload.property_type' | translate }}</mat-label>
                 <input id="propertyType" matInput type="text" aria-label="Property Type"
                     [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType">
                 <mat-autocomplete #propertyTypesAuto="matAutocomplete">
@@ -25,7 +25,7 @@
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
-                <mat-label>Location</mat-label>
+                <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
                 <input id="locations" matInput type="text" aria-label="Location" [matAutocomplete]="locationsAuto"
                     [(ngModel)]="listing.location">
                 <mat-autocomplete #locationsAuto="matAutocomplete">
@@ -36,28 +36,28 @@
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
-                <mat-label>Property Sizes (m<sup>2</sup>)</mat-label>
+                <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
                 <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
                     placeholder="Size..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
-                <mat-label>Bedrooms</mat-label>
+                <mat-label>{{ 'listing_upload.bedrooms' | translate }}</mat-label>
                 <input matInput id="bedrooms" type="number" [(ngModel)]="listing.bedrooms" class="d-inline"
                     placeholder="# of bedrooms..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
-                <mat-label>Bathrooms</mat-label>
+                <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
                 <input matInput id="bathrooms" type="number" [(ngModel)]="listing.bathrooms" class="d-inline"
                     placeholder="# of bathrooms..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
-                <mat-label>For Rent or For Sale</mat-label>
+                <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
                 <mat-select (selectionChange)="onPurposeSelect($event)" [(ngModel)]="listing.purpose" required>
                     <mat-option value='For Rent'>For Rent</mat-option>
                     <mat-option value='For Sale'>For Sale</mat-option>
@@ -67,7 +67,7 @@
         <div class="col-6">
             <div class="price-input-group">
                 <mat-form-field color="accent">
-                    <mat-label>Price</mat-label>
+                    <mat-label>{{ 'listing_upload.price' | translate }}</mat-label>
                     <input matInput type="text" [(ngModel)]="listing.price" id="price" placeholder="0" required>
                     <mat-select [(ngModel)]="listing.currency" required>
                         <mat-option value='USD'>US$</mat-option>
@@ -80,14 +80,14 @@
     <div class="row">
         <div class="col">
             <mat-form-field color="accent">
-                <mat-label>Address</mat-label>
+                <mat-label>{{ 'listing_upload.address' | translate }}</mat-label>
                 <input matInput id="address" type="text" aria-label="Address" [(ngModel)]="listing.address">
             </mat-form-field>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <mat-label>Description</mat-label>
+            <mat-label>{{ 'listing_upload.description' | translate }}</mat-label>
             <div class="mat-form-field-wrapper">
                 <app-editor [listing]="listing"></app-editor>
             </div>

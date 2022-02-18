@@ -5,20 +5,20 @@
 <section class="d-md-none background-mobile">
     <div style="height: 60vh" class="container-flex pt-2 ms-4 me-4">
         <h1 class="page-title" style="color: darkslategray; font-size: 3em; line-height: 1em;">
-            <span class="d-block">Anh Nguyen</span>
-            <span>Real Estate Ltd</span>
+            <span class="d-block">{{ 'home.anh_nguyen' | translate }}</span>
+            <span>{{ 'home.real_estate' | translate }}</span>
         </h1>
     </div>
     <div class="backdrop" (click)="goToListings()">
         <div class="ps-4">
             <a href="/listings" style="color: gray; text-decoration: none;">
-                <p style="font-size: 24px; padding-top: 25%">Browse Our Listings <mat-icon>trending_flat</mat-icon>
+                <p style="font-size: 24px; padding-top: 25%">
+                    {{ 'home.browse_listings' | translate }}
+                    <mat-icon>trending_flat</mat-icon>
                 </p>
             </a>
         </div>
     </div>
 </section>
 
-<footer class="d-flex justify-content-center pt-4 pb-4 footer">
-    <span>Copyright @ Anh Nguyen Real Estate. All Rights Reserved.</span>
-</footer>
+<app-footer></app-footer>

@@ -10,7 +10,7 @@ import { SearchBarComponent } from './components/listing-search/search-bar/searc
 import { FormsModule } from '@angular/forms';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
 import { LoadingInterceptorService } from './shared/loading-interceptor.service';
 import { LoadingSpinnerComponent } from './components/load-spinner/loading-spinner.component';
@@ -39,12 +39,11 @@ import { LoginComponent } from './components/login/login-dialog.component';
 import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics } from "@angular/fire/analytics";
-import { connectFirestoreEmulator, enableIndexedDbPersistence, getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
 import { NgImageSliderModule } from 'ng-image-slider';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { RTEditorComponent } from './components/rich-text-editor/rich-text-editor.component';
@@ -57,6 +56,8 @@ import { getStorage } from '@firebase/storage';
 import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
 import { FooterComponent } from './components/footer/footer.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,6 @@ import { FooterComponent } from './components/footer/footer.component';
     ListingUploadComponent,
     ListingEditComponent,
     ListingLocationComponent,
-    ContactUsComponent,
     RTEditorComponent,
     TimeoutComponent,
     ListingUploadDialogComponent,
@@ -133,7 +133,14 @@ import { FooterComponent } from './components/footer/footer.component';
     provideAnalytics(() => getAnalytics(getApp())),
     NgIdleKeepaliveModule.forRoot(),
     NgImageSliderModule,
-    EditorModule
+    EditorModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
@@ -142,3 +149,8 @@ import { FooterComponent } from './components/footer/footer.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

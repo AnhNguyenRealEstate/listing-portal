@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class AboutUsComponent {
     startYear = 2008;
     thisYear = (new Date()).getFullYear();
+    tenure = this.thisYear - this.startYear;
     
     constructor() { }
 

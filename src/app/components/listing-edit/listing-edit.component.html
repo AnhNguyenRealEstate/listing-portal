@@ -4,7 +4,7 @@
             <div class="col-6 d-flex justify-content-center">
                 <button mat-button class="add-listing-btn" color="accent" (click)="openUploadModalDesktop()">
                     <mat-icon class="pe-1">add</mat-icon>
-                    <span class="ps-3">New Listing</span>
+                    <span class="ps-3">{{ 'listing_edit.new_Listing' | translate }}</span>
                 </button>
             </div>
         </div>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-6 listing-edit-detail-view" *ngIf="listings?.length">
                 <div *ngIf="listingToShow === undefined">
-                    <span class="ps-4 listing-edit-select-a-listing-text">Select a listing</span>
+                    <span class="ps-4 listing-edit-select-a-listing-text">{{ 'listing_edit.select_a_listing' | translate }}</span>
                 </div>
                 <div *ngIf="listingToShow !== undefined">
                     <mat-card>
@@ -86,7 +86,7 @@
             <div class="col-12 d-flex justify-content-center">
                 <button mat-button class="add-listing-btn" color="accent" (click)="openUploadModalMobile()">
                     <mat-icon class="pe-1">add</mat-icon>
-                    <span class="ps-3">New Listing</span>
+                    <span class="ps-3">{{ 'listing_edit.new_Listing' | translate }}</span>
                 </button>
             </div>
         </div>

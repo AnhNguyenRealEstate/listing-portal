@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth, browserSessionPersistence, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent {
 
     constructor(
         public dialogRef: MatDialogRef<LoginComponent>,
-        public auth: Auth) { }
+        public auth: Auth,
+        private translateService: TranslateService) { }
 
     async login() {
         await this.auth.setPersistence(browserSessionPersistence);
@@ -27,7 +29,7 @@ export class LoginComponent {
             switch (errorCode) {
                 case 'auth/wrong-password':
                 case 'auth/invalid-email':
-                    alert('Please enter valid username/password');
+                    alert(this.translateService.instant('login.wrong_email_pw'));
                     break;
                 default:
                     alert(errorMessage);

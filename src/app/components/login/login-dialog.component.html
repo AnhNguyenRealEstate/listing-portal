@@ -2,16 +2,16 @@
     <h1>Login</h1>
     <mat-divider class="pb-2"></mat-divider>
     <mat-form-field color="accent" class="d-block">
-        <mat-label>Username</mat-label>
+        <mat-label>{{ 'login.username' | translate }}</mat-label>
         <input matInput type="text" [(ngModel)]="userName">
     </mat-form-field>
     <mat-form-field color="accent" class="d-block">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'login.password' | translate }}</mat-label>
         <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
     </mat-form-field>
-    <button mat-flat-button color="accent" (click)="login()">Login</button>
+    <button mat-flat-button color="accent" (click)="login()" (keydown.enter)="login()">{{ 'login.login' | translate }}</button>
 </section>

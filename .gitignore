@@ -43,6 +43,7 @@ testem.log
 /typings
 /test-assets
 /offline-db
+/.firebase
 *-debug.log
 
 # System Files

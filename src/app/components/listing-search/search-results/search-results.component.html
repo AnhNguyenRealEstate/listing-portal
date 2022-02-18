@@ -5,13 +5,14 @@
                 <mat-icon [inline]="true">search_off</mat-icon>
             </div>
             <div class="d-flex justify-content-center">
-                No result matches your criteria
+                {{ 'search_results.no_results' | translate }}
             </div>
         </div>
         <div *ngFor="let result of searchResults" class="col-6">
             <mat-card class="mt-1 mb-3" (click)="viewListingDetails(result)">
                 <mat-card-title>
-                    <span class="font-medium">{{result.location}} | {{result.currency === 'USD'? '$' : 'đ'}}{{result.price}}</span> 
+                    <span class="font-medium">{{result.location}} | {{result.currency === 'USD'? '$' :
+                        'đ'}}{{result.price}}</span>
                     <hr>
                 </mat-card-title>
                 <mat-card-content>
@@ -53,7 +54,7 @@
                     <mat-icon [inline]="true">search_off</mat-icon>
                 </div>
                 <div class="d-flex justify-content-center" style="font-size: larger">
-                    No result matches your criteria
+                    {{ 'search_results.no_results' | translate }}
                 </div>
             </div>
             <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
