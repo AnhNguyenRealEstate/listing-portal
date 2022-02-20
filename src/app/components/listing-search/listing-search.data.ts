@@ -10,7 +10,7 @@ export interface Listing {
     location?: string,
     address?: string,
     price?: number,
-    currency?: 'USD' | 'VND'
+    currency?: 'USD' | 'VND' //ISO 4217
     propertySize?: number,
     bedrooms?: number,
     bathrooms?: number,

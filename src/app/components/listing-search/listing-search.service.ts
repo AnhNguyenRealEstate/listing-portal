@@ -82,7 +82,7 @@ export class ListingSearchService {
 
             listing.id = doc.id;
 
-            if (environment.production) {
+            if (!environment.test) {
                 if (listing.imageFolderPath) {
                     listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
                 }

@@ -99,6 +99,11 @@ export class ListingUploadService {
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));
 
+        if (!environment.production) {
+            return;
+            // Storage Emulator isn't supporting the operations below
+        }
+
         await Promise.all(allImages.map(async (imageFile, index) => {
             let file_compressed = await getFile(
                 await getDownloadURL(ref(imageFile, ImageFileVersion.compressed)),
@@ -136,7 +141,7 @@ export class ListingUploadService {
                     file.compressed = new File([data], `${file.raw.name}_${ImageFileVersion.compressed}`, { type: file.raw.type });
                 }
 
-                if (!environment.production) {
+                if (environment.test) {
                     return;
                 }
 

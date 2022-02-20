@@ -22,7 +22,7 @@
                                     [src]="listing.coverImage">
                             </div>
                             <div class="col-6">
-                                <div class="pb-2 font-large">{{listing.currency}} {{listing.price}}</div>
+                                <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
                                 <div *ngIf="listing.location">
                                     {{listing.location}}
                                 </div>
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="pb-2 font-large">{{listing.currency}} {{listing.price}}</div>
+                                <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
                                 <div *ngIf="listing.location">
                                     {{listing.location}}
                                 </div>

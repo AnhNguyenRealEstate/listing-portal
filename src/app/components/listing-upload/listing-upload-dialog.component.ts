@@ -73,7 +73,7 @@ export class ListingUploadDialogComponent implements OnInit {
 
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
-            
+
             const newImageFile = {
                 raw: file
             } as ListingImageFile;

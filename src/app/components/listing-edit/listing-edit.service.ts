@@ -15,7 +15,7 @@ export class ListingEditService {
 
     /* Completely remove the listing from DB */
     async deleteListing(listing: Listing, dbRefId: string) {
-        if (environment.production) {
+        if (!environment.test) {
             const allImages = (await listAll(ref(this.storage, listing.imageFolderPath!))).prefixes;
             await Promise.all(allImages.map(async image => {
                 await Promise.all(

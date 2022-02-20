@@ -10,6 +10,7 @@ import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingEditService } from './listing-edit.service';
 import { FirestoreCollections, ImageFileVersion } from '../../shared/globals';
 import { Unsubscribe } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-listing-edit',
@@ -42,9 +43,14 @@ export class ListingEditComponent implements OnInit {
             for (let i = 0; i < snapshot.docs.length; i++) {
                 const doc: DocumentData = snapshot.docs[i];
                 const listing = doc.data() as Listing;
-                listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
-                listings.push(listing);
-                this.dbReferences.push(doc.id);
+
+                try {
+                    listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
+                } catch (e) { console.log(e) }
+                finally {
+                    listings.push(listing);
+                    this.dbReferences.push(doc.id);
+                }
             }
 
             this.listings = listings; //Updating the listings all at once

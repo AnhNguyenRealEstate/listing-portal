@@ -58,6 +58,7 @@ import { environment } from 'src/environments/environment';
 import { FooterComponent } from './components/footer/footer.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
-    NgxImageCompressService
+    NgxImageCompressService,
+    CurrencyPipe
   ],
   bootstrap: [AppComponent]
 })
