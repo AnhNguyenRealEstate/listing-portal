@@ -1,7 +1,9 @@
 @use '@angular/material' as mat;
+@import "src/custom-theme.scss";
 
 $primary: mat.get-color-from-palette($app-primary, 300);
 $primary-light: mat.get-color-from-palette($app-primary, 50);
+$primary-dark: mat.get-color-from-palette($app-primary, 500);
 $off-white: rgb(255, 255, 245);
 $accent: mat.get-color-from-palette($app-accent, 600);
 $accent-light: mat.get-color-from-palette($app-accent, 100);

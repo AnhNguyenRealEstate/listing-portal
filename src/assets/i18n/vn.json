@@ -1,60 +1,64 @@
 {
     "about_us": {
-        "company_intro_1_title": "{{tenure}}+ Năm",
+        "about_us": "BĐS Anh Nguyễn",
+        "company_intro_1_title": "Hơn {{tenure}} Năm Hành Nghề",
         "company_intro_1": "Thành lập năm 2008, Anh Nguyễn tự hào là một trong những công ty BDS lâu năm ở Quận 7, TP.HCM",
         "company_intro_2_title": "1000+ Khách Mỗi Năm",
         "company_intro_2": "Sự hài lòng của khách hàng là thành công của chúng tôi",
+        "contact_us": "Liên lạc",
         "office_address": "168 Hà Huy Tập, Phường Tân Phong, Quận 7, TP.HCM",
-        "first_contact": "Tel: +84 91 378 0858 | Cô Kiều Anh"
+        "first_contact": "Tel: 091 378 0858 | Cô Kiều Anh"
     },
     "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
     "home": {
-        "browse_listings": "Browse Our Listings",
-        "anh_nguyen": "Anh Nguyen",
-        "real_estate": "Real Estate Ltd"
+        "browse_listings": "Xem sản phẩm",
+        "anh_nguyen": "Bất Động Sản",
+        "real_estate": "Anh Nguyễn"
     },
     "layout": {
-        "listings": "Listings",
-        "layout.edit_listings": "Edit Listings",
-        "about_us": "About Us",
-        "sign_in": "Sign In",
-        "sign_out": "Sign Out"
+        "listings": "Sản phẩm",
+        "edit_listings": "Đăng/Sửa thông tin sản phẩm",
+        "about_us": "Liên lạc",
+        "sign_in": "Đăng nhập",
+        "sign_out": "Đăng xuất"
     },
     "listing_edit": {
-        "new_Listing": "New Listing",
-        "select_a_listing": "Select a listing"
+        "new_Listing": "Đăng mới",
+        "select_a_listing": "Chọn sản phẩm để xem chi tiết"
     },
-    "search_results.no_results": "No result matches your criteria",
-    "listing_search.page_title": "Listings",
+    "search_results.no_results": "Không sản phẩm nào phù hợp với tiêu chí",
+    "listing_search.page_title": "Sản phẩm",
+    "listing_details.details": "Chi tiết sản phẩm",
     "search_bar": {
-        "property_type": "Property Type",
-        "location": "Location",
-        "property_sizes": "Property Sizes",
-        "bedrooms": "Bedrooms",
-        "bathrooms": "Bathrooms",
-        "min_price": "Min price",
-        "max_price": "Max price",
-        "get_listings": "Get Listings"
+        "property_type": "Phân loại",
+        "location": "Vị trí",
+        "property_sizes": "Diện tích",
+        "bedrooms": "Số phòng ngủ",
+        "bathrooms": "Số phòng tắm",
+        "min_price": "Giá thấp nhất",
+        "max_price": "Giá cao nhất",
+        "get_listings": "Tìm"
     },
     "listing_upload": {
-        "property_type": "Property Type",
-        "location": "Location",
-        "property_sizes": "Property Sizes",
-        "bedrooms": "Bedrooms",
-        "bathrooms": "Bathrooms",
-        "purpose": "For Rent or For Sale",
-        "price": "Price",
-        "address": "Address",
-        "description": "Description"
+        "property_type": "Phân loại",
+        "location": "Vị trí",
+        "property_sizes": "Diện tích",
+        "bedrooms": "Số phòng ngủ",
+        "bathrooms": "Số phòng tắm",
+        "purpose": "Cho thuê hay rao bán",
+        "price": "Giá",
+        "address": "Địa chỉ",
+        "description": "Chi tiết sản phẩm"
     },
     "login": {
-        "username": "Username",
-        "password": "Password",
-        "login": "Login",
-        "wrong_email_pw": "Please enter valid username/password'"
+        "page_title": "Đăng nhập",
+        "username": "Tên đăng nhập",
+        "password": "Mật khẩu",
+        "login": "Đăng nhập",
+        "wrong_email_pw": "Sai tên hoặc mật khẩu"
     },
     "session_timeout": {
-        "title": "Inactivity Warning",
-        "warning": "You have been inactive and will be signed out in 5 minutes"
+        "title": "Thông báo đăng xuất",
+        "warning": "Nếu không tiếp tục sử dụng, hệ thống sẽ tự động đăng xuất trong vòng 5 phút"
     }
 }

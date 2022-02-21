@@ -1,5 +1,5 @@
 <section class="container-flex justify-content-between">
-    <h1>Login</h1>
+    <h1>{{ 'login.page_title' | translate }}</h1>
     <mat-divider class="pb-2"></mat-divider>
     <mat-form-field color="accent" class="d-block">
         <mat-label>{{ 'login.username' | translate }}</mat-label>
@@ -13,5 +13,5 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
     </mat-form-field>
-    <button mat-flat-button color="accent" (click)="login()" (keydown.enter)="login()">{{ 'login.login' | translate }}</button>
+    <button style="float: right;" mat-flat-button color="accent" (click)="login()" (keydown.enter)="login()">{{ 'login.login' | translate }}</button>
 </section>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { getDownloadURL, listAll, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { ImageFileVersion } from 'src/app/shared/globals';
+import { environment } from 'src/environments/environment';
 import { Listing } from '../listing-search.data';
 
 @Injectable({ providedIn: 'root' })
@@ -18,6 +19,10 @@ export class ListingDetailsService {
     }
 
     async getImageSrcs(imageFolderPath: string): Promise<string[]> {
+        if (!environment.production) {
+            return [];
+        }
+        
         const allImgs = (await listAll(ref(this.storage, imageFolderPath))).prefixes;
         return await Promise.all<string>(allImgs.map(async image => {
             return await getDownloadURL(ref(image, ImageFileVersion.raw))

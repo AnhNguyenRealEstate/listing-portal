@@ -15,6 +15,10 @@
         <a *ngIf="loggedIn" mat-button (click)="logout()">
             {{ 'layout.sign_out' | translate }}
         </a>
+        <div>
+            <a mat-button (click)="useLanguage('en')" [class.inactiveLink]="translate.currentLang === 'en'">EN</a> |
+            <a mat-button (click)="useLanguage('vn')" [class.inactiveLink]="translate.currentLang === 'vn'">VN</a>
+        </div>
     </div>
     <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
         <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
@@ -44,6 +48,12 @@
             <mat-icon>logout</mat-icon>
             <span class="ps-3">{{ 'layout.sign_out' | translate }}</span>
         </a>
+        <div class="ps-2">
+            <a mat-button class="d-inline" (click)="useLanguage('en')"
+                [class.inactiveLink]="translate.currentLang === 'en'">EN</a> |
+            <a mat-button class="d-inline" (click)="useLanguage('vn')"
+                [class.inactiveLink]="translate.currentLang === 'vn'">VN</a>
+        </div>
     </mat-sidenav>
 
     <mat-sidenav-content>
