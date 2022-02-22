@@ -15,7 +15,7 @@
                 <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
                 <mat-select id="locations" [(ngModel)]="searchCriteria.location">
                     <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of locations" value="{{type}}">{{type}}
+                    <mat-option *ngFor="let loc of locations" value="{{loc}}">{{loc}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -25,7 +25,7 @@
                 <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
                 <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
                     <mat-option value=''>Any</mat-option>
-                    <mat-option *ngFor="let type of propertySizes" value="{{type}}">{{type}}
+                    <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
