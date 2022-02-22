@@ -32,11 +32,26 @@
     line-height: normal;
 }
 
-.mat-icon {
+mat-icon {
     vertical-align: middle;
 }
 
 mat-sidenav-container,
 mat-sidenav-content {
     overflow: initial !important; //allowing position sticky on criteria panel
+}
+
+.language-toggle {
+    font-size: 10px;
+    width: 80px;
+
+    mat-form-field {
+        width: 70px;
+    }
+}
+
+.language-toggle-mobile {
+    mat-form-field {
+        width: 30vw;
+    }
 }

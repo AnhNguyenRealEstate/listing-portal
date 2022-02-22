@@ -6,7 +6,7 @@
     </a>
 
     <div class="d-none d-md-flex">
-        <a mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
+        <a class="ps-3" mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
         <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">{{ 'layout.edit_listings' | translate }}</a>
         <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
@@ -15,9 +15,14 @@
         <a *ngIf="loggedIn" mat-button (click)="logout()">
             {{ 'layout.sign_out' | translate }}
         </a>
-        <div>
-            <a mat-button (click)="useLanguage('en')" [class.inactiveLink]="translate.currentLang === 'en'">EN</a> |
-            <a mat-button (click)="useLanguage('vn')" [class.inactiveLink]="translate.currentLang === 'vn'">VN</a>
+        <div class="language-toggle">
+            <mat-icon>language</mat-icon>
+            <mat-form-field>
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
+                    <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
+                    <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
     <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
@@ -28,6 +33,16 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
         (click)="sidenav.toggle()">
+        <div class="ps-4 language-toggle-mobile">
+            <mat-icon>language</mat-icon>
+            <mat-form-field class="ps-3"  (click)="$event.stopPropagation()">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
+                    <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
+                    <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
         <a mat-button [routerLink]="['/listings']">
             <mat-icon>view_list</mat-icon>
             <span class="ps-3">{{ 'layout.listings' | translate }}</span>
@@ -48,12 +63,6 @@
             <mat-icon>logout</mat-icon>
             <span class="ps-3">{{ 'layout.sign_out' | translate }}</span>
         </a>
-        <div class="ps-2">
-            <a mat-button class="d-inline" (click)="useLanguage('en')"
-                [class.inactiveLink]="translate.currentLang === 'en'">EN</a> |
-            <a mat-button class="d-inline" (click)="useLanguage('vn')"
-                [class.inactiveLink]="translate.currentLang === 'vn'">VN</a>
-        </div>
     </mat-sidenav>
 
     <mat-sidenav-content>

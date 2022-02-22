@@ -30,10 +30,10 @@
                                     {{listing.address}}
                                 </div>
                                 <div *ngIf="listing.bedrooms !== undefined && listing.bathrooms !== undefined">
-                                    <mat-icon color="accent" class="pe-2">bed</mat-icon><span
-                                        class="pe-4">{{listing.bedrooms}}</span>
-                                    <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
-                                    <span>{{listing.bathrooms}}</span>
+                                    <mat-icon color="accent">bed</mat-icon><span
+                                        class="ps-2 pe-4">{{listing.bedrooms}}</span>
+                                    <mat-icon color="accent">bathtub</mat-icon>
+                                    <span class="ps-2">{{listing.bathrooms}}</span>
                                 </div>
                                 <mat-chip-list class="ps-2">
                                     <mat-chip>
@@ -64,7 +64,8 @@
             </div>
             <div class="col-6 listing-edit-detail-view" *ngIf="listings?.length">
                 <div *ngIf="listingToShow === undefined">
-                    <span class="ps-4 listing-edit-select-a-listing-text">{{ 'listing_edit.select_a_listing' | translate }}</span>
+                    <span class="ps-4 listing-edit-select-a-listing-text">{{ 'listing_edit.select_a_listing' | translate
+                        }}</span>
                 </div>
                 <div *ngIf="listingToShow !== undefined">
                     <mat-card>
@@ -132,10 +133,10 @@
                                     <span>{{listing.bathrooms}}</span>
                                 </div>
                                 <mat-chip-list class="ps-2" *ngIf="listing.purpose">
-                                    <mat-chip class="listing-tag" selected>
+                                    <mat-chip>
                                         <span>{{listing.purpose}}</span>
                                     </mat-chip>
-                                    <mat-chip class="listing-tag">
+                                    <mat-chip>
                                         <span>{{listing.archived? 'Archived' : 'Active'}}</span>
                                     </mat-chip>
                                 </mat-chip-list>

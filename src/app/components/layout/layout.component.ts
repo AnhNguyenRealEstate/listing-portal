@@ -15,6 +15,7 @@ import { LoginService } from '../login/login.service';
 export class LayoutComponent implements OnInit {
     loggedIn: boolean = false;
     isMenuOpen: boolean = false;
+    lang: string = 'en';
 
     constructor(
         private router: Router,
@@ -26,8 +27,11 @@ export class LayoutComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.translate.setDefaultLang('en');
+
         const sessionLang = localStorage.getItem('lang');
-        this.translate.use(sessionLang || 'en');
+        this.lang = sessionLang || 'en';
+        this.translate.use(this.lang);
     }
 
     showLoginModal() {
@@ -38,9 +42,10 @@ export class LayoutComponent implements OnInit {
         this.dialog.open(LoginComponent, config);
     }
 
-    useLanguage(lang: string) {
-        this.translate.use(lang);
-        localStorage.setItem('lang', lang);
+    useLanguage(event: any) {
+        this.lang = event.value;
+        this.translate.use(this.lang);
+        localStorage.setItem('lang', this.lang);
     }
 
     logout() {

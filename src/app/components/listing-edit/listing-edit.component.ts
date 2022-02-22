@@ -10,7 +10,6 @@ import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingEditService } from './listing-edit.service';
 import { FirestoreCollections, ImageFileVersion } from '../../shared/globals';
 import { Unsubscribe } from '@angular/fire/auth';
-import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-listing-edit',

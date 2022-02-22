@@ -27,10 +27,10 @@
                                 {{result.address}}
                             </div>
                             <div class="pb-2" *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
-                                <mat-icon color="accent" class="pe-2">bed</mat-icon><span
-                                    class="pe-4">{{result.bedrooms}}</span>
-                                <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
-                                <span>{{result.bathrooms}}</span>
+                                <mat-icon color="accent">bed</mat-icon><span
+                                    class="ps-2 pe-4">{{result.bedrooms}}</span>
+                                <mat-icon color="accent">bathtub</mat-icon>
+                                <span class="ps-2">{{result.bathrooms}}</span>
                             </div>
                             <mat-chip-list *ngIf="result.purpose">
                                 <mat-chip selected color="accent" (click)="viewListingDetails(result)">
@@ -72,10 +72,10 @@
                                 {{result.address}}
                             </div>
                             <div *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
-                                <mat-icon color="accent" class="pe-2">bed</mat-icon><span
-                                    class="pe-4">{{result.bedrooms}}</span>
-                                <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
-                                <span>{{result.bathrooms}}</span>
+                                <mat-icon color="accent">bed</mat-icon><span
+                                    class="ps-2 pe-4">{{result.bedrooms}}</span>
+                                <mat-icon color="accent">bathtub</mat-icon>
+                                <span class="ps-2">{{result.bathrooms}}</span>
                             </div>
                             <mat-chip-list class="ps-2" *ngIf="result.purpose">
                                 <mat-chip class="listing-tag" selected (click)="viewListingDetailsMobile(result)">

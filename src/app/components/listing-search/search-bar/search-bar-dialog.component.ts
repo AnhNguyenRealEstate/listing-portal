@@ -6,7 +6,8 @@ import { PropertySizes, SearchCriteria } from '../listing-search.data';
 
 @Component({
     selector: 'app-search-bar-dialog',
-    templateUrl: 'search-bar-dialog.component.html'
+    templateUrl: 'search-bar-dialog.component.html',
+    styleUrls: ['./search-bar.component.scss']
 })
 
 export class SearchBarDialogComponent implements OnInit, OnDestroy {

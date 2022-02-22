@@ -20,7 +20,9 @@
         "edit_listings": "Edit Listings",
         "about_us": "About Us",
         "sign_in": "Sign In",
-        "sign_out": "Sign Out"
+        "sign_out": "Sign Out",
+        "english": "English",
+        "vietnamese": "Vietnamese"
     },
     "listing_edit": {
         "new_Listing": "New Listing",

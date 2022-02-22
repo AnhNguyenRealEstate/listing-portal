@@ -20,7 +20,9 @@
         "edit_listings": "Đăng/Sửa thông tin sản phẩm",
         "about_us": "Liên lạc",
         "sign_in": "Đăng nhập",
-        "sign_out": "Đăng xuất"
+        "sign_out": "Đăng xuất",
+        "english": "Tiếng Anh",
+        "vietnamese": "Tiếng Việt"
     },
     "listing_edit": {
         "new_Listing": "Đăng mới",
