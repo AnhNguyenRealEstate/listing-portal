@@ -1,13 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "custom-theme.scss";
-@import "app/styles/colors.scss";
-@import "app/styles/listing-search";
-@import "app/styles/search-bar";
-@import "app/styles/heights-widths";
-@import "app/styles/layout";
-@import "app/styles/load-spinner";
-@import "app/styles/buttons";
-@import "app/styles/text.scss";
+@use "app/styles/text";
+@use "app/styles/colors";
 
 .background-mobile {
     background-image: url("assets/images/background_mobile.jpg");
@@ -20,6 +13,10 @@
 .backdrop {
     backdrop-filter: blur(5px);
     height: 30vh;
+}
+
+.cdk-overlay-backdrop {
+    backdrop-filter: blur(6px);
 }
 
 .page-title {
@@ -41,4 +38,8 @@
 // Only works if it is put here.
 .price-input-group .mat-form-field-infix {
     display: inherit !important;
+}
+
+mat-form-field {
+    width: 100%;
 }

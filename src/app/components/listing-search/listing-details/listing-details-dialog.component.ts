@@ -4,7 +4,8 @@ import { Listing } from '../listing-search.data';
 
 @Component({
     selector: 'app-listing-details-dialog',
-    templateUrl: 'listing-details-dialog.component.html'
+    templateUrl: 'listing-details-dialog.component.html',
+    styleUrls: ['../listing-search.component.scss']
 })
 
 export class ListingDetailsDialogComponent implements OnInit {

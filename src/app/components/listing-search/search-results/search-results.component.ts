@@ -10,7 +10,8 @@ import { ListingSearchService } from '../listing-search.service';
 
 @Component({
     selector: 'app-search-results',
-    templateUrl: 'search-results.component.html'
+    templateUrl: 'search-results.component.html',
+    styleUrls: ['../listing-search.component.scss']
 })
 
 export class SearchResultsComponent implements OnInit, OnDestroy {

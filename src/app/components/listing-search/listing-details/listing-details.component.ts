@@ -7,7 +7,8 @@ import { ListingDetailsService } from './listing-details.service';
 
 @Component({
     selector: 'app-listing-details',
-    templateUrl: 'listing-details.component.html'
+    templateUrl: 'listing-details.component.html',
+    styleUrls: ['../listing-search.component.scss']
 })
 
 export class ListingDetailsComponent implements OnInit, OnDestroy {

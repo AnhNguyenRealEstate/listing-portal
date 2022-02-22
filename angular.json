@@ -67,8 +67,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "100kb",
+                  "maximumError": "150kb"
                 }
               ]
             }
@@ -99,10 +99,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "fileReplacements": [{
-              "replace": "src/environments/environment.ts",
-              "with": "src/environments/environment.test.ts"
-            }],
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.test.ts"
+              }
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

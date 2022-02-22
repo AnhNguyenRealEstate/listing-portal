@@ -1,7 +1,9 @@
+@use "src/app/styles/colors" as colors;
+
 .search-results-desktop {
   height: 600px;
   overflow-y: scroll;
-  background-color: $primary-light;
+  background-color: colors.$primary-light;
 }
 
 .carousel-thumbnail {
@@ -59,7 +61,7 @@
 }
 
 .listing-tag {
-  background-color: $accent-light !important;
+  background-color: colors.$accent-light !important;
 }
 
 .result-preview-img-mobile {

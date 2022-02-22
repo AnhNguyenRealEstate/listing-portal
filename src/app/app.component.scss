@@ -1,3 +1,5 @@
+@use "src/app/styles/colors" as colors;
+
 html,
 body {
     overflow-x: hidden;
@@ -8,9 +10,5 @@ body {
 }
 
 .brand-icon {
-    color: $accent;
-}
-
-.footer {
-    background-color: $primary;
+    color: colors.$accent;
 }

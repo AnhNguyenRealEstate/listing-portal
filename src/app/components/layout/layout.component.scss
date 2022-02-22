@@ -1,13 +1,13 @@
-@import "src/app/styles/colors.scss";
+@use "src/app/styles/colors" as colors;
 
 .navbar {
-    background-color: $primary;
+    background-color: colors.$primary;
 }
 
 .inactiveLink {
     pointer-events: none;
     cursor: default;
-    background: $primary-dark;
+    background: colors.$primary-dark;
 }
 
 .sidenav-container {
@@ -15,7 +15,7 @@
 }
 
 .sidenav {
-    background: $primary;
+    background: colors.$primary;
     min-width: 240px;
     a {
         display: block;

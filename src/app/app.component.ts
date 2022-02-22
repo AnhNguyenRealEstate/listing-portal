@@ -3,7 +3,8 @@ import { SessionTimeoutService } from './components/session-timeout/session-time
 
 @Component({
   selector: 'app-root',
-  template: `<app-layout></app-layout>`
+  template: `<app-layout></app-layout>`,
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'Anh Nguyen Real Estate Ltd';
