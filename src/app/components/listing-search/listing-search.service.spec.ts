@@ -8,8 +8,8 @@ import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPass
 import { Listing, SearchCriteria } from "../listing-search/listing-search.data";
 import { MetadataService } from "src/app/shared/metadata.service";
 import { NgxImageCompressService } from "ngx-image-compress";
-import { ListingUploadService } from "../listing-upload/listing-upload.service";
-import { ListingEditService } from "../listing-edit/listing-edit.service";
+import { ListingUploadService } from "../../listing-edit/listing-upload/listing-upload.service";
+import { ListingEditService } from "../../listing-edit/listing-edit/listing-edit.service";
 
 
 describe('Listing Search Service', () => {

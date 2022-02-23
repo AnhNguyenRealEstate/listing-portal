@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { LoadSpinnerService } from '../../load-spinner/loading-spinner.service';
+import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
 

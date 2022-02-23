@@ -1,23 +1,24 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MetadataService } from 'src/app/shared/metadata.service';
 import { Subscription } from 'rxjs';
+import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
+import { MetadataService } from 'src/app/shared/metadata.service';
+import { Listing, ListingImageFile } from '../../components/listing-search/listing-search.data';
 import { ListingUploadService } from './listing-upload.service';
-import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 
 @Component({
-    selector: 'app-listing-upload',
-    templateUrl: 'listing-upload.component.html',
-    styleUrls: ['./listing-upload.component.scss']
+    selector: 'app-listing-upload-dialog',
+    templateUrl: 'listing-upload-dialog.component.html',
+    styleUrls: ['./listing-upload-dialog.component.scss']
 })
-export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
-    @Input() listing: Listing = {} as Listing;
-    @Input() isEditMode = false;
-    @Input() snackbarMessage: string = '';
-    @Input() dbReferenceId: string = '';
 
+export class ListingUploadDialogComponent implements OnInit {
+    listing: Listing = {};
+    dbReferenceId: string = '';
     modalTitle: string = '';
+
+    isEditMode: boolean = false;
 
     propertyTypes: string[] = [];
     locations: string[] = [];
@@ -30,14 +31,21 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     showSpinner: boolean = false;
 
     constructor(
-        private snackbar: MatSnackBar,
         private metadata: MetadataService,
         private listingUploadService: ListingUploadService,
-        private loadSpinner: LoadSpinnerService
+        private snackbar: MatSnackBar,
+        private loadingSpinnerService: LoadSpinnerService,
+        public dialogRef: MatDialogRef<ListingUploadDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) private data: any
     ) {
+        this.listing = { ...this.data.listing }
+        this.dbReferenceId = this.data.dbReferenceId;
+        this.isEditMode = this.data.isEditMode;
     }
 
     async ngOnInit() {
+        this.modalTitle = this.isEditMode ? 'Edit listing' : 'Upload new listing';
+
         this.subs.add(this.metadata.propertyTypes().subscribe(data => {
             this.propertyTypes = data;
         }));
@@ -45,14 +53,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
-    }
 
-    async ngOnChanges(changes: SimpleChanges) {
-        if (changes.listing && changes.listing.currentValue) {
-            this.loadSpinner.start();
-            await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles);
-            this.loadSpinner.stop();
-        }
+        await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles);
     }
 
     ngOnDestroy(): void {
@@ -102,7 +104,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
     /* Uploads a new listing and create a new image storage path for related images */
     async publishListing() {
-        this.loadSpinner.start();
+        this.loadingSpinnerService.start();
 
         await this.listingUploadService.publishListing(this.listing, this.imageFiles);
 
@@ -110,7 +112,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.imageFiles = [];
         this.imageSrcs = [];
 
-        this.loadSpinner.stop();
+        this.loadingSpinnerService.stop();
 
         this.snackbar.open("Listing published 🎉", "Dismiss", {
             duration: 3000
@@ -119,11 +121,10 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
     /* Save any editting on the listing and its image storage */
     async saveEdit() {
-        this.loadSpinner.start();
+        this.loadingSpinnerService.start();
         await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
-        this.loadSpinner.stop();
+        this.loadingSpinnerService.stop();
 
-        this.imageFilesModified = false;
         this.snackbar.open("Changes saved ✅", "Dismiss", {
             duration: 3000
         })

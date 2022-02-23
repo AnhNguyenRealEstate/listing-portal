@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -10,7 +10,8 @@ import { LoginService } from '../login/login.service';
 @Component({
     selector: 'app-layout',
     templateUrl: 'layout.component.html',
-    styleUrls: ['./layout.component.scss']
+    styleUrls: ['./layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class LayoutComponent implements OnInit, OnDestroy {
@@ -24,16 +25,22 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private auth: Auth,
         private loginService: LoginService,
         private dialog: MatDialog,
-        public translate: TranslateService) {
+        public translate: TranslateService,
+        private detector: ChangeDetectorRef) {
         this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn));
     }
 
     ngOnInit(): void {
-        this.translate.setDefaultLang('en');
+        /** Angular will throw NG0100 error if manual change detection with OnPush strategy
+         * isn't implemented here. It has to do with how we are implementing translate service
+         * inside a child component instead of in AppComponent.
+         */
 
         const sessionLang = localStorage.getItem('lang');
         this.lang = sessionLang || 'en';
+        this.translate.setDefaultLang(this.lang);
         this.translate.use(this.lang);
+        this.detector.detectChanges();
     }
 
     ngOnDestroy(): void {

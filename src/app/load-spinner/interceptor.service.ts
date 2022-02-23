@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoadSpinnerService } from '../components/load-spinner/loading-spinner.service';
+import { LoadSpinnerService } from './load-spinner.service';
 
 @Injectable({ providedIn: 'root' })
 export class LoadingInterceptorService implements HttpInterceptor {

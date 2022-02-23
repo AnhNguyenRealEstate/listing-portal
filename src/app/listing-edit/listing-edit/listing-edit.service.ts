@@ -3,7 +3,7 @@ import { Firestore, deleteDoc, updateDoc, doc, collection } from '@angular/fire/
 import { deleteObject, listAll, ref, Storage } from '@angular/fire/storage';
 import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing } from '../../components/listing-search/listing-search.data';
 
 @Injectable({ providedIn: 'root' })
 export class ListingEditService {

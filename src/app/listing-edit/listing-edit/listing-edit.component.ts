@@ -3,13 +3,13 @@ import { collection, DocumentData, Firestore, onSnapshot, query } from '@angular
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing } from '../../components/listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
-import { LoadSpinnerService } from '../load-spinner/loading-spinner.service';
 import { ListingEditService } from './listing-edit.service';
 import { FirestoreCollections, ImageFileVersion } from '../../shared/globals';
 import { Unsubscribe } from '@angular/fire/auth';
+import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 
 @Component({
     selector: 'app-listing-edit',

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing } from '../../components/listing-search/listing-search.data';
 
 @Component({
     selector: 'app-editor',
-    templateUrl: 'rich-text-editor.component.html'
+    templateUrl: './rich-text-editor.component.html'
 })
 
 export class RTEditorComponent {

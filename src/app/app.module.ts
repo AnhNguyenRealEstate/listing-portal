@@ -12,8 +12,7 @@ import { ListingSearchComponent } from './components/listing-search/listing-sear
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClient, HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
-import { LoadingInterceptorService } from './shared/loading-interceptor.service';
-import { LoadingSpinnerComponent } from './components/load-spinner/loading-spinner.component';
+import { LoadingInterceptorService } from './load-spinner/interceptor.service';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,7 +35,6 @@ import { SearchBarDialogComponent } from './components/listing-search/search-bar
 import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { LoginComponent } from './components/login/login-dialog.component';
-import { ListingUploadComponent } from './components/listing-upload/listing-upload.component';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics } from "@angular/fire/analytics";
 import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -44,11 +42,7 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SearchResultsComponent } from './components/listing-search/search-results/search-results.component';
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
 import { NgImageSliderModule } from 'ng-image-slider';
-import { ListingEditComponent } from './components/listing-edit/listing-edit.component';
-import { EditorModule } from '@tinymce/tinymce-angular';
-import { RTEditorComponent } from './components/rich-text-editor/rich-text-editor.component';
 import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
-import { ListingUploadDialogComponent } from './components/listing-upload/listing-upload-dialog.component';
 import { NgxImageCompressService } from "ngx-image-compress";
 import { firebaseConfig } from './shared/globals';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
@@ -59,6 +53,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CurrencyPipe } from '@angular/common';
+import { LoadSpinnerModule } from './load-spinner/load-spinner.module';
+import { ListingEditModule } from './listing-edit/listing-edit.module';
 
 @NgModule({
   declarations: [
@@ -68,19 +64,14 @@ import { CurrencyPipe } from '@angular/common';
     SearchBarComponent,
     ListingSearchComponent,
     ListingDetailsComponent,
-    LoadingSpinnerComponent,
     AboutUsComponent,
     LayoutComponent,
     SearchBarDialogComponent,
     SearchResultsComponent,
     ListingDetailsDialogComponent,
     LoginComponent,
-    ListingUploadComponent,
-    ListingEditComponent,
     ListingLocationComponent,
-    RTEditorComponent,
     TimeoutComponent,
-    ListingUploadDialogComponent,
     FooterComponent
   ],
   imports: [
@@ -134,14 +125,15 @@ import { CurrencyPipe } from '@angular/common';
     provideAnalytics(() => getAnalytics(getApp())),
     NgIdleKeepaliveModule.forRoot(),
     NgImageSliderModule,
-    EditorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    LoadSpinnerModule,
+    ListingEditModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
