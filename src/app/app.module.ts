@@ -1,36 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { HomeComponent } from './components/home/home.component';
 import { SearchBarComponent } from './components/listing-search/search-bar/search-bar.component';
-import { FormsModule } from '@angular/forms';
 import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClient, HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
-import { LoadingInterceptorService } from './load-spinner/interceptor.service';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar'
 import { LayoutComponent } from './components/layout/layout.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatListModule } from '@angular/material/list';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SearchBarDialogComponent } from './components/listing-search/search-bar/search-bar-dialog.component';
 import { ListingDetailsDialogComponent } from './components/listing-search/listing-details/listing-details-dialog.component';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
@@ -43,7 +24,7 @@ import { SearchResultsComponent } from './components/listing-search/search-resul
 import { ListingLocationComponent } from './components/listing-search/listing-location/listing-location.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
-import { NgxImageCompressService } from "ngx-image-compress";
+
 import { firebaseConfig } from './shared/globals';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
@@ -52,9 +33,8 @@ import { environment } from 'src/environments/environment';
 import { FooterComponent } from './components/footer/footer.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CurrencyPipe } from '@angular/common';
-import { LoadSpinnerModule } from './load-spinner/load-spinner.module';
 import { ListingEditModule } from './listing-edit/listing-edit.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -76,30 +56,23 @@ import { ListingEditModule } from './listing-edit/listing-edit.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule,
-    FormsModule,
+    AppRoutingModule,
     GoogleMapsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatInputModule,
-    MatSliderModule,
-    MatDividerModule,
-    MatListModule,
-    MatCardModule,
-    MatDialogModule,
-    MatChipsModule,
-    MatBadgeModule,
-    MatSnackBarModule,
-    MatAutocompleteModule,
-    NgxPageScrollCoreModule,
+    SharedModule,
+    ListingEditModule,
+    NgxPageScrollCoreModule, 
+    NgIdleKeepaliveModule.forRoot(),
+    NgImageSliderModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => {
       const firestore = getFirestore();
@@ -123,22 +96,6 @@ import { ListingEditModule } from './listing-edit/listing-edit.module';
       return auth;
     }),
     provideAnalytics(() => getAnalytics(getApp())),
-    NgIdleKeepaliveModule.forRoot(),
-    NgImageSliderModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    LoadSpinnerModule,
-    ListingEditModule
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
-    NgxImageCompressService,
-    CurrencyPipe
   ],
   bootstrap: [AppComponent]
 })
