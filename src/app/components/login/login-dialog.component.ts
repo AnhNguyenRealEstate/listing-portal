@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-login',
     templateUrl: 'login-dialog.component.html',
-    styleUrls: ['./login-dialog.component.scss']
 })
 
 export class LoginComponent {

@@ -39,7 +39,7 @@ export class SessionTimeoutService {
         this.idle.onTimeoutWarning.pipe(filter(()=> !this.showTimeoutWarning)).subscribe(() => {
             const config = {
                 height: 'auto',
-                width: '50%'
+                width: '90%'
             } as MatDialogConfig;
             this.dialog.open(TimeoutComponent, config);
             this.showTimeoutWarning = true;

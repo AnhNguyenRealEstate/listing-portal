@@ -37,7 +37,7 @@ export class LayoutComponent implements OnInit {
     showLoginModal() {
         const config = {
             height: 'auto',
-            width: 'auto'
+            width: '90%'
         } as MatDialogConfig;
         this.dialog.open(LoginComponent, config);
     }

@@ -1,4 +1,5 @@
 {
+    "generics.any": "Any",
     "about_us": {
         "about_us": "About Us",
         "company_intro_1_title": "{{tenure}}+ Years",
@@ -11,43 +12,43 @@
     },
     "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
     "home": {
-        "browse_listings": "Browse Our Listings",
+        "browse_listings": "Browse our listings",
         "anh_nguyen": "Anh Nguyen",
         "real_estate": "Real Estate Ltd"
     },
     "layout": {
         "listings": "Listings",
-        "edit_listings": "Edit Listings",
-        "about_us": "About Us",
-        "sign_in": "Sign In",
-        "sign_out": "Sign Out",
+        "edit_listings": "Edit listings",
+        "about_us": "About us",
+        "sign_in": "Sign in",
+        "sign_out": "Sign out",
         "english": "English",
         "vietnamese": "Vietnamese"
     },
     "listing_edit": {
-        "new_Listing": "New Listing",
+        "new_Listing": "New listing",
         "select_a_listing": "Select a listing"
     },
     "search_results.no_results": "No result matches your criteria",
     "listing_search.page_title": "Listings",
     "listing_details.details": "Details",
     "search_bar": {
-        "property_type": "Property Type",
+        "property_type": "Property type",
         "location": "Location",
-        "property_sizes": "Property Sizes",
+        "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
         "min_price": "Min price",
         "max_price": "Max price",
-        "get_listings": "Get Listings"
+        "get_listings": "Get listings"
     },
     "listing_upload": {
-        "property_type": "Property Type",
+        "property_type": "Property type",
         "location": "Location",
-        "property_sizes": "Property Sizes",
+        "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
-        "purpose": "For Rent or For Sale",
+        "purpose": "For rent or For sale",
         "price": "Price",
         "address": "Address",
         "description": "Description"
@@ -60,7 +61,7 @@
         "wrong_email_pw": "Please enter valid username/password'"
     },
     "session_timeout": {
-        "title": "Inactivity Warning",
+        "title": "Inactivity warning",
         "warning": "You have been inactive and will be signed out in 5 minutes"
     }
 }

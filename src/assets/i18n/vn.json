@@ -1,4 +1,5 @@
 {
+    "generics.any": "Bất kỳ",
     "about_us": {
         "about_us": "BĐS Anh Nguyễn",
         "company_intro_1_title": "Hơn {{tenure}} Năm Hành Nghề",
@@ -47,7 +48,7 @@
         "property_sizes": "Diện tích",
         "bedrooms": "Số phòng ngủ",
         "bathrooms": "Số phòng tắm",
-        "purpose": "Cho thuê hay rao bán",
+        "purpose": "Cho thuê hay Rao bán",
         "price": "Giá",
         "address": "Địa chỉ",
         "description": "Chi tiết sản phẩm"

@@ -4,7 +4,7 @@
             <mat-form-field class="form-group" color="accent">
                 <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
                 <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
-                    <mat-option value=''>Any</mat-option>
+                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                     <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
                     </mat-option>
                 </mat-select>
@@ -14,7 +14,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
                 <mat-select id="locations" [(ngModel)]="searchCriteria.location">
-                    <mat-option value=''>Any</mat-option>
+                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                     <mat-option *ngFor="let loc of locations" value="{{loc}}">{{loc}}
                     </mat-option>
                 </mat-select>
@@ -24,7 +24,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
                 <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
-                    <mat-option value=''>Any</mat-option>
+                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                     <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}
                     </mat-option>
                 </mat-select>
@@ -34,7 +34,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
                 <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
-                    <mat-option value=''>Any</mat-option>
+                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                     <mat-option value='1'>1</mat-option>
                     <mat-option value='2'>2</mat-option>
                     <mat-option value='3+'>3+</mat-option>
@@ -45,7 +45,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'search_bar.bathrooms' | translate }}</mat-label>
                 <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
-                    <mat-option value=''>Any</mat-option>
+                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                     <mat-option value='1'>1</mat-option>
                     <mat-option value='2'>2</mat-option>
                     <mat-option value='3+'>3+</mat-option>
