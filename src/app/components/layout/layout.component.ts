@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { LoginComponent } from '../login/login-dialog.component';
 import { LoginService } from '../login/login.service';
 
@@ -12,10 +13,11 @@ import { LoginService } from '../login/login.service';
     styleUrls: ['./layout.component.scss']
 })
 
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
     loggedIn: boolean = false;
     isMenuOpen: boolean = false;
     lang: string = 'en';
+    sub = new Subscription();
 
     constructor(
         private router: Router,
@@ -23,7 +25,7 @@ export class LayoutComponent implements OnInit {
         private loginService: LoginService,
         private dialog: MatDialog,
         public translate: TranslateService) {
-        this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn);
+        this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn));
     }
 
     ngOnInit(): void {
@@ -32,6 +34,10 @@ export class LayoutComponent implements OnInit {
         const sessionLang = localStorage.getItem('lang');
         this.lang = sessionLang || 'en';
         this.translate.use(this.lang);
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
     showLoginModal() {

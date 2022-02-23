@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { MetadataService } from 'src/app/shared/metadata.service';
@@ -14,7 +14,7 @@ import { SearchBarDialogComponent } from './search-bar-dialog.component';
     styleUrls: ['./search-bar.component.scss']
 })
 
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
     @Input() mode: 'desktop' | 'mobile' = 'desktop';
     @Output() searchCompleted = new EventEmitter();
 
@@ -55,6 +55,10 @@ export class SearchBarComponent implements OnInit {
         }));
 
         this.getListings();
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
     }
 
     async getListings(criteria: SearchCriteria = this.searchCriteria) {
