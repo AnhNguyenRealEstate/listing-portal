@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { MetadataService } from 'src/app/shared/metadata.service';
-import { Listing, ListingImageFile } from '../../components/listing-search/listing-search.data';
+import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { ListingUploadService } from './listing-upload.service';
 
 @Component({

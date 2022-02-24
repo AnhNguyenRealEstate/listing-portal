@@ -7,7 +7,7 @@ import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { ListingEditService } from "./listing-edit.service";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
-import { Listing, ListingImageFile } from "../../components/listing-search/listing-search.data";
+import { Listing, ListingImageFile } from "../../listing-search/listing-search.data";
 import { ListingUploadService } from "../listing-upload/listing-upload.service";
 
 

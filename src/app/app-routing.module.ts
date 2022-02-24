@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { HomeComponent } from './components/home/home.component';
-import { ListingDetailsComponent } from './components/listing-search/listing-details/listing-details.component';
-import { ListingSearchComponent } from './components/listing-search/listing-search.component';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const routes: Routes = [
@@ -13,13 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'listings',
-    component: ListingSearchComponent,
-    children: [
-      {
-        path: 'details/:listingId',
-        component: ListingDetailsComponent
-      }
-    ]
+    loadChildren: () => import('./listing-search/listing-search.module').then(mod => mod.ListingSearchModule),
   },
   {
     path: 'listing-edit',

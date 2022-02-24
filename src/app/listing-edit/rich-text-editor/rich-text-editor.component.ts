@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Listing } from '../../components/listing-search/listing-search.data';
+import { Listing } from '../../listing-search/listing-search.data';
 
 @Component({
     selector: 'app-editor',

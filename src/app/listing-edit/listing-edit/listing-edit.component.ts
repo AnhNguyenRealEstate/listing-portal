@@ -3,7 +3,7 @@ import { collection, DocumentData, Firestore, onSnapshot, query } from '@angular
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Listing } from '../../components/listing-search/listing-search.data';
+import { Listing } from '../../listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { ListingEditService } from './listing-edit.service';

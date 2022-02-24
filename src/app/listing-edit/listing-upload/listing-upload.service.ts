@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/firestore';
 import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
 import { MetadataService } from 'src/app/shared/metadata.service';
-import { Listing, ListingImageFile } from '../../components/listing-search/listing-search.data';
+import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
 import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
