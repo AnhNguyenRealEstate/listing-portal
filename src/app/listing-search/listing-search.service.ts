@@ -93,21 +93,6 @@ export class ListingSearchService {
         return results;
     }
 
-    /**
-     * Get a listing from Firestore by its Id
-     * @param listingId The Firebase Id of the listing
-     * @returns A Promise that resolves to a Listing object or undefined if Firebase Id is invalid
-     */
-    async getListingById(listingId: string): Promise<Listing | undefined> {
-        const dbResponse = await getDoc(doc(collection(this.firestore, FirestoreCollections.listings), listingId)).catch(() => { });
-
-        if (!(dbResponse && dbResponse.exists())) {
-            return undefined;
-        }
-
-        return dbResponse.data() as Listing;
-    }
-
     searchResults() {
         return this.searchResults$;
     }

@@ -5,17 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { HomeComponent } from './components/home/home.component';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClient, HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { LoginComponent } from './components/login/login-dialog.component';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics } from "@angular/fire/analytics";
 import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-import { NgImageSliderModule } from 'ng-image-slider';
 import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
 import { firebaseConfig } from './shared/globals';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
@@ -49,7 +46,6 @@ import { ListingSearchModule } from './listing-search/listing-search.module';
     SharedModule,
     ListingEditModule,
     ListingSearchModule,
-    NgxPageScrollCoreModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

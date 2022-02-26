@@ -6,14 +6,13 @@ import { ListingSearchComponent } from './listing-search.component';
 const routes: Routes = [
     {
         path: '',
-        component: ListingSearchComponent,
-        children: [
-            {
-                path: 'details/:listingId',
-                component: ListingDetailsComponent
-            }
-        ]
-    }
+        component: ListingSearchComponent
+    },
+    {
+        path: 'details/:listingId',
+        component: ListingDetailsComponent
+    },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

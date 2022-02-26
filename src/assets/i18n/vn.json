@@ -29,9 +29,12 @@
         "new_Listing": "Đăng mới",
         "select_a_listing": "Chọn sản phẩm để xem chi tiết"
     },
-    "search_results.no_results": "Không sản phẩm nào phù hợp với tiêu chí",
+    "search_results": {
+        "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
+        "details": "Chi tiết"
+    },
     "listing_search.page_title": "Sản phẩm",
-    "listing_details.details": "Chi tiết sản phẩm",
+    "listing_details.details": "Chi tiết",
     "search_bar": {
         "property_type": "Phân loại",
         "location": "Vị trí",

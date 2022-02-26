@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListingDetailsDialogComponent } from './listing-details/listing-details-dialog.component';
 import { ListingDetailsComponent } from './listing-details/listing-details.component';
 import { ListingLocationComponent } from './listing-location/listing-location.component';
 import { ListingSearchComponent } from './listing-search.component';
@@ -21,8 +20,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ListingDetailsComponent,
     SearchBarDialogComponent,
     SearchResultsComponent,
-    ListingLocationComponent,
-    ListingDetailsDialogComponent
+    ListingLocationComponent
   ],
   imports: [
     CommonModule,
@@ -40,8 +38,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ListingDetailsComponent,
     SearchBarDialogComponent,
     SearchResultsComponent,
-    ListingLocationComponent,
-    ListingDetailsDialogComponent
+    ListingLocationComponent
   ]
 })
 export class ListingSearchModule { }

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
@@ -11,10 +11,9 @@ import { ListingDetailsService } from './listing-details.service';
     styleUrls: ['../listing-search.component.scss']
 })
 
-export class ListingDetailsComponent implements OnInit, OnDestroy {
-    showListing: boolean = false;
+export class ListingDetailsComponent implements OnInit {
     listing: Listing = {} as Listing;
-    subscriptions = new Subscription();
+    images: Array<Object> = [];
 
     carouselInterval = 0;
     carousel: NgbCarousel | undefined;
@@ -23,26 +22,23 @@ export class ListingDetailsComponent implements OnInit, OnDestroy {
             this.carousel = content;
         }
     }
-    
+
     constructor(
         private listingDetailsService: ListingDetailsService,
-        private loadSpinner: LoadSpinnerService) {
+        private loadSpinner: LoadSpinnerService,
+        private route: ActivatedRoute) {
     }
 
-    ngOnInit() {
-        this.subscriptions.add(this.listingDetailsService.listingToShow().subscribe(async listing => {
-            if(!listing.location) return;
-            
-            this.loadSpinner.start();
-            this.listing = listing;
-            this.listing.imageSources = await this.listingDetailsService.getImageSrcs(listing.imageFolderPath!);
-            this.showListing = true;
-            this.loadSpinner.stop();
-        }));
-    }
+    async ngOnInit() {
+        const id = this.route.snapshot.paramMap.get('listingId');
+        if (!id) return;
 
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe();
+        this.loadSpinner.start();
+        const listing = await this.listingDetailsService.getListingById(id);
+        this.loadSpinner.stop();
+
+        if (!listing) return;
+        this.listing = listing;
     }
 
     cycleToSlide(slideId: number) {

@@ -9,12 +9,19 @@
             </div>
         </div>
         <div *ngFor="let result of searchResults" class="col-6">
-            <mat-card class="mt-1 mb-3" (click)="viewListingDetails(result)">
+            <mat-card class="mt-1 mb-3">
                 <mat-card-title>
-                    <span class="font-medium">{{result.location}} | {{result.price | currency: result.currency}}</span>
-                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <span style="line-height: 2;" class="font-medium">{{result.location}} | {{result.price | currency:
+                            result.currency}}</span>
+                        <button mat-button color="accent" (click)="viewListingDetails(result)">
+                            {{ 'search_results.details' | translate }}
+                            <mat-icon>open_in_new</mat-icon>
+                        </button>
+                    </div>
                 </mat-card-title>
                 <mat-card-content>
+                    <hr>
                     <div class="row">
                         <div class="col-6">
                             <img height="200px" width="200px" *ngIf="result.coverImage" [src]="result.coverImage">
@@ -33,7 +40,7 @@
                                 <span class="ps-2">{{result.bathrooms}}</span>
                             </div>
                             <mat-chip-list *ngIf="result.purpose">
-                                <mat-chip selected color="accent" (click)="viewListingDetails(result)">
+                                <mat-chip selected color="accent">
                                     {{result.purpose}}
                                 </mat-chip>
                             </mat-chip-list>
@@ -58,7 +65,7 @@
             </div>
             <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
                 <mat-divider *ngIf="i"></mat-divider>
-                <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingDetailsMobile(result)">
+                <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingDetails(result)">
                     <div class="row">
                         <div class="col-6">
                             <img *ngIf="result.coverImage" class="result-preview-img-mobile" [src]="result.coverImage">
@@ -78,7 +85,7 @@
                                 <span class="ps-2">{{result.bathrooms}}</span>
                             </div>
                             <mat-chip-list class="ps-2" *ngIf="result.purpose">
-                                <mat-chip class="listing-tag" selected (click)="viewListingDetailsMobile(result)">
+                                <mat-chip class="listing-tag" selected (click)="viewListingDetails(result)">
                                     <span>{{result.purpose}}</span>
                                 </mat-chip>
                             </mat-chip-list>

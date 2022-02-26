@@ -1,8 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { PageScrollService } from 'ngx-page-scroll-core';
-import { Subscription } from 'rxjs';
-import { ListingDetailsService } from './listing-details/listing-details.service';
 
 @Component({
     selector: 'app-listing-search',
@@ -10,24 +8,10 @@ import { ListingDetailsService } from './listing-details/listing-details.service
     styleUrls: ['./listing-search.component.scss']
 })
 
-export class ListingSearchComponent implements OnInit, OnDestroy {
-    showListingDetails: boolean = false;
-    sub: Subscription = new Subscription();
-
+export class ListingSearchComponent {
     constructor(
-        private listingDetails: ListingDetailsService,
         private pageScrollService: PageScrollService,
         @Inject(DOCUMENT) private document: any) {
-    }
-
-    ngOnInit() {
-        this.sub.add(this.listingDetails.listingToShow().subscribe(listing => {
-            this.showListingDetails = !!listing.location;
-        }));
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     scrollTop() {

@@ -29,7 +29,10 @@
         "new_Listing": "New listing",
         "select_a_listing": "Select a listing"
     },
-    "search_results.no_results": "No result matches your criteria",
+    "search_results": {
+        "no_results": "No result matches your criteria",
+        "details": "Details"
+    },
     "listing_search.page_title": "Listings",
     "listing_details.details": "Details",
     "search_bar": {

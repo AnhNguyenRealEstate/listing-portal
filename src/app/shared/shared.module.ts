@@ -19,6 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
 
 
@@ -44,7 +45,8 @@ import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
         MatSnackBarModule,
         MatAutocompleteModule,
         LoadSpinnerModule,
-        EditorModule
+        EditorModule,
+        NgxPageScrollCoreModule
     ],
     providers: [CurrencyPipe]
 })

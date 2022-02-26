@@ -2,7 +2,6 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ListingDetailsDialogComponent } from '../listing-details/listing-details-dialog.component';
 import { ListingDetailsService } from '../listing-details/listing-details.service';
 import { ListingLocationService } from '../listing-location/listing-location.service';
 import { Listing } from '../listing-search.data';
@@ -36,18 +35,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
     viewListingDetails(listing: Listing) {
         this.listingLocationService.showLocationOnMap(listing.id!, listing.address!);
-        this.listingDetailsService.showListing(listing);
-    }
-
-    viewListingDetailsMobile(listing: Listing) {
-        const config = {
-            maxWidth: '100vw',
-            maxHeight: '100vh',
-            height: '100%',
-            width: '100%',
-            scrollStrategy: new NoopScrollStrategy(),
-            data: listing
-        } as MatDialogConfig;
-        this.dialog.open(ListingDetailsDialogComponent, config);
+        this.listingDetailsService.showListing(listing.id!);
     }
 }
