@@ -1,54 +1,62 @@
-<section class="container d-none d-md-block listing-details-desktop">
-    <div class="row">
-        <div class="col-12">
-            <h2>{{listing.location}} | {{listing.price | currency: listing.currency}} - <span>{{
-                    'listing_details.details' | translate }}</span></h2>
+<section class="container d-none d-md-block listing-details-desktop" style="height: 90vh">
+    <mat-spinner style="margin:0 auto" *ngIf="!listing.location">
+    </mat-spinner>
+    <div *ngIf="listing.location">
+        <div class="row">
+            <div class="col-12">
+                <h2>
+                    {{listing.location}} | {{listing.price | currency: listing.currency}} -
+                    <span>{{'listing_details.details' | translate }}</span>
+                </h2>
+            </div>
         </div>
-    </div>
-    <div class="row listing-images pb-4" *ngIf="listing.imageSources && listing.imageSources!.length">
-        <ngb-carousel #carousel [interval]="carouselInterval">
-            <ng-template ngbSlide *ngFor="let src of listing.imageSources">
-                <div class="picsum-img-wrapper">
-                    <img [src]="src" style="width: 40%">
-                </div>
-            </ng-template>
-        </ngb-carousel>
-        <ul class="carousel-thumbnail">
-            <li class="carousel-thumbnail-item list-inline-item" *ngFor="let src of listing.imageSources; let i = index"
-                (click)="cycleToSlide(i)">
-                <a class="selected">
-                    <img class="carousel-thumbnail-img" [src]="src">
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="row">
-        <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
-        <p *ngIf="listing.description" [innerHtml]="listing.description">
-        </p>
+        <div class="row listing-images pb-4" *ngIf="listing.imageSources && listing.imageSources!.length">
+            <ngb-carousel #carousel [interval]="carouselInterval">
+                <ng-template ngbSlide *ngFor="let src of listing.imageSources">
+                    <div class="picsum-img-wrapper">
+                        <img [src]="src" style="width: 40%">
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+            <ul class="carousel-thumbnail">
+                <li class="carousel-thumbnail-item list-inline-item"
+                    *ngFor="let src of listing.imageSources; let i = index" (click)="cycleToSlide(i)">
+                    <a class="selected">
+                        <img class="carousel-thumbnail-img" [src]="src">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
+            <p *ngIf="listing.description" [innerHtml]="listing.description">
+            </p>
+        </div>
     </div>
 </section>
 
-<section class="container d-md-none listing-details-mobile">
-    <div class="d-flex justify-content-between" style="vertical-align: middle;">
-        <h2 class="h3 pt-2">{{listing.location}} | {{listing.price | currency: listing.currency}} - <span>{{
-                'listing_details.details' | translate }}</span></h2>
-    </div>
-    <hr>
+<section class="container d-md-none listing-details-mobile" style="height: 90vh">
+    <mat-spinner style="margin:0 auto" *ngIf="!listing.location">
+    </mat-spinner>
 
-    <div class="row pb-2 listing-images" *ngIf="listing.imageSources?.length">
-        <ng-image-slider [images]="images" [animationSpeed]="0.1"></ng-image-slider>
-    </div>
+    <div *ngIf="listing.location">
+        <div class="d-flex justify-content-between" style="vertical-align: middle;">
+            <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency}} - {{'listing_details.details' | translate }}
+            </span>
+        </div>
+        <hr>
 
-    <p *ngIf="listing.description" [innerHtml]="listing.description">
-    </p>
+        <div class="row pb-2 listing-images" *ngIf="images.length">
+            <ng-image-slider [images]="images" [animationSpeed]="0.1"></ng-image-slider>
+        </div>
 
-    <div class="d-flex justify-content-end">
-        <button mat-icon-button color="accent" class="pe-4">
-            <mat-icon>phone_in_talk</mat-icon>
-        </button>
-        <button mat-icon-button color="accent">
-            <mat-icon>share</mat-icon>
-        </button>
+        <p *ngIf="listing.description" [innerHtml]="listing.description">
+        </p>
+
+        <div class="d-flex justify-content-end">    
+            <a mat-icon-button color="accent" class="pe-4" [href]="contactNumber">
+                <mat-icon>phone_in_talk</mat-icon>
+            </a>
+        </div>
     </div>
 </section>

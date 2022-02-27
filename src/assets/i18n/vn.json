@@ -34,7 +34,10 @@
         "details": "Chi tiết"
     },
     "listing_search.page_title": "Sản phẩm",
-    "listing_details.details": "Chi tiết",
+    "listing_details": {
+        "details": "Chi tiết",
+        "contact_number": "0913780858"
+    },
     "search_bar": {
         "property_type": "Phân loại",
         "location": "Vị trí",

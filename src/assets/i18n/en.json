@@ -34,7 +34,10 @@
         "details": "Details"
     },
     "listing_search.page_title": "Listings",
-    "listing_details.details": "Details",
+    "listing_details": {
+        "details": "Details",
+        "contact_number": "0913780858"
+    },
     "search_bar": {
         "property_type": "Property type",
         "location": "Location",

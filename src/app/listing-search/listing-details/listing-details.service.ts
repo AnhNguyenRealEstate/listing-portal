@@ -16,7 +16,9 @@ export class ListingDetailsService {
     ) { }
 
     showListing(id: string) {
-        const url = this.router.serializeUrl(this.router.createUrlTree([`listings/details/${id}`]));
+        const url = this.router.serializeUrl(
+            this.router.createUrlTree([`listings/details/${id}`])
+        );
         window.open(url, '_blank');
     }
 
@@ -32,7 +34,21 @@ export class ListingDetailsService {
             return undefined;
         }
 
-        return dbResponse.data() as Listing;
+        const listing = dbResponse.data() as Listing;
+        const storagePath = listing.imageFolderPath!;
+
+        if (!environment.production) {
+            return listing;
+        }
+
+        let allImages = (await listAll(ref(this.storage, storagePath))).prefixes;
+        listing.imageSources = new Array(allImages.length);
+
+        await Promise.all(allImages.map(async (imageFile, index) => {
+            listing.imageSources![index] = await getDownloadURL(ref(imageFile, ImageFileVersion.raw));
+        }));
+
+        return listing;
     }
 
     async getImageSrcs(imageFolderPath: string): Promise<string[]> {
