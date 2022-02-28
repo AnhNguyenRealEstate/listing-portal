@@ -22,9 +22,7 @@ import { environment } from 'src/environments/environment';
 import { FooterComponent } from './components/footer/footer.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ListingEditModule } from './listing-edit/listing-edit.module';
 import { SharedModule } from './shared/shared.module';
-import { ListingSearchModule } from './listing-search/listing-search.module';
 
 @NgModule({
   declarations: [
@@ -44,8 +42,6 @@ import { ListingSearchModule } from './listing-search/listing-search.module';
     HttpClientModule,
     HttpClientJsonpModule,
     SharedModule,
-    ListingEditModule,
-    ListingSearchModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
