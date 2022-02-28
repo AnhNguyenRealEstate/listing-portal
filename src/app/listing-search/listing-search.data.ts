@@ -27,7 +27,7 @@ export interface SearchCriteria {
     propertyType: string,
     location: string,
     minPrice: number,
-    maxPrice: number,
+    maxPrice: number | undefined,
     propertySize: string,
     bedrooms: string,
     bathrooms: string,

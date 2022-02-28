@@ -74,8 +74,10 @@ export class ListingSearchService {
                 listing.propertySize! < minSize) {
                 continue;
             }
+
+            const maxPrice = searchCriteria.maxPrice || Number.POSITIVE_INFINITY;
             if (
-                listing.price! > searchCriteria.maxPrice ||
+                listing.price! > maxPrice ||
                 listing.price! < searchCriteria.minPrice) {
                 continue;
             }

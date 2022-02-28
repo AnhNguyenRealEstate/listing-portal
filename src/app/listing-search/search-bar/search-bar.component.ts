@@ -23,7 +23,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         propertySize: '',
         location: '',
         minPrice: 0,
-        maxPrice: 9999,
+        maxPrice: undefined,
         bedrooms: '',
         bathrooms: ''
     } as SearchCriteria;

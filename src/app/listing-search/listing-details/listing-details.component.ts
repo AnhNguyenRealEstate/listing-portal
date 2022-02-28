@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -30,7 +29,6 @@ export class ListingDetailsComponent implements OnInit {
         private sanitizer: DomSanitizer,
         private translate: TranslateService,
         private listingDetailsService: ListingDetailsService,
-        private loadSpinner: LoadSpinnerService,
         private route: ActivatedRoute,
         private router: Router) {
     }
@@ -44,7 +42,6 @@ export class ListingDetailsComponent implements OnInit {
 
         const listing = await this.listingDetailsService.getListingById(id);
         if (!listing) {
-            this.loadSpinner.stop();
             this.router.navigate(['/listing-search']);
             return;
         }
@@ -53,8 +50,9 @@ export class ListingDetailsComponent implements OnInit {
         if (listing.imageSources?.length) {
             this.images = listing.imageSources!.map((imageSrc, index) => {
                 return {
-                    image: imageSrc,
-                    order: index
+                    image: this.sanitizer.bypassSecurityTrustUrl(imageSrc),
+                    order: index,
+                    alt: `Image ${index}`
                 }
             })
         }
@@ -66,9 +64,5 @@ export class ListingDetailsComponent implements OnInit {
 
     cycleToSlide(slideId: number) {
         this.carousel?.select("ngb-slide-" + String(slideId));
-    }
-
-    promptCall() {
-        //TODO: prompt a call to ?
     }
 }

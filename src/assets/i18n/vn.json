@@ -46,7 +46,8 @@
         "bathrooms": "Số phòng tắm",
         "min_price": "Giá thấp nhất",
         "max_price": "Giá cao nhất",
-        "get_listings": "Tìm"
+        "get_listings": "Tìm",
+        "no_max": "Không giới hạn"
     },
     "listing_upload": {
         "property_type": "Phân loại",

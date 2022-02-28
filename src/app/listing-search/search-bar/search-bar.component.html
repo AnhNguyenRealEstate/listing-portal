@@ -109,12 +109,17 @@
             <div class="row ps-3 pb-1">
                 <div class="col-6">
                     <mat-icon color="accent">photo_size_select_small</mat-icon>
-                    <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'generics.any' | translate}}</span>
+                    <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'generics.any' |
+                        translate}}</span>
                     <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
                 </div>
                 <div class="col-6">
                     <mat-icon color="accent">attach_money</mat-icon>
-                    <span class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} USD</span>
+                    <span *ngIf="searchCriteria.maxPrice !== undefined; else noMax"
+                        class="ps-3">{{searchCriteria.minPrice}} - {{searchCriteria.maxPrice}} </span>
+                    <ng-template #noMax>
+                        <span class="ps-3">{{searchCriteria.minPrice}} - {{'search_bar.no_max' | translate }}</span>
+                    </ng-template>
                 </div>
             </div>
             <div *ngIf="numberOfResults > 0" class="row ps-3">

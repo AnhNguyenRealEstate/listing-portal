@@ -46,7 +46,8 @@
         "bathrooms": "Bathrooms",
         "min_price": "Min price",
         "max_price": "Max price",
-        "get_listings": "Get listings"
+        "get_listings": "Get listings",
+        "no_max": "No max"
     },
     "listing_upload": {
         "property_type": "Property type",

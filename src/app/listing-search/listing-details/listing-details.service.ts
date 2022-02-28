@@ -45,7 +45,7 @@ export class ListingDetailsService {
         listing.imageSources = new Array(allImages.length);
 
         await Promise.all(allImages.map(async (imageFile, index) => {
-            listing.imageSources![index] = await getDownloadURL(ref(imageFile, ImageFileVersion.raw));
+            listing.imageSources![index] = await getDownloadURL(ref(imageFile, ImageFileVersion.compressed));
         }));
 
         return listing;
