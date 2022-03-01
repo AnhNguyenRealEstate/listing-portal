@@ -6,7 +6,7 @@ import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { Listing } from '../listing-search.data';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'any' })
 export class ListingDetailsService {
 
     constructor(
@@ -49,16 +49,5 @@ export class ListingDetailsService {
         }));
 
         return listing;
-    }
-
-    async getImageSrcs(imageFolderPath: string): Promise<string[]> {
-        if (!environment.production) {
-            return [];
-        }
-
-        const allImgs = (await listAll(ref(this.storage, imageFolderPath))).prefixes;
-        return await Promise.all<string>(allImgs.map(async image => {
-            return await getDownloadURL(ref(image, ImageFileVersion.raw))
-        }));
     }
 }

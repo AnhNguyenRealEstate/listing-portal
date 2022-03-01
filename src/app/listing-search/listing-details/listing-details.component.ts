@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, SecurityContext, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -49,8 +49,14 @@ export class ListingDetailsComponent implements OnInit {
         this.listing = listing;
         if (listing.imageSources?.length) {
             this.images = listing.imageSources!.map((imageSrc, index) => {
+                const sanitizedUrl = this.sanitizer.sanitize(
+                    SecurityContext.URL,
+                    this.sanitizer.bypassSecurityTrustUrl(imageSrc)
+                );
+                
                 return {
-                    image: this.sanitizer.bypassSecurityTrustUrl(imageSrc),
+                    image: sanitizedUrl,
+                    thumbImage: sanitizedUrl,
                     order: index,
                     alt: `Image ${index}`
                 }

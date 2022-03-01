@@ -5,7 +5,7 @@ import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { Listing } from '../../listing-search/listing-search.data';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'any' })
 export class ListingEditService {
 
     constructor(

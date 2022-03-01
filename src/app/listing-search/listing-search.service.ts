@@ -7,7 +7,7 @@ import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { getDocs } from '@firebase/firestore';
 import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'any' })
 export class ListingSearchService {
     private searchResults$$ = new BehaviorSubject<Listing[]>([]);
     private searchResults$ = this.searchResults$$.asObservable();

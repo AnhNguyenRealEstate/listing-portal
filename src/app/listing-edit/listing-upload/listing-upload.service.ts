@@ -7,7 +7,7 @@ import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
 import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'any' })
 export class ListingUploadService {
     private propertyTypes: string[] = [];
     private locations: string[] = [];

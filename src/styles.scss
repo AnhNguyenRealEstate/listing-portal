@@ -3,6 +3,15 @@
 @use "app/styles/colors";
 @use "app/styles/base";
 
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+}
+
 // Only works if it is put here.
 .price-input-group .mat-form-field-infix {
     display: inherit !important;
