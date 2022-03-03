@@ -1,7 +1,16 @@
 <section class="pb-3">
     <div class="row">
         <div class="col-6">
-            <mat-form-field class="form-group" color="accent">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
+                <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose">
+                    <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
+                    <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field color="accent">
                 <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
                 <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
                     <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>

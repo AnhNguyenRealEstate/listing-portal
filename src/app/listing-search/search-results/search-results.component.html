@@ -39,11 +39,6 @@
                                 <mat-icon color="accent">bathtub</mat-icon>
                                 <span class="ps-2">{{result.bathrooms}}</span>
                             </div>
-                            <mat-chip-list *ngIf="result.purpose">
-                                <mat-chip selected color="accent">
-                                    {{result.purpose}}
-                                </mat-chip>
-                            </mat-chip-list>
                         </div>
                     </div>
                 </mat-card-content>
@@ -84,11 +79,6 @@
                                 <mat-icon color="accent">bathtub</mat-icon>
                                 <span class="ps-2">{{result.bathrooms}}</span>
                             </div>
-                            <mat-chip-list class="ps-2" *ngIf="result.purpose">
-                                <mat-chip class="listing-tag" selected (click)="viewListingDetails(result)">
-                                    <span>{{result.purpose}}</span>
-                                </mat-chip>
-                            </mat-chip-list>
                         </div>
                     </div>
                 </div>

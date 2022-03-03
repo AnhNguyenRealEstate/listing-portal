@@ -10,13 +10,13 @@ import { SearchBarDialogComponent } from './search-bar-dialog.component';
 
 @Component({
     selector: 'app-search-bar',
-    templateUrl: 'search-bar.component.html',
-    styleUrls: ['./search-bar.component.scss']
+    templateUrl: 'search-bar.component.html'
 })
 
 export class SearchBarComponent implements OnInit, OnDestroy {
     @Input() mode: 'desktop' | 'mobile' = 'desktop';
     @Output() searchCompleted = new EventEmitter();
+    panelOpenState: boolean = false;
 
     searchCriteria: SearchCriteria = {
         propertyType: '',
@@ -25,7 +25,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         minPrice: 0,
         maxPrice: undefined,
         bedrooms: '',
-        bathrooms: ''
+        bathrooms: '',
+        purpose: 'For Rent'
     } as SearchCriteria;
 
     propertyTypes: string[] = [];

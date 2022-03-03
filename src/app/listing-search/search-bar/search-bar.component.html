@@ -1,83 +1,84 @@
 <section *ngIf="mode === 'desktop'" class="pb-3">
     <div class="row">
-        <div class="col-xs-6 col-sm-4">
-            <mat-form-field class="form-group" color="accent">
-                <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
-                <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
-                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
-                    </mat-option>
+        <div class="col-sm-3">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
+                <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose">
+                    <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
+                    <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-xs-6 col-sm-4">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
-                <mat-select id="locations" [(ngModel)]="searchCriteria.location">
-                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                    <mat-option *ngFor="let loc of locations " value="{{loc}}">{{loc}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div class="col-sm-3">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ 'search_bar.filters' | translate }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
+                    <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
+                        <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                        <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
+                    <mat-select id="locations" [(ngModel)]="searchCriteria.location">
+                        <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                        <mat-option *ngFor="let loc of locations " value="{{loc}}">{{loc}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
+                    <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
+                        <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                        <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
+                    <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
+                        <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                        <mat-option value='1'>1</mat-option>
+                        <mat-option value='2'>2</mat-option>
+                        <mat-option value='3'>3</mat-option>
+                        <mat-option value='3+'>3+</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'search_bar.bathrooms' | translate }}</mat-label>
+                    <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
+                        <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                        <mat-option value='1'>1</mat-option>
+                        <mat-option value='2'>2</mat-option>
+                        <mat-option value='3'>3</mat-option>
+                        <mat-option value='3+'>3+</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'search_bar.min_price' | translate }}</mat-label>
+                    <input matInput type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline" id="minPrice">
+                </mat-form-field>
+                <mat-form-field color="accent" [floatLabel]="'always'">
+                    <mat-label>{{ 'search_bar.max_price' | translate }}</mat-label>
+                    <input matInput type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline" id="maxPrice">
+                </mat-form-field>
+            </mat-expansion-panel>
         </div>
-        <div class="col-xs-6 col-sm-4">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
-                <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
-                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                    <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">{{type.value}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="row pt-2">
-        <div class="col-xs-6 col-sm-4">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
-                <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
-                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                    <mat-option value='1'>1</mat-option>
-                    <mat-option value='2'>2</mat-option>
-                    <mat-option value='3'>3</mat-option>
-                    <mat-option value='3+'>3+</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-xs-6 col-sm-4">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'search_bar.bathrooms' | translate }}</mat-label>
-                <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
-                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                    <mat-option value='1'>1</mat-option>
-                    <mat-option value='2'>2</mat-option>
-                    <mat-option value='3'>3</mat-option>
-                    <mat-option value='3+'>3+</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="row pt-2">
-        <div class="col-xs-6 col-sm-4">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'search_bar.min_price' | translate }}</mat-label>
-                <input matInput type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline" id="minPrice"
-                    placeholder="min price...">
-            </mat-form-field>
-        </div>
-        <div class="col-xs-6 col-sm-4">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'search_bar.max_price' | translate }}</mat-label>
-                <input matInput type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline" id="maxPrice"
-                    placeholder="max price...">
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="row d-flex justify-content-center pt-3 pb-3">
-        <div class="col-xs-12 col-sm-3">
-            <button mat-raised-button color="accent" class="get-listing-btn" (click)="getListings()">
+        <div class="col-sm-1 d-flex align-items-center">
+            <button mat-raised-button color="accent" (click)="getListings()">
                 {{ 'search_bar.get_listings' | translate }}
             </button>
+        </div>
+        <div class="col-sm-3 d-flex align-items-center" *ngIf="numberOfResults > 0">
+            <span>{{ 'search_bar.found_x_results' | translate: {numberOfResults: numberOfResults} }}</span>
         </div>
     </div>
 </section>
@@ -87,6 +88,10 @@
         <mat-card-content>
             <div class="row ps-3">
                 <div class="col-6">
+                    <mat-icon color="accent">sell</mat-icon>
+                    <span class="ps-3">{{ searchCriteria.purpose }}</span>
+                </div>
+                <div class="col-6">
                     <mat-icon color="accent">apartment</mat-icon>
                     <span class="ps-3">{{ searchCriteria.propertyType || 'generics.any' | translate}}</span>
                 </div>
@@ -94,8 +99,6 @@
                     <mat-icon color="accent">location_on</mat-icon>
                     <span class="ps-3">{{ searchCriteria.location || 'generics.any' | translate}}</span>
                 </div>
-            </div>
-            <div class="row ps-3">
                 <div class="col-6">
                     <mat-icon color="accent">bed</mat-icon>
                     <span class="ps-3">{{searchCriteria.bedrooms || 'generics.any' | translate}}</span>
@@ -104,11 +107,8 @@
                     <mat-icon color="accent">bathtub</mat-icon>
                     <span class="ps-3">{{searchCriteria.bathrooms || 'generics.any' | translate}}</span>
                 </div>
-
-            </div>
-            <div class="row ps-3 pb-1">
                 <div class="col-6">
-                    <mat-icon color="accent">photo_size_select_small</mat-icon>
+                    <mat-icon color="accent">aspect_ratio</mat-icon>
                     <span class="ps-3">{{ propertySizes[searchCriteria.propertySize] || 'generics.any' |
                         translate}}</span>
                     <span class="ps-1" *ngIf="propertySizes[searchCriteria.propertySize]">(m<sup>2</sup>)</span>
@@ -123,7 +123,8 @@
                 </div>
             </div>
             <div *ngIf="numberOfResults > 0" class="row ps-3">
-                <span style="font:lighter;">Found {{numberOfResults}} listing(s)</span>
+                <span style="font:lighter;">{{ 'search_bar.found_x_results' | translate: {numberOfResults:
+                    numberOfResults} }}</span>
             </div>
         </mat-card-content>
     </mat-card>

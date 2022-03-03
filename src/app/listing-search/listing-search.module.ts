@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ListingSearchRoutingModule } from './listing-search-routing.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NgImageSliderModule } from 'ng-image-slider';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
     TranslateModule.forChild({
       extend: true
     }),
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatExpansionModule
   ],
   exports: [
     SearchBarComponent,

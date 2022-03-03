@@ -39,6 +39,7 @@
         "contact_number": "0913780858"
     },
     "search_bar": {
+        "filters": "Filters",
         "property_type": "Property type",
         "location": "Location",
         "property_sizes": "Property sizes",
@@ -47,7 +48,11 @@
         "min_price": "Min price",
         "max_price": "Max price",
         "get_listings": "Get listings",
-        "no_max": "No max"
+        "no_max": "No max",
+        "purpose": "Purpose",
+        "for_rent": "For rent",
+        "for_sale": "For sale",
+        "found_x_results": "Found {{numberOfResults}} listing(s)"
     },
     "listing_upload": {
         "property_type": "Property type",

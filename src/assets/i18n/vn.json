@@ -39,7 +39,8 @@
         "contact_number": "0913780858"
     },
     "search_bar": {
-        "property_type": "Phân loại",
+        "filters": "Sàng lọc chi tiết",
+        "property_type": "Phân khúc",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
         "bedrooms": "Số phòng ngủ",
@@ -47,7 +48,11 @@
         "min_price": "Giá thấp nhất",
         "max_price": "Giá cao nhất",
         "get_listings": "Tìm",
-        "no_max": "Không giới hạn"
+        "no_max": "Không giới hạn",
+        "purpose": "Mục đích",
+        "for_rent": "Tìm thuê",
+        "for_sale": "Tìm mua",
+        "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm"
     },
     "listing_upload": {
         "property_type": "Phân loại",
