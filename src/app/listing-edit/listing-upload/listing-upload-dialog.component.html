@@ -55,8 +55,8 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
                 <mat-select [(ngModel)]="listing.purpose" (selectionChange)="onPurposeSelect($event)" required>
-                    <mat-option value='For Rent'>For rent</mat-option>
-                    <mat-option value='For Sale'>For sale</mat-option>
+                    <mat-option value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
+                    <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>

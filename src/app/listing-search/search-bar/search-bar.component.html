@@ -89,7 +89,8 @@
             <div class="row ps-3">
                 <div class="col-6">
                     <mat-icon color="accent">sell</mat-icon>
-                    <span class="ps-3">{{ searchCriteria.purpose }}</span>
+                    <span *ngIf="searchCriteria.purpose === 'For Rent'" class="ps-3">{{ 'search_bar.for_rent' | translate }}</span>
+                    <span *ngIf="searchCriteria.purpose === 'For Sale'" class="ps-3">{{ 'search_bar.for_sale' | translate }}</span>
                 </div>
                 <div class="col-6">
                     <mat-icon color="accent">apartment</mat-icon>

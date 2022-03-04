@@ -63,7 +63,9 @@
         "purpose": "Cho thuê hay Rao bán",
         "price": "Giá",
         "address": "Địa chỉ",
-        "description": "Chi tiết sản phẩm"
+        "description": "Chi tiết sản phẩm",
+        "for_rent": "Cho thuê",
+        "for_sale": "Rao bán"
     },
     "login": {
         "page_title": "Đăng nhập",

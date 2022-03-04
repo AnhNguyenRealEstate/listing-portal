@@ -19,7 +19,7 @@ export class ListingSearchService {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
             let q = query(ref, orderBy('price', 'desc'));
-            q = query(q, where('purpose', '==', criteria.purpose))
+            q = query(q, where('purpose', '==', criteria.purpose));
             if (criteria.bathrooms) {
                 if (criteria.bathrooms === '3+') {
                     q = query(q, where('bathrooms', '>=', 3));

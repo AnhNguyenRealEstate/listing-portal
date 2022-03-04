@@ -18,7 +18,7 @@
         <div class="language-toggle">
             <mat-icon>language</mat-icon>
             <mat-form-field>
-                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)" [disableOptionCentering]="true">
                     <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
                     <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
                 </mat-select>
@@ -35,8 +35,8 @@
         (click)="sidenav.toggle()">
         <div class="ps-4 language-toggle-mobile">
             <mat-icon>language</mat-icon>
-            <mat-form-field class="ps-3"  (click)="$event.stopPropagation()">
-                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
+            <mat-form-field class="ps-3" (click)="$event.stopPropagation()">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)" [disableOptionCentering]="true">
                     <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
                     <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
                 </mat-select>
