@@ -10,6 +10,9 @@ import { MetadataService } from "src/app/shared/metadata.service";
 import { NgxImageCompressService } from "ngx-image-compress";
 import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { ListingUploadService } from "../listing-edit/listing-upload/listing-upload.service";
+import { RouterTestingModule } from "@angular/router/testing";
+import { Router } from "@angular/router";
+import { ListingDetailsService } from "./listing-details/listing-details.service";
 
 
 describe('Listing Search Service', () => {
@@ -18,16 +21,19 @@ describe('Listing Search Service', () => {
     let storage: FirebaseStorage;
     let auth: Auth;
 
+    let listingDetails: ListingDetailsService;
     let listingUpload: ListingUploadService;
     let listingSearch: ListingSearchService;
     let listingEdit: ListingEditService;
 
     let metadata: MetadataService;
     let imgCompress: NgxImageCompressService;
+    let router: Router;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [
+                RouterTestingModule.withRoutes([]),
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
                     return firebaseApp;
@@ -55,7 +61,9 @@ describe('Listing Search Service', () => {
         });
         metadata = TestBed.inject(MetadataService);
         imgCompress = TestBed.inject(NgxImageCompressService);
+        router = TestBed.inject(Router);
 
+        listingDetails = new ListingDetailsService(firestore, storage, router);
         listingSearch = new ListingSearchService(firestore, storage);
         listingUpload = new ListingUploadService(firestore, storage, metadata, imgCompress);
         listingEdit = new ListingEditService(firestore, storage);
@@ -69,7 +77,6 @@ describe('Listing Search Service', () => {
 
     it(`should be able to create mock listings,
         search through them with criterias,
-        get individual listings by firestore ID,
         and remove mock listings`, async () => {
 
         function generateRandomListing(index: number): Listing {
@@ -132,11 +139,11 @@ describe('Listing Search Service', () => {
         }
         expect(isSearchByCriteriaWorking).toBe(true);
 
-        // Check if we can randomly pull a listing we declared, 10 times
+        //Check if we can randomly pull a listing we declared, 10 times
         for (let i = 0; i < 10; i++) {
             const randomIndexWithinRange = Math.floor(Math.random() * (searchResultsFromServer.length));
             const randomResult = searchResultsFromServer[randomIndexWithinRange];
-            const randomListing = await listingSearch.getListingById(randomResult.id!);
+            const randomListing = await listingDetails.getListingById(randomResult.id!);
             expect(randomListing).toBeTruthy();
         }
 
