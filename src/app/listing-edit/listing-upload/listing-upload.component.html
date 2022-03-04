@@ -1,7 +1,7 @@
-<div *ngIf="isEditMode && !imageSrcs.length" class="d-flex justify-content-center">
+<div *ngIf="showSpinner" class="d-flex justify-content-center">
     <mat-spinner></mat-spinner>
 </div>
-<section #desktopUploadView class="container pt-2 d-none d-lg-block" *ngIf="!isEditMode || imageSrcs.length">
+<section #desktopUploadView class="container pt-2 d-none d-lg-block" *ngIf="!showSpinner">
     <app-spinner></app-spinner>
     <div class="row">
         <div class="col-12">
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field class="form-group" color="accent">
                 <mat-label>{{ 'listing_upload.property_type' | translate }}</mat-label>
                 <input id="propertyType" matInput type="text" aria-label="Property Type"
@@ -23,7 +23,7 @@
                 </mat-autocomplete>
             </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
                 <input id="locations" matInput type="text" aria-label="Location" [matAutocomplete]="locationsAuto"
@@ -32,13 +32,6 @@
                     <mat-option *ngFor="let location of locations" value="{{location}}">{{location}}
                     </mat-option>
                 </mat-autocomplete>
-            </mat-form-field>
-        </div>
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
-                <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
-                    placeholder="Size..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
@@ -53,6 +46,13 @@
                 <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
                 <input matInput id="bathrooms" type="number" [(ngModel)]="listing.bathrooms" class="d-inline"
                     placeholder="# of bathrooms..." required>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
+                <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
+                    placeholder="Size..." required>
             </mat-form-field>
         </div>
         <div class="col-3">

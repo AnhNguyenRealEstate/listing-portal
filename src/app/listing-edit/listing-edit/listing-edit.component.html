@@ -1,15 +1,11 @@
 <section #editDesktopView class="container-flex pt-2 ms-4 me-4 d-none d-lg-block">
     <div class="ps-3 pe-3">
-        <div class="row ">
-            <div class="col-6 d-flex justify-content-center">
+        <div class="row">
+            <div class="col-6 listing-edit-list-view">
                 <button mat-button class="add-listing-btn" color="accent" (click)="openUploadModalDesktop()">
                     <mat-icon class="pe-1">add</mat-icon>
                     <span class="ps-3">{{ 'listing_edit.new_Listing' | translate }}</span>
                 </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 listing-edit-list-view">
                 <mat-card *ngIf="!listings?.length" class="mb-2 d-flex justify-content-center">
                     <mat-spinner class="d-block"></mat-spinner>
                 </mat-card>
@@ -37,10 +33,16 @@
                                 </div>
                                 <mat-chip-list class="ps-2">
                                     <mat-chip>
-                                        <span>{{listing.purpose}}</span>
+                                        <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_edit.for_rent' |
+                                            translate }}</span>
+                                        <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_edit.for_sale' |
+                                            translate }}</span>
                                     </mat-chip>
                                     <mat-chip>
-                                        <span>{{listing.archived? 'Archived' : 'Active'}}</span>
+                                        <span *ngIf="listing.archived">{{ 'listing_edit.archived' |
+                                            translate }}</span>
+                                        <span *ngIf="!listing.archived">{{ 'listing_edit.active' |
+                                            translate }}</span>
                                     </mat-chip>
                                 </mat-chip-list>
                                 <div class="d-flex justify-content-end" style="position: absolute; top: 0; right: 0;">
@@ -63,8 +65,8 @@
                 </mat-card>
             </div>
             <div class="col-6 listing-edit-detail-view" *ngIf="listings?.length">
-                <div *ngIf="listingToShow === undefined">
-                    <span class="ps-4 listing-edit-select-a-listing-text">{{ 'listing_edit.select_a_listing' | translate
+                <div *ngIf="listingToShow === undefined" style="padding-top: 10vh">
+                    <span class="listing-edit-select-a-listing-text">{{ 'listing_edit.select_a_listing' | translate
                         }}</span>
                 </div>
                 <div *ngIf="listingToShow !== undefined">
@@ -134,7 +136,10 @@
                                 </div>
                                 <mat-chip-list class="ps-2" *ngIf="listing.purpose">
                                     <mat-chip>
-                                        <span>{{listing.purpose}}</span>
+                                        <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_edit.for_rent' |
+                                            translate }}</span>
+                                        <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_edit.for_sale' |
+                                            translate }}</span>
                                     </mat-chip>
                                     <mat-chip>
                                         <span>{{listing.archived? 'Archived' : 'Active'}}</span>

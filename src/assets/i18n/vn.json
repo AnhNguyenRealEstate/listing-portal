@@ -27,7 +27,11 @@
     },
     "listing_edit": {
         "new_Listing": "Đăng mới",
-        "select_a_listing": "Chọn sản phẩm để xem chi tiết"
+        "select_a_listing": "Chọn sản phẩm để xem chi tiết",
+        "for_rent": "Cho thuê",
+        "for_sale": "Rao bán",
+        "archived": "Chưa đăng",
+        "active": "Đã đăng"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",

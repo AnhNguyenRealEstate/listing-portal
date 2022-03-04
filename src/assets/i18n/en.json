@@ -27,7 +27,11 @@
     },
     "listing_edit": {
         "new_Listing": "New listing",
-        "select_a_listing": "Select a listing"
+        "select_a_listing": "Select a listing",
+        "for_rent": "For rent",
+        "for_sale": "For sale",
+        "archived": "Archived",
+        "active": "Active"
     },
     "search_results": {
         "no_results": "No result matches your criteria",
