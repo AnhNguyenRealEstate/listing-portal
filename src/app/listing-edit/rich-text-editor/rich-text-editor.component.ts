@@ -11,7 +11,7 @@ export class RTEditorComponent {
 
     tinyMCE_API_key = 'ho6mfhwuz7956d5wu24o4k594oyp2gwgs9iqhyuf1drlcwjj';
     init = {
-        height: 500,
+        height: 300,
         menubar: false,
         plugins: [
         'advlist autolink lists link image charmap print preview anchor',
