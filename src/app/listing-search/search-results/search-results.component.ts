@@ -8,7 +8,7 @@ import { Listing } from '../listing-search.data';
 import { ListingSearchService } from '../listing-search.service';
 
 @Component({
-    selector: 'app-search-results',
+    selector: 'search-results',
     templateUrl: 'search-results.component.html',
     styleUrls: ['../listing-search.component.scss']
 })
@@ -20,8 +20,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
     constructor(private listingSearchService: ListingSearchService,
         private listingLocationService: ListingLocationService,
-        private listingDetailsService: ListingDetailsService,
-        private dialog: MatDialog) { }
+        private listingDetailsService: ListingDetailsService) { }
 
     ngOnInit() {
         this.subscription.add(this.listingSearchService.searchResults().subscribe(results => {

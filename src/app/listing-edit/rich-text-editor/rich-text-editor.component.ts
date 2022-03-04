@@ -23,7 +23,4 @@ export class RTEditorComponent {
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat | help'
     };
-
-    constructor() { }
-
 }

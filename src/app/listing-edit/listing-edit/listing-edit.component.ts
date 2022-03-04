@@ -12,7 +12,7 @@ import { Unsubscribe } from '@angular/fire/auth';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 
 @Component({
-    selector: 'app-listing-edit',
+    selector: 'listing-edit',
     templateUrl: 'listing-edit.component.html',
     styleUrls: ['./listing-edit.component.scss']
 })

@@ -3,15 +3,16 @@
     overflow: auto;
 }
 
+.listing-image-group {
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+
 .listing-image {
     height: 200px;
     width: 200px;
     object-fit: contain;
-}
-
-.listing-image-group {
-    height: 200px;
-    width: 200px;
 }
 
 .remove-image-btn {
@@ -20,7 +21,7 @@
     color: white;
     height: 36px;
     padding: 6px;
-    position: relative;
+    position: absolute;
     right: 30px;
     bottom: 50px;
     width: 36px;

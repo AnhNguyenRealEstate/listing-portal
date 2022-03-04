@@ -94,16 +94,31 @@ export class ListingUploadService {
             return new File([data], `${index}.${fileExtension}`, metadata);
         }
 
+        function getMockFiles(imageFiles: ListingImageFile[], imageSrcs: string[]) {
+            for (let i = 0; i < imageFiles.length; i++) {
+                const blob = new Blob();
+                const file = new File([blob], `${i}.jpg`, { type: blob.type })
+                imageFiles[i] = ({ compressed: file, raw: file } as ListingImageFile);
+
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = () => {
+                    imageSrcs[i] = reader.result as string;
+                }
+            }
+        }
+
         let allImages = (await listAll(ref(this.storage, storagePath))).prefixes;
 
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));
 
         if (!environment.production) {
+            getMockFiles(imageFiles, imageSrcs);
             return;
-            // Storage Emulator isn't supporting the operations below
         }
 
+        // Storage Emulator isn't supporting the operations below
         await Promise.all(allImages.map(async (imageFile, index) => {
             let file_compressed = await getFile(
                 await getDownloadURL(ref(imageFile, ImageFileVersion.compressed)),

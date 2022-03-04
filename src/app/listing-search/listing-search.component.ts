@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { PageScrollService } from 'ngx-page-scroll-core';
 
 @Component({
-    selector: 'app-listing-search',
+    selector: 'listing-search',
     templateUrl: 'listing-search.component.html',
     styleUrls: ['./listing-search.component.scss']
 })

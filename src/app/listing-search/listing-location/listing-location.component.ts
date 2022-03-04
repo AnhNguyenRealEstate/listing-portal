@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { ListingLocationService } from './listing-location.service';
 
 @Component({
-    selector: 'app-listing-location',
+    selector: 'listing-location',
     templateUrl: 'listing-location.component.html'
 })
 

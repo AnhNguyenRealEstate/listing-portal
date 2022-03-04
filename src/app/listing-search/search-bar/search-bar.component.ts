@@ -9,7 +9,7 @@ import { ListingSearchService } from '../listing-search.service';
 import { SearchBarDialogComponent } from './search-bar-dialog.component';
 
 @Component({
-    selector: 'app-search-bar',
+    selector: 'search-bar',
     templateUrl: 'search-bar.component.html'
 })
 

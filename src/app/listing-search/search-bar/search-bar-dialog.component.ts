@@ -5,7 +5,7 @@ import { MetadataService } from 'src/app/shared/metadata.service';
 import { PropertySizes, SearchCriteria } from '../listing-search.data';
 
 @Component({
-    selector: 'app-search-bar-dialog',
+    selector: 'search-bar-dialog',
     templateUrl: 'search-bar-dialog.component.html',
     styleUrls: ['./search-bar-dialog.component.scss']
 })

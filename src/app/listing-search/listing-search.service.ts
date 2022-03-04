@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { Firestore, CollectionReference, DocumentData, orderBy, Query, query, where, collection, getDoc, doc } from '@angular/fire/firestore';
+import { Firestore, CollectionReference, DocumentData, orderBy, Query, query, where, collection } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';

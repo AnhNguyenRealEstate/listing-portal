@@ -12,7 +12,7 @@
             <mat-form-field class="form-group" color="accent">
                 <mat-label>{{ 'listing_upload.property_type' | translate }}</mat-label>
                 <input id="propertyType" matInput type="text" aria-label="Property Type"
-                    [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType">
+                    [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType" required>
                 <mat-autocomplete #propertyTypesAuto="matAutocomplete">
                     <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
                     </mat-option>
@@ -23,7 +23,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
                 <input id="locations" matInput type="text" aria-label="Location" [matAutocomplete]="locationsAuto"
-                    [(ngModel)]="listing.location">
+                    [(ngModel)]="listing.location" required>
                 <mat-autocomplete #locationsAuto="matAutocomplete">
                     <mat-option *ngFor="let location of locations" value="{{location}}">{{location}}
                     </mat-option>
@@ -55,7 +55,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
                 <mat-select [(ngModel)]="listing.purpose" (selectionChange)="onPurposeSelect($event)" required>
-                    <mat-option value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
+                    <mat-option selected value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
                     <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -66,7 +66,7 @@
                     <mat-label>{{ 'listing_upload.price' | translate }}</mat-label>
                     <input matInput type="text" [(ngModel)]="listing.price" id="price" placeholder="0" required>
                     <mat-select [(ngModel)]="listing.currency" required>
-                        <mat-option value='USD'>US$</mat-option>
+                        <mat-option selected value='USD'>US$</mat-option>
                         <mat-option value='VND'>đ</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -83,7 +83,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <mat-label>{{ 'listing_upload.description' | translate }}</mat-label>
+            <label class="pt-1 pb-1">{{ 'listing_upload.description' | translate }}</label>
             <div class="mat-form-field-wrapper">
                 <app-editor [listing]="listing"></app-editor>
             </div>

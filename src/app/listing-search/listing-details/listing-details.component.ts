@@ -7,7 +7,7 @@ import { ListingDetailsService } from './listing-details.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
-    selector: 'app-listing-details',
+    selector: 'listing-details',
     templateUrl: 'listing-details.component.html',
     styleUrls: ['../listing-search.component.scss']
 })

@@ -7,7 +7,7 @@ import { ListingUploadService } from './listing-upload.service';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 
 @Component({
-    selector: 'app-listing-upload',
+    selector: 'listing-upload',
     templateUrl: 'listing-upload.component.html',
     styleUrls: ['./listing-upload.component.scss']
 })

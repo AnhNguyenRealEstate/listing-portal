@@ -8,7 +8,7 @@ import { Listing, ListingImageFile } from '../../listing-search/listing-search.d
 import { ListingUploadService } from './listing-upload.service';
 
 @Component({
-    selector: 'app-listing-upload-dialog',
+    selector: 'listing-upload-dialog',
     templateUrl: 'listing-upload-dialog.component.html',
     styleUrls: ['./listing-upload-dialog.component.scss']
 })
