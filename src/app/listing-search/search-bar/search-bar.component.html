@@ -9,7 +9,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -22,8 +22,10 @@
                     <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
                     <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
                         <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                        <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
-                        </mat-option>
+                        <mat-option value="Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
+                        <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
+                        <mat-option value="Townhouse">{{ 'search_bar.townhouse' | translate }}</mat-option>
+                        <mat-option value="Commercial">{{ 'search_bar.commercial' | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field color="accent">
@@ -63,11 +65,22 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field color="accent">
-                    <mat-label>{{ 'search_bar.min_price' | translate }}</mat-label>
+                    <mat-label>
+                        {{ 'search_bar.min_price' | translate }}
+                        (<span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' | translate
+                            }}</span>
+                        <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
+                            }}</span>)
+                    </mat-label>
                     <input matInput type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline" id="minPrice">
                 </mat-form-field>
                 <mat-form-field color="accent" [floatLabel]="'always'">
-                    <mat-label>{{ 'search_bar.max_price' | translate }}</mat-label>
+                    <mat-label>{{ 'search_bar.max_price' | translate }}
+                        (<span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' | translate
+                            }}</span>
+                        <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
+                            }}</span>)
+                    </mat-label>
                     <input matInput type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline" id="maxPrice">
                 </mat-form-field>
             </mat-expansion-panel>
@@ -89,8 +102,10 @@
             <div class="row ps-3">
                 <div class="col-6">
                     <mat-icon color="accent">sell</mat-icon>
-                    <span *ngIf="searchCriteria.purpose === 'For Rent'" class="ps-3">{{ 'search_bar.for_rent' | translate }}</span>
-                    <span *ngIf="searchCriteria.purpose === 'For Sale'" class="ps-3">{{ 'search_bar.for_sale' | translate }}</span>
+                    <span *ngIf="searchCriteria.purpose === 'For Rent'" class="ps-3">{{ 'search_bar.for_rent' |
+                        translate }}</span>
+                    <span *ngIf="searchCriteria.purpose === 'For Sale'" class="ps-3">{{ 'search_bar.for_sale' |
+                        translate }}</span>
                 </div>
                 <div class="col-6">
                     <mat-icon color="accent">apartment</mat-icon>
@@ -121,6 +136,9 @@
                     <ng-template #noMax>
                         <span class="ps-3">{{searchCriteria.minPrice}} - {{'search_bar.no_max' | translate }}</span>
                     </ng-template>
+                    (<span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' | translate }}</span>
+                    <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
+                        }}</span>)
                 </div>
             </div>
             <div *ngIf="numberOfResults > 0" class="row ps-3">

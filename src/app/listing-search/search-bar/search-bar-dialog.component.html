@@ -14,8 +14,10 @@
                 <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
                 <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
                     <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
-                    </mat-option>
+                    <mat-option value="Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
+                        <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
+                        <mat-option value="Townhouse">{{ 'search_bar.townhouse' | translate }}</mat-option>
+                        <mat-option value="Commercial">{{ 'search_bar.commercial' | translate }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>

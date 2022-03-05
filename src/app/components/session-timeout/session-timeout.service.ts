@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { filter } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { LoginService } from '../login/login.service';
 import { TimeoutComponent } from './session-timeout.component';
 
@@ -20,8 +21,13 @@ export class SessionTimeoutService {
         private dialog: MatDialog) { }
 
     setTimeout() {
-        this.idle.setIdle(1000);
-        this.idle.setTimeout(300);
+        if (environment.production) {
+            this.idle.setIdle(600);
+            this.idle.setTimeout(300);
+        } else {
+            this.idle.setIdle(3600);
+            this.idle.setTimeout(300);
+        }
 
         // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
         this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
@@ -36,7 +42,7 @@ export class SessionTimeoutService {
             this.router.navigate(['/']);
         });
 
-        this.idle.onTimeoutWarning.pipe(filter(()=> !this.showTimeoutWarning)).subscribe(() => {
+        this.idle.onTimeoutWarning.pipe(filter(() => !this.showTimeoutWarning)).subscribe(() => {
             const config = {
                 height: 'auto',
                 width: '90%'

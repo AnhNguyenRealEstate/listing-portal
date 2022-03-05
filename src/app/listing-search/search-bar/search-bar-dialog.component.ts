@@ -13,7 +13,6 @@ import { PropertySizes, SearchCriteria } from '../listing-search.data';
 export class SearchBarDialogComponent implements OnInit, OnDestroy {
     searchCriteria: SearchCriteria = {} as SearchCriteria;
 
-    propertyTypes: string[] = [];
     locations: string[] = [];
 
     propertySizes = PropertySizes;
@@ -29,10 +28,6 @@ export class SearchBarDialogComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subs.add(this.metadata.propertyTypes().subscribe(data => {
-            this.propertyTypes = data;
-        }));
-
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));

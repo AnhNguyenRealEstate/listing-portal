@@ -18,8 +18,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     @Input() dbReferenceId: string = '';
 
     modalTitle: string = '';
-
-    propertyTypes: string[] = [];
+    
     locations: string[] = [];
 
     imageFiles: ListingImageFile[] = [];
@@ -33,15 +32,11 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         private snackbar: MatSnackBar,
         private metadata: MetadataService,
         private listingUploadService: ListingUploadService,
-        private loadSpinner: LoadSpinnerService
+        private loadSpinner: LoadSpinnerService,
     ) {
     }
 
     async ngOnInit() {
-        this.subs.add(this.metadata.propertyTypes().subscribe(data => {
-            this.propertyTypes = data;
-        }));
-
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
@@ -60,7 +55,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     onPurposeSelect(event: any) {
-        this.listing.purpose = event.value;
+        const purpose = event.value;
+        if (purpose === 'For Rent') {
+            this.listing.currency = 'USD';
+        } else {
+            this.listing.currency = 'VND';
+        }
     }
 
     handleImageInput(event: any) {

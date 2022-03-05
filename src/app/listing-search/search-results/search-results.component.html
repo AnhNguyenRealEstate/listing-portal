@@ -28,7 +28,10 @@
                         </div>
                         <div class="col-6">
                             <div class="pb-2" *ngIf="result.propertyType">
-                                {{result.propertyType}}
+                                <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' | translate}}</span>
+                                <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' | translate}}</span>
+                                <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' | translate}}</span>
+                                <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' | translate}}</span>
                             </div>
                             <div class="pb-2" *ngIf="result.address">
                                 {{result.address}}
@@ -67,6 +70,12 @@
                         </div>
                         <div class="col-6">
                             <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>
+                            <div *ngIf="result.propertyType">
+                                <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' | translate}}</span>
+                                <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' | translate}}</span>
+                                <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' | translate}}</span>
+                                <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' | translate}}</span>
+                            </div>
                             <div *ngIf="result.location">
                                 {{result.location}}
                             </div>

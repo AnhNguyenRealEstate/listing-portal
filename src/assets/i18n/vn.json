@@ -35,7 +35,11 @@
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
-        "details": "Chi tiết"
+        "details": "Chi tiết",
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Kinh doanh"
     },
     "listing_search.page_title": "Sản phẩm",
     "listing_details": {
@@ -44,13 +48,19 @@
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",
-        "property_type": "Phân khúc",
+        "property_type": "Phân loại",
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Kinh doanh",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
         "bedrooms": "Số phòng ngủ",
         "bathrooms": "Số phòng tắm",
         "min_price": "Giá thấp nhất",
         "max_price": "Giá cao nhất",
+        "us_dollar": "USD",
+        "vietnam_dong": "VND",
         "get_listings": "Tìm",
         "no_max": "Không giới hạn",
         "purpose": "Mục đích",
@@ -60,6 +70,10 @@
     },
     "listing_upload": {
         "property_type": "Phân loại",
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Kinh doanh",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
         "bedrooms": "Số phòng ngủ",

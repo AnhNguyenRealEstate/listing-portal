@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'any' })
 export class ListingUploadService {
-    private propertyTypes: string[] = [];
     private locations: string[] = [];
 
     constructor(private firestore: Firestore,
@@ -17,9 +16,6 @@ export class ListingUploadService {
         private metadata: MetadataService,
         private imageCompress: NgxImageCompressService
     ) {
-        this.metadata.propertyTypes().subscribe(data => {
-            this.propertyTypes = data;
-        });
         this.metadata.locations().subscribe(data => {
             this.locations = data;
         });
@@ -38,7 +34,6 @@ export class ListingUploadService {
         await this.storeListingImages(imageFiles, imageFolderPath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
-        await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
 
         return docRef.id;
     }
@@ -75,7 +70,6 @@ export class ListingUploadService {
         await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { data: listing })
 
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
-        await this.updateMetadata(this.propertyTypes, listing.propertyType!, this.metadata.metadataKeys.propertyTypes);
     }
 
     /**

@@ -8,6 +8,7 @@ import { ListingEditRoutingModule } from './listing-edit-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { NgxImageCompressService } from "ngx-image-compress";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgxImageCompressService } from "ngx-image-compress";
     TranslateModule.forChild({
       extend: true
     }),
+    ReactiveFormsModule
   ],
   exports: [
     ListingUploadComponent,

@@ -9,14 +9,14 @@
             </h1>
         </div>
         <div class="col-6">
-            <mat-form-field class="form-group" color="accent">
+            <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.property_type' | translate }}</mat-label>
-                <input id="propertyType" matInput type="text" aria-label="Property Type"
-                    [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType" required>
-                <mat-autocomplete #propertyTypesAuto="matAutocomplete">
-                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">{{type}}
-                    </mat-option>
-                </mat-autocomplete>
+                <mat-select id="propertyType" [(ngModel)]="listing.propertyType" required>
+                    <mat-option value="Apartment">{{ 'listing_upload.apartment' | translate }}</mat-option>
+                    <mat-option value="Villa">{{ 'listing_upload.villa' | translate }}</mat-option>
+                    <mat-option value="Townhouse">{{ 'listing_upload.townhouse' | translate }}</mat-option>
+                    <mat-option value="Commercial">{{ 'listing_upload.commercial' | translate }}</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
         <div class="col-6">

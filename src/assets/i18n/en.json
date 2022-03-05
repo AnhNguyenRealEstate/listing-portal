@@ -35,7 +35,12 @@
     },
     "search_results": {
         "no_results": "No result matches your criteria",
-        "details": "Details"
+        "details": "Details",
+        "property_type": "Property type",
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {
@@ -45,12 +50,18 @@
     "search_bar": {
         "filters": "Filters",
         "property_type": "Property type",
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial",
         "location": "Location",
         "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
         "min_price": "Min price",
         "max_price": "Max price",
+        "us_dollar": "USD",
+        "vietnam_dong": "VND",
         "get_listings": "Get listings",
         "no_max": "No max",
         "purpose": "Purpose",
@@ -60,6 +71,10 @@
     },
     "listing_upload": {
         "property_type": "Property type",
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial",
         "location": "Location",
         "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",

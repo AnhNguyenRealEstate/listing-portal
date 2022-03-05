@@ -11,23 +11,31 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
-            <mat-form-field class="form-group" color="accent">
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
+                <mat-select [(ngModel)]="listing.purpose" required (selectionChange)="onPurposeSelect($event)">
+                    <mat-option value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
+                    <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.property_type' | translate }}</mat-label>
-                <input id="propertyType" matInput type="text" aria-label="Property Type"
-                    [matAutocomplete]="propertyTypesAuto" [(ngModel)]="listing.propertyType">
-                <mat-autocomplete #propertyTypesAuto="matAutocomplete">
-                    <mat-option *ngFor="let type of propertyTypes" value="{{type}}">
-                        {{type}}
-                    </mat-option>
-                </mat-autocomplete>
+                <mat-select id="propertyType" [(ngModel)]="listing.propertyType" required>
+                    <mat-option value="Apartment">{{ 'listing_upload.apartment' | translate }}</mat-option>
+                    <mat-option value="Villa">{{ 'listing_upload.villa' | translate }}</mat-option>
+                    <mat-option value="Townhouse">{{ 'listing_upload.townhouse' | translate }}</mat-option>
+                    <mat-option value="Commercial">{{ 'listing_upload.commercial' | translate }}</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
         <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
-                <input id="locations" matInput type="text" aria-label="Location" [matAutocomplete]="locationsAuto"
-                    [(ngModel)]="listing.location">
+                <input id="locations" matInput type="text" [matAutocomplete]="locationsAuto"
+                    [(ngModel)]="listing.location" required>
                 <mat-autocomplete #locationsAuto="matAutocomplete">
                     <mat-option *ngFor="let location of locations" value="{{location}}">{{location}}
                     </mat-option>
@@ -55,15 +63,6 @@
                     placeholder="Size..." required>
             </mat-form-field>
         </div>
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
-                <mat-select (selectionChange)="onPurposeSelect($event)" [(ngModel)]="listing.purpose" required>
-                    <mat-option value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
-                    <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
         <div class="col-6">
             <div class="price-input-group">
                 <mat-form-field color="accent">
@@ -81,7 +80,7 @@
         <div class="col">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.address' | translate }}</mat-label>
-                <input matInput id="address" type="text" aria-label="Address" [(ngModel)]="listing.address">
+                <input matInput id="address" type="text" [(ngModel)]="listing.address">
             </mat-form-field>
         </div>
     </div>
@@ -96,7 +95,7 @@
     <div class="row image-container" *ngIf="imageSrcs?.length">
         <div class="d-inline listing-image-group" *ngFor="let imgSrc of imageSrcs">
             <img [src]="imgSrc" class="listing-image">
-            <button class="remove-image-btn" (click)="removeImage(imgSrc)" aria-label="Remove image">
+            <button class="remove-image-btn" (click)="removeImage(imgSrc)">
                 x
             </button>
         </div>

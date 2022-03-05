@@ -20,7 +20,6 @@ export class ListingUploadDialogComponent implements OnInit {
 
     isEditMode: boolean = false;
 
-    propertyTypes: string[] = [];
     locations: string[] = [];
 
     imageFiles: ListingImageFile[] = [];
@@ -46,10 +45,6 @@ export class ListingUploadDialogComponent implements OnInit {
     async ngOnInit() {
         this.modalTitle = this.isEditMode ? 'Edit listing' : 'Upload new listing';
 
-        this.subs.add(this.metadata.propertyTypes().subscribe(data => {
-            this.propertyTypes = data;
-        }));
-
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
@@ -62,7 +57,12 @@ export class ListingUploadDialogComponent implements OnInit {
     }
 
     onPurposeSelect(event: any) {
-        this.listing.purpose = event.value;
+        const purpose = event.value;
+        if (purpose === 'For Rent') {
+            this.listing.currency = 'USD';
+        } else {
+            this.listing.currency = 'VND';
+        }
     }
 
     handleImageInput(event: any) {
