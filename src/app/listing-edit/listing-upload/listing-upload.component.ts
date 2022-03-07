@@ -14,11 +14,10 @@ import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     @Input() listing: Listing = {} as Listing;
     @Input() isEditMode = false;
-    @Input() snackbarMessage: string = '';
     @Input() dbReferenceId: string = '';
 
     modalTitle: string = '';
-    
+
     locations: string[] = [];
 
     imageFiles: ListingImageFile[] = [];
@@ -102,6 +101,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
     /* Uploads a new listing and create a new image storage path for related images */
     async publishListing() {
+        if (!this.checkValidityForUpload(this.listing)) {
+            this.snackbar.open("Please fill in all fields and upload images", "Dismiss", {
+                duration: 3000
+            });
+            return;
+        }
+
         this.loadSpinner.start();
 
         await this.listingUploadService.publishListing(this.listing, this.imageFiles);
@@ -119,6 +125,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
     /* Save any editting on the listing and its image storage */
     async saveEdit() {
+        if (!this.checkValidityForUpload(this.listing)) {
+            this.snackbar.open("Please fill in all fields and upload images", "Dismiss", {
+                duration: 3000
+            });
+            return;
+        }
+        
         this.loadSpinner.start();
         await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
         this.loadSpinner.stop();
@@ -127,5 +140,20 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.snackbar.open("Changes saved ✅", "Dismiss", {
             duration: 3000
         })
+    }
+
+    checkValidityForUpload(listing: Listing): boolean {
+        if (listing.purpose?.length
+            && listing.propertyType?.length
+            && listing.location?.length
+            && typeof listing.bedrooms === "number"
+            && typeof listing.bathrooms === "number"
+            && typeof listing.price === "number"
+            && listing.currency?.length
+            && listing.description?.length
+            && listing.images?.length) {
+            return true;
+        }
+        return false;
     }
 }
