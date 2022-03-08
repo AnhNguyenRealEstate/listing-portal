@@ -181,7 +181,7 @@ export class ListingUploadDialogComponent implements OnInit {
             && typeof listing.price === "number"
             && listing.currency?.length
             && listing.description?.length
-            && listing.images?.length) {
+            && this.imageFiles.length) {
             return true;
         }
         return false;
