@@ -83,7 +83,11 @@
         "address": "Địa chỉ",
         "description": "Chi tiết sản phẩm",
         "for_rent": "Cho thuê",
-        "for_sale": "Rao bán"
+        "for_sale": "Rao bán",
+        "invalid_upload_msg": "Thiếu thông tin hoặc chưa đăng kèm ảnh 🛑",
+        "listing_published_msg": "Đã đăng 🎉",
+        "changes_saved_msg": "Đã lưu ✅",
+        "dismiss_msg": "Tắt"
     },
     "login": {
         "page_title": "Đăng nhập",

@@ -5,6 +5,7 @@ import { MetadataService } from 'src/app/shared/metadata.service';
 import { Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'listing-upload',
@@ -27,11 +28,14 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     subs: Subscription = new Subscription();
     showSpinner: boolean = false;
 
+    snackbarMsgs!: any;
+
     constructor(
         private snackbar: MatSnackBar,
         private metadata: MetadataService,
         private listingUploadService: ListingUploadService,
         private loadSpinner: LoadSpinnerService,
+        private translate: TranslateService
     ) {
     }
 
@@ -39,6 +43,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
+
+        this.snackbarMsgs = await this.translate.get(
+            ['listing_upload.invalid_upload_msg',
+                'listing_upload.listing_published_msg',
+                'listing_upload.changes_saved_msg',
+                'listing_upload.dismiss_msg']
+        ).toPromise();
     }
 
     async ngOnChanges(changes: SimpleChanges) {
@@ -102,9 +113,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     /* Uploads a new listing and create a new image storage path for related images */
     async publishListing() {
         if (!this.checkValidityForUpload(this.listing)) {
-            this.snackbar.open("Please fill in all fields and upload images", "Dismiss", {
-                duration: 3000
-            });
+            this.snackbar.open(
+                this.snackbarMsgs['listing_upload.invalid_upload_msg'],
+                this.snackbarMsgs['listing_upload.dismiss_msg'],
+                {
+                    duration: 3000
+                }
+            );
             return;
         }
 
@@ -118,28 +133,42 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
         this.loadSpinner.stop();
 
-        this.snackbar.open("Listing published 🎉", "Dismiss", {
-            duration: 3000
-        });
+        this.snackbar.open(
+            this.snackbarMsgs['listing_upload.listing_published_msg'],
+            this.snackbarMsgs['listing_upload.dismiss_msg'],
+            {
+                duration: 3000
+            }
+        );
     }
 
     /* Save any editting on the listing and its image storage */
     async saveEdit() {
         if (!this.checkValidityForUpload(this.listing)) {
-            this.snackbar.open("Please fill in all fields and upload images", "Dismiss", {
-                duration: 3000
-            });
+            const test = this.snackbarMsgs;
+            debugger;
+            this.snackbar.open(
+                this.snackbarMsgs['listing_upload.invalid_upload_msg'],
+                this.snackbarMsgs['listing_upload.dismiss_msg'],
+                {
+                    duration: 3000
+                }
+            );
             return;
         }
-        
+
         this.loadSpinner.start();
         await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
         this.loadSpinner.stop();
 
         this.imageFilesModified = false;
-        this.snackbar.open("Changes saved ✅", "Dismiss", {
-            duration: 3000
-        })
+        this.snackbar.open(
+            this.snackbarMsgs['listing_upload.changes_saved_msg'],
+            this.snackbarMsgs['listing_upload.dismiss_msg'],
+            {
+                duration: 3000
+            }
+        );
     }
 
     checkValidityForUpload(listing: Listing): boolean {
