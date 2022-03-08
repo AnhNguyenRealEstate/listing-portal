@@ -144,7 +144,7 @@ export class ListingUploadService {
             reader.readAsDataURL(file.raw);
             reader.onload = async () => {
                 if (!file.compressed) {
-                    const compressedImgAsBase64Url = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up, 75);
+                    const compressedImgAsBase64Url = await this.imageCompress.compressFile(reader.result as string, DOC_ORIENTATION.Up, 100, 75);
                     const response = await fetch(compressedImgAsBase64Url);
                     const data = await response.blob();
                     file.compressed = new File([data], `${file.raw.name}_${ImageFileVersion.compressed}`, { type: file.raw.type });

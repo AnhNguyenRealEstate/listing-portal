@@ -36,7 +36,7 @@
     "@tinymce/tinymce-angular": "^4.2.4",
     "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
-    "ngx-image-compress": "^11.0.3",
+    "ngx-image-compress": "^13.1.9",
     "ngx-translate": "github:ngx-translate/core",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

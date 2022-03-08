@@ -7,7 +7,6 @@ import { ListingUploadDialogComponent } from './listing-upload/listing-upload-di
 import { ListingEditRoutingModule } from './listing-edit-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
-import { NgxImageCompressService } from "ngx-image-compress";
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import { NgxImageCompressService } from "ngx-image-compress";
     ListingEditComponent,
     ListingUploadDialogComponent,
     RTEditorComponent
-  ],
-  providers: [NgxImageCompressService]
+  ]
 })
 export class ListingEditModule { }
