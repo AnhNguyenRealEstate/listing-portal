@@ -83,7 +83,9 @@ describe('Listing Upload Service', () => {
                 address: 'This is a` test',
                 description: 'This is a test',
                 archived: true,
-                purpose: 'For Rent'
+                purpose: 'For Rent',
+                price: 1200,
+                currency: 'USD'
             }
         }
 
@@ -106,11 +108,23 @@ describe('Listing Upload Service', () => {
         let testDocId = await listingUpload.publishListing(listing, imageFilesWithRandomImgs);
         expect(testDocId).toBeTruthy();
 
-
-        // Delete the listing
+        // Check if the data is all there
         let response = await getDoc(doc(collection(firestore, FirestoreCollections.listings), testDocId));
         expect(response.exists()).toBe(true);
         const listingFromServer = response.data() as Listing;
+
+        expect(listing.purpose).toBe(listingFromServer.purpose);
+        expect(listing.propertyType).toBe(listingFromServer.propertyType);
+        expect(listing.location).toBe(listingFromServer.location);
+        expect(listing.bathrooms).toBe(listingFromServer.bathrooms);
+        expect(listing.bedrooms).toBe(listingFromServer.bedrooms);
+        expect(listing.address).toBe(listingFromServer.address);
+        expect(listing.description).toBe(listingFromServer.description);
+        expect(listing.archived).toBe(listingFromServer.archived);
+        expect(listing.price).toBe(listingFromServer.price);
+        expect(listing.currency).toBe(listingFromServer.currency);
+        
+        // Delete the listing
         const id = response.id;
         await listingEdit.deleteListing(listingFromServer, id);
 
