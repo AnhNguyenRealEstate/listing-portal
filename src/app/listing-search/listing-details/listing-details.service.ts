@@ -38,6 +38,10 @@ export class ListingDetailsService {
         const storagePath = listing.imageFolderPath!;
 
         if (!environment.production) {
+            listing.imageSources = new Array<string>();
+            for (let i = 0; i < 10; i++) {
+                listing.imageSources.push(`https://picsum.photos/1920/1080/?${i}`);
+            }
             return listing;
         }
 

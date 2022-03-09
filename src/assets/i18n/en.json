@@ -88,7 +88,9 @@
         "invalid_upload_msg": "Please fill in all fields and upload images 🛑",
         "listing_published_msg": "Listing published 🎉",
         "changes_saved_msg": "Changes saved ✅",
-        "dismiss_msg": "Dismiss"
+        "dismiss_msg": "Dismiss",
+        "edit_listing": "Edit listing",
+        "upload_new": "Upload new listing"
     },
     "login": {
         "page_title": "Login",

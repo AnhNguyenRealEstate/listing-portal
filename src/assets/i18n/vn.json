@@ -87,7 +87,9 @@
         "invalid_upload_msg": "Thiếu thông tin hoặc chưa đăng kèm ảnh 🛑",
         "listing_published_msg": "Đã đăng 🎉",
         "changes_saved_msg": "Đã lưu ✅",
-        "dismiss_msg": "Tắt"
+        "dismiss_msg": "Tắt",
+        "edit_listing": "Sửa thông tin",
+        "upload_new": "Đăng mới"
     },
     "login": {
         "page_title": "Đăng nhập",

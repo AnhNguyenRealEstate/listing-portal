@@ -172,7 +172,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     checkValidityForUpload(listing: Listing): boolean {
-        if (listing.purpose?.length
+        return !!(listing.purpose?.length
             && listing.propertyType?.length
             && listing.location?.length
             && typeof listing.bedrooms === "number"
@@ -180,9 +180,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             && typeof listing.price === "number"
             && listing.currency?.length
             && listing.description?.length
-            && this.imageFiles.length) {
-            return true;
-        }
-        return false;
+            && this.imageFiles.length)
     }
 }

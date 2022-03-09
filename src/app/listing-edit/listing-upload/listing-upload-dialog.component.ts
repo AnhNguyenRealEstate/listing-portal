@@ -47,11 +47,17 @@ export class ListingUploadDialogComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.modalTitle = this.isEditMode ? 'Edit listing' : 'Upload new listing';
-
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
+
+        const modalTitles = await this.translate.get(
+            ['listing_upload.edit_listing',
+                'listing_upload.upload_new']
+        ).toPromise();
+
+        this.modalTitle = this.isEditMode ?
+            modalTitles['listing_upload.edit_listing'] : modalTitles['listing_upload.upload_new'];
 
         this.snackbarMsgs = await this.translate.get(
             ['listing_upload.invalid_upload_msg',
@@ -173,7 +179,7 @@ export class ListingUploadDialogComponent implements OnInit {
     }
 
     checkValidityForUpload(listing: Listing): boolean {
-        if (listing.purpose?.length
+        return !!(listing.purpose?.length
             && listing.propertyType?.length
             && listing.location?.length
             && typeof listing.bedrooms === "number"
@@ -181,9 +187,6 @@ export class ListingUploadDialogComponent implements OnInit {
             && typeof listing.price === "number"
             && listing.currency?.length
             && listing.description?.length
-            && this.imageFiles.length) {
-            return true;
-        }
-        return false;
+            && this.imageFiles.length)
     }
 }
