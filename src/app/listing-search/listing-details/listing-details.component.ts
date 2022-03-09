@@ -1,10 +1,11 @@
 import { Component, OnInit, SecurityContext, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Title } from "@angular/platform-browser";
+import { SwiperComponent } from 'ngx-useful-swiper';
 
 @Component({
     selector: 'listing-details',
@@ -17,20 +18,16 @@ export class ListingDetailsComponent implements OnInit {
     images: Array<Object> = [];
     contactNumber: SafeUrl = '';
 
-    carouselInterval = 0;
-    carousel: NgbCarousel | undefined;
-    @ViewChild('carousel', { static: false }) set content(content: NgbCarousel) {
-        if (content) {
-            this.carousel = content;
-        }
-    }
+    @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
+    highlightedThumbnailRef: any;
 
     constructor(
         private sanitizer: DomSanitizer,
         private translate: TranslateService,
         private listingDetailsService: ListingDetailsService,
         private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private title: Title) {
     }
 
     async ngOnInit() {
@@ -53,11 +50,9 @@ export class ListingDetailsComponent implements OnInit {
                     SecurityContext.URL,
                     this.sanitizer.bypassSecurityTrustUrl(imageSrc)
                 );
-                
                 return {
                     image: sanitizedUrl,
                     thumbImage: sanitizedUrl,
-                    order: index,
                     alt: `Image ${index}`
                 }
             })
@@ -66,9 +61,11 @@ export class ListingDetailsComponent implements OnInit {
         this.contactNumber = this.sanitizer.bypassSecurityTrustUrl(
             `tel:${await this.translate.get('listing_details.contact_number').toPromise()}`
         );
+
+        this.title.setTitle(`Anh Nguyen Real Estate - ${listing.location} | ${listing.price} ${listing.currency}`);
     }
 
     cycleToSlide(slideId: number) {
-        this.carousel?.select("ngb-slide-" + String(slideId));
+        this.usefulSwiper?.swiper.slideTo(slideId);
     }
 }

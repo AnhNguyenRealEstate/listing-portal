@@ -71,7 +71,7 @@ export class ListingLocationService {
             address: address
         }, (results, status) => {
             if (status === google.maps.GeocoderStatus.OK
-                && results[0]?.geometry?.location) {
+                && results && results[0]?.geometry?.location) {
                 coordinates = [
                     results[0].geometry.location.lat(),
                     results[0].geometry.location.lng()

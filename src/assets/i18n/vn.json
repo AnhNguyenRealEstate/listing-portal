@@ -44,7 +44,16 @@
     "listing_search.page_title": "Sản phẩm",
     "listing_details": {
         "details": "Chi tiết",
-        "contact_number": "0913780858"
+        "contact_number": "0913780858",
+        "for_rent": "Tìm thuê",
+        "for_sale": "Rao bán",
+        "property_type": "Phân loại",
+        "bedrooms": "Phòng ngủ",
+        "bathrooms": "Phòng tắm",
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Kinh doanh"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",

@@ -45,7 +45,17 @@
     "listing_search.page_title": "Listings",
     "listing_details": {
         "details": "Details",
-        "contact_number": "0913780858"
+        "contact_number": "0913780858",
+        "for_rent": "For rent",
+        "for_sale": "For sale",
+        "property_type": "Property type",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial",
+        "location": "Location"
     },
     "search_bar": {
         "filters": "Filters",

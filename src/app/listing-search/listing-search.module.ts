@@ -12,6 +12,7 @@ import { ListingSearchRoutingModule } from './listing-search-routing.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
       extend: true
     }),
     GoogleMapsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxUsefulSwiperModule
   ],
   exports: [
     SearchBarComponent,
