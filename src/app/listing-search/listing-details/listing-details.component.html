@@ -76,7 +76,7 @@
         </div>
 
         <div class="row pb-2">
-            <div class="col-6">
+            <div class="col-12">
                 <mat-icon color="accent">apartment</mat-icon>
                 <span class="ps-1 pe-2">{{ 'listing_details.property_type' | translate }}:</span>
                 <span *ngIf="listing.propertyType === 'Apartment'">{{ 'listing_details.apartment' | translate
@@ -87,12 +87,12 @@
                 <span *ngIf="listing.propertyType === 'Commercial'">{{ 'listing_details.commercial' | translate
                     }}</span>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <mat-icon color="accent">bed</mat-icon>
                 <span class="ps-1 pe-2">{{ 'listing_details.bedrooms' | translate }}:</span>
                 {{listing.bedrooms}}
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <mat-icon color="accent">bathtub</mat-icon>
                 <span class="ps-1 pe-2">{{ 'listing_details.bathrooms' | translate }}:</span>
                 {{listing.bathrooms}}

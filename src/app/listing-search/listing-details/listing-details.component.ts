@@ -62,7 +62,7 @@ export class ListingDetailsComponent implements OnInit {
             `tel:${await this.translate.get('listing_details.contact_number').toPromise()}`
         );
 
-        this.title.setTitle(`Anh Nguyen Real Estate - ${listing.location} | ${listing.price} ${listing.currency}`);
+        this.title.setTitle(`Anh Nguyen - ${listing.location} | ${listing.price} ${listing.currency}`);
     }
 
     cycleToSlide(slideId: number) {
