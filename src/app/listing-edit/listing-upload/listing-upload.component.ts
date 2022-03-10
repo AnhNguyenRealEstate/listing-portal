@@ -145,8 +145,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     /* Save any editting on the listing and its image storage */
     async saveEdit() {
         if (!this.checkValidityForUpload(this.listing)) {
-            const test = this.snackbarMsgs;
-            debugger;
             this.snackbar.open(
                 this.snackbarMsgs['listing_upload.invalid_upload_msg'],
                 this.snackbarMsgs['listing_upload.dismiss_msg'],
@@ -172,7 +170,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     checkValidityForUpload(listing: Listing): boolean {
-        return !!(listing.purpose?.length
+        if (listing.purpose?.length
             && listing.propertyType?.length
             && listing.location?.length
             && typeof listing.bedrooms === "number"
@@ -180,6 +178,9 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             && typeof listing.price === "number"
             && listing.currency?.length
             && listing.description?.length
-            && this.imageFiles.length)
+            && this.imageFiles.length) {
+            return true;
+        }
+        return false;
     }
 }
