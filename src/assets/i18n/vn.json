@@ -31,7 +31,9 @@
         "for_rent": "Cho thuê",
         "for_sale": "Rao bán",
         "archived": "Chưa đăng",
-        "active": "Đã đăng"
+        "active": "Đã đăng",
+        "delete_msg": "Đã xoá sản phẩm 🗑",
+        "dismiss_msg": "Tắt"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
@@ -94,8 +96,8 @@
         "for_rent": "Cho thuê",
         "for_sale": "Rao bán",
         "invalid_upload_msg": "Thiếu thông tin hoặc chưa đăng kèm ảnh 🛑",
-        "listing_published_msg": "Đã đăng 🎉",
-        "changes_saved_msg": "Đã lưu ✅",
+        "listing_published_msg": "Đã đăng sản phẩm 🎉",
+        "changes_saved_msg": "Đã lưu thay đổi ✅",
         "dismiss_msg": "Tắt",
         "edit_listing": "Sửa thông tin",
         "upload_new": "Đăng mới"

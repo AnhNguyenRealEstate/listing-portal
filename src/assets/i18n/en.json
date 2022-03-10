@@ -31,7 +31,9 @@
         "for_rent": "For rent",
         "for_sale": "For sale",
         "archived": "Archived",
-        "active": "Active"
+        "active": "Active",
+        "delete_msg": "Listing deleted 🗑",
+        "dismiss_msg": "Dismiss"
     },
     "search_results": {
         "no_results": "No result matches your criteria",
