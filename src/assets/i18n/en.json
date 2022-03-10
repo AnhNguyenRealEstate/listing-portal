@@ -59,7 +59,8 @@
         "commercial": "Commercial",
         "location": "Location",
         "address": "Address",
-        "description": "Description"
+        "description": "Description",
+        "contact": "Contact"
     },
     "search_bar": {
         "filters": "Filters",

@@ -57,7 +57,8 @@
         "townhouse": "Song lập",
         "commercial": "Kinh doanh",
         "address": "Địa chỉ",
-        "description": "Chi tiết sản phẩm"
+        "description": "Chi tiết sản phẩm",
+        "contact": "Liên hệ"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",

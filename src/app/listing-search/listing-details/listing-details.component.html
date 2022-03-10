@@ -57,6 +57,10 @@
                 <label class="pt-2 text-bold">{{ 'listing_details.description' | translate }}</label>
                 <p *ngIf="listing.description" [innerHtml]="listing.description">
                 </p>
+
+                <label class="pt-2 text-bold">{{ 'listing_details.contact' | translate }}</label>
+                <p *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber">
+                </p>
             </div>
         </div>
     </div>
