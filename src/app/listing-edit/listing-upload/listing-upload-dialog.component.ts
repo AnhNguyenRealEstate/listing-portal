@@ -119,7 +119,6 @@ export class ListingUploadDialogComponent implements OnInit {
         this.imageFilesModified = true;
     }
 
-    /* Uploads a new listing and create a new image storage path for related images */
     async publishListing() {
         if (!this.checkValidityForUpload(this.listing)) {
             this.snackbar.open(
@@ -151,7 +150,6 @@ export class ListingUploadDialogComponent implements OnInit {
         );
     }
 
-    /* Save any editting on the listing and its image storage */
     async saveEdit() {
         if (!this.checkValidityForUpload(this.listing)) {
             this.snackbar.open(

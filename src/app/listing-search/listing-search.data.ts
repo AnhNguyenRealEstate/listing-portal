@@ -15,7 +15,8 @@ export interface Listing {
     bedrooms?: number,
     bathrooms?: number,
     purpose?: 'For Rent' | 'For Sale',
-    archived?: boolean
+    archived?: boolean,
+    contactNumber?: string
 }
 
 export interface ListingImageFile {

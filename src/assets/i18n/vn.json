@@ -46,7 +46,7 @@
     "listing_search.page_title": "Sản phẩm",
     "listing_details": {
         "details": "Chi tiết",
-        "contact_number": "0913780858",
+        "default_contact_number": "02854124130",
         "for_rent": "Tìm thuê",
         "for_sale": "Rao bán",
         "property_type": "Phân loại",
@@ -55,7 +55,9 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Kinh doanh"
+        "commercial": "Kinh doanh",
+        "address": "Địa chỉ",
+        "description": "Chi tiết sản phẩm"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",
@@ -100,7 +102,8 @@
         "changes_saved_msg": "Đã lưu thay đổi ✅",
         "dismiss_msg": "Tắt",
         "edit_listing": "Sửa thông tin",
-        "upload_new": "Đăng mới"
+        "upload_new": "Đăng mới",
+        "contact_number": "SĐT liên lạc"
     },
     "login": {
         "page_title": "Đăng nhập",

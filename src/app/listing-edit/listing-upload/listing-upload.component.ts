@@ -110,7 +110,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.imageFilesModified = true;
     }
 
-    /* Uploads a new listing and create a new image storage path for related images */
     async publishListing() {
         if (!this.checkValidityForUpload(this.listing)) {
             this.snackbar.open(
@@ -142,7 +141,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         );
     }
 
-    /* Save any editting on the listing and its image storage */
     async saveEdit() {
         if (!this.checkValidityForUpload(this.listing)) {
             this.snackbar.open(

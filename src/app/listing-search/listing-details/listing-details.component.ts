@@ -10,7 +10,7 @@ import { SwiperComponent } from 'ngx-useful-swiper';
 @Component({
     selector: 'listing-details',
     templateUrl: 'listing-details.component.html',
-    styleUrls: ['../listing-search.component.scss']
+    styleUrls: ['../listing-search.component.scss', './listing-details.component.scss']
 })
 
 export class ListingDetailsComponent implements OnInit {
@@ -58,9 +58,15 @@ export class ListingDetailsComponent implements OnInit {
             })
         }
 
-        this.contactNumber = this.sanitizer.bypassSecurityTrustUrl(
-            `tel:${await this.translate.get('listing_details.contact_number').toPromise()}`
-        );
+        if (listing.contactNumber) {
+            this.contactNumber = this.sanitizer.bypassSecurityTrustUrl(
+                `tel:${listing.contactNumber}`
+            );
+        } else {
+            this.contactNumber = this.sanitizer.bypassSecurityTrustUrl(
+                `tel:${await this.translate.get('listing_details.default_contact_number').toPromise()}`
+            );
+        }
 
         this.title.setTitle(`Anh Nguyen - ${listing.location} | ${listing.price} ${listing.currency}`);
     }

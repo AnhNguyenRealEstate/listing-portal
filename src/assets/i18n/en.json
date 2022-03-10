@@ -47,7 +47,7 @@
     "listing_search.page_title": "Listings",
     "listing_details": {
         "details": "Details",
-        "contact_number": "0913780858",
+        "default_contact_number": "02854124130",
         "for_rent": "For rent",
         "for_sale": "For sale",
         "property_type": "Property type",
@@ -57,7 +57,9 @@
         "villa": "Villa",
         "townhouse": "Townhouse",
         "commercial": "Commercial",
-        "location": "Location"
+        "location": "Location",
+        "address": "Address",
+        "description": "Description"
     },
     "search_bar": {
         "filters": "Filters",
@@ -102,7 +104,8 @@
         "changes_saved_msg": "Changes saved ✅",
         "dismiss_msg": "Dismiss",
         "edit_listing": "Edit listing",
-        "upload_new": "Upload new listing"
+        "upload_new": "Upload new listing",
+        "contact_number": "Contact number"
     },
     "login": {
         "page_title": "Login",

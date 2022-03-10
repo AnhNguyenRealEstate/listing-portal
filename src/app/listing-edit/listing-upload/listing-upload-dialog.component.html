@@ -60,6 +60,12 @@
                 </mat-select>
             </mat-form-field>
         </div>
+        <div class="col-6">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'listing_upload.contact_number' | translate }}</mat-label>
+                <input matInput id="contactNumber" type="text" [(ngModel)]="listing.contactNumber" class="d-inline">
+            </mat-form-field>
+        </div>
         <div class="col-12">
             <div class="price-input-group">
                 <mat-form-field color="accent">
