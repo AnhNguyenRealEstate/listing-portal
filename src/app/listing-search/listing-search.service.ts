@@ -18,8 +18,8 @@ export class ListingSearchService {
     async getListingsByCriteria(searchCriteria: SearchCriteria): Promise<Listing[]> {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
-            let q = query(ref, orderBy('price', 'desc'));
-            q = query(q, where('purpose', '==', criteria.purpose));
+            let q = query(ref, where('purpose', '==', criteria.purpose));
+
             if (criteria.bathrooms) {
                 if (criteria.bathrooms === '3+') {
                     q = query(q, where('bathrooms', '>=', 3));
@@ -93,6 +93,19 @@ export class ListingSearchService {
 
             results.push(listing);
         }
+
+        results.sort((a, b) => {
+            if (a.price! > b.price!) {
+                return 1;
+            }
+
+            if (a.price! < b.price!) {
+                return -1;
+            }
+
+            return 0;
+        });
+
         return results;
     }
 

@@ -15,7 +15,6 @@ import { SearchBarDialogComponent } from './search-bar-dialog.component';
 
 export class SearchBarComponent implements OnInit, OnDestroy {
     @Input() mode: 'desktop' | 'mobile' = 'desktop';
-    @Output() searchCompleted = new EventEmitter();
     panelOpenState: boolean = false;
 
     searchCriteria: SearchCriteria = {
@@ -64,23 +63,4 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.numberOfResults = results.length;
         this.loadSpinner.stop();
     }
-
-    openSearchModal() {
-        const config = {
-            position: { bottom: '10em' } as DialogPosition,
-            height: 'auto',
-            width: 'auto',
-            scrollStrategy: new NoopScrollStrategy(),
-            data: this.searchCriteria
-        } as MatDialogConfig;
-        const dialogRef = this.dialog.open(SearchBarDialogComponent, config);
-
-        dialogRef.afterClosed().subscribe(result => {
-            if (result?.isSearchBtnClick) {
-                this.searchCriteria = result.criteria;
-                this.getListings(result.criteria);
-            }
-        });
-    }
-
 }
