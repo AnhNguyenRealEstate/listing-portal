@@ -13,6 +13,7 @@ export class LoginComponent {
     password: string = '';
     hide: boolean = true;
     successful: boolean = true;
+    inProgress: boolean = false;
 
     constructor(
         public dialogRef: MatDialogRef<LoginComponent>,
@@ -20,9 +21,12 @@ export class LoginComponent {
         private translateService: TranslateService) { }
 
     async login() {
+        this.inProgress = true;
         await this.auth.setPersistence(browserSessionPersistence);
         await signInWithEmailAndPassword(this.auth, this.userName, this.password).catch(error => {
             this.successful = false;
+            this.inProgress = false;
+
             const errorCode = error.code;
             const errorMessage = error.message;
 
@@ -35,6 +39,8 @@ export class LoginComponent {
                     alert(errorMessage);
             }
         });
+
+        this.inProgress = false;
 
         if (this.successful) {
             this.dialogRef.close(true);

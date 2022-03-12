@@ -6,7 +6,7 @@ export interface Listing {
     imageFolderPath?: string;
     images?: ListingImageFile[];
     imageSources?: string[],
-    propertyType?: string,
+    propertyType?: 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial' | undefined,
     location?: string,
     address?: string,
     price?: number,

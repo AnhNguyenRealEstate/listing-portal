@@ -85,13 +85,14 @@
                 </mat-form-field>
             </mat-expansion-panel>
         </div>
-        <div class="col-sm-1 d-flex align-items-center">
+        <div class="col-sm-4 d-flex align-items-center">
             <button mat-raised-button color="accent" (click)="getListings()">
-                {{ 'search_bar.get_listings' | translate }}
+                <span>{{ 'search_bar.get_listings' | translate }}</span>
             </button>
+            <span class="ps-2" *ngIf="numberOfResults > 0">{{ 'search_bar.found_x_results' | translate: {numberOfResults:
+                numberOfResults} }}</span>
         </div>
-        <div class="col-sm-3 d-flex align-items-center" *ngIf="numberOfResults > 0">
-            <span>{{ 'search_bar.found_x_results' | translate: {numberOfResults: numberOfResults} }}</span>
+        <div class="col-sm-3 d-flex align-items-center">
         </div>
     </div>
 </section>
