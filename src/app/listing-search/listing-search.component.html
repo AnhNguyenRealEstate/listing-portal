@@ -20,8 +20,9 @@
     </section>
 </section>
 
-<section #mobileSearchView class="container-flex pt-2 py-2 d-lg-none listing-search-mobile-section">
-    <search-bar class="sticky-criteria-panel" [mode]="'mobile'"></search-bar>
+<section #mobileSearchView class="container pt-2 py-2 d-lg-none listing-search-mobile-section">
+    <search-bar [mode]="'mobile'"></search-bar>
+    <hr>
     <search-results [mode]="'mobile'"></search-results>
 
     <div class="float-controls-mobile d-sm-none">

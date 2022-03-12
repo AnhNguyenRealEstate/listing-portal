@@ -63,34 +63,36 @@
             </div>
             <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
                 <mat-divider *ngIf="i"></mat-divider>
-                <div class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingDetails(result)">
-                    <div class="row">
-                        <div class="col-6">
-                            <img *ngIf="result.coverImage" class="result-preview-img-mobile" [src]="result.coverImage">
+                <mat-card class="pt-2 pb-2 mt-1 mb-1 result-card-mobile" (click)="viewListingDetails(result)">
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-6">
+                                <img *ngIf="result.coverImage" class="result-preview-img-mobile" [src]="result.coverImage">
+                            </div>
+                            <div class="col-6">
+                                <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>
+                                <div *ngIf="result.propertyType">
+                                    <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' | translate}}</span>
+                                    <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' | translate}}</span>
+                                    <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' | translate}}</span>
+                                    <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' | translate}}</span>
+                                </div>
+                                <div *ngIf="result.location">
+                                    {{result.location}}
+                                </div>
+                                <div *ngIf="result.address">
+                                    {{result.address}}
+                                </div>
+                                <div *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
+                                    <mat-icon color="accent">bed</mat-icon><span
+                                        class="ps-2 pe-4">{{result.bedrooms}}</span>
+                                    <mat-icon color="accent">bathtub</mat-icon>
+                                    <span class="ps-2">{{result.bathrooms}}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>
-                            <div *ngIf="result.propertyType">
-                                <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' | translate}}</span>
-                                <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' | translate}}</span>
-                                <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' | translate}}</span>
-                                <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' | translate}}</span>
-                            </div>
-                            <div *ngIf="result.location">
-                                {{result.location}}
-                            </div>
-                            <div *ngIf="result.address">
-                                {{result.address}}
-                            </div>
-                            <div *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
-                                <mat-icon color="accent">bed</mat-icon><span
-                                    class="ps-2 pe-4">{{result.bedrooms}}</span>
-                                <mat-icon color="accent">bathtub</mat-icon>
-                                <span class="ps-2">{{result.bathrooms}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </section>
