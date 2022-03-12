@@ -173,7 +173,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             && listing.location?.length
             && typeof listing.bedrooms === "number"
             && typeof listing.bathrooms === "number"
-            && typeof listing.price === "number"
+            && typeof Number(listing.price) === "number"
             && listing.currency?.length
             && listing.description?.length
             && this.imageFiles.length) {

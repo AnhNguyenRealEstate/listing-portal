@@ -66,7 +66,9 @@ export class ListingUploadDialogComponent implements OnInit {
                 'listing_upload.dismiss_msg']
         ).toPromise();
 
-        await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles)
+        if(this.listing.imageFolderPath){
+            await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles)
+        }
     }
 
     ngOnDestroy(): void {
@@ -182,12 +184,13 @@ export class ListingUploadDialogComponent implements OnInit {
             && listing.location?.length
             && typeof listing.bedrooms === "number"
             && typeof listing.bathrooms === "number"
-            && typeof listing.price === "number"
+            && typeof Number(listing.price) === "number"
             && listing.currency?.length
             && listing.description?.length
             && this.imageFiles.length) {
             return true;
         }
+        debugger;
         return false;
     }
 }
