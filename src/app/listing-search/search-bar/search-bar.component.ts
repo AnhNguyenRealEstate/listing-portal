@@ -1,12 +1,9 @@
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { DialogPosition, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { SearchCriteria, PropertySizes } from '../listing-search.data';
 import { ListingSearchService } from '../listing-search.service';
-import { SearchBarDialogComponent } from './search-bar-dialog.component';
 
 @Component({
     selector: 'search-bar',
@@ -37,7 +34,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     numberOfResults: number = 0;
 
     constructor(
-        private dialog: MatDialog,
         private listingSearchService: ListingSearchService,
         private metadata: MetadataService,
         private loadSpinner: LoadSpinnerService

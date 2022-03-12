@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ListingDetailsComponent } from './listing-details/listing-details.component';
 import { ListingLocationComponent } from './listing-location/listing-location.component';
 import { ListingSearchComponent } from './listing-search.component';
-import { SearchBarDialogComponent } from './search-bar/search-bar-dialog.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SharedModule } from '../shared/shared.module';
@@ -19,7 +18,6 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     SearchBarComponent,
     ListingSearchComponent,
     ListingDetailsComponent,
-    SearchBarDialogComponent,
     SearchResultsComponent,
     ListingLocationComponent
   ],
@@ -39,7 +37,6 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     SearchBarComponent,
     ListingSearchComponent,
     ListingDetailsComponent,
-    SearchBarDialogComponent,
     SearchResultsComponent,
     ListingLocationComponent
   ]
