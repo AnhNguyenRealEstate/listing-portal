@@ -28,7 +28,7 @@
             </div>
             <div class="col-6">
                 <div class="row pb-2">
-                    <div class="col-4">
+                    <div class="col-6">
                         <mat-icon color="accent">apartment</mat-icon>
                         <span class="ps-1 pe-2 text-bold">{{ 'listing_details.property_type' | translate }}:</span>
                         <span *ngIf="listing.propertyType === 'Apartment'">{{ 'listing_details.apartment' | translate
@@ -39,12 +39,17 @@
                         <span *ngIf="listing.propertyType === 'Commercial'">{{ 'listing_details.commercial' | translate
                             }}</span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-6">
+                        <mat-icon color="accent">aspect_ratio</mat-icon>
+                        <span class="ps-1 pe-2 text-bold">{{ 'listing_details.propertySize' | translate }} (m<sup>2</sup>):</span>
+                        {{listing.propertySize}}
+                    </div>
+                    <div class="col-6">
                         <mat-icon color="accent">bed</mat-icon>
                         <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bedrooms' | translate }}:</span>
                         {{listing.bedrooms}}
                     </div>
-                    <div class="col-3">
+                    <div class="col-6">
                         <mat-icon color="accent">bathtub</mat-icon>
                         <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
                         {{listing.bathrooms}}
@@ -61,6 +66,7 @@
                 <label class="pt-2 text-bold">{{ 'listing_details.contact' | translate }}</label>
                 <p *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber">
                 </p>
+                <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
             </div>
         </div>
     </div>
@@ -84,7 +90,7 @@
         </div>
 
         <div class="row pb-2">
-            <div class="col-12">
+            <div class="col-6">
                 <mat-icon color="accent">apartment</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.property_type' | translate }}:</span>
                 <span *ngIf="listing.propertyType === 'Apartment'">{{ 'listing_details.apartment' | translate
@@ -95,12 +101,17 @@
                 <span *ngIf="listing.propertyType === 'Commercial'">{{ 'listing_details.commercial' | translate
                     }}</span>
             </div>
-            <div class="col-12">
+            <div class="col-6">
+                <mat-icon color="accent">aspect_ratio</mat-icon>
+                <span class="ps-1 pe-2 text-bold">{{ 'listing_details.propertySize' | translate }} (m<sup>2</sup>):</span>
+                {{listing.propertySize}}
+            </div>
+            <div class="col-6">
                 <mat-icon color="accent">bed</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bedrooms' | translate }}:</span>
                 {{listing.bedrooms}}
             </div>
-            <div class="col-12">
+            <div class="col-6">
                 <mat-icon color="accent">bathtub</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
                 {{listing.bathrooms}}
@@ -117,7 +128,7 @@
         <hr>
 
         <div class="d-flex justify-content-end">
-            <a mat-icon-button color="accent" class="pe-4" [href]="contactNumber">
+            <a mat-icon-button color="accent" class="pe-4" [href]="contactNumberUrl">
                 <mat-icon>phone_in_talk</mat-icon>
             </a>
         </div>

@@ -16,7 +16,7 @@ import { SwiperComponent } from 'ngx-useful-swiper';
 export class ListingDetailsComponent implements OnInit {
     listing: Listing = {} as Listing;
     images: Array<Object> = [];
-    contactNumber: SafeUrl = '';
+    contactNumberUrl: SafeUrl = '';
 
     @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
     highlightedThumbnailRef: any;
@@ -60,11 +60,11 @@ export class ListingDetailsComponent implements OnInit {
         }
 
         if (listing.contactNumber) {
-            this.contactNumber = this.sanitizer.bypassSecurityTrustUrl(
+            this.contactNumberUrl = this.sanitizer.bypassSecurityTrustUrl(
                 `tel:${listing.contactNumber}`
             );
         } else {
-            this.contactNumber = this.sanitizer.bypassSecurityTrustUrl(
+            this.contactNumberUrl = this.sanitizer.bypassSecurityTrustUrl(
                 `tel:${await this.translate.get('listing_details.default_contact_number').toPromise()}`
             );
         }
@@ -78,8 +78,14 @@ export class ListingDetailsComponent implements OnInit {
 
     async setHeaderMetadata() {
         this.title.setTitle(`Anh Nguyen - ${this.listing.location} | ${this.listing.price} ${this.listing.currency}`);
-        this.meta.updateTag({ name: 'og:url', content: this.router.url });
-        this.meta.updateTag({ name: 'og:image', content: this.listing.imageSources![0] });
+
+        this.meta.updateTag({ property: 'og:title', content: `Anh Nguyen - ${this.listing.location} | ${this.listing.price} ${this.listing.currency}` });
+        this.meta.updateTag({ property: 'og:url', content: this.router.url });
+
+        this.meta.updateTag({ property: 'og:image:secure_url', content: this.listing.imageSources![0] });
+        this.meta.updateTag({ property: 'og:image:type', content: 'image/jpeg' });
+        this.meta.updateTag({ property: 'og:image:width', content: '200' });
+        this.meta.updateTag({ property: 'og:image:height', content: '200' });
 
         const langTerms = await this.translate.get(
             ["listing_details.bedrooms",
@@ -110,6 +116,6 @@ export class ListingDetailsComponent implements OnInit {
                            ${langTerms["listing_details.contact"]}: ${this.listing.contactNumber}`
         }
 
-        this.meta.updateTag({ name: 'og:description', content: description });
+        this.meta.updateTag({ property: 'og:description', content: description });
     }
 }

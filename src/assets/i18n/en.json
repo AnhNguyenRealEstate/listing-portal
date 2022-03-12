@@ -57,6 +57,7 @@
         "villa": "Villa",
         "townhouse": "Townhouse",
         "commercial": "Commercial",
+        "propertySize": "Size",
         "location": "Location",
         "address": "Address",
         "description": "Description",

@@ -47,7 +47,7 @@
     "listing_details": {
         "details": "Chi tiết",
         "default_contact_number": "02854124130",
-        "for_rent": "Tìm thuê",
+        "for_rent": "Cho thuê",
         "for_sale": "Rao bán",
         "property_type": "Phân loại",
         "bedrooms": "Phòng ngủ",
@@ -56,6 +56,8 @@
         "villa": "Biệt thự",
         "townhouse": "Song lập",
         "commercial": "Shop kinh doanh",
+        "propertySize": "Diện tích",
+        "location": "Vị trí",
         "address": "Địa chỉ",
         "description": "Chi tiết sản phẩm",
         "contact": "Liên hệ"
