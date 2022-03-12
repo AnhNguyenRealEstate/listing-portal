@@ -41,7 +41,7 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Kinh doanh"
+        "commercial": "Shop kinh doanh"
     },
     "listing_search.page_title": "Sản phẩm",
     "listing_details": {
@@ -55,7 +55,7 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Kinh doanh",
+        "commercial": "Shop kinh doanh",
         "address": "Địa chỉ",
         "description": "Chi tiết sản phẩm",
         "contact": "Liên hệ"
@@ -66,7 +66,7 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Kinh doanh",
+        "commercial": "Shop kinh doanh",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
         "bedrooms": "Số phòng ngủ",
@@ -87,7 +87,7 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Kinh doanh",
+        "commercial": "Shop kinh doanh",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
         "bedrooms": "Số phòng ngủ",
