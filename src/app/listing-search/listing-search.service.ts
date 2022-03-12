@@ -12,6 +12,10 @@ export class ListingSearchService {
     private searchResults$$ = new BehaviorSubject<Listing[]>([]);
     private searchResults$ = this.searchResults$$.asObservable();
 
+    private searchInProgress$$ = new BehaviorSubject<boolean>(false);
+    private searchInProgress$ = this.searchInProgress$$.asObservable();
+
+
     constructor(private firestore: Firestore, private storage: Storage) {
     }
 
@@ -50,6 +54,8 @@ export class ListingSearchService {
             }
         }
 
+        this.searchInProgress$$.next(true);
+
         const results: Listing[] = [];
         const dbResponse = await getDocs(
             criteriaToDBQuery(collection(this.firestore, FirestoreCollections.listings),
@@ -57,6 +63,7 @@ export class ListingSearchService {
             ));
 
         if (!dbResponse) {
+            this.searchInProgress$$.next(false);
             return [];
         }
 
@@ -106,7 +113,12 @@ export class ListingSearchService {
             return 0;
         });
 
+        this.searchInProgress$$.next(false);
         return results;
+    }
+
+    searchInProgress() {
+        return this.searchInProgress$;
     }
 
     searchResults() {

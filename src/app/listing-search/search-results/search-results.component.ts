@@ -1,6 +1,4 @@
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ListingDetailsService } from '../listing-details/listing-details.service';
 import { ListingLocationService } from '../listing-location/listing-location.service';
@@ -18,7 +16,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
     searchResults: Listing[] = [];
 
-    constructor(private listingSearchService: ListingSearchService,
+    constructor(public listingSearchService: ListingSearchService,
         private listingLocationService: ListingLocationService,
         private listingDetailsService: ListingDetailsService) { }
 

@@ -1,6 +1,9 @@
 <ng-container *ngIf="mode === 'desktop'">
     <div class="search-results-desktop row">
-        <div *ngIf="searchResults.length === 0">
+
+        <mat-spinner *ngIf="listingSearchService.searchInProgress() | async" style="margin:0 auto;" ></mat-spinner>
+
+        <div *ngIf=" !(listingSearchService.searchInProgress() | async) && searchResults.length === 0">
             <div class="d-flex justify-content-center no-result-icon">
                 <mat-icon [inline]="true">search_off</mat-icon>
             </div>
@@ -12,7 +15,8 @@
             <mat-card class="mt-1 mb-3">
                 <mat-card-title>
                     <div class="d-flex justify-content-between">
-                        <span style="line-height: 2;" class="font-medium">{{result.location}} | {{result.price | currency:
+                        <span style="line-height: 2;" class="font-medium">{{result.location}} | {{result.price |
+                            currency:
                             result.currency}}</span>
                         <button mat-button color="accent" (click)="viewListingDetails(result)">
                             {{ 'search_results.details' | translate }}
@@ -28,10 +32,14 @@
                         </div>
                         <div class="col-6">
                             <div class="pb-2" *ngIf="result.propertyType">
-                                <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' | translate}}</span>
-                                <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' | translate}}</span>
-                                <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' | translate}}</span>
-                                <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' | translate}}</span>
+                                <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' |
+                                    translate}}</span>
+                                <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' |
+                                    translate}}</span>
+                                <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' |
+                                    translate}}</span>
+                                <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' |
+                                    translate}}</span>
                             </div>
                             <div class="pb-2" *ngIf="result.address">
                                 {{result.address}}
@@ -67,15 +75,20 @@
                     <mat-card-content>
                         <div class="row">
                             <div class="col-6">
-                                <img *ngIf="result.coverImage" class="result-preview-img-mobile" [src]="result.coverImage">
+                                <img *ngIf="result.coverImage" class="result-preview-img-mobile"
+                                    [src]="result.coverImage">
                             </div>
                             <div class="col-6">
                                 <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>
                                 <div *ngIf="result.propertyType">
-                                    <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' | translate}}</span>
-                                    <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' | translate}}</span>
-                                    <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' | translate}}</span>
-                                    <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' | translate}}</span>
+                                    <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment' |
+                                        translate}}</span>
+                                    <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' |
+                                        translate}}</span>
+                                    <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse' |
+                                        translate}}</span>
+                                    <span *ngIf="result.propertyType === 'Commercial'">{{ 'search_results.commercial' |
+                                        translate}}</span>
                                 </div>
                                 <div *ngIf="result.location">
                                     {{result.location}}

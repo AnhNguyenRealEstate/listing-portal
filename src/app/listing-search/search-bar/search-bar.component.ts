@@ -53,10 +53,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
 
     async getListings(criteria: SearchCriteria = this.searchCriteria) {
-        this.loadSpinner.start();
+        this.listingSearchService.setSearchResults([]);
         const results = await this.listingSearchService.getListingsByCriteria(criteria);
         this.listingSearchService.setSearchResults(results);
         this.numberOfResults = results.length;
-        this.loadSpinner.stop();
     }
 }
