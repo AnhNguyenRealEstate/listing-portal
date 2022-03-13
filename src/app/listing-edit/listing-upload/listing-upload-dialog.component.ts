@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { ListingUploadService } from './listing-upload.service';
@@ -34,9 +33,8 @@ export class ListingUploadDialogComponent implements OnInit {
 
     constructor(
         private metadata: MetadataService,
-        private listingUploadService: ListingUploadService,
+        public listingUploadService: ListingUploadService,
         private snackbar: MatSnackBar,
-        private loadingSpinnerService: LoadSpinnerService,
         public dialogRef: MatDialogRef<ListingUploadDialogComponent>,
         private translate: TranslateService,
         @Inject(MAT_DIALOG_DATA) private data: any
@@ -133,15 +131,11 @@ export class ListingUploadDialogComponent implements OnInit {
             return;
         }
 
-        this.loadingSpinnerService.start();
-
         await this.listingUploadService.publishListing(this.listing, this.imageFiles);
 
         this.listing = {} as Listing;
         this.imageFiles = [];
         this.imageSrcs = [];
-
-        this.loadingSpinnerService.stop();
 
         this.snackbar.open(
             this.snackbarMsgs['listing_upload.listing_published_msg'],
@@ -164,9 +158,7 @@ export class ListingUploadDialogComponent implements OnInit {
             return;
         }
 
-        this.loadingSpinnerService.start();
         await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
-        this.loadingSpinnerService.stop();
 
         this.imageFilesModified = false;
         this.snackbar.open(

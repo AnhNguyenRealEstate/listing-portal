@@ -113,10 +113,14 @@
             </button>
             <span class="ps-2 pe-2"></span>
             <button *ngIf="!isEditMode" mat-fab color="accent" (click)="publishListing()">
-                <mat-icon>publish</mat-icon>
+                <mat-spinner *ngIf="listingUploadService.inProgress() | async" style="margin:0 auto;" [diameter]="35">
+                </mat-spinner>
+                <mat-icon *ngIf="!(listingUploadService.inProgress() | async)">publish</mat-icon>
             </button>
             <button *ngIf="isEditMode" mat-fab color="accent" (click)="saveEdit()">
-                <mat-icon>save</mat-icon>
+                <mat-spinner *ngIf="listingUploadService.inProgress() | async" style="margin:0 auto;" [diameter]="35">
+                </mat-spinner>
+                <mat-icon *ngIf="!(listingUploadService.inProgress() | async)">save</mat-icon>
             </button>
         </div>
     </div>

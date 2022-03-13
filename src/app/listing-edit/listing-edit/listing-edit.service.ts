@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Firestore, deleteDoc, updateDoc, doc, collection } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage } from '@angular/fire/storage';
+import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { Listing } from '../../listing-search/listing-search.data';
 
 @Injectable({ providedIn: 'any' })
 export class ListingEditService {
+
+    private deleteInProgress$$ = new BehaviorSubject<boolean>(false);
+    private deleteInProgress$ = this.deleteInProgress$$.asObservable();
+
+    private archiveInProgress$$ = new BehaviorSubject<boolean>(false);
+    private archiveInProgress$ = this.archiveInProgress$$.asObservable();
 
     constructor(
         private firestore: Firestore,
@@ -15,6 +22,8 @@ export class ListingEditService {
 
     /* Completely remove the listing from DB */
     async deleteListing(listing: Listing, dbRefId: string) {
+        this.deleteInProgress$$.next(true);
+
         if (!environment.test) {
             const allImages = (await listAll(ref(this.storage, listing.imageFolderPath!))).prefixes;
             await Promise.all(allImages.map(async image => {
@@ -28,6 +37,8 @@ export class ListingEditService {
             }));
         }
         await deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));
+
+        this.deleteInProgress$$.next(false);
     }
 
     /* Change archived property of the listing */
@@ -45,5 +56,13 @@ export class ListingEditService {
             'archived',
             false
         );
+    }
+
+    deleteInProgress() {
+        return this.deleteInProgress$;
+    }
+
+    archiveInProgress() {
+        return this.archiveInProgress$;
     }
 }

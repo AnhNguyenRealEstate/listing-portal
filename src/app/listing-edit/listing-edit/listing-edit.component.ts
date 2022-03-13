@@ -35,7 +35,7 @@ export class ListingEditComponent implements OnInit {
         private storage: Storage,
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
-        private listingEditService: ListingEditService,
+        public listingEditService: ListingEditService,
         private loadingSpinnerService: LoadSpinnerService,
         private translate: TranslateService) { }
 

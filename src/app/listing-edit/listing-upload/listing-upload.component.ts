@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
-import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -33,8 +32,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     constructor(
         private snackbar: MatSnackBar,
         private metadata: MetadataService,
-        private listingUploadService: ListingUploadService,
-        private loadSpinner: LoadSpinnerService,
+        public listingUploadService: ListingUploadService,
         private translate: TranslateService
     ) {
     }
@@ -122,15 +120,11 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             return;
         }
 
-        this.loadSpinner.start();
-
         await this.listingUploadService.publishListing(this.listing, this.imageFiles);
 
         this.listing = {} as Listing;
         this.imageFiles = [];
         this.imageSrcs = [];
-
-        this.loadSpinner.stop();
 
         this.snackbar.open(
             this.snackbarMsgs['listing_upload.listing_published_msg'],
@@ -153,9 +147,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             return;
         }
 
-        this.loadSpinner.start();
         await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
-        this.loadSpinner.stop();
 
         this.imageFilesModified = false;
         this.snackbar.open(

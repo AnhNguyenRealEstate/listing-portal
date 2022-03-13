@@ -6,10 +6,14 @@ import { Listing, ListingImageFile } from '../../listing-search/listing-search.d
 import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
 import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'any' })
 export class ListingUploadService {
     private locations: string[] = [];
+
+    private inProgress$$ = new BehaviorSubject<boolean>(false);
+    private inProgress$ = this.inProgress$$.asObservable();
 
     constructor(private firestore: Firestore,
         private storage: Storage,
@@ -28,12 +32,23 @@ export class ListingUploadService {
     Images must be stored first because in case of interruption, there won't be a null pointer 
     for imageFolderPath in the newly-created listing */
     async publishListing(listing: Listing, imageFiles: ListingImageFile[]): Promise<string> {
-        const imageFolderPath = this.createImageStoragePath(listing);
+        function createImageStoragePath(listing: Listing) {
+            const date = new Date();
+            const imageFolderName =
+                `${listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
+            return `${FirebaseStorageFolders.listingImages}/${imageFolderName}`;
+        }
+
+        this.inProgress$$.next(true);
+
+        const imageFolderPath = createImageStoragePath(listing);
         listing.imageFolderPath = imageFolderPath;
 
         await this.storeListingImages(imageFiles, imageFolderPath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
+
+        this.inProgress$$.next(false);
 
         return docRef.id;
     }
@@ -41,6 +56,8 @@ export class ListingUploadService {
     /**  Save any changes made to the listing and its images
     */
     async saveEdit(listing: Listing, dbReferenceId: string, imageFiles: ListingImageFile[], updateImages: boolean) {
+        this.inProgress$$.next(true);
+
         if (updateImages) {
             /**
              * Overwrite db images with new images
@@ -70,6 +87,8 @@ export class ListingUploadService {
         await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { data: listing })
 
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
+
+        this.inProgress$$.next(false);
     }
 
     /**
@@ -184,11 +203,12 @@ export class ListingUploadService {
             )
         }
     }
-
-    private createImageStoragePath(listing: Listing) {
-        const date = new Date();
-        const imageFolderName =
-            `${listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
-        return `${FirebaseStorageFolders.listingImages}/${imageFolderName}`;
+    
+    /**
+     * 
+     * @returns An observable to keep track of uploading/saving progress
+     */
+    inProgress() {
+        return this.inProgress$;
     }
 }

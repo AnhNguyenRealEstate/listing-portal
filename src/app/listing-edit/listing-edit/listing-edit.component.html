@@ -48,15 +48,28 @@
                                 <div class="d-flex justify-content-end" style="position: absolute; top: 0; right: 0;">
                                     <button mat-raised-button *ngIf="!listing.archived"
                                         (click)="archiveListing($event, i)">
-                                        <mat-icon color="accent">archive</mat-icon>
+                                        <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
+                                            style="margin:0 auto;" [diameter]="35">
+                                        </mat-spinner>
+                                        <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
+                                            color="accent">archive</mat-icon>
                                     </button>
                                     <button mat-raised-button *ngIf="listing.archived"
                                         (click)="unarchiveListing($event, i)">
-                                        <mat-icon color="accent">unarchive</mat-icon>
+                                        <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
+                                            style="margin:0 auto;" [diameter]="35">
+                                        </mat-spinner>
+                                        <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
+                                            color="accent">unarchive</mat-icon>
                                     </button>
                                     <span class="ps-2"></span>
                                     <button mat-raised-button (click)="deleteListing($event, i)">
-                                        <mat-icon color="accent">delete</mat-icon>
+                                        <mat-spinner *ngIf="listingEditService.deleteInProgress() | async"
+                                            style="margin:0 auto;" [diameter]="35">
+                                        </mat-spinner>
+                                        <mat-icon *ngIf="!(listingEditService.deleteInProgress() | async)"
+                                            color="accent">
+                                            delete</mat-icon>
                                     </button>
                                 </div>
                             </div>
@@ -108,15 +121,27 @@
                                 <div class="d-flex justify-content-center">
                                     <button mat-icon-button color="default" *ngIf="!listing.archived"
                                         (click)="archiveListing($event, i)">
-                                        <mat-icon color="accent">archive</mat-icon>
+                                        <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
+                                            style="margin:0 auto;" [diameter]="35">
+                                        </mat-spinner>
+                                        <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
+                                            color="accent">archive</mat-icon>
                                     </button>
                                     <button mat-icon-button color="default" *ngIf="listing.archived"
                                         (click)="unarchiveListing($event, i)">
-                                        <mat-icon color="accent">unarchive</mat-icon>
+                                        <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
+                                            style="margin:0 auto;" [diameter]="35">
+                                        </mat-spinner>
+                                        <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
+                                            color="accent">unarchive</mat-icon>
                                     </button>
                                     <span class="ps-2 pe-2"></span>
                                     <button mat-icon-button color="default" (click)="deleteListing($event, i)">
-                                        <mat-icon color="accent">delete</mat-icon>
+                                        <mat-spinner *ngIf="listingEditService.deleteInProgress() | async"
+                                            style="margin:0 auto;" [diameter]="35">
+                                        </mat-spinner>
+                                        <mat-icon *ngIf="!(listingEditService.deleteInProgress() | async)"
+                                            color="accent">delete</mat-icon>
                                     </button>
                                 </div>
                             </div>
