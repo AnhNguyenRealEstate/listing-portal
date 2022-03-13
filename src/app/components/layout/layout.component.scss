@@ -1,5 +1,9 @@
 @use "src/app/styles/colors" as colors;
 
+.home-icon-wrapper {
+    font-size: x-large;
+}
+
 .navbar {
     background-color: colors.$primary;
 }

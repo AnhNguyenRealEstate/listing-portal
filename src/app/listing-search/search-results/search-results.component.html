@@ -1,7 +1,7 @@
 <ng-container *ngIf="mode === 'desktop'">
     <section>
         <div class="search-results-desktop row">
-            <mat-spinner *ngIf="listingSearchService.searchInProgress() | async" style="margin:0 auto;"></mat-spinner>
+            <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
             <div *ngIf="!(listingSearchService.searchInProgress() | async)">
                 <div *ngIf="searchResults.length === 0">
@@ -70,7 +70,7 @@
 <ng-container *ngIf="mode === 'mobile'">
     <section class="container-flex ps-2 pe-2">
         <div class="row">
-            <mat-spinner *ngIf="listingSearchService.searchInProgress() | async" style="margin:0 auto;"></mat-spinner>
+            <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
             <div *ngIf="!(listingSearchService.searchInProgress() | async)">
                 <div *ngIf="searchResults.length === 0" style="height: 70vh">

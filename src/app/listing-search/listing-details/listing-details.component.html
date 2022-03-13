@@ -1,5 +1,5 @@
 <section class="container d-none d-md-block listing-details-desktop">
-    <mat-spinner style="margin:0 auto" *ngIf="!listing.location">
+    <mat-spinner *ngIf="!listing.location">
     </mat-spinner>
     <div *ngIf="listing.location">
         <div class="row">
@@ -16,10 +16,7 @@
             <div class="col-6">
                 <swiper #usefulSwiper [config]="{}">
                     <div class="swiper-wrapper">
-                        <img *ngFor="let src of listing.imageSources" class="swiper-slide" [src]="src"
-                        style="object-fit: contain;
-                        width: 100%;
-                        height: 400px;">
+                        <img *ngFor="let src of listing.imageSources" class="swiper-slide swiper-image" [src]="src">
                     </div>
                 </swiper>
                 <br>
@@ -76,7 +73,7 @@
 </section>
 
 <section class="container d-md-none listing-details-mobile" style="height: 90vh">
-    <mat-spinner style="margin:0 auto" *ngIf="!listing.location">
+    <mat-spinner *ngIf="!listing.location">
     </mat-spinner>
 
     <div *ngIf="listing.location">

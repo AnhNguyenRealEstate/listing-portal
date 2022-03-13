@@ -3,16 +3,16 @@
 </section>
 
 <section class="d-md-none background-mobile">
-    <div style="height: 60vh" class="container-flex pt-2 ms-4 me-4">
-        <h1 class="page-title" style="color: darkslategray; font-size: 3em; line-height: 1em;">
+    <div class="container-flex pt-2 ms-4 me-4 company-name-block">
+        <h1 class="page-title company-name">
             <span class="d-block">{{ 'home.anh_nguyen' | translate }}</span>
             <span>{{ 'home.real_estate' | translate }}</span>
         </h1>
     </div>
     <div class="backdrop" (click)="goToListings()">
         <div class="ps-4">
-            <a href="/listings" style="color: gray; text-decoration: none;">
-                <p style="font-size: 24px; padding-top: 25%">
+            <a href="/listings" class="browse-listing-link">
+                <p class="browse-listing-text">
                     {{ 'home.browse_listings' | translate }}
                     <mat-icon>trending_flat</mat-icon>
                 </p>
