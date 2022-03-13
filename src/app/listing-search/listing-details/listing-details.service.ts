@@ -49,6 +49,8 @@ export class ListingDetailsService {
         }
 
         let allImages = (await listAll(ref(this.storage, storagePath))).prefixes;
+        allImages.sort();
+        
         listing.imageSources = new Array(allImages.length);
 
         await Promise.all(allImages.map(async (imageFile, index) => {

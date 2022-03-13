@@ -31,7 +31,6 @@ export class ListingEditService {
                     [
                         deleteObject(ref(image, ImageFileVersion.compressed)),
                         deleteObject(ref(image, ImageFileVersion.raw))
-
                     ]
                 );
             }));

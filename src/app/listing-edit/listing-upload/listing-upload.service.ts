@@ -72,6 +72,8 @@ export class ListingUploadService {
             await this.storeListingImages(imageFiles, listing.imageFolderPath!);
             if (numOfImagesUploaded < numOfImagesOnStorage) {
                 const imagesOnStorage = (await listAll(imageFolderRef)).prefixes;
+                imagesOnStorage.sort();
+
                 await Promise.all(imagesOnStorage.map(async (img, index) => {
                     if (index + 1 > numOfImagesUploaded) {
                         await Promise.all(
@@ -123,6 +125,7 @@ export class ListingUploadService {
         }
 
         let allImages = (await listAll(ref(this.storage, storagePath))).prefixes;
+        allImages.sort();
 
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));

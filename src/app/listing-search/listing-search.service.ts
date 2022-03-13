@@ -102,11 +102,14 @@ export class ListingSearchService {
         }
 
         results.sort((a, b) => {
-            if (a.price! > b.price!) {
+            const aPrice = Number(a.price);
+            const bPrice = Number(b.price);
+
+            if (aPrice > bPrice) {
                 return 1;
             }
 
-            if (a.price! < b.price!) {
+            if (aPrice < bPrice) {
                 return -1;
             }
 
