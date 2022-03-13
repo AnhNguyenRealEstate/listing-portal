@@ -28,7 +28,8 @@ export class ListingUploadService {
     /**
     Uploads a new listing and its images. Returns the Firestore ID of the listing.
     1. Store images 
-    2. Add the new listing
+    2. Add the new listing.
+    
     Images must be stored first because in case of interruption, there won't be a null pointer 
     for imageFolderPath in the newly-created listing */
     async publishListing(listing: Listing, imageFiles: ListingImageFile[]): Promise<string> {
