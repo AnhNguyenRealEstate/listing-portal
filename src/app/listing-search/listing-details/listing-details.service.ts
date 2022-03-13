@@ -39,8 +39,11 @@ export class ListingDetailsService {
 
         if (!environment.production) {
             listing.imageSources = new Array<string>();
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
                 listing.imageSources.push(`https://picsum.photos/1920/1080/?${i}`);
+            }
+            for (let i = 0; i < 5; i++) {
+                listing.imageSources.push(`https://picsum.photos/1080/1920/?${i}`);
             }
             return listing;
         }
