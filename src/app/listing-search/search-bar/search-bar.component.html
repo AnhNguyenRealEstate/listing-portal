@@ -30,8 +30,8 @@
                 </mat-expansion-panel-header>
                 <div class="row">
                     <mat-form-field color="accent" class="col-3">
-                        <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
-                        <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
+                        <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
+                        <mat-select id="category" [(ngModel)]="searchCriteria.category">
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                             <mat-option value="Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
                             <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
@@ -121,8 +121,8 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <mat-form-field color="accent">
-                    <mat-label>{{ 'search_bar.property_type' | translate }}</mat-label>
-                    <mat-select id="propertyType" [(ngModel)]="searchCriteria.propertyType">
+                    <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
+                    <mat-select id="category" [(ngModel)]="searchCriteria.category">
                         <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                         <mat-option value="Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
                         <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>

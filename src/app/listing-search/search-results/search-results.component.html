@@ -34,18 +34,19 @@
                                         [src]="result.coverImage">
                                 </div>
                                 <div class="col-6">
-                                    <div class="pb-2" *ngIf="result.propertyType">
-                                        <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment'
-                                            |
+                                    <div class="pb-2" *ngIf="result.category && result.location">
+                                        <span *ngIf="result.category === 'Apartment'">{{ 'search_results.apartment' |
                                             translate}}</span>
-                                        <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' |
+                                        <span *ngIf="result.category === 'Villa'">{{ 'search_results.villa' |
                                             translate}}</span>
-                                        <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse'
-                                            |
+                                        <span *ngIf="result.category === 'Townhouse'">{{ 'search_results.townhouse' |
                                             translate}}</span>
-                                        <span *ngIf="result.propertyType === 'Commercial'">{{
-                                            'search_results.commercial' |
-                                            translate}}</span>
+                                        <span *ngIf="result.category === 'Commercial'">{{ 'search_results.commercial'
+                                            |translate}}</span>
+                                        - {{result.location}}
+                                    </div>
+                                    <div *ngIf="result.view">{{ 'search_results.view' | translate }}:
+                                        {{result.view | lowercase }}
                                     </div>
                                     <div class="pb-2" *ngIf="result.address">
                                         {{result.address}}
@@ -93,21 +94,22 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>
-                                    <div *ngIf="result.propertyType">
-                                        <span *ngIf="result.propertyType === 'Apartment'">{{ 'search_results.apartment'
+                                    <div *ngIf="result.category && result.location">
+                                        <span *ngIf="result.category === 'Apartment'">{{ 'search_results.apartment'
                                             |
                                             translate}}</span>
-                                        <span *ngIf="result.propertyType === 'Villa'">{{ 'search_results.villa' |
+                                        <span *ngIf="result.category === 'Villa'">{{ 'search_results.villa' |
                                             translate}}</span>
-                                        <span *ngIf="result.propertyType === 'Townhouse'">{{ 'search_results.townhouse'
+                                        <span *ngIf="result.category === 'Townhouse'">{{ 'search_results.townhouse'
                                             |
                                             translate}}</span>
-                                        <span *ngIf="result.propertyType === 'Commercial'">{{
+                                        <span *ngIf="result.category === 'Commercial'">{{
                                             'search_results.commercial' |
                                             translate}}</span>
+                                        - {{result.location}}
                                     </div>
-                                    <div *ngIf="result.location">
-                                        {{result.location}}
+                                    <div *ngIf="result.view">{{ 'search_results.view' | translate }}:
+                                        {{result.view | lowercase }}
                                     </div>
                                     <div *ngIf="result.address">
                                         {{result.address}}

@@ -98,8 +98,8 @@ export class ListingDetailsComponent implements OnInit {
 
         let description = '';
         let keyToUse = '';
-        if (this.listing.propertyType !== 'Commercial') {
-            switch (this.listing.propertyType) {
+        if (this.listing.category !== 'Commercial') {
+            switch (this.listing.category) {
                 case 'Apartment':
                     keyToUse = "listing_details.apartment";
                     break;

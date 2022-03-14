@@ -33,7 +33,11 @@
         "archived": "Chưa đăng",
         "active": "Đã đăng",
         "delete_msg": "Đã xoá sản phẩm 🗑",
-        "dismiss_msg": "Tắt"
+        "dismiss_msg": "Tắt",
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Shop thương mại"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
@@ -41,7 +45,8 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Shop thương mại"
+        "commercial": "Shop thương mại",
+        "view": "View"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
@@ -49,7 +54,7 @@
         "default_contact_number": "02854124130",
         "for_rent": "Cho thuê",
         "for_sale": "Rao bán",
-        "property_type": "Phân loại",
+        "category": "Phân loại",
         "bedrooms": "Phòng ngủ",
         "bathrooms": "Phòng tắm",
         "apartment": "Căn hộ",
@@ -60,11 +65,12 @@
         "location": "Vị trí",
         "address": "Địa chỉ",
         "description": "Chi tiết sản phẩm",
-        "contact": "Liên hệ"
+        "contact": "Liên hệ",
+        "view": "View"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",
-        "property_type": "Phân loại",
+        "category": "Phân loại",
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
@@ -85,7 +91,7 @@
         "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm"
     },
     "listing_upload": {
-        "property_type": "Phân loại",
+        "category": "Phân loại",
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
@@ -97,6 +103,7 @@
         "purpose": "Cho thuê hay Rao bán",
         "price": "Giá",
         "address": "Địa chỉ",
+        "view": "View",
         "description": "Chi tiết sản phẩm",
         "for_rent": "Cho thuê",
         "for_sale": "Rao bán",

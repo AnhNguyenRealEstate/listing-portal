@@ -87,7 +87,7 @@ export class ListingUploadService {
             }
         }
 
-        await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { data: listing })
+        await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { ...listing });
 
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
 

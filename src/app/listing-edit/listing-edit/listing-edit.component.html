@@ -19,8 +19,19 @@
                             </div>
                             <div class="col-6">
                                 <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
-                                <div *ngIf="listing.location">
-                                    {{listing.location}}
+                                <div *ngIf="listing.category && listing.location">
+                                    <span *ngIf="listing.category === 'Apartment'">{{ 'listing_edit.apartment' |
+                                        translate
+                                        }}</span>
+                                    <span *ngIf="listing.category === 'Villa'">{{ 'listing_edit.villa' | translate
+                                        }}</span>
+                                    <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_edit.townhouse' |
+                                        translate
+                                        }}</span>
+                                    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_edit.commercial' |
+                                        translate
+                                        }}</span>
+                                    - {{listing.location}}
                                 </div>
                                 <div *ngIf="listing.address">
                                     {{listing.address}}
@@ -147,8 +158,19 @@
                             </div>
                             <div class="col-6">
                                 <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
-                                <div *ngIf="listing.location">
-                                    {{listing.location}}
+                                <div *ngIf="listing.category && listing.location">
+                                    <span *ngIf="listing.category === 'Apartment'">{{ 'listing_edit.apartment' |
+                                        translate
+                                        }}</span>
+                                    <span *ngIf="listing.category === 'Villa'">{{ 'listing_edit.villa' | translate
+                                        }}</span>
+                                    <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_edit.townhouse' |
+                                        translate
+                                        }}</span>
+                                    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_edit.commercial' |
+                                        translate
+                                        }}</span>
+                                    - {{listing.location}}
                                 </div>
                                 <div *ngIf="listing.address">
                                     {{listing.address}}

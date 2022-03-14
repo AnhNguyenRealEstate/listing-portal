@@ -6,7 +6,7 @@ export interface Listing {
     imageFolderPath?: string;
     images?: ListingImageFile[];
     imageSources?: string[],
-    propertyType?: 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial' | undefined,
+    category?: 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial' | undefined,
     location?: string,
     address?: string,
     price?: number,
@@ -16,7 +16,8 @@ export interface Listing {
     bathrooms?: number,
     purpose?: 'For Rent' | 'For Sale',
     archived?: boolean,
-    contactNumber?: string
+    contactNumber?: string,
+    view?: string //Referring to the property's living room's views
 }
 
 export interface ListingImageFile {
@@ -25,7 +26,7 @@ export interface ListingImageFile {
 }
 
 export interface SearchCriteria {
-    propertyType: string,
+    category: string,
     location: string,
     minPrice: number,
     maxPrice: number | undefined,

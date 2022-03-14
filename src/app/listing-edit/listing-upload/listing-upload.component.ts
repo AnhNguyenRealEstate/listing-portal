@@ -161,7 +161,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
     checkValidityForUpload(listing: Listing): boolean {
         if (listing.purpose?.length
-            && listing.propertyType?.length
+            && listing.category?.length
             && listing.location?.length
             && typeof listing.bedrooms === "number"
             && typeof listing.bathrooms === "number"

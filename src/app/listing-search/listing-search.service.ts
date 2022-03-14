@@ -39,7 +39,7 @@ export class ListingSearchService {
                 }
             }
             if (criteria.location) q = query(q, where('location', '==', criteria.location));
-            if (criteria.propertyType) q = query(q, where('propertyType', '==', criteria.propertyType));
+            if (criteria.category) q = query(q, where('category', '==', criteria.category));
             return q as Query<DocumentData>;
         }
 
@@ -100,21 +100,6 @@ export class ListingSearchService {
 
             results.push(listing);
         }
-
-        results.sort((a, b) => {
-            const aPrice = Number(a.price);
-            const bPrice = Number(b.price);
-
-            if (aPrice > bPrice) {
-                return 1;
-            }
-
-            if (aPrice < bPrice) {
-                return -1;
-            }
-
-            return 0;
-        });
 
         this.searchInProgress$$.next(false);
         return results;

@@ -76,7 +76,7 @@ describe('Listing Upload Service', () => {
 
         function generateRandomListing(): Listing {
             return {
-                propertyType: 'Apartment',
+                category: 'Apartment',
                 location: 'Hung Gia 1',
                 bedrooms: Math.floor(Math.random() * 100),
                 bathrooms: Math.floor(Math.random() * 100),

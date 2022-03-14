@@ -29,13 +29,13 @@
                 <div class="row pb-2">
                     <div class="col-6">
                         <mat-icon color="accent">apartment</mat-icon>
-                        <span class="ps-1 pe-2 text-bold">{{ 'listing_details.property_type' | translate }}:</span>
-                        <span *ngIf="listing.propertyType === 'Apartment'">{{ 'listing_details.apartment' | translate
+                        <span class="ps-1 pe-2 text-bold">{{ 'listing_details.category' | translate }}:</span>
+                        <span *ngIf="listing.category === 'Apartment'">{{ 'listing_details.apartment' | translate
                             }}</span>
-                        <span *ngIf="listing.propertyType === 'Villa'">{{ 'listing_details.villa' | translate }}</span>
-                        <span *ngIf="listing.propertyType === 'Townhouse'">{{ 'listing_details.townhouse' | translate
+                        <span *ngIf="listing.category === 'Villa'">{{ 'listing_details.villa' | translate }}</span>
+                        <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_details.townhouse' | translate
                             }}</span>
-                        <span *ngIf="listing.propertyType === 'Commercial'">{{ 'listing_details.commercial' | translate
+                        <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' | translate
                             }}</span>
                     </div>
                     <div class="col-6">
@@ -53,6 +53,11 @@
                         <mat-icon color="accent">bathtub</mat-icon>
                         <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
                         {{listing.bathrooms}}
+                    </div>
+                    <div class="col-6" *ngIf="listing.view">
+                        <mat-icon color="accent">window</mat-icon>
+                        <span class="ps-1 pe-2 text-bold">{{ 'listing_details.view' | translate }}:</span>
+                        {{listing.view}}
                     </div>
                 </div>
 
@@ -92,13 +97,13 @@
         <div class="row pb-2">
             <div class="col-6">
                 <mat-icon color="accent">apartment</mat-icon>
-                <span class="ps-1 pe-2 text-bold">{{ 'listing_details.property_type' | translate }}:</span>
-                <span *ngIf="listing.propertyType === 'Apartment'">{{ 'listing_details.apartment' | translate
+                <span class="ps-1 pe-2 text-bold">{{ 'listing_details.category' | translate }}:</span>
+                <span *ngIf="listing.category === 'Apartment'">{{ 'listing_details.apartment' | translate
                     }}</span>
-                <span *ngIf="listing.propertyType === 'Villa'">{{ 'listing_details.villa' | translate }}</span>
-                <span *ngIf="listing.propertyType === 'Townhouse'">{{ 'listing_details.townhouse' | translate
+                <span *ngIf="listing.category === 'Villa'">{{ 'listing_details.villa' | translate }}</span>
+                <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_details.townhouse' | translate
                     }}</span>
-                <span *ngIf="listing.propertyType === 'Commercial'">{{ 'listing_details.commercial' | translate
+                <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' | translate
                     }}</span>
             </div>
             <div class="col-6">
@@ -116,6 +121,11 @@
                 <mat-icon color="accent">bathtub</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
                 {{listing.bathrooms}}
+            </div>
+            <div class="col-6" *ngIf="listing.view">
+                <mat-icon color="accent">window</mat-icon>
+                <span class="ps-1 pe-2 text-bold">{{ 'listing_details.view' | translate }}:</span>
+                {{listing.view}}
             </div>
         </div>
 

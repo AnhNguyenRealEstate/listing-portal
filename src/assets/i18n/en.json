@@ -33,16 +33,21 @@
         "archived": "Archived",
         "active": "Active",
         "delete_msg": "Listing deleted 🗑",
-        "dismiss_msg": "Dismiss"
-    },
-    "search_results": {
-        "no_results": "No result matches your criteria",
-        "details": "Details",
-        "property_type": "Property type",
+        "dismiss_msg": "Dismiss",
         "apartment": "Apartment",
         "villa": "Villa",
         "townhouse": "Townhouse",
         "commercial": "Commercial"
+    },
+    "search_results": {
+        "no_results": "No result matches your criteria",
+        "details": "Details",
+        "category": "Category",
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial",
+        "view": "View"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {
@@ -50,7 +55,7 @@
         "default_contact_number": "02854124130",
         "for_rent": "For rent",
         "for_sale": "For sale",
-        "property_type": "Property type",
+        "category": "Category",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
         "apartment": "Apartment",
@@ -61,11 +66,12 @@
         "location": "Location",
         "address": "Address",
         "description": "Description",
-        "contact": "Contact"
+        "contact": "Contact",
+        "view": "View"
     },
     "search_bar": {
         "filters": "Filters",
-        "property_type": "Property type",
+        "category": "Category",
         "apartment": "Apartment",
         "villa": "Villa",
         "townhouse": "Townhouse",
@@ -86,7 +92,7 @@
         "found_x_results": "Found {{numberOfResults}} listing(s)"
     },
     "listing_upload": {
-        "property_type": "Property type",
+        "category": "Category",
         "apartment": "Apartment",
         "villa": "Villa",
         "townhouse": "Townhouse",
@@ -98,6 +104,7 @@
         "purpose": "For rent or For sale",
         "price": "Price",
         "address": "Address",
+        "view": "View",
         "description": "Description",
         "for_rent": "For rent",
         "for_sale": "For sale",

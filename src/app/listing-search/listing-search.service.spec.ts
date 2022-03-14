@@ -81,7 +81,7 @@ describe('Listing Search Service', () => {
 
         function generateRandomListing(index: number): Listing {
             return {
-                propertyType: 'Apartment',
+                category: 'Apartment',
                 location: 'Hung Gia 1',
                 bedrooms: Math.floor(Math.random() * 3 + 1),
                 bathrooms: Math.floor(Math.random() * 3 + 1),
@@ -100,7 +100,7 @@ describe('Listing Search Service', () => {
         criteria.maxPrice = 9999;
         criteria.minPrice = 0;
         criteria.propertySize = '';
-        criteria.propertyType = '';
+        criteria.category = '';
         criteria.purpose = 'For Rent';
 
         const numOfListings = 30;

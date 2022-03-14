@@ -76,7 +76,7 @@ describe('Listing Upload Service', () => {
 
         function generateRandomListing(): Listing {
             return {
-                propertyType: 'Apartment',
+                category: 'Apartment',
                 location: 'Hung Gia 1',
                 bedrooms: Math.floor(Math.random() * 100),
                 bathrooms: Math.floor(Math.random() * 100),
@@ -114,7 +114,7 @@ describe('Listing Upload Service', () => {
         const listingFromServer = response.data() as Listing;
 
         expect(listing.purpose).toBe(listingFromServer.purpose);
-        expect(listing.propertyType).toBe(listingFromServer.propertyType);
+        expect(listing.category).toBe(listingFromServer.category);
         expect(listing.location).toBe(listingFromServer.location);
         expect(listing.bathrooms).toBe(listingFromServer.bathrooms);
         expect(listing.bedrooms).toBe(listingFromServer.bedrooms);

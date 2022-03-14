@@ -22,8 +22,8 @@
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.property_type' | translate }}</mat-label>
-                <mat-select id="propertyType" [(ngModel)]="listing.propertyType" required>
+                <mat-label>{{ 'listing_upload.category' | translate }}</mat-label>
+                <mat-select id="category" [(ngModel)]="listing.category" required>
                     <mat-option value="Apartment">{{ 'listing_upload.apartment' | translate }}</mat-option>
                     <mat-option value="Villa">{{ 'listing_upload.villa' | translate }}</mat-option>
                     <mat-option value="Townhouse">{{ 'listing_upload.townhouse' | translate }}</mat-option>
@@ -61,6 +61,13 @@
                 <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
                 <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
                     placeholder="Size..." required>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'listing_upload.view' | translate }}</mat-label>
+                <input matInput type="text" [(ngModel)]="listing.view" class="d-inline" id="propertyView"
+                placeholder="Sông, nội khu...">
             </mat-form-field>
         </div>
         <div class="col-6">

@@ -15,7 +15,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     panelOpenState: boolean = false;
 
     searchCriteria: SearchCriteria = {
-        propertyType: '',
+        category: '',
         propertySize: '',
         location: '',
         minPrice: 0,

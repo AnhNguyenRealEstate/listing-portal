@@ -5,13 +5,23 @@
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
-                {{modalTitle}}
+                <span *ngIf="isEditMode">{{ 'listing_upload.edit_listing' | translate }}</span>
+                <span *ngIf="!isEditMode">{{ 'listing_upload.upload_new' | translate }}</span>
             </h1>
         </div>
         <div class="col-6">
             <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.property_type' | translate }}</mat-label>
-                <mat-select id="propertyType" [(ngModel)]="listing.propertyType" required>
+                <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
+                <mat-select [(ngModel)]="listing.purpose" (selectionChange)="onPurposeSelect($event)" required>
+                    <mat-option selected value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
+                    <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'listing_upload.category' | translate }}</mat-label>
+                <mat-select id="category" [(ngModel)]="listing.category" required>
                     <mat-option value="Apartment">{{ 'listing_upload.apartment' | translate }}</mat-option>
                     <mat-option value="Villa">{{ 'listing_upload.villa' | translate }}</mat-option>
                     <mat-option value="Townhouse">{{ 'listing_upload.townhouse' | translate }}</mat-option>
@@ -53,11 +63,9 @@
         </div>
         <div class="col-6">
             <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
-                <mat-select [(ngModel)]="listing.purpose" (selectionChange)="onPurposeSelect($event)" required>
-                    <mat-option selected value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
-                    <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
-                </mat-select>
+                <mat-label>{{ 'listing_upload.view' | translate }}</mat-label>
+                <input matInput type="text" [(ngModel)]="listing.view" class="d-inline" id="propertyView"
+                placeholder="Sông, nội khu...">
             </mat-form-field>
         </div>
         <div class="col-6">
