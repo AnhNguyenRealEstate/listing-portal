@@ -20,6 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { FooterModule } from '../footer/footer.module';
 import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
 
 
@@ -46,7 +47,8 @@ import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
         MatAutocompleteModule,
         LoadSpinnerModule,
         EditorModule,
-        NgxPageScrollCoreModule
+        NgxPageScrollCoreModule,
+        FooterModule
     ],
     providers: [CurrencyPipe]
 })

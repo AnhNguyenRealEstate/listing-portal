@@ -19,7 +19,6 @@ import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
 import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
-import { FooterComponent } from './components/footer/footer.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
@@ -32,8 +31,7 @@ import { SharedModule } from './shared/shared.module';
     AboutUsComponent,
     LayoutComponent,
     LoginComponent,
-    TimeoutComponent,
-    FooterComponent
+    TimeoutComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +70,7 @@ import { SharedModule } from './shared/shared.module';
       }
       return auth;
     }),
-    provideAnalytics(() => getAnalytics(getApp())),
+    provideAnalytics(() => getAnalytics(getApp()))
   ],
   bootstrap: [AppComponent]
 })
