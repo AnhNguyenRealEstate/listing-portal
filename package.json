@@ -33,7 +33,7 @@
     "@ng-idle/keepalive": "*",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "@tinymce/tinymce-angular": "^4.2.4",
+    "@tinymce/tinymce-angular": "^5.0.1",
     "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
     "ngx-image-compress": "^13.1.9",
