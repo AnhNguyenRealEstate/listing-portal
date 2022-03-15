@@ -3,7 +3,7 @@ import { Listing, SearchCriteria } from './listing-search.data';
 import { Firestore, CollectionReference, DocumentData, orderBy, Query, query, where, collection } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
-import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
+import { FirebaseStorageFolders, FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { getDocs } from '@firebase/firestore';
 import { environment } from 'src/environments/environment';
 
@@ -93,8 +93,9 @@ export class ListingSearchService {
             listing.id = doc.id;
 
             if (!environment.test) {
-                if (listing.imageFolderPath) {
-                    listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
+                if (listing.fireStoragePath) {
+                    listing.coverImage = await getDownloadURL(
+                        ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}/0/${ImageFileVersion.compressed}`));
                 }
             }
 

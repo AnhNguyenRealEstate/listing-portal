@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { getDownloadURL, listAll, ref, Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
+import { FirebaseStorageFolders, FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { Listing } from '../listing-search.data';
 
@@ -35,7 +35,7 @@ export class ListingDetailsService {
         }
 
         const listing = dbResponse.data() as Listing;
-        const storagePath = listing.imageFolderPath!;
+        const storagePath = listing.fireStoragePath!;
 
         if (!environment.production) {
             listing.imageSources = new Array<string>();
@@ -48,7 +48,8 @@ export class ListingDetailsService {
             return listing;
         }
 
-        let allImages = (await listAll(ref(this.storage, storagePath))).prefixes;
+        const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`
+        let allImages = (await listAll(ref(this.storage, imageStoragePath))).prefixes;
         allImages.sort();
         
         listing.imageSources = new Array(allImages.length);

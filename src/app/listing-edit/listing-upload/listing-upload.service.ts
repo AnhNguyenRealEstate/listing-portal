@@ -31,21 +31,21 @@ export class ListingUploadService {
     2. Add the new listing.
     
     Images must be stored first because in case of interruption, there won't be a null pointer 
-    for imageFolderPath in the newly-created listing */
+    for fireStoragePath in the newly-created listing */
     async publishListing(listing: Listing, imageFiles: ListingImageFile[]): Promise<string> {
-        function createImageStoragePath(listing: Listing) {
+        function createStoragePath(listing: Listing) {
             const date = new Date();
             const imageFolderName =
                 `${listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
-            return `${FirebaseStorageFolders.listingImages}/${imageFolderName}`;
+            return `${FirebaseStorageFolders.listings}/${imageFolderName}`;
         }
 
         this.inProgress$$.next(true);
 
-        const imageFolderPath = createImageStoragePath(listing);
-        listing.imageFolderPath = imageFolderPath;
+        const fireStoragePath = createStoragePath(listing);
+        listing.fireStoragePath = fireStoragePath;
 
-        await this.storeListingImages(imageFiles, imageFolderPath);
+        await this.storeListingImages(imageFiles, fireStoragePath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
 
@@ -65,11 +65,11 @@ export class ListingUploadService {
              * If the length of imageFiles is shorter than the amount of files on db, remove the old/extra images
              * Update the listing's attributes
              */
-            const imageFolderRef = ref(this.storage, listing.imageFolderPath!);
+            const imageFolderRef = ref(this.storage, listing.fireStoragePath!);
             const numOfImagesOnStorage = (await listAll(imageFolderRef)).prefixes.length;
             const numOfImagesUploaded = imageFiles.length;
 
-            await this.storeListingImages(imageFiles, listing.imageFolderPath!);
+            await this.storeListingImages(imageFiles, listing.fireStoragePath!);
             if (numOfImagesUploaded < numOfImagesOnStorage) {
                 const imagesOnStorage = (await listAll(imageFolderRef)).prefixes;
                 imagesOnStorage.sort();
@@ -124,7 +124,8 @@ export class ListingUploadService {
             }
         }
 
-        let allImages = (await listAll(ref(this.storage, storagePath))).prefixes;
+        const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`;
+        let allImages = (await listAll(ref(this.storage, imageStoragePath))).prefixes;
         allImages.sort();
 
         imageSrcs.push(...new Array<string>(allImages.length));
@@ -159,7 +160,7 @@ export class ListingUploadService {
         }));
     }
 
-    private async storeListingImages(imageFiles: ListingImageFile[], imageFolderPath: string) {
+    private async storeListingImages(imageFiles: ListingImageFile[], fireStoragePath: string) {
         if (!imageFiles.length) return;
 
         await Promise.all(imageFiles.map(async (file, index) => {
@@ -184,13 +185,20 @@ export class ListingUploadService {
                     return;
                 }
 
+                const imgsAndVideosPath = `${fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}/${index}`;
                 await Promise.all([
                     uploadBytes(
-                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.compressed}`),
+                        ref(
+                            this.storage,
+                            `${imgsAndVideosPath}/${ImageFileVersion.compressed}`
+                        ),
                         file.compressed
                     ).catch(),
                     uploadBytes(
-                        ref(this.storage, `${imageFolderPath}/${index}/${ImageFileVersion.raw}`),
+                        ref(
+                            this.storage,
+                            `${imgsAndVideosPath}/${ImageFileVersion.raw}`
+                        ),
                         file.raw
                     ).catch()
                 ]);

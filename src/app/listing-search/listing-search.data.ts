@@ -3,7 +3,7 @@ export interface Listing {
     title?: string,
     description?: string,
     coverImage?: string, // Download url or data url, input for img.src
-    imageFolderPath?: string;
+    fireStoragePath?: string;
     images?: ListingImageFile[];
     imageSources?: string[],
     category?: 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial' | undefined,

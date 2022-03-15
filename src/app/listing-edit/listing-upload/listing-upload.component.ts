@@ -53,7 +53,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     async ngOnChanges(changes: SimpleChanges) {
         if (changes.listing && changes.listing.currentValue) {
             this.showSpinner = true;
-            await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles);
+            await this.listingUploadService.getListingImages(this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles);
             this.showSpinner = false;
         }
     }
@@ -163,9 +163,9 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         if (listing.purpose?.length
             && listing.category?.length
             && listing.location?.length
-            && typeof listing.bedrooms === "number"
-            && typeof listing.bathrooms === "number"
-            && typeof Number(listing.price) === "number"
+            && !isNaN(Number(listing.bedrooms))
+            && !isNaN(Number(listing.bathrooms))
+            && !isNaN(Number(listing.price))
             && listing.currency?.length
             && listing.description?.length
             && this.imageFiles.length) {

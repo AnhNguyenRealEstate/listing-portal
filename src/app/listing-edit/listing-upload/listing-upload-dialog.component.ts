@@ -55,8 +55,8 @@ export class ListingUploadDialogComponent implements OnInit {
                 'listing_upload.dismiss_msg']
         ).toPromise();
 
-        if(this.listing.imageFolderPath){
-            await this.listingUploadService.getListingImages(this.listing.imageFolderPath!, this.imageSrcs, this.imageFiles)
+        if(this.listing.fireStoragePath){
+            await this.listingUploadService.getListingImages(this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles)
         }
     }
 
@@ -165,9 +165,9 @@ export class ListingUploadDialogComponent implements OnInit {
         if (listing.purpose?.length
             && listing.category?.length
             && listing.location?.length
-            && typeof listing.bedrooms === "number"
-            && typeof listing.bathrooms === "number"
-            && typeof Number(listing.price) === "number"
+            && !isNaN(Number(listing.bedrooms))
+            && !isNaN(Number(listing.bathrooms))
+            && !isNaN(Number(listing.price))
             && listing.currency?.length
             && listing.description?.length
             && this.imageFiles.length) {

@@ -25,7 +25,7 @@ export class ListingEditService {
         this.deleteInProgress$$.next(true);
 
         if (!environment.test) {
-            const allImages = (await listAll(ref(this.storage, listing.imageFolderPath!))).prefixes;
+            const allImages = (await listAll(ref(this.storage, listing.fireStoragePath!))).prefixes;
             await Promise.all(allImages.map(async image => {
                 await Promise.all(
                     [

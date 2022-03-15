@@ -7,7 +7,7 @@ import { Listing } from '../../listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { ListingEditService } from './listing-edit.service';
-import { FirestoreCollections, ImageFileVersion } from '../../shared/globals';
+import { FirebaseStorageFolders, FirestoreCollections, ImageFileVersion } from '../../shared/globals';
 import { Unsubscribe } from '@angular/fire/auth';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -48,7 +48,8 @@ export class ListingEditComponent implements OnInit {
                 const listing = doc.data() as Listing;
 
                 try {
-                    listing.coverImage = await getDownloadURL(ref(this.storage, `${listing.imageFolderPath}/0/${ImageFileVersion.compressed}`));
+                    listing.coverImage = await getDownloadURL(
+                        ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}/0/${ImageFileVersion.compressed}`));
                 } catch (e) { console.log(e) }
                 finally {
                     listings.push(listing);

@@ -45,21 +45,21 @@
         <div class="col-3">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.bedrooms' | translate }}</mat-label>
-                <input matInput id="bedrooms" type="number" [(ngModel)]="listing.bedrooms" class="d-inline"
+                <input matInput id="bedrooms" type="text" [(ngModel)]="listing.bedrooms" class="d-inline"
                     placeholder="# of bedrooms..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
-                <input matInput id="bathrooms" type="number" [(ngModel)]="listing.bathrooms" class="d-inline"
+                <input matInput id="bathrooms" type="text" [(ngModel)]="listing.bathrooms" class="d-inline"
                     placeholder="# of bathrooms..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
-                <input matInput type="number" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
+                <input matInput type="text" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
                     placeholder="Size..." required>
             </mat-form-field>
         </div>
