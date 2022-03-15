@@ -104,7 +104,7 @@
         </div>
     </div>
     <div class="row image-container" *ngIf="imageSrcs?.length">
-        <div class="col-6 d-inline" *ngFor="let imgSrc of imageSrcs">
+        <div class="col-12" *ngFor="let imgSrc of imageSrcs">
             <img [src]="imgSrc" class="listing-image">
             <button mat-button (click)="removeImage(imgSrc)">
                 <mat-icon>close</mat-icon>

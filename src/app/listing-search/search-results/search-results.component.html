@@ -34,7 +34,7 @@
                                         [src]="result.coverImage">
                                 </div>
                                 <div class="col-6">
-                                    <div class="pb-2" *ngIf="result.category && result.location">
+                                    <div *ngIf="result.category && result.location">
                                         <span *ngIf="result.category === 'Apartment'">{{ 'search_results.apartment' |
                                             translate}}</span>
                                         <span *ngIf="result.category === 'Villa'">{{ 'search_results.villa' |
@@ -107,9 +107,6 @@
                                             'search_results.commercial' |
                                             translate}}</span>
                                         - {{result.location}}
-                                    </div>
-                                    <div *ngIf="result.view">{{ 'search_results.view' | translate }}:
-                                        {{result.view | lowercase }}
                                     </div>
                                     <div *ngIf="result.address">
                                         {{result.address}}

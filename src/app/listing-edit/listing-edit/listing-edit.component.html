@@ -189,7 +189,10 @@
                                             translate }}</span>
                                     </mat-chip>
                                     <mat-chip>
-                                        <span>{{listing.archived? 'Archived' : 'Active'}}</span>
+                                        <span *ngIf="listing.archived">{{ 'listing_edit.archived' |
+                                            translate }}</span>
+                                        <span *ngIf="!listing.archived">{{ 'listing_edit.active' |
+                                            translate }}</span>
                                     </mat-chip>
                                 </mat-chip-list>
                             </div>
