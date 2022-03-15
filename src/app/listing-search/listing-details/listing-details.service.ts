@@ -35,7 +35,6 @@ export class ListingDetailsService {
         }
 
         const listing = dbResponse.data() as Listing;
-        const storagePath = listing.fireStoragePath!;
 
         if (!environment.production) {
             listing.imageSources = new Array<string>();
@@ -48,11 +47,13 @@ export class ListingDetailsService {
             return listing;
         }
 
-        const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`
+        const storagePath = listing.fireStoragePath!;
+
+        const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).prefixes;
         allImages.sort((a, b) => {
-            if (a.name > b.name) return 1;
-            if (a.name < b.name) return -1;
+            if (Number(a.name) > Number(b.name)) return 1;
+            if (Number(a.name) < Number(b.name)) return -1;
             return 0;
         });
 

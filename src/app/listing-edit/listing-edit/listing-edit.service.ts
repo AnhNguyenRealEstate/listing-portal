@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, deleteDoc, updateDoc, doc, collection } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
-import { FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
+import { FirebaseStorageFolders, FirestoreCollections, ImageFileVersion } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { Listing } from '../../listing-search/listing-search.data';
 
@@ -25,7 +25,8 @@ export class ListingEditService {
         this.deleteInProgress$$.next(true);
 
         if (!environment.test) {
-            const allImages = (await listAll(ref(this.storage, listing.fireStoragePath!))).prefixes;
+            const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}`
+            const allImages = (await listAll(ref(this.storage, imgsVideosStoragePath))).prefixes;
             await Promise.all(allImages.map(async image => {
                 await Promise.all(
                     [
@@ -42,19 +43,27 @@ export class ListingEditService {
 
     /* Change archived property of the listing */
     async archiveListing(dbRefId: string) {
+        this.archiveInProgress$$.next(true);
+
         await updateDoc(
             doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
             'archived',
             true
         );
+
+        this.archiveInProgress$$.next(false);
     }
 
     async unarchiveListing(dbRefId: string) {
+        this.archiveInProgress$$.next(true);
+
         await updateDoc(
             doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
             'archived',
             false
         );
+        
+        this.archiveInProgress$$.next(false);
     }
 
     deleteInProgress() {

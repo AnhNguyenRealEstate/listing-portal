@@ -65,7 +65,7 @@ export class ListingUploadService {
              * If the length of imageFiles is shorter than the amount of files on db, remove the old/extra images
              * Update the listing's attributes
              */
-            const imageFolderRef = ref(this.storage, listing.fireStoragePath!);
+            const imageFolderRef = ref(this.storage, `${listing.fireStoragePath!}/${FirebaseStorageFolders.listingImgsVideos}`);
             const numOfImagesOnStorage = (await listAll(imageFolderRef)).prefixes.length;
             const numOfImagesUploaded = imageFiles.length;
 
@@ -73,8 +73,8 @@ export class ListingUploadService {
             if (numOfImagesUploaded < numOfImagesOnStorage) {
                 const imagesOnStorage = (await listAll(imageFolderRef)).prefixes;
                 imagesOnStorage.sort((a, b) => {
-                    if (a.name > b.name) return 1;
-                    if (a.name < b.name) return -1;
+                    if (Number(a.name) > Number(b.name)) return 1;
+                    if (Number(a.name) < Number(b.name)) return -1;
                     return 0;
                 });
 
@@ -131,8 +131,8 @@ export class ListingUploadService {
         const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).prefixes;
         allImages.sort((a, b) => {
-            if (a.name > b.name) return 1;
-            if (a.name < b.name) return -1;
+            if (Number(a.name) > Number(b.name)) return 1;
+            if (Number(a.name) < Number(b.name)) return -1;
             return 0;
         });
 
