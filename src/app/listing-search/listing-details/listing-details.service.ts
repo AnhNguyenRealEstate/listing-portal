@@ -50,8 +50,12 @@ export class ListingDetailsService {
 
         const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).prefixes;
-        allImages.sort();
-        
+        allImages.sort((a, b) => {
+            if (a.name > b.name) return 1;
+            if (a.name < b.name) return -1;
+            return 0;
+        });
+
         listing.imageSources = new Array(allImages.length);
 
         await Promise.all(allImages.map(async (imageFile, index) => {

@@ -72,7 +72,11 @@ export class ListingUploadService {
             await this.storeListingImages(imageFiles, listing.fireStoragePath!);
             if (numOfImagesUploaded < numOfImagesOnStorage) {
                 const imagesOnStorage = (await listAll(imageFolderRef)).prefixes;
-                imagesOnStorage.sort();
+                imagesOnStorage.sort((a, b) => {
+                    if (a.name > b.name) return 1;
+                    if (a.name < b.name) return -1;
+                    return 0;
+                });
 
                 await Promise.all(imagesOnStorage.map(async (img, index) => {
                     if (index + 1 > numOfImagesUploaded) {
@@ -126,7 +130,11 @@ export class ListingUploadService {
 
         const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).prefixes;
-        allImages.sort();
+        allImages.sort((a, b) => {
+            if (a.name > b.name) return 1;
+            if (a.name < b.name) return -1;
+            return 0;
+        });
 
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));
