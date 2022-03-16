@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { Subscription } from 'rxjs';
@@ -38,6 +39,7 @@ export class ListingUploadDialogComponent implements OnInit {
         private snackbar: MatSnackBar,
         public dialogRef: MatDialogRef<ListingUploadDialogComponent>,
         private translate: TranslateService,
+        private sanitizer: DomSanitizer,
         @Inject(MAT_DIALOG_DATA) private data: any
     ) {
         this.listing = { ...this.data.listing }
@@ -101,7 +103,11 @@ export class ListingUploadDialogComponent implements OnInit {
                 );
 
                 this.imageFiles.push({ file: compressedFile });
-                this.imageSrcs.push(compressedImgAsBase64Url);
+                this.imageSrcs.push(
+                    this.sanitizer.sanitize(
+                        SecurityContext.RESOURCE_URL,
+                        this.sanitizer.bypassSecurityTrustResourceUrl(compressedImgAsBase64Url))!
+                );
             }
         }
         this.compressionInProgress = false;

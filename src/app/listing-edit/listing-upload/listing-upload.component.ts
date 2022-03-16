@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SecurityContext, SimpleChanges } from '@angular/core';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'listing-upload',
@@ -35,6 +36,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         private snackbar: MatSnackBar,
         private metadata: MetadataService,
         private imageCompress: NgxImageCompressService,
+        private sanitizer: DomSanitizer,
         public listingUploadService: ListingUploadService,
         private translate: TranslateService
     ) {
@@ -100,7 +102,11 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
                 );
 
                 this.imageFiles.push({ file: compressedFile });
-                this.imageSrcs.push(compressedImgAsBase64Url);
+                this.imageSrcs.push(
+                    this.sanitizer.sanitize(
+                        SecurityContext.RESOURCE_URL,
+                        this.sanitizer.bypassSecurityTrustResourceUrl(compressedImgAsBase64Url))!
+                );
             }
         }
         this.compressionInProgress = false;
