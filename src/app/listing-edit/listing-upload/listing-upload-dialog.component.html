@@ -1,7 +1,7 @@
-<div *ngIf="isEditMode && !imageSrcs.length" class="d-flex justify-content-center" style="margin-top: 40vh">
+<div *ngIf="showSpinner" class="d-flex justify-content-center" style="margin-top: 40vh">
     <mat-spinner></mat-spinner>
 </div>
-<section #mobileUploadView class="container pt-2 py-2 d-lg-none" *ngIf="!isEditMode || imageSrcs.length">
+<section #mobileUploadView class="container pt-2 py-2 d-lg-none" *ngIf="!showSpinner">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">
@@ -105,13 +105,14 @@
     </div>
     <div class="row image-container">
         <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
-
-        <div class="col-12" *ngFor="let imgSrc of imageSrcs">
-            <img [src]="imgSrc" class="listing-image">
-            <button mat-button (click)="removeImage(imgSrc)">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
+        <ng-container *ngIf="!compressionInProgress">
+            <div class="col-12" *ngFor="let imgSrc of imageSrcs">
+                <img [src]="imgSrc" class="listing-image">
+                <button mat-button (click)="removeImage(imgSrc)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </ng-container>
     </div>
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">

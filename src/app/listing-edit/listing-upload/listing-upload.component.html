@@ -107,13 +107,14 @@
     </div>
     <div class="row image-container">
         <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
-
-        <div class="col-3 d-inline" *ngFor="let imgSrc of imageSrcs">
-            <img [src]="imgSrc" class="listing-image">
-            <button mat-button (click)="removeImage(imgSrc)">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
+        <ng-container *ngIf="!compressionInProgress">
+            <div class="col-3 d-inline" *ngFor="let imgSrc of imageSrcs">
+                <img [src]="imgSrc" class="listing-image">
+                <button mat-button (click)="removeImage(imgSrc)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </ng-container>
     </div>
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">

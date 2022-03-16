@@ -20,6 +20,7 @@ export class ListingUploadDialogComponent implements OnInit {
     dbReferenceId: string = '';
 
     isEditMode: boolean = false;
+    showSpinner: boolean = false;
 
     locations: string[] = [];
 
@@ -60,7 +61,9 @@ export class ListingUploadDialogComponent implements OnInit {
         ).toPromise();
 
         if (this.listing.fireStoragePath) {
-            await this.listingUploadService.getListingImages(this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles)
+            this.showSpinner = true;
+            await this.listingUploadService.getListingImages(this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles);
+            this.showSpinner = false;
         }
     }
 
