@@ -3,10 +3,10 @@ import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/fir
 import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
-import { NgxImageCompressService, DOC_ORIENTATION } from "ngx-image-compress";
-import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs, ImageFileVersion } from 'src/app/shared/globals';
+import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
+import { getMetadata } from '@firebase/storage';
 
 @Injectable({ providedIn: 'any' })
 export class ListingUploadService {
@@ -17,8 +17,7 @@ export class ListingUploadService {
 
     constructor(private firestore: Firestore,
         private storage: Storage,
-        private metadata: MetadataService,
-        private imageCompress: NgxImageCompressService
+        private metadata: MetadataService
     ) {
         this.metadata.locations().subscribe(data => {
             this.locations = data;
@@ -66,12 +65,12 @@ export class ListingUploadService {
              * Update the listing's attributes
              */
             const imageFolderRef = ref(this.storage, `${listing.fireStoragePath!}/${FirebaseStorageFolders.listingImgsVideos}`);
-            const numOfImagesOnStorage = (await listAll(imageFolderRef)).prefixes.length;
+            const numOfImagesOnStorage = (await listAll(imageFolderRef)).items.length;
             const numOfImagesUploaded = imageFiles.length;
 
             await this.storeListingImages(imageFiles, listing.fireStoragePath!);
             if (numOfImagesUploaded < numOfImagesOnStorage) {
-                const imagesOnStorage = (await listAll(imageFolderRef)).prefixes;
+                const imagesOnStorage = (await listAll(imageFolderRef)).items;
                 imagesOnStorage.sort((a, b) => {
                     if (Number(a.name) > Number(b.name)) return 1;
                     if (Number(a.name) < Number(b.name)) return -1;
@@ -82,8 +81,7 @@ export class ListingUploadService {
                     if (index + 1 > numOfImagesUploaded) {
                         await Promise.all(
                             [
-                                deleteObject(ref(img, ImageFileVersion.compressed)),
-                                deleteObject(ref(img, ImageFileVersion.raw))
+                                deleteObject(ref(img))
                             ]
                         )
                     }
@@ -118,7 +116,7 @@ export class ListingUploadService {
             for (let i = 0; i < imageFiles.length; i++) {
                 const blob = new Blob();
                 const file = new File([blob], `${i}.jpg`, { type: blob.type })
-                imageFiles[i] = ({ compressed: file, raw: file } as ListingImageFile);
+                imageFiles[i] = ({ file: file } as ListingImageFile);
 
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -129,7 +127,7 @@ export class ListingUploadService {
         }
 
         const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`;
-        let allImages = (await listAll(ref(this.storage, imageStoragePath))).prefixes;
+        let allImages = (await listAll(ref(this.storage, imageStoragePath))).items;
         allImages.sort((a, b) => {
             if (Number(a.name) > Number(b.name)) return 1;
             if (Number(a.name) < Number(b.name)) return -1;
@@ -146,22 +144,21 @@ export class ListingUploadService {
 
         // Storage Emulator isn't supporting the operations below
         await Promise.all(allImages.map(async (imageFile, index) => {
-            let file_compressed = await getFile(
-                await getDownloadURL(ref(imageFile, ImageFileVersion.compressed)),
-                index
-            );
 
-            let file_raw = await getFile(
-                await getDownloadURL(ref(imageFile, ImageFileVersion.raw)),
+            const file = await getFile(
+                await getDownloadURL(ref(imageFile)),
                 index
             );
+            const customMetadata = (await (getMetadata(imageFile))).customMetadata;
+            const description = customMetadata ? customMetadata['description'] : undefined;
+
             imageFiles[index] = {
-                compressed: file_compressed,
-                raw: file_raw
+                file: file,
+                description: description
             }
 
             const reader = new FileReader();
-            reader.readAsDataURL(file_compressed);
+            reader.readAsDataURL(file);
             reader.onloadend = () => {
                 imageSrcs[index] = reader.result as string;
             }
@@ -171,46 +168,20 @@ export class ListingUploadService {
     private async storeListingImages(imageFiles: ListingImageFile[], fireStoragePath: string) {
         if (!imageFiles.length) return;
 
+        if (environment.test) return;
+
         await Promise.all(imageFiles.map(async (file, index) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file.raw);
-            reader.onload = async () => {
-                if (!file.compressed) {
-                    const compressedImgAsBase64Url =
-                        await this.imageCompress.compressFile(
-                            reader.result as string, DOC_ORIENTATION.Default,
-                            100, 75, 1920, 1080);
-                    const response = await fetch(compressedImgAsBase64Url);
-                    const data = await response.blob();
-                    file.compressed = new File(
-                        [data],
-                        `${file.raw.name}_${ImageFileVersion.compressed}`,
-                        { type: file.raw.type }
-                    );
-                }
-
-                if (environment.test) {
-                    return;
-                }
-
-                const imgsAndVideosPath = `${fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}/${index}`;
-                await Promise.all([
-                    uploadBytes(
-                        ref(
-                            this.storage,
-                            `${imgsAndVideosPath}/${ImageFileVersion.compressed}`
-                        ),
-                        file.compressed
-                    ).catch(),
-                    uploadBytes(
-                        ref(
-                            this.storage,
-                            `${imgsAndVideosPath}/${ImageFileVersion.raw}`
-                        ),
-                        file.raw
-                    ).catch()
-                ]);
-            }
+            const imgsAndVideosPath = `${fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}/${index}`;
+            await Promise.all([
+                uploadBytes(
+                    ref(
+                        this.storage,
+                        `${imgsAndVideosPath}`
+                    ),
+                    file.file,
+                    { customMetadata: { description: file.description || '' } }
+                ).catch()
+            ]);
         }));
     }
 

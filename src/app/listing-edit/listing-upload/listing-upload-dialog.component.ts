@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { Subscription } from 'rxjs';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
@@ -24,15 +25,16 @@ export class ListingUploadDialogComponent implements OnInit {
     imageFiles: ListingImageFile[] = [];
     imageSrcs: string[] = [];
     imageFilesModified: boolean = false;
+    compressionInProgress: boolean = false;
 
     subs: Subscription = new Subscription();
-    showSpinner: boolean = false;
 
     snackbarMsgs!: any;
 
     constructor(
         private metadata: MetadataService,
         public listingUploadService: ListingUploadService,
+        private imageCompress: NgxImageCompressService,
         private snackbar: MatSnackBar,
         public dialogRef: MatDialogRef<ListingUploadDialogComponent>,
         private translate: TranslateService,
@@ -55,7 +57,7 @@ export class ListingUploadDialogComponent implements OnInit {
                 'listing_upload.dismiss_msg']
         ).toPromise();
 
-        if(this.listing.fireStoragePath){
+        if (this.listing.fireStoragePath) {
             await this.listingUploadService.getListingImages(this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles)
         }
     }
@@ -79,22 +81,30 @@ export class ListingUploadDialogComponent implements OnInit {
             return;
         }
 
+        this.compressionInProgress = true;
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
 
-            const newImageFile = {
-                raw: file
-            } as ListingImageFile;
-            this.imageFiles.push(newImageFile);
-
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => {
-                if (reader.result) {
-                    this.imageSrcs.push(reader.result as string)
-                }
+            reader.onload = async () => {
+                const compressedImgAsBase64Url =
+                    await this.imageCompress.compressFile(
+                        reader.result as string, DOC_ORIENTATION.Default,
+                        100, 75, 1920, 1080);
+                const response = await fetch(compressedImgAsBase64Url);
+                const data = await response.blob();
+                const compressedFile = new File(
+                    [data],
+                    `${file.name}`,
+                    { type: file.type }
+                );
+
+                this.imageFiles.push({ file: compressedFile });
+                this.imageSrcs.push(compressedImgAsBase64Url);
             }
         }
+        this.compressionInProgress = false;
 
         this.imageFilesModified = true;
     }

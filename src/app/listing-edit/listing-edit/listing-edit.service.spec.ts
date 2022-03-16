@@ -2,7 +2,6 @@ import { TestBed } from "@angular/core/testing";
 import { collection, connectFirestoreEmulator, doc, Firestore, getDoc, getDocs, getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { connectStorageEmulator, FirebaseStorage, getStorage, provideStorage } from "@angular/fire/storage";
 import { MetadataService } from "src/app/shared/metadata.service";
-import { NgxImageCompressService } from "ngx-image-compress";
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { ListingEditService } from "./listing-edit.service";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
@@ -20,7 +19,6 @@ describe('Listing Upload Service', () => {
     let listingUpload: ListingUploadService;
     let listingEdit: ListingEditService;
     let metadata: MetadataService;
-    let imgCompress: NgxImageCompressService;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
@@ -45,15 +43,13 @@ describe('Listing Upload Service', () => {
                     return auth;
                 })],
             providers: [
-                MetadataService,
-                NgxImageCompressService
+                MetadataService
             ]
         });
 
         metadata = TestBed.inject(MetadataService);
-        imgCompress = TestBed.inject(NgxImageCompressService);
 
-        listingUpload = new ListingUploadService(firestore, storage, metadata, imgCompress);
+        listingUpload = new ListingUploadService(firestore, storage, metadata);
         listingEdit = new ListingEditService(firestore, storage);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
@@ -94,12 +90,12 @@ describe('Listing Upload Service', () => {
         const imageFilesWithRandomImgs: ListingImageFile[] = [];
         for (let i = 0; i < numOfImages; i++) {
             const result = await getFile(i);
-            imageFilesWithRandomImgs.push({ raw: result } as ListingImageFile);
+            imageFilesWithRandomImgs.push({ file: result } as ListingImageFile);
         }
 
         let imageHasSize = false;
         imageFilesWithRandomImgs.forEach(img => {
-            imageHasSize = imageHasSize || !!(img?.raw?.size);
+            imageHasSize = imageHasSize || !!(img?.file?.size);
         })
         expect(imageHasSize).toBe(true);
 

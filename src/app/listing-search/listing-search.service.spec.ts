@@ -7,7 +7,6 @@ import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/ap
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, SearchCriteria } from "../listing-search/listing-search.data";
 import { MetadataService } from "src/app/shared/metadata.service";
-import { NgxImageCompressService } from "ngx-image-compress";
 import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { ListingUploadService } from "../listing-edit/listing-upload/listing-upload.service";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -27,7 +26,6 @@ describe('Listing Search Service', () => {
     let listingEdit: ListingEditService;
 
     let metadata: MetadataService;
-    let imgCompress: NgxImageCompressService;
     let router: Router;
 
     beforeEach(async () => {
@@ -55,17 +53,15 @@ describe('Listing Search Service', () => {
                 })
             ],
             providers: [
-                MetadataService,
-                NgxImageCompressService
+                MetadataService
             ]
         });
         metadata = TestBed.inject(MetadataService);
-        imgCompress = TestBed.inject(NgxImageCompressService);
         router = TestBed.inject(Router);
 
         listingDetails = new ListingDetailsService(firestore, storage, router);
         listingSearch = new ListingSearchService(firestore, storage);
-        listingUpload = new ListingUploadService(firestore, storage, metadata, imgCompress);
+        listingUpload = new ListingUploadService(firestore, storage, metadata);
         listingEdit = new ListingEditService(firestore, storage);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')

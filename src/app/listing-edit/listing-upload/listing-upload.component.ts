@@ -5,6 +5,7 @@ import { MetadataService } from 'src/app/shared/metadata.service';
 import { Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
     selector: 'listing-upload',
@@ -23,6 +24,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     imageFiles: ListingImageFile[] = [];
     imageSrcs: string[] = [];
     imageFilesModified: boolean = false;
+    compressionInProgress: boolean = false;
 
     subs: Subscription = new Subscription();
     showSpinner: boolean = false;
@@ -32,6 +34,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     constructor(
         private snackbar: MatSnackBar,
         private metadata: MetadataService,
+        private imageCompress: NgxImageCompressService,
         public listingUploadService: ListingUploadService,
         private translate: TranslateService
     ) {
@@ -77,22 +80,30 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             return;
         }
 
+        this.compressionInProgress = true;
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
 
-            const newImageFile = {
-                raw: file
-            } as ListingImageFile;
-            this.imageFiles.push(newImageFile);
-
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => {
-                if (reader.result) {
-                    this.imageSrcs.push(reader.result as string)
-                }
+            reader.onload = async () => {
+                const compressedImgAsBase64Url =
+                    await this.imageCompress.compressFile(
+                        reader.result as string, DOC_ORIENTATION.Default,
+                        100, 75, 1920, 1080);
+                const response = await fetch(compressedImgAsBase64Url);
+                const data = await response.blob();
+                const compressedFile = new File(
+                    [data],
+                    `${file.name}`,
+                    { type: file.type }
+                );
+
+                this.imageFiles.push({ file: compressedFile });
+                this.imageSrcs.push(compressedImgAsBase64Url);
             }
         }
+        this.compressionInProgress = false;
 
         this.imageFilesModified = true;
     }

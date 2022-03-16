@@ -105,7 +105,9 @@
             </div>
         </div>
     </div>
-    <div class="row image-container" *ngIf="imageSrcs?.length">
+    <div class="row image-container">
+        <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
+
         <div class="col-3 d-inline" *ngFor="let imgSrc of imageSrcs">
             <img [src]="imgSrc" class="listing-image">
             <button mat-button (click)="removeImage(imgSrc)">

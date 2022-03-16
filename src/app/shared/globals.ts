@@ -21,8 +21,3 @@ export const firebaseConfig = Object.freeze({
     appId: "1:361764945676:web:aa972f9208ba750e591329",
     measurementId: "G-WQK0ZD96R3"
 });
-
-export const ImageFileVersion = Object.freeze({
-    compressed: 'compressed',
-    raw: 'raw'
-});

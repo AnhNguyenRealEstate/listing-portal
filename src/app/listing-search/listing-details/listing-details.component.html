@@ -1,5 +1,5 @@
 <section class="container d-none d-md-block listing-details-desktop">
-    <mat-spinner *ngIf="!listing.location">
+    <mat-spinner class="pt-4" *ngIf="!listing.location">
     </mat-spinner>
     <div *ngIf="listing.location">
         <div class="row">
@@ -78,14 +78,14 @@
 </section>
 
 <section class="container d-md-none listing-details-mobile" style="height: 90vh">
-    <mat-spinner *ngIf="!listing.location">
+    <mat-spinner class="pt-4" *ngIf="!listing.location">
     </mat-spinner>
 
     <div *ngIf="listing.location">
         <div class="d-flex justify-content-between" style="vertical-align: middle;">
             <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency}} |
-                <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
-                <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
+                <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</ng-container>
+                <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</ng-container>
             </span>
         </div>
         <hr>
@@ -146,4 +146,4 @@
     </div>
 </section>
 
-<app-footer></app-footer>
+<app-footer *ngIf="!listing.location"></app-footer>
