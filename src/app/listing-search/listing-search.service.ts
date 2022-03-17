@@ -24,22 +24,9 @@ export class ListingSearchService {
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
             let q = query(ref, where('purpose', '==', criteria.purpose));
 
-            if (criteria.bathrooms) {
-                if (criteria.bathrooms === '3+') {
-                    q = query(q, where('bathrooms', '>=', 3));
-                } else {
-                    q = query(q, where('bathrooms', '==', Number(criteria.bathrooms)));
-                }
-            }
-            if (criteria.bedrooms) {
-                if (criteria.bedrooms === '3+') {
-                    q = query(q, where('bedrooms', '>=', 3));
-                } else {
-                    q = query(q, where('bedrooms', '==', Number(criteria.bedrooms)));
-                }
-            }
             if (criteria.location) q = query(q, where('location', '==', criteria.location));
             if (criteria.category) q = query(q, where('category', '==', criteria.category));
+
             return q as Query<DocumentData>;
         }
 
@@ -77,18 +64,43 @@ export class ListingSearchService {
             const listing = doc.data() as Listing;
 
             // Range queries to be done here as Firestore does not allow it
+            // Filter by property size
             if (
                 listing.propertySize! > maxSize ||
                 listing.propertySize! < minSize) {
                 continue;
             }
 
+            // Filter by max and min prices
             const maxPrice = searchCriteria.maxPrice || Number.POSITIVE_INFINITY;
             if (
                 listing.price! > maxPrice ||
                 listing.price! < searchCriteria.minPrice) {
                 continue;
             }
+
+            // Filter by bathrooms
+            if (searchCriteria.bathrooms === "3+") {
+                if (Number(listing.bathrooms) <= 3) {
+                    continue;
+                }
+            } else {
+                if (Number(searchCriteria.bathrooms) != listing.bathrooms!) {
+                    continue;
+                }
+            }
+
+            // Filter by bedrooms
+            if (searchCriteria.bedrooms === "3+") {
+                if (Number(listing.bedrooms) <= 3) {
+                    continue;
+                }
+            } else {
+                if (Number(searchCriteria.bedrooms) != listing.bedrooms!) {
+                    continue;
+                }
+            }
+
 
             listing.id = doc.id;
 

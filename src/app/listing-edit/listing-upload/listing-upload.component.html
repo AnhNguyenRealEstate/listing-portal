@@ -67,7 +67,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.view' | translate }}</mat-label>
                 <input matInput type="text" [(ngModel)]="listing.view" class="d-inline" id="propertyView"
-                placeholder="Sông, nội khu...">
+                    placeholder="Sông, nội khu...">
             </mat-form-field>
         </div>
         <div class="col-6">
@@ -100,21 +100,24 @@
     <div class="row">
         <div class="col">
             <mat-label>{{ 'listing_upload.description' | translate }}</mat-label>
-            <div class="mat-form-field-wrapper">
+            <div class="pt-2 mat-form-field-wrapper">
                 <app-editor [listing]="listing"></app-editor>
             </div>
         </div>
     </div>
     <div class="row image-container">
-        <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
-        <ng-container *ngIf="!compressionInProgress">
-            <div class="col-3 d-inline" *ngFor="let imgSrc of imageSrcs">
-                <img [src]="imgSrc" class="listing-image">
-                <button mat-button (click)="removeImage(imgSrc)">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </ng-container>
+        <mat-label>{{ 'listing_upload.media_to_upload' | translate }}</mat-label>
+        <div class="pt-2 mat-form-field-wrapper">
+            <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
+            <ng-container *ngIf="!compressionInProgress">
+                <div class="col-3 d-inline" *ngFor="let imgSrc of imageSrcs">
+                    <img [src]="imgSrc" class="listing-image">
+                    <button mat-icon-button color="accent" (click)="removeImage(imgSrc)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
     </div>
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">

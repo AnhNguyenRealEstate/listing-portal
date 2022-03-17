@@ -113,7 +113,8 @@
         "dismiss_msg": "Tắt",
         "edit_listing": "Sửa thông tin",
         "upload_new": "Đăng mới",
-        "contact_number": "SĐT liên lạc"
+        "contact_number": "SĐT liên lạc",
+        "media_to_upload": "Hình ảnh đính kèm"
     },
     "login": {
         "page_title": "Đăng nhập",

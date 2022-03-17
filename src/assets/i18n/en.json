@@ -114,7 +114,8 @@
         "dismiss_msg": "Dismiss",
         "edit_listing": "Edit listing",
         "upload_new": "Upload new listing",
-        "contact_number": "Contact number"
+        "contact_number": "Contact number",
+        "media_to_upload": "Media attachments"
     },
     "login": {
         "page_title": "Login",

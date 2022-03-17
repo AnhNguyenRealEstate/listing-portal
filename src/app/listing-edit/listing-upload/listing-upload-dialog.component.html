@@ -104,15 +104,18 @@
         </div>
     </div>
     <div class="row image-container">
-        <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
-        <ng-container *ngIf="!compressionInProgress">
-            <div class="col-12" *ngFor="let imgSrc of imageSrcs">
-                <img [src]="imgSrc" class="listing-image">
-                <button mat-button (click)="removeImage(imgSrc)">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-        </ng-container>
+        <mat-label>{{ 'listing_upload.media_to_upload' | translate }}</mat-label>
+        <div class="pt-2 mat-form-field-wrapper">
+            <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
+            <ng-container *ngIf="!compressionInProgress">
+                <div class="col-12" *ngFor="let imgSrc of imageSrcs">
+                    <img [src]="imgSrc" class="listing-image">
+                    <button mat-icon-button color="accent" (click)="removeImage(imgSrc)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
     </div>
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">
