@@ -84,7 +84,7 @@ export class ListingSearchService {
                 if (Number(listing.bathrooms) <= 3) {
                     continue;
                 }
-            } else {
+            } else if (searchCriteria.bathrooms) {
                 if (Number(searchCriteria.bathrooms) != listing.bathrooms!) {
                     continue;
                 }
@@ -95,7 +95,7 @@ export class ListingSearchService {
                 if (Number(listing.bedrooms) <= 3) {
                     continue;
                 }
-            } else {
+            } else if (searchCriteria.bedrooms) {
                 if (Number(searchCriteria.bedrooms) != listing.bedrooms!) {
                     continue;
                 }
