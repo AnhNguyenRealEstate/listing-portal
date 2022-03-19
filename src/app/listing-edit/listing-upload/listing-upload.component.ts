@@ -62,14 +62,18 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     async ngOnChanges(changes: SimpleChanges) {
         if (changes.listing && changes.listing.currentValue) {
             this.showSpinner = true;
-            
+
             await this.listingUploadService.getListingImages(
                 this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
             );
 
-            const result = await this.listingUploadService.getListingCoverImage(this.listing.coverImagePath!);
-            this.coverImageFile = result.file as File;
-            this.coverImageSrc = result.src as string;
+            this.coverImageFile = await this.listingUploadService.getListingCoverImage(this.listing.coverImagePath!);
+
+            const reader = new FileReader();
+            reader.readAsDataURL(this.coverImageFile);
+            reader.onloadend = () => {
+                this.coverImageSrc = reader.result as string;
+            }
 
             this.showSpinner = false;
         }

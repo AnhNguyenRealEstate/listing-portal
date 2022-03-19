@@ -108,7 +108,7 @@ export class ListingUploadService {
         this.inProgress$$.next(false);
     }
 
-    async getListingCoverImage(coverImagePath: string): Promise<any> {
+    async getListingCoverImage(coverImagePath: string): Promise<File> {
         async function getFile(url: string) {
             const response = await fetch(url);
             const data = await response.blob();
@@ -120,19 +120,11 @@ export class ListingUploadService {
             return new File([data], `${FirebaseStorageConsts.coverImage}.${fileExtension}`, metadata);
         }
 
-        const result = {} as any;
-
-        result.file = await getFile(
+        const file = await getFile(
             await getDownloadURL(ref(this.storage, coverImagePath))
         );
 
-        const reader = new FileReader();
-        reader.readAsDataURL(result.file);
-        reader.onloadend = () => {
-            result.src = reader.result as string;
-        }
-
-        return result;
+        return file;
     }
 
     /**
