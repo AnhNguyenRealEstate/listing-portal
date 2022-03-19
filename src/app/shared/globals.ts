@@ -3,9 +3,10 @@ export const FirestoreCollections = Object.freeze({
     listings: 'listings'
 });
 
-export const FirebaseStorageFolders = Object.freeze({
+export const FirebaseStorageConsts = Object.freeze({
     listings: 'listings',
-    listingImgsVideos: 'images-videos'
+    listingImgsVideos: 'images-videos',
+    coverImage: 'cover-image'
 });
 
 export const FirestoreDocs = Object.freeze({

@@ -3,7 +3,7 @@ import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/fir
 import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
-import { FirebaseStorageFolders, FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
+import { FirebaseStorageConsts, FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
@@ -31,12 +31,12 @@ export class ListingUploadService {
     
     Images must be stored first because in case of interruption, there won't be a null pointer 
     for fireStoragePath in the newly-created listing */
-    async publishListing(listing: Listing, imageFiles: ListingImageFile[]): Promise<string> {
+    async publishListing(listing: Listing, imageFiles: ListingImageFile[], coverImageFile: File): Promise<string> {
         function createStoragePath(listing: Listing) {
             const date = new Date();
             const imageFolderName =
                 `${listing.location}-${date.getMonth()}${date.getDate()}-${Math.random() * 1000000}`;
-            return `${FirebaseStorageFolders.listings}/${imageFolderName}`;
+            return `${FirebaseStorageConsts.listings}/${imageFolderName}`;
         }
 
         this.inProgress$$.next(true);
@@ -44,6 +44,7 @@ export class ListingUploadService {
         const fireStoragePath = createStoragePath(listing);
         listing.fireStoragePath = fireStoragePath;
 
+        await this.storeCoverImage(coverImageFile, fireStoragePath);
         await this.storeListingImages(imageFiles, fireStoragePath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
@@ -55,7 +56,14 @@ export class ListingUploadService {
 
     /**  Save any changes made to the listing and its images
     */
-    async saveEdit(listing: Listing, dbReferenceId: string, imageFiles: ListingImageFile[], updateImages: boolean) {
+    async saveEdit(
+        listing: Listing,
+        dbReferenceId: string,
+        imageFiles: ListingImageFile[],
+        updateImages: boolean,
+        coverImageFile: File,
+        updateCoverImage: boolean) {
+
         this.inProgress$$.next(true);
 
         if (updateImages) {
@@ -64,7 +72,7 @@ export class ListingUploadService {
              * If the length of imageFiles is shorter than the amount of files on db, remove the old/extra images
              * Update the listing's attributes
              */
-            const imageFolderRef = ref(this.storage, `${listing.fireStoragePath!}/${FirebaseStorageFolders.listingImgsVideos}`);
+            const imageFolderRef = ref(this.storage, `${listing.fireStoragePath!}/${FirebaseStorageConsts.listingImgsVideos}`);
             const numOfImagesOnStorage = (await listAll(imageFolderRef)).items.length;
             const numOfImagesUploaded = imageFiles.length;
 
@@ -89,11 +97,42 @@ export class ListingUploadService {
             }
         }
 
+        if (updateCoverImage) {
+            await this.storeCoverImage(coverImageFile, listing.fireStoragePath!);
+        }
+
         await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { ...listing });
 
         await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
 
         this.inProgress$$.next(false);
+    }
+
+    async getListingCoverImage(coverImagePath: string): Promise<any> {
+        async function getFile(url: string) {
+            const response = await fetch(url);
+            const data = await response.blob();
+            const contentType = response.headers.get('content-type') || '';
+            const metadata = {
+                type: contentType
+            };
+            const fileExtension = contentType.split('/').pop() || '';
+            return new File([data], `${FirebaseStorageConsts.coverImage}.${fileExtension}`, metadata);
+        }
+
+        const result = {} as any;
+
+        result.file = await getFile(
+            await getDownloadURL(ref(this.storage, coverImagePath))
+        );
+
+        const reader = new FileReader();
+        reader.readAsDataURL(result.file);
+        reader.onloadend = () => {
+            result.src = reader.result as string;
+        }
+
+        return result;
     }
 
     /**
@@ -126,7 +165,7 @@ export class ListingUploadService {
             }
         }
 
-        const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`;
+        const imageStoragePath = `${storagePath}/${FirebaseStorageConsts.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).items;
         allImages.sort((a, b) => {
             if (Number(a.name) > Number(b.name)) return 1;
@@ -171,7 +210,7 @@ export class ListingUploadService {
         if (environment.test) return;
 
         await Promise.all(imageFiles.map(async (file, index) => {
-            const imgsAndVideosPath = `${fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}/${index}`;
+            const imgsAndVideosPath = `${fireStoragePath}/${FirebaseStorageConsts.listingImgsVideos}/${index}`;
             await Promise.all([
                 uploadBytes(
                     ref(
@@ -183,6 +222,21 @@ export class ListingUploadService {
                 ).catch()
             ]);
         }));
+    }
+
+    private async storeCoverImage(coverImageFile: File, storagePath: string) {
+        if (environment.test) {
+            return;
+        }
+        
+        const coverImagePath = `${storagePath}/${FirebaseStorageConsts.coverImage}`;
+        await uploadBytes(
+            ref(
+                this.storage,
+                `${coverImagePath}`
+            ),
+            coverImageFile
+        ).catch();
     }
 
     /**

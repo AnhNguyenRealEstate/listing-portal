@@ -14,8 +14,8 @@
                     <mat-card-content>
                         <div class="row">
                             <div class="col-6">
-                                <img *ngIf="listing.coverImage" class="result-preview-img-mobile"
-                                    [src]="listing.coverImage">
+                                <img *ngIf="listing.coverImagePath" class="result-preview-img-mobile"
+                                    [src]="listing.coverImagePath">
                             </div>
                             <div class="col-6">
                                 <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
@@ -127,8 +127,8 @@
                     <mat-card-content>
                         <div class="row">
                             <div class="col-6">
-                                <img *ngIf="listing.coverImage" class="result-preview-img-mobile"
-                                    [src]="listing.coverImage">
+                                <img *ngIf="listing.coverImagePath" class="result-preview-img-mobile"
+                                    [src]="listing.coverImagePath">
                                 <div class="d-flex justify-content-center">
                                     <button mat-icon-button color="default" *ngIf="!listing.archived"
                                         (click)="archiveListing($event, i)">

@@ -5,7 +5,7 @@ import { ListingSearchService } from "./listing-search.service"
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
-import { Listing, SearchCriteria } from "../listing-search/listing-search.data";
+import { Listing, ListingImageFile, SearchCriteria } from "../listing-search/listing-search.data";
 import { MetadataService } from "src/app/shared/metadata.service";
 import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { ListingUploadService } from "../listing-edit/listing-upload/listing-upload.service";
@@ -75,6 +75,12 @@ describe('Listing Search Service', () => {
         search through them with criterias,
         and remove mock listings`, async () => {
 
+        async function getFile(index: number) {
+            const response = await fetch(`test-assets/listing-upload-test-files/${index}.jpg`);
+            const blob = await response.blob();
+            return new File([blob], `${index}.jpg`, { type: blob.type });
+        };
+
         function generateRandomListing(index: number): Listing {
             return {
                 category: 'Apartment',
@@ -99,6 +105,19 @@ describe('Listing Search Service', () => {
         criteria.category = '';
         criteria.purpose = 'For Rent';
 
+        const numOfImages = 10;
+        const imageFilesWithRandomImgs: ListingImageFile[] = [];
+        for (let i = 0; i < numOfImages; i++) {
+            const result = await getFile(i);
+            imageFilesWithRandomImgs.push({ file: result } as ListingImageFile);
+        }
+
+        let imageHasSize = false;
+        imageFilesWithRandomImgs.forEach(img => {
+            imageHasSize = imageHasSize || !!(img?.file?.size);
+        })
+        expect(imageHasSize).toBe(true);
+
         const numOfListings = 30;
         const listings: Listing[] = [];
         for (let i = 0; i < numOfListings; i++) {
@@ -106,7 +125,7 @@ describe('Listing Search Service', () => {
         }
 
         const dbRefIDsOfListings = await Promise.all(listings.map(async listing => {
-            return await listingUpload.publishListing(listing, []);
+            return await listingUpload.publishListing(listing, [], imageFilesWithRandomImgs[0].file);
         }));
 
         expect(dbRefIDsOfListings.join('').length).toBeTruthy();

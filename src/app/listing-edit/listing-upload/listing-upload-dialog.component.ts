@@ -29,6 +29,10 @@ export class ListingUploadDialogComponent implements OnInit {
     imageFilesModified: boolean = false;
     compressionInProgress: boolean = false;
 
+    coverImageFile: File | undefined = undefined;
+    coverImageSrc: string | undefined = undefined;
+    coverImageModified: boolean = false;
+
     subs: Subscription = new Subscription();
 
     snackbarMsgs!: any;
@@ -62,7 +66,15 @@ export class ListingUploadDialogComponent implements OnInit {
 
         if (this.listing.fireStoragePath) {
             this.showSpinner = true;
-            await this.listingUploadService.getListingImages(this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles);
+            
+            await this.listingUploadService.getListingImages(
+                this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
+            );
+
+            const result = await this.listingUploadService.getListingCoverImage(this.listing.coverImagePath!);
+            this.coverImageFile = result.file as File;
+            this.coverImageSrc = result.src as string;
+
             this.showSpinner = false;
         }
     }
@@ -80,7 +92,7 @@ export class ListingUploadDialogComponent implements OnInit {
         }
     }
 
-    handleImageInput(event: any) {
+    onMediaUpload(event: any) {
         const files = (event.target.files as FileList);
         if (files.length === 0) {
             return;
@@ -118,7 +130,7 @@ export class ListingUploadDialogComponent implements OnInit {
         this.imageFilesModified = true;
     }
 
-    removeImage(imgSrc: string) {
+    removeUploadedMedia(imgSrc: string) {
         this.imageSrcs.forEach((src, index) => {
             if (src === imgSrc) {
                 this.imageSrcs.splice(index, 1);
@@ -127,6 +139,44 @@ export class ListingUploadDialogComponent implements OnInit {
         });
 
         this.imageFilesModified = true;
+    }
+
+    onCoverImageUpload(event: any) {
+        const files = (event.target.files as FileList);
+        if (files.length === 0) {
+            return;
+        }
+
+        const file = files.item(0)!;
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = async () => {
+            const compressedImgAsBase64Url =
+                await this.imageCompress.compressFile(
+                    reader.result as string, DOC_ORIENTATION.Default,
+                    100, 75, 1920, 1080);
+            const response = await fetch(compressedImgAsBase64Url);
+            const data = await response.blob();
+            const compressedFile = new File(
+                [data],
+                `${file.name}`,
+                { type: file.type }
+            );
+
+            this.coverImageFile = compressedFile;
+            this.coverImageSrc =
+                this.sanitizer.sanitize(
+                    SecurityContext.RESOURCE_URL,
+                    this.sanitizer.bypassSecurityTrustResourceUrl(compressedImgAsBase64Url))!;
+        }
+
+        this.coverImageModified = true;
+    }
+
+    removeCoverImage() {
+        this.coverImageFile = undefined;
+        this.coverImageSrc = undefined;
+        this.coverImageModified = true;
     }
 
     async publishListing() {
@@ -141,7 +191,7 @@ export class ListingUploadDialogComponent implements OnInit {
             return;
         }
 
-        await this.listingUploadService.publishListing(this.listing, this.imageFiles);
+        await this.listingUploadService.publishListing(this.listing, this.imageFiles, this.coverImageFile!);
 
         this.listing = {} as Listing;
         this.imageFiles = [];
@@ -168,7 +218,12 @@ export class ListingUploadDialogComponent implements OnInit {
             return;
         }
 
-        await this.listingUploadService.saveEdit(this.listing, this.dbReferenceId, this.imageFiles, this.imageFilesModified);
+        await this.listingUploadService.saveEdit(
+            this.listing,
+            this.dbReferenceId,
+            this.imageFiles, this.imageFilesModified,
+            this.coverImageFile!, this.coverImageModified
+        );
 
         this.imageFilesModified = false;
         this.snackbar.open(
@@ -189,7 +244,8 @@ export class ListingUploadDialogComponent implements OnInit {
             && !isNaN(Number(listing.price))
             && listing.currency?.length
             && listing.description?.length
-            && this.imageFiles.length) {
+            && this.imageFiles.length
+            && this.coverImageFile) {
             return true;
         }
         return false;

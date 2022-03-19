@@ -30,8 +30,8 @@
                             <hr>
                             <div class="row">
                                 <div class="col-6">
-                                    <img height="200px" width="200px" *ngIf="result.coverImage"
-                                        [src]="result.coverImage">
+                                    <img height="120px" width="200px" *ngIf="result.coverImagePath"
+                                        [src]="result.coverImagePath">
                                 </div>
                                 <div class="col-6">
                                     <div *ngIf="result.category && result.location">
@@ -89,8 +89,8 @@
                         <mat-card-content>
                             <div class="row">
                                 <div class="col-6">
-                                    <img *ngIf="result.coverImage" class="result-preview-img-mobile"
-                                        [src]="result.coverImage">
+                                    <img *ngIf="result.coverImagePath" class="result-preview-img-mobile"
+                                        [src]="result.coverImagePath">
                                 </div>
                                 <div class="col-6">
                                     <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>

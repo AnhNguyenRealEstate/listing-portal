@@ -2,7 +2,7 @@ export interface Listing {
     id?: string // auto-generated Firebase Id
     title?: string
     description?: string
-    coverImage?: string // Download url or data url, input for img.src
+    coverImagePath?: string,
     fireStoragePath?: string
     images?: ListingImageFile[]
     imageSources?: string[]

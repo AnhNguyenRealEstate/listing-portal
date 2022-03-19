@@ -101,7 +101,7 @@ describe('Listing Upload Service', () => {
         })
         expect(imageHasSize).toBe(true);
 
-        let testDocId = await listingUpload.publishListing(listing, imageFilesWithRandomImgs);
+        let testDocId = await listingUpload.publishListing(listing, imageFilesWithRandomImgs, imageFilesWithRandomImgs[0].file);
         expect(testDocId).toBeTruthy();
 
         // Check if the data is all there

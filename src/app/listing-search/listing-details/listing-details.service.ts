@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { getDownloadURL, listAll, ref, Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import { FirebaseStorageFolders, FirestoreCollections } from 'src/app/shared/globals';
+import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { Listing } from '../listing-search.data';
 
@@ -49,7 +49,7 @@ export class ListingDetailsService {
 
         const storagePath = listing.fireStoragePath!;
 
-        const imageStoragePath = `${storagePath}/${FirebaseStorageFolders.listingImgsVideos}`;
+        const imageStoragePath = `${storagePath}/${FirebaseStorageConsts.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).items;
         allImages.sort((a, b) => {
             if (Number(a.name) > Number(b.name)) return 1;

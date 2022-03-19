@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, deleteDoc, updateDoc, doc, collection } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
-import { FirebaseStorageFolders, FirestoreCollections } from 'src/app/shared/globals';
+import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { Listing } from '../../listing-search/listing-search.data';
 
@@ -25,7 +25,7 @@ export class ListingEditService {
         this.deleteInProgress$$.next(true);
 
         if (!environment.test) {
-            const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageFolders.listingImgsVideos}`
+            const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.listingImgsVideos}`
             const allImages = (await listAll(ref(this.storage, imgsVideosStoragePath))).items;
             await Promise.all(allImages.map(async image => {
                 await deleteObject(ref(image))
