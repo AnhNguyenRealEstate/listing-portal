@@ -115,7 +115,8 @@
         "edit_listing": "Edit listing",
         "upload_new": "Upload new listing",
         "contact_number": "Contact number",
-        "media_to_upload": "Media attachments"
+        "media_to_upload": "Media attachments",
+        "cover_image": "Cover image"
     },
     "login": {
         "page_title": "Login",

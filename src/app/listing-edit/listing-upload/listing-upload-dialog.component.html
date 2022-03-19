@@ -105,7 +105,7 @@
     </div>
     <hr>
     <div>
-        <mat-label class="pe-2">Cover image</mat-label>
+        <mat-label class="pe-2">{{ 'listing_upload.cover_image' | translate }}</mat-label>
         <input #coverImageInput hidden="true" type="file" accept="image/*" onclick="this.value=null"
             (change)="onCoverImageUpload($event)" />
         <button *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
