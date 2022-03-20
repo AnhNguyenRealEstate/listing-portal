@@ -63,7 +63,7 @@
     "karma-jasmine": "~4.0.1",
     "karma-jasmine-html-reporter": "^1.7.0",
     "ng-image-slider": "^2.8.0",
-    "ngx-page-scroll-core": "^7.0.4",
+    "ngx-page-scroll-core": "^8.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
