@@ -200,6 +200,9 @@ export class ListingUploadDialogComponent implements OnInit {
         this.listing = {} as Listing;
         this.imageFiles = [];
         this.imageSrcs = [];
+        this.coverImageFile = undefined;
+        this.coverImageSrc = undefined;
+        
 
         this.snackbar.open(
             this.snackbarMsgs['listing_upload.listing_published_msg'],

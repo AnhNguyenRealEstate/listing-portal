@@ -196,6 +196,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.listing = {} as Listing;
         this.imageFiles = [];
         this.imageSrcs = [];
+        this.coverImageFile = undefined;
+        this.coverImageSrc = undefined;
 
         this.snackbar.open(
             this.snackbarMsgs['listing_upload.listing_published_msg'],

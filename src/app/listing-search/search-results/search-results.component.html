@@ -30,7 +30,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-6">
-                                    <img height="120px" width="200px" *ngIf="result.coverImagePath"
+                                    <img class="result-preview-img" *ngIf="result.coverImagePath"
                                         [src]="result.coverImagePath">
                                 </div>
                                 <div class="col-6">
@@ -89,7 +89,7 @@
                         <mat-card-content>
                             <div class="row">
                                 <div class="col-6">
-                                    <img *ngIf="result.coverImagePath" class="result-preview-img-mobile"
+                                    <img *ngIf="result.coverImagePath" class="result-preview-img"
                                         [src]="result.coverImagePath">
                                 </div>
                                 <div class="col-6">

@@ -30,6 +30,9 @@ export class ListingEditService {
             await Promise.all(allImages.map(async image => {
                 await deleteObject(ref(image))
             }));
+
+            const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`
+            await deleteObject(ref(this.storage, coverImagePath));
         }
 
         await deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));
