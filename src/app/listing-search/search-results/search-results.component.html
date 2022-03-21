@@ -3,7 +3,7 @@
         <div class="search-results-desktop row">
             <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
-            <div *ngIf="!(listingSearchService.searchInProgress() | async)">
+            <ng-container *ngIf="!(listingSearchService.searchInProgress() | async)">
                 <div *ngIf="searchResults.length === 0">
                     <div class="d-flex justify-content-center no-result-icon">
                         <mat-icon [inline]="true">search_off</mat-icon>
@@ -63,7 +63,7 @@
                         </mat-card-content>
                     </mat-card>
                 </div>
-            </div>
+            </ng-container>
         </div>
     </section>
 </ng-container>
