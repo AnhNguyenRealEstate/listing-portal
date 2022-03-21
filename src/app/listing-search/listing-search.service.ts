@@ -58,6 +58,7 @@ export class ListingSearchService {
         const minSize = minMaxSizes[0];
         const maxSize = minMaxSizes[1];
 
+        //TODO: map reduce?
         const docs = dbResponse.docs;
         for (let i = 0; i < docs.length; i++) {
             const doc = docs[i];
@@ -106,8 +107,11 @@ export class ListingSearchService {
 
             if (!environment.test) {
                 if (listing.fireStoragePath) {
-                    listing.coverImagePath = await getDownloadURL(
-                        ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`));
+                    getDownloadURL(
+                        ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`)
+                    ).then(url => {
+                        listing.coverImagePath = url;
+                    });
                 }
             }
 
