@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       route.data.subscribe(async data => {
         const title = data.title;
         if (title) {
+          this.appTitle = await this.translate.get('app_title').toPromise();
           const translatedTitle = await this.translate.get(title).toPromise();
           this.titleService.setTitle(`${this.appTitle} | ${translatedTitle}`);
         }
@@ -48,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
- async ngAfterViewInit() {
+  async ngAfterViewInit() {
     this.appTitle = await this.translate.get('app_title').toPromise();
     this.titleService.setTitle(this.appTitle);
   }
