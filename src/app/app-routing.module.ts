@@ -22,6 +22,14 @@ const routes: Routes = [
     data: { authGuardPipe: () => redirectUnauthorizedTo(['/']) }
   },
   {
+    path: 'employee-reporting',
+    loadChildren: () => import('./employee-reporting/employee-reporting.module').then(mod => mod.EmployeeReportingModule),
+    canActivate: [
+      AuthGuard
+    ],
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['/']) }
+  },
+  {
     path: 'about-us',
     component: AboutUsComponent
   }

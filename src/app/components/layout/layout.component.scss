@@ -55,3 +55,7 @@ mat-sidenav-content {
         width: 30vw !important;
     }
 }
+
+::ng-deep .mat-menu-employee {
+    background-color: colors.$primary;
+}

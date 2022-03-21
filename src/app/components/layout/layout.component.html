@@ -7,14 +7,26 @@
 
     <div class="d-none d-md-flex">
         <a class="ps-3" mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
-        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">{{ 'layout.edit_listings' | translate }}</a>
+
         <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
+
+        <div *ngIf="loggedIn">
+            <button mat-button [matMenuTriggerFor]="loggedInFunctions">
+                {{ 'layout.employee' | translate }}
+            </button>
+            <mat-menu #loggedInFunctions="matMenu" class="mat-menu-employee">
+                <a mat-menu-item [routerLink]="['/listing-edit']">{{ 'layout.edit_listings' | translate }}</a>
+                <a mat-menu-item [routerLink]="['/employee-reporting']">{{ 'layout.reporting' | translate }}</a>
+            </mat-menu>
+        </div>
+
+        <a mat-button *ngIf="loggedIn" (click)="logout()">
+            {{ 'layout.sign_out' | translate }}
+        </a>
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
             {{ 'layout.sign_in' | translate }}
         </a>
-        <a *ngIf="loggedIn" mat-button (click)="logout()">
-            {{ 'layout.sign_out' | translate }}
-        </a>
+
         <div class="language-toggle">
             <mat-icon>language</mat-icon>
             <mat-form-field>
@@ -47,14 +59,30 @@
             <mat-icon>view_list</mat-icon>
             <span class="ps-3">{{ 'layout.listings' | translate }}</span>
         </a>
-        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">
-            <mat-icon>edit</mat-icon>
-            <span class="ps-3">{{ 'layout.edit_listings' | translate }}</span>
-        </a>
+
         <a mat-button [routerLink]="['/about-us']">
             <mat-icon>real_estate_agent</mat-icon>
             <span class="ps-3">{{ 'layout.about_us' | translate }}</span>
         </a>
+
+        <div *ngIf="loggedIn">
+            <a mat-button [matMenuTriggerFor]="loggedInFunctions" href="javascript: void(0)"
+                (click)="$event.stopPropagation()">
+                <mat-icon>work</mat-icon>
+                <span class="ps-3">{{ 'layout.employee' | translate }}</span>
+            </a>
+            <mat-menu #loggedInFunctions="matMenu" class="mat-menu-employee">
+                <a mat-menu-item [routerLink]="['/listing-edit']">
+                    <mat-icon>edit</mat-icon>
+                    <span>{{ 'layout.edit_listings' | translate }}</span>
+                </a>
+                <a mat-menu-item [routerLink]="['/employee-reporting']">
+                    <mat-icon>assignment_ind</mat-icon>
+                    <span>{{ 'layout.reporting' | translate }}</span>
+                </a>
+            </mat-menu>
+        </div>
+
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
             <mat-icon>login</mat-icon>
             <span class="ps-3"> {{ 'layout.sign_in' | translate }}</span>

@@ -22,6 +22,8 @@ import { environment } from 'src/environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     HttpClientJsonpModule,
     SharedModule,
+    MatExpansionModule,
+    MatMenuModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
