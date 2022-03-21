@@ -1,4 +1,5 @@
 {
+    "app_title": "BĐS Anh Nguyễn",
     "generics.any": "Bất kỳ",
     "about_us": {
         "about_us": "Bất Động Sản Anh Nguyễn",
@@ -18,7 +19,7 @@
     },
     "layout": {
         "listings": "Sản phẩm",
-        "edit_listings": "Đăng/Sửa thông tin sản phẩm",
+        "edit_listings": "Đăng/Sửa sản phẩm",
         "about_us": "Liên lạc",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",

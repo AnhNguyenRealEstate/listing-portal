@@ -12,6 +12,7 @@ const routes: Routes = [
   {
     path: 'listings',
     loadChildren: () => import('./listing-search/listing-search.module').then(mod => mod.ListingSearchModule),
+    data: { title: 'layout.listings' }
   },
   {
     path: 'listing-edit',
@@ -19,11 +20,12 @@ const routes: Routes = [
     canActivate: [
       AuthGuard
     ],
-    data: { authGuardPipe: () => redirectUnauthorizedTo(['/']) }
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['/']), title: 'layout.edit_listings' }
   },
   {
     path: 'about-us',
-    component: AboutUsComponent
+    component: AboutUsComponent,
+    data: { title: 'layout.about_us' }
   }
 ];
 

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { filter } from 'rxjs/operators';
 import { SessionTimeoutService } from './components/session-timeout/session-timeout.service';
 
 @Component({
@@ -6,14 +10,46 @@ import { SessionTimeoutService } from './components/session-timeout/session-time
   template: `<app-layout></app-layout>`,
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'Anh Nguyen Real Estate Ltd';
+export class AppComponent implements OnInit, AfterViewInit {
+
+  appTitle = '';
 
   constructor(
-    private timeoutService: SessionTimeoutService) {
+    private timeoutService: SessionTimeoutService,
+    private translate: TranslateService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.timeoutService.setTimeout();
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+    ).subscribe(() => {
+
+      function getChild(activatedRoute: ActivatedRoute): ActivatedRoute {
+        if (activatedRoute.firstChild) {
+          return getChild(activatedRoute.firstChild);
+        } else {
+          return activatedRoute;
+        }
+      }
+
+      var route = getChild(this.activatedRoute)
+      route.data.subscribe(async data => {
+        const title = data.title;
+        if (title) {
+          const translatedTitle = await this.translate.get(title).toPromise();
+          this.titleService.setTitle(`${this.appTitle} | ${translatedTitle}`);
+        }
+      })
+    });
+  }
+
+ async ngAfterViewInit() {
+    this.appTitle = await this.translate.get('app_title').toPromise();
+    this.titleService.setTitle(this.appTitle);
   }
 }
