@@ -165,8 +165,8 @@ export class ListingUploadService {
             return 0;
         });
 
-        imageSrcs.push(...new Array<string>(allImages.length));
-        imageFiles.push(...new Array<ListingImageFile>(allImages.length));
+        imageSrcs = new Array<string>(allImages.length);
+        imageFiles = new Array<ListingImageFile>(allImages.length);
 
         if (!environment.production) {
             getMockFiles(imageFiles, imageSrcs);
