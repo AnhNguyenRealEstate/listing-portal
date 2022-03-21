@@ -63,6 +63,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         if (changes.listing && changes.listing.currentValue) {
             this.showSpinner = true;
 
+            this.imageFiles = [];
+            this.imageSrcs = [];
             await this.listingUploadService.getListingImages(
                 this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
             );

@@ -66,7 +66,9 @@ export class ListingUploadDialogComponent implements OnInit {
 
         if (this.listing.fireStoragePath) {
             this.showSpinner = true;
-            
+
+            this.imageFiles = [];
+            this.imageSrcs = [];
             await this.listingUploadService.getListingImages(
                 this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
             );
