@@ -12,6 +12,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     }),
     GoogleMapsModule,
     MatExpansionModule,
-    NgxUsefulSwiperModule
+    NgxUsefulSwiperModule,
+    NgxMaskModule.forChild()
   ],
   exports: [
     SearchBarComponent,

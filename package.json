@@ -38,6 +38,7 @@
     "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
     "ngx-image-compress": "^13.1.9",
+    "ngx-mask": "^13.1.1",
     "ngx-translate": "github:ngx-translate/core",
     "ngx-useful-swiper": "^10.0.1",
     "rxjs": "~6.6.0",

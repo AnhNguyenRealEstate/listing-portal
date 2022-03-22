@@ -7,6 +7,7 @@ import { ListingUploadDialogComponent } from './listing-upload/listing-upload-di
 import { ListingEditRoutingModule } from './listing-edit-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     TranslateModule.forChild({
       extend: true
-    })
+    }),
+    NgxMaskModule.forChild()
   ],
   exports: [
     ListingUploadComponent,
