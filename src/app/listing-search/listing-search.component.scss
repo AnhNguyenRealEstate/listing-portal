@@ -13,8 +13,13 @@
   align-items: center;
 }
 
-.result-card-mobile {
+.result-card {
   background-color: white;
+
+  .result-card-address {
+    max-height: 20px;
+    overflow: hidden;
+  }
 }
 
 .float-controls-mobile {
