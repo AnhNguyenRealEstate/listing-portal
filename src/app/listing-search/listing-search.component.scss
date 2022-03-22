@@ -1,9 +1,7 @@
 @use "src/app/styles/colors" as colors;
 
 .search-results-desktop {
-  height: 600px;
-  overflow-y: scroll;
-  background-color: colors.$primary-light;
+  padding-bottom: 20px;
 }
 
 .carousel-thumbnail {
@@ -15,8 +13,13 @@
   align-items: center;
 }
 
-.result-card-mobile {
+.result-card {
   background-color: white;
+
+  .result-card-address {
+    max-height: 6em;
+    overflow: hidden;
+  }
 }
 
 .float-controls-mobile {
@@ -30,9 +33,9 @@
   }
 }
 
+.listing-search-desktop-section,
 .listing-search-mobile-section {
-  background-color: white;
-  height: 90vh;
+  height: 100vh;
 }
 
 .mat-dialog-container,

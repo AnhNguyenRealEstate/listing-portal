@@ -24,6 +24,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
 
 @NgModule({
   declarations: [
@@ -52,6 +58,7 @@ import { MatMenuModule } from '@angular/material/menu';
         deps: [HttpClient]
       }
     }),
+    NgxMaskModule.forRoot(maskConfig),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => {
       const firestore = getFirestore();

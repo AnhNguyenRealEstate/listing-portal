@@ -60,7 +60,7 @@
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
                 <input matInput type="text" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
-                    placeholder="Size..." required>
+                    placeholder="100, 200..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
@@ -74,7 +74,8 @@
             <div class="price-input-group">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.price' | translate }}</mat-label>
-                    <input matInput type="text" [(ngModel)]="listing.price" id="price" placeholder="0" required>
+                    <input matInput type="text" [(ngModel)]="listing.price" id="price" placeholder="0" required
+                    mask="separator" thousandSeparator=",">
                     <mat-select [(ngModel)]="listing.currency" required>
                         <mat-option value='USD'>US$</mat-option>
                         <mat-option value='VND'>đ</mat-option>
@@ -85,7 +86,8 @@
         <div class="col-6">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.contact_number' | translate }}</mat-label>
-                <input matInput id="contactNumber" type="text" [(ngModel)]="listing.contactNumber" class="d-inline">
+                <input matInput id="contactNumber" type="text" [(ngModel)]="listing.contactNumber" class="d-inline"
+                    mask="000 000 0000">
             </mat-form-field>
         </div>
     </div>

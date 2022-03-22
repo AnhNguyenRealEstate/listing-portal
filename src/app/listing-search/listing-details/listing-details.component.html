@@ -69,7 +69,7 @@
                 </p>
 
                 <label class="pt-2 text-bold">{{ 'listing_details.contact' | translate }}</label>
-                <p *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber">
+                <p *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
                 </p>
                 <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
             </div>
@@ -84,8 +84,10 @@
     <div *ngIf="listing.location">
         <div class="d-flex justify-content-between" style="vertical-align: middle;">
             <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency}} |
-                <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</ng-container>
-                <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</ng-container>
+                <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}
+                </ng-container>
+                <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}
+                </ng-container>
             </span>
         </div>
         <hr>
@@ -136,6 +138,11 @@
         <p *ngIf="listing.description" [innerHtml]="listing.description">
         </p>
 
+        <label class="pt-2 text-bold">{{ 'listing_details.contact' | translate }}</label>
+        <p *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+        </p>
+        <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
+
         <hr>
 
         <div class="d-flex justify-content-end">
@@ -145,5 +152,3 @@
         </div>
     </div>
 </section>
-
-<app-footer></app-footer>
