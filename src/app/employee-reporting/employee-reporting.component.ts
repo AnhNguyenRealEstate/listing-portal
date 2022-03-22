@@ -32,7 +32,7 @@ export class EmployeeReportingComponent implements OnInit {
                 for (let i = 0; i < snapshot.docs.length; i++) {
                     const doc: DocumentData = snapshot.docs[i];
                     const report = doc.data() as Report;
-                    report.id = doc.id; 
+                    report.id = doc.id;
 
                     if (this.auth.currentUser?.email === report.author) {
                         reports.push(report);
@@ -53,7 +53,15 @@ export class EmployeeReportingComponent implements OnInit {
 
     }
 
+    openReportUploadMpbile() {
+
+    }
+
     showSelected(report: Report) {
+
+    }
+
+    showSelectedAsDialog(report: Report) {
 
     }
 }
