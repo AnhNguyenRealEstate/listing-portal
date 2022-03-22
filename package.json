@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-prod": "ng build --configuration production --aot --outputHashing=all",
+    "preview-live": "npm run build-prod && firebase hosting:channel:deploy",
     "deploy": "npm run build-prod && firebase deploy --only hosting",
     "build-docker": "docker build -t listing-portal:latest \".\" ",
     "start-docker": "docker run -dp 3000:80 --name listing-portal -t listing-portal:latest",

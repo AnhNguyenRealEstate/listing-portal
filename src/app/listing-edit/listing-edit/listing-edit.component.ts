@@ -40,25 +40,27 @@ export class ListingEditComponent implements OnInit {
         private translate: TranslateService) { }
 
     async ngOnInit() {
-        this.snapshotCancel = onSnapshot(query(collection(this.firestore, FirestoreCollections.listings)), async snapshot => {
-            const listings: Listing[] = [];
-            this.dbReferences = [];
-            for (let i = 0; i < snapshot.docs.length; i++) {
-                const doc: DocumentData = snapshot.docs[i];
-                const listing = doc.data() as Listing;
+        this.snapshotCancel = onSnapshot(
+            query(collection(this.firestore, FirestoreCollections.listings)),
+            async snapshot => {
+                const listings: Listing[] = new Array<Listing>(snapshot.docs.length);
+                this.dbReferences = new Array<string>(snapshot.docs.length);
 
-                try {
-                    listing.coverImagePath = await getDownloadURL(
-                        ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`));
-                } catch (e) { console.log(e) }
-                finally {
-                    listings.push(listing);
-                    this.dbReferences.push(doc.id);
-                }
+                await Promise.all(snapshot.docs.map(async (doc, index) => {
+                    const listing = doc.data() as Listing;
+                    try {
+                        listing.coverImagePath = await getDownloadURL(
+                            ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`));
+                    } catch (e) { console.log(e) }
+                    finally {
+                        listings[index] = listing;
+                        this.dbReferences[index] = doc.id;
+                    }
+                }));
+
+                this.listings = listings;
             }
-
-            this.listings = listings;
-        });
+        );
 
         this.snackbarMsgs = await this.translate.get(
             ['listing_edit.delete_msg', 'listing_edit.dismiss_msg']

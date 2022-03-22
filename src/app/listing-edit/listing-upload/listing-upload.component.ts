@@ -63,6 +63,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         if (changes.listing && changes.listing.currentValue) {
             this.showSpinner = true;
 
+            this.imageFiles = [];
+            this.imageSrcs = [];
             await this.listingUploadService.getListingImages(
                 this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
             );
@@ -196,6 +198,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.listing = {} as Listing;
         this.imageFiles = [];
         this.imageSrcs = [];
+        this.coverImageFile = undefined;
+        this.coverImageSrc = undefined;
 
         this.snackbar.open(
             this.snackbarMsgs['listing_upload.listing_published_msg'],

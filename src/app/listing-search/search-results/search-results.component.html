@@ -3,7 +3,7 @@
         <div class="search-results-desktop row">
             <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
-            <div *ngIf="!(listingSearchService.searchInProgress() | async)">
+            <ng-container *ngIf="!(listingSearchService.searchInProgress() | async)">
                 <div *ngIf="searchResults.length === 0">
                     <div class="d-flex justify-content-center no-result-icon">
                         <mat-icon [inline]="true">search_off</mat-icon>
@@ -30,7 +30,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-6">
-                                    <img height="120px" width="200px" *ngIf="result.coverImagePath"
+                                    <img class="result-preview-img" *ngIf="result.coverImagePath"
                                         [src]="result.coverImagePath">
                                 </div>
                                 <div class="col-6">
@@ -63,7 +63,7 @@
                         </mat-card-content>
                     </mat-card>
                 </div>
-            </div>
+            </ng-container>
         </div>
     </section>
 </ng-container>
@@ -89,7 +89,7 @@
                         <mat-card-content>
                             <div class="row">
                                 <div class="col-6">
-                                    <img *ngIf="result.coverImagePath" class="result-preview-img-mobile"
+                                    <img *ngIf="result.coverImagePath" class="result-preview-img"
                                         [src]="result.coverImagePath">
                                 </div>
                                 <div class="col-6">
