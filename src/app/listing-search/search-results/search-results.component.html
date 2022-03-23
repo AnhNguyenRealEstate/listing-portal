@@ -78,17 +78,23 @@
                     </div>
                 </div>
 
-                <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
-                    <mat-divider *ngIf="i"></mat-divider>
+                <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6 pt-2">
                     <mat-card class="pt-2 pb-2 mt-1 mb-1 result-card" (click)="viewListingDetails(result)">
+                        <mat-card-title>
+                            <div class="d-flex justify-content-between">
+                                <span style="line-height: 2;" class="font-medium">{{result.location}} | {{result.price |
+                                    currency:
+                                    result.currency}}</span>
+                            </div>
+                        </mat-card-title>
                         <mat-card-content>
+                            <hr>
                             <div class="row">
                                 <div class="col-6">
                                     <img *ngIf="result.coverImagePath" class="result-preview-img"
                                         [src]="result.coverImagePath">
                                 </div>
                                 <div class="col-6">
-                                    <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>
                                     <div *ngIf="result.category && result.location">
                                         <span *ngIf="result.category === 'Apartment'">{{ 'search_results.apartment'
                                             |
@@ -101,7 +107,6 @@
                                         <span *ngIf="result.category === 'Commercial'">{{
                                             'search_results.commercial' |
                                             translate}}</span>
-                                            - {{result.location}}
                                     </div>
                                     <div *ngIf="result.address">
                                         <span class="d-block result-card-address">{{result.address}}</span>

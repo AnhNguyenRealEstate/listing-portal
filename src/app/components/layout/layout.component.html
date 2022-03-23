@@ -6,7 +6,7 @@
     </a>
 
     <div class="d-none d-md-flex">
-        <a class="ps-3" mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
+        <a mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
         <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">{{ 'layout.edit_listings' | translate }}</a>
         <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
