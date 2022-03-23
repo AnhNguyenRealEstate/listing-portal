@@ -8,7 +8,7 @@ import { EmployeeReportingRoutingModule } from './employee-reporting-routing.mod
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReportUploadComponent } from './report-upload/report-upload.component';
 import { ReportUploadDialogComponent } from './report-upload/report-upload-dialog.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { ReportUploadDialogComponent } from './report-upload/report-upload-dialo
       extend: true
     }),
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDatepickerModule
   ],
   exports: [
     EmployeeReportingComponent,

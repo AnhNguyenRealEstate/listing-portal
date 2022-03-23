@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { collection, DocumentData, Firestore, onSnapshot, query, Unsubscribe } from '@angular/fire/firestore';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
-import { Listing } from '../listing-search/listing-search.data';
-import { FirestoreCollections, FirebaseStorageConsts } from '../shared/globals';
+import { collection, DocumentData, Firestore, limit, onSnapshot, orderBy, query, QueryConstraint, Unsubscribe } from '@angular/fire/firestore';
+import { FirestoreCollections } from '../shared/globals';
 import { Report } from './employee-reporting.data';
 
 @Component({
@@ -24,7 +22,11 @@ export class EmployeeReportingComponent implements OnInit {
 
     async ngOnInit() {
         this.snapshotCancel = onSnapshot(
-            query(collection(this.firestore, FirestoreCollections.employeeReports)),
+            query(
+                collection(this.firestore, FirestoreCollections.employeeReports),
+                orderBy('reportDate', 'desc'),
+                limit(30)
+            ),
             async snapshot => {
                 const reports: Report[] = [];
                 const employeeReports: Report[] = [];
@@ -38,7 +40,10 @@ export class EmployeeReportingComponent implements OnInit {
                         reports.push(report);
                     }
 
-                    if (this.auth.currentUser?.email === report.recipient) {
+                    const isEmployeeReport = report.recipients?.find(
+                        recipient => recipient === this.auth.currentUser?.email
+                    );
+                    if (isEmployeeReport) {
                         employeeReports.push(report);
                     }
                 }

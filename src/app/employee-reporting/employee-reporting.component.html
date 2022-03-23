@@ -9,7 +9,8 @@
                             My reports
                         </ng-template>
                         <ng-template matTabContent>
-                            <button mat-button class="add-report-btn" color="accent" (click)="openReportUploadDesktop()">
+                            <button mat-button class="add-report-btn" color="accent"
+                                (click)="openReportUploadDesktop()">
                                 <mat-icon class="pe-1">add</mat-icon>
                                 <span class="ps-3">New report</span>
                             </button>
@@ -20,7 +21,10 @@
                                 (click)="showSelected(report)">
                                 <mat-card-content>
                                     <div class="mb-2 d-flex justify-content-center">
-                                        Report date: {{report.date}} | Reporting to {{report.recipient}}
+                                        Report date: {{report.date}} | Reporting to
+                                        <ng-container *ngFor="let person of report.recipients; let i = index">
+                                            <ng-container *ngIf="i > 0">, </ng-container> {{person}}
+                                        </ng-container>
                                     </div>
                                 </mat-card-content>
                             </mat-card>
@@ -39,7 +43,7 @@
                                 (click)="showSelected(report)">
                                 <mat-card-content>
                                     <div class="mb-2 d-flex justify-content-center">
-                                        Report date: {{report.date}} | Reporting to {{report.recipient}}
+                                        Report date: {{report.date}} | {{report.author}}
                                     </div>
                                 </mat-card-content>
                             </mat-card>
@@ -80,7 +84,10 @@
                                 (click)="showSelectedAsDialog(report)">
                                 <mat-card-content>
                                     <div class="mb-2 d-flex justify-content-center">
-                                        Report date: {{report.date}} | Reporting to {{report.recipient}}
+                                        Report date: {{report.date}} | Reporting to
+                                        <ng-container *ngFor="let person of report.recipients; let i = index">
+                                            <ng-container *ngIf="i > 0">, </ng-container> {{person}}
+                                        </ng-container>
                                     </div>
                                 </mat-card-content>
                             </mat-card>
@@ -88,7 +95,7 @@
                     </div>
                 </ng-template>
             </mat-tab>
-            
+
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon>people</mat-icon>
@@ -102,7 +109,7 @@
                         (click)="showSelected(report)">
                         <mat-card-content>
                             <div class="mb-2 d-flex justify-content-center">
-                                Report date: {{report.date}} | Reporting to {{report.recipient}}
+                                Report date: {{report.date}} | {{report.author}}
                             </div>
                         </mat-card-content>
                     </mat-card>
