@@ -9,6 +9,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ReportUploadComponent } from './report-upload/report-upload.component';
 import { ReportUploadDialogComponent } from './report-upload/report-upload-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { RTEditorModule } from '../rich-text-editor/rich-text-editor.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     }),
     MatExpansionModule,
     MatTabsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    RTEditorModule
   ],
   exports: [
     EmployeeReportingComponent,

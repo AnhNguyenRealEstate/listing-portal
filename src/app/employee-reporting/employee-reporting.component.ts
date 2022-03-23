@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { collection, DocumentData, Firestore, limit, onSnapshot, orderBy, query, QueryConstraint, Unsubscribe } from '@angular/fire/firestore';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirestoreCollections } from '../shared/globals';
 import { Report } from './employee-reporting.data';
+import { ReportUploadComponent } from './report-upload/report-upload.component';
 
 @Component({
     selector: 'employee-reporting',
@@ -18,7 +21,9 @@ export class EmployeeReportingComponent implements OnInit {
 
     constructor(
         private firestore: Firestore,
-        private auth: Auth) { }
+        private auth: Auth,
+        private dialog: MatDialog,
+        private snackbar: MatSnackBar) { }
 
     async ngOnInit() {
         this.snapshotCancel = onSnapshot(
@@ -55,7 +60,11 @@ export class EmployeeReportingComponent implements OnInit {
     }
 
     openReportUploadDesktop() {
-
+        const config = {
+            height: '90%',
+            width: '100%'
+        } as MatDialogConfig;
+        this.dialog.open(ReportUploadComponent, config);
     }
 
     openReportUploadMpbile() {
