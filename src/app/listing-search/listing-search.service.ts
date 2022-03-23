@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { Firestore, CollectionReference, DocumentData, orderBy, Query, query, where, collection } from '@angular/fire/firestore';
+import { Firestore, CollectionReference, DocumentData, Query, query, where, collection } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
@@ -119,6 +119,13 @@ export class ListingSearchService {
         }
 
         this.searchInProgress$$.next(false);
+
+        results.sort((a, b) => {
+            if (a.price! > b.price!) return 1;
+            if (a.price! < b.price!) return -1;
+            return 0;
+        });
+
         return results;
     }
 
