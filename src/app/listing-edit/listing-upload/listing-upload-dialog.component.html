@@ -101,7 +101,7 @@
         <div class="col">
             <label class="pt-1 pb-1">{{ 'listing_upload.description' | translate }}</label>
             <div class="mat-form-field-wrapper">
-                <app-editor [listing]="listing"></app-editor>
+                <app-editor [text]="listing.description!" (textChange)="listing.description = $event"></app-editor>
             </div>
         </div>
     </div>

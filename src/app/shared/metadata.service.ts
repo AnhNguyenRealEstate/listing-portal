@@ -6,6 +6,7 @@ import { FirestoreCollections, FirestoreDocs } from './globals';
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
     private _locations$$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+    private _locations$ = this._locations$$.asObservable();
 
     public metadataKeys = Object.freeze({
         locations: "locations"
@@ -24,6 +25,6 @@ export class MetadataService {
     }
 
     locations(): Observable<string[]> {
-        return this._locations$$.asObservable();
+        return this._locations$;
     }
 }
