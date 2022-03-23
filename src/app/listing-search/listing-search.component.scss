@@ -13,7 +13,12 @@
   align-items: center;
 }
 
+.result-card-wrapper:hover{
+  transform: translate3D(0, -1px, 0) scale(1.03);
+}
+
 .result-card {
+
   background-color: white;
 
   .result-card-address {

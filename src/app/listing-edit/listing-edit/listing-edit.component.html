@@ -6,87 +6,90 @@
                     <mat-icon class="pe-1">add</mat-icon>
                     <span class="ps-3">{{ 'listing_edit.new_Listing' | translate }}</span>
                 </button>
+
                 <mat-card *ngIf="!listings?.length" class="mb-2 d-flex justify-content-center">
                     <mat-spinner class="d-block"></mat-spinner>
                 </mat-card>
-                <mat-card class="mb-2" *ngFor="let listing of listings; let i = index"
-                    (click)="showSelected(listing, i)">
-                    <mat-card-content>
-                        <div class="row">
-                            <div class="col-6">
-                                <img *ngIf="listing.coverImagePath" class="result-preview-img-mobile"
-                                    [src]="listing.coverImagePath">
+                <div *ngFor="let listing of listings; let i = index" class="listing-edit-card-wrapper">
+                    <mat-card class="mb-2" (click)="showSelected(listing, i)">
+                        <mat-card-content>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img *ngIf="listing.coverImagePath" class="result-preview-img-mobile"
+                                        [src]="listing.coverImagePath">
+                                </div>
+                                <div class="col-6">
+                                    <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
+                                    <div *ngIf="listing.category && listing.location">
+                                        <span *ngIf="listing.category === 'Apartment'">{{ 'listing_edit.apartment' |
+                                            translate
+                                            }}</span>
+                                        <span *ngIf="listing.category === 'Villa'">{{ 'listing_edit.villa' | translate
+                                            }}</span>
+                                        <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_edit.townhouse' |
+                                            translate
+                                            }}</span>
+                                        <span *ngIf="listing.category === 'Commercial'">{{ 'listing_edit.commercial' |
+                                            translate
+                                            }}</span>
+                                        - {{listing.location}}
+                                    </div>
+                                    <div *ngIf="listing.address">
+                                        {{listing.address}}
+                                    </div>
+                                    <div *ngIf="listing.bedrooms !== undefined && listing.bathrooms !== undefined">
+                                        <mat-icon color="accent">bed</mat-icon><span
+                                            class="ps-2 pe-4">{{listing.bedrooms}}</span>
+                                        <mat-icon color="accent">bathtub</mat-icon>
+                                        <span class="ps-2">{{listing.bathrooms}}</span>
+                                    </div>
+                                    <mat-chip-list class="ps-2">
+                                        <mat-chip>
+                                            <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_edit.for_rent' |
+                                                translate }}</span>
+                                            <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_edit.for_sale' |
+                                                translate }}</span>
+                                        </mat-chip>
+                                        <mat-chip>
+                                            <span *ngIf="listing.archived">{{ 'listing_edit.archived' |
+                                                translate }}</span>
+                                            <span *ngIf="!listing.archived">{{ 'listing_edit.active' |
+                                                translate }}</span>
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                    <div class="d-flex justify-content-end"
+                                        style="position: absolute; top: 0; right: 0;">
+                                        <button mat-raised-button *ngIf="!listing.archived"
+                                            (click)="archiveListing($event, i)">
+                                            <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
+                                                [diameter]="35">
+                                            </mat-spinner>
+                                            <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
+                                                color="accent">archive</mat-icon>
+                                        </button>
+                                        <button mat-raised-button *ngIf="listing.archived"
+                                            (click)="unarchiveListing($event, i)">
+                                            <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
+                                                [diameter]="35">
+                                            </mat-spinner>
+                                            <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
+                                                color="accent">unarchive</mat-icon>
+                                        </button>
+                                        <span class="ps-2"></span>
+                                        <button mat-raised-button (click)="deleteListing($event, i)">
+                                            <mat-spinner *ngIf="listingEditService.deleteInProgress() | async"
+                                                [diameter]="35">
+                                            </mat-spinner>
+                                            <mat-icon *ngIf="!(listingEditService.deleteInProgress() | async)"
+                                                color="accent">
+                                                delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
-                                <div *ngIf="listing.category && listing.location">
-                                    <span *ngIf="listing.category === 'Apartment'">{{ 'listing_edit.apartment' |
-                                        translate
-                                        }}</span>
-                                    <span *ngIf="listing.category === 'Villa'">{{ 'listing_edit.villa' | translate
-                                        }}</span>
-                                    <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_edit.townhouse' |
-                                        translate
-                                        }}</span>
-                                    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_edit.commercial' |
-                                        translate
-                                        }}</span>
-                                    - {{listing.location}}
-                                </div>
-                                <div *ngIf="listing.address">
-                                    {{listing.address}}
-                                </div>
-                                <div *ngIf="listing.bedrooms !== undefined && listing.bathrooms !== undefined">
-                                    <mat-icon color="accent">bed</mat-icon><span
-                                        class="ps-2 pe-4">{{listing.bedrooms}}</span>
-                                    <mat-icon color="accent">bathtub</mat-icon>
-                                    <span class="ps-2">{{listing.bathrooms}}</span>
-                                </div>
-                                <mat-chip-list class="ps-2">
-                                    <mat-chip>
-                                        <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_edit.for_rent' |
-                                            translate }}</span>
-                                        <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_edit.for_sale' |
-                                            translate }}</span>
-                                    </mat-chip>
-                                    <mat-chip>
-                                        <span *ngIf="listing.archived">{{ 'listing_edit.archived' |
-                                            translate }}</span>
-                                        <span *ngIf="!listing.archived">{{ 'listing_edit.active' |
-                                            translate }}</span>
-                                    </mat-chip>
-                                </mat-chip-list>
-                                <div class="d-flex justify-content-end" style="position: absolute; top: 0; right: 0;">
-                                    <button mat-raised-button *ngIf="!listing.archived"
-                                        (click)="archiveListing($event, i)">
-                                        <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
-                                            [diameter]="35">
-                                        </mat-spinner>
-                                        <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
-                                            color="accent">archive</mat-icon>
-                                    </button>
-                                    <button mat-raised-button *ngIf="listing.archived"
-                                        (click)="unarchiveListing($event, i)">
-                                        <mat-spinner *ngIf="listingEditService.archiveInProgress() | async"
-                                            [diameter]="35">
-                                        </mat-spinner>
-                                        <mat-icon *ngIf="!(listingEditService.archiveInProgress() | async)"
-                                            color="accent">unarchive</mat-icon>
-                                    </button>
-                                    <span class="ps-2"></span>
-                                    <button mat-raised-button (click)="deleteListing($event, i)">
-                                        <mat-spinner *ngIf="listingEditService.deleteInProgress() | async"
-                                            [diameter]="35">
-                                        </mat-spinner>
-                                        <mat-icon *ngIf="!(listingEditService.deleteInProgress() | async)"
-                                            color="accent">
-                                            delete</mat-icon>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
             </div>
             <div class="col-6 listing-edit-detail-view" *ngIf="listings?.length">
                 <div *ngIf="listingToShow === undefined" style="padding-top: 10vh">

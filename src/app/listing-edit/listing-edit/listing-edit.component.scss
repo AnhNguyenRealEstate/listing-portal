@@ -24,3 +24,7 @@
 .listing-edit-wrapper {
     height: 90vh;
 }
+
+.listing-edit-card-wrapper:hover{
+    transform: translate3D(0, -1px, 0) scale(1.03);
+}
