@@ -15,6 +15,8 @@ export class ListingUploadService {
     private inProgress$$ = new BehaviorSubject<boolean>(false);
     private inProgress$ = this.inProgress$$.asObservable();
 
+    watermarkImg: string = '';
+
     constructor(private firestore: Firestore,
         private storage: Storage,
         private metadata: MetadataService
@@ -220,7 +222,7 @@ export class ListingUploadService {
         if (environment.test) {
             return;
         }
-        
+
         const coverImagePath = `${storagePath}/${FirebaseStorageConsts.coverImage}`;
         await uploadBytes(
             ref(

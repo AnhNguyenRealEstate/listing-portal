@@ -75,7 +75,7 @@
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.price' | translate }}</mat-label>
                     <input matInput type="text" [(ngModel)]="listing.price" id="price" placeholder="0" required
-                    mask="separator" thousandSeparator=",">
+                        mask="separator" thousandSeparator=",">
                     <mat-select [(ngModel)]="listing.currency" required>
                         <mat-option value='USD'>US$</mat-option>
                         <mat-option value='VND'>đ</mat-option>
@@ -130,19 +130,18 @@
             (change)="onMediaUpload($event)" />
         <button mat-button color="accent" [matBadge]="imageFiles.length" matBadgeColor="primary"
             (click)="imageInput.click()">
-            <mat-icon>image</mat-icon>
+            <mat-icon *ngIf="!compressionInProgress">image</mat-icon>
+            <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
         </button>
 
-        <div class="pt-2 mat-form-field-wrapper">
-            <mat-spinner *ngIf="compressionInProgress" [diameter]="50"></mat-spinner>
-            <ng-container *ngIf="!compressionInProgress">
-                <div class="col-3 d-inline" *ngFor="let imgSrc of imageSrcs">
-                    <img [src]="imgSrc" class="listing-image">
-                    <button mat-icon-button color="accent" (click)="removeUploadedMedia(imgSrc)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
-            </ng-container>
+        <div class="pt-2">
+            <div class="col-3 d-inline" *ngFor="let imgSrc of imageSrcs">
+                <img [src]="imgSrc" class="listing-image">
+                <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
+                    [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
     <div class="row pb-2">
