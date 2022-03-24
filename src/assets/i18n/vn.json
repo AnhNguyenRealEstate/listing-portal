@@ -38,7 +38,10 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Shop thương mại"
+        "commercial": "Shop thương mại",
+        "confirmation_msg": "Bạn chắc chắn muốn xoá sản phẩm này?",
+        "yes_msg": "Xoá",
+        "no_msg": "Huỷ"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",

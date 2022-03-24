@@ -38,7 +38,10 @@
         "apartment": "Apartment",
         "villa": "Villa",
         "townhouse": "Townhouse",
-        "commercial": "Commercial"
+        "commercial": "Commercial",
+        "confirmation_msg": "Are you sure you want to delete this listing?",
+        "yes_msg": "Delete",
+        "no_msg": "Cancel"
     },
     "search_results": {
         "no_results": "No result matches your criteria",

@@ -1,0 +1,7 @@
+<section class="container-flex justify-content-between">
+    <p class="pb-2">{{message}}</p>
+    <div class="d-flex justify-content-end">
+        <button mat-button color="accent" (click)="decisionMade(true);">{{yesBtnText}}</button>
+        <button mat-button (click)="decisionMade(false);">{{noBtnText}}</button>
+    </div>
+</section>

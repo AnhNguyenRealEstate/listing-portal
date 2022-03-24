@@ -11,6 +11,7 @@ import { FirebaseStorageConsts, FirestoreCollections } from '../../shared/global
 import { Unsubscribe } from '@angular/fire/auth';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
     selector: 'listing-edit',
@@ -130,21 +131,36 @@ export class ListingEditComponent implements OnInit {
 
     /* Completely remove the listing from DB */
     async deleteListing(event: Event, index: number) {
+        const langTerms = await this.translate.get([
+            "listing_edit.confirmation_msg", "listing_edit.yes_msg", "listing_edit.no_msg"]).toPromise();
+
         event.stopPropagation();
 
-        this.loadingSpinnerService.start();
-
-        await this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
-        this.listingToShow = undefined;
-        this.dbReferenceId = '';
-
-        this.loadingSpinnerService.stop();
-        this.snackbar.open(
-            this.snackbarMsgs['listing_edit.delete_msg'],
-            this.snackbarMsgs['listing_edit.dismiss_msg'],
-            {
-                duration: 3000
+        this.dialog.open(ConfirmationComponent, {
+            height: '20%',
+            width: '90%',
+            data: {
+                message: langTerms['listing_edit.confirmation_msg'],
+                yesBtnText: langTerms['listing_edit.yes_msg'],
+                noBtnText: langTerms['listing_edit.no_msg']
             }
-        );
+        }).afterClosed().subscribe(async (toDelete) => {
+            if (toDelete) {
+                this.loadingSpinnerService.start();
+
+                await this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
+                this.listingToShow = undefined;
+                this.dbReferenceId = '';
+
+                this.loadingSpinnerService.stop();
+                this.snackbar.open(
+                    this.snackbarMsgs['listing_edit.delete_msg'],
+                    this.snackbarMsgs['listing_edit.dismiss_msg'],
+                    {
+                        duration: 3000
+                    }
+                );
+            }
+        });
     }
 }
