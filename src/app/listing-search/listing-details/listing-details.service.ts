@@ -35,19 +35,20 @@ export class ListingDetailsService {
         }
 
         const listing = dbResponse.data() as Listing;
+        return listing;
+    }
 
+    async getListingImageUrls(storagePath: string): Promise<string[]> {
         if (!environment.production) {
-            listing.imageSources = new Array<string>();
+            const imageSources = new Array<string>();
             for (let i = 0; i < 5; i++) {
-                listing.imageSources.push(`https://picsum.photos/1920/1080/?${i}`);
+                imageSources.push(`https://picsum.photos/1920/1080/?${i}`);
             }
             for (let i = 0; i < 5; i++) {
-                listing.imageSources.push(`https://picsum.photos/1080/1920/?${i}`);
+                imageSources.push(`https://picsum.photos/1080/1920/?${i}`);
             }
-            return listing;
+            return imageSources;
         }
-
-        const storagePath = listing.fireStoragePath!;
 
         const imageStoragePath = `${storagePath}/${FirebaseStorageConsts.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).items;
@@ -57,12 +58,12 @@ export class ListingDetailsService {
             return 0;
         });
 
-        listing.imageSources = new Array(allImages.length);
+        const imageSources = new Array(allImages.length);
 
         await Promise.all(allImages.map(async (imageFile, index) => {
-            listing.imageSources![index] = await getDownloadURL(ref(imageFile));
+            imageSources![index] = await getDownloadURL(ref(imageFile));
         }));
 
-        return listing;
+        return imageSources;
     }
 }

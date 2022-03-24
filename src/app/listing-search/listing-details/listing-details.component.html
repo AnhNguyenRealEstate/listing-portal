@@ -12,18 +12,21 @@
             </div>
         </div>
         <hr>
-        <div class="row listing-images pb-4" *ngIf="listing.imageSources && listing.imageSources!.length">
-            <div class="col-6">
-                <swiper #usefulSwiper [config]="{}">
-                    <div class="swiper-wrapper">
-                        <img *ngFor="let src of listing.imageSources" class="swiper-slide swiper-image" [src]="src">
-                    </div>
-                </swiper>
-                <br>
-                <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
-                    [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
-                    (imageClick)="cycleToSlide($event)">
-                </ng-image-slider>
+        <div class="row pb-4">
+            <div class="col-6 listing-images">
+                <ng-container *ngIf="listing.imageSources && listing.imageSources!.length">
+                    <swiper #usefulSwiper [config]="{}">
+                        <div class="swiper-wrapper">
+                            <img *ngFor="let src of listing.imageSources" class="swiper-slide swiper-image" [src]="src">
+                        </div>
+                    </swiper>
+                    <br>
+                    <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
+                        [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
+                        (imageClick)="cycleToSlide($event)">
+                    </ng-image-slider>
+                </ng-container>
+                <mat-spinner *ngIf="!(listing.imageSources && listing.imageSources!.length)"></mat-spinner>
             </div>
             <div class="col-6">
                 <div class="row pb-2">
@@ -92,9 +95,11 @@
         </div>
         <hr>
 
-        <div class="row pb-2 listing-images" *ngIf="images.length">
+        <div class="row pt-2 pb-2 listing-images" *ngIf="images.length">
             <ng-image-slider [images]="images" [animationSpeed]="0.1"></ng-image-slider>
         </div>
+
+        <mat-spinner class="pt-2 pb-2" *ngIf="!images.length"></mat-spinner>
 
         <div class="row pb-2">
             <div class="col-6">
@@ -138,17 +143,16 @@
         <p *ngIf="listing.description" [innerHtml]="listing.description">
         </p>
 
-        <label class="pt-2 text-bold">{{ 'listing_details.contact' | translate }}</label>
-        <p *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
-        </p>
-        <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
+        <label class="pt-2 pb-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
 
+        <a mat-mini-fab color="accent" [href]="contactNumberUrl">
+            <mat-icon>phone_in_talk</mat-icon>
+        </a>
+        <span class="ps-2"></span>
+        <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+        </span>
+        <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</span>
+        
         <hr>
-
-        <div class="d-flex justify-content-end">
-            <a mat-icon-button color="accent" class="pe-4" [href]="contactNumberUrl">
-                <mat-icon>phone_in_talk</mat-icon>
-            </a>
-        </div>
     </div>
 </section>

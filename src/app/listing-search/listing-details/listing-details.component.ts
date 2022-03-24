@@ -45,19 +45,23 @@ export class ListingDetailsComponent implements OnInit {
         }
 
         this.listing = listing;
-        if (listing.imageSources?.length) {
-            this.images = listing.imageSources!.map((imageSrc, index) => {
-                const sanitizedUrl = this.sanitizer.sanitize(
-                    SecurityContext.URL,
-                    this.sanitizer.bypassSecurityTrustUrl(imageSrc)
-                );
-                return {
-                    image: sanitizedUrl,
-                    thumbImage: sanitizedUrl,
-                    alt: `Image ${index}`
-                }
-            })
-        }
+
+        this.listingDetailsService.getListingImageUrls(listing?.fireStoragePath!).then(imgSrcs => {
+            if (imgSrcs.length) {
+                this.listing.imageSources = imgSrcs;
+                this.images = this.listing.imageSources!.map((imageSrc, index) => {
+                    const sanitizedUrl = this.sanitizer.sanitize(
+                        SecurityContext.URL,
+                        this.sanitizer.bypassSecurityTrustUrl(imageSrc)
+                    );
+                    return {
+                        image: sanitizedUrl,
+                        thumbImage: sanitizedUrl,
+                        alt: `Image ${index}`
+                    }
+                })
+            }
+        });
 
         if (listing.contactNumber) {
             this.contactNumberUrl = this.sanitizer.bypassSecurityTrustUrl(
@@ -77,24 +81,19 @@ export class ListingDetailsComponent implements OnInit {
     }
 
     async setHeaderMetadata() {
-        this.title.setTitle(`Anh Nguyen - ${this.listing.location} | ${this.listing.price} ${this.listing.currency}`);
-
-        this.meta.updateTag({ property: 'og:title', content: `Anh Nguyen - ${this.listing.location} | ${this.listing.price} ${this.listing.currency}` });
-        this.meta.updateTag({ property: 'og:url', content: this.router.url });
-
-        this.meta.updateTag({ property: 'og:image:secure_url', content: this.listing.imageSources![0] });
-        this.meta.updateTag({ property: 'og:image:type', content: 'image/jpeg' });
-        this.meta.updateTag({ property: 'og:image:width', content: '200' });
-        this.meta.updateTag({ property: 'og:image:height', content: '200' });
-
         const langTerms = await this.translate.get(
-            ["listing_details.bedrooms",
+            [
+                "app_title",
+                "listing_details.bedrooms",
                 "listing_details.bathrooms",
                 "listing_details.apartment",
                 "listing_details.villa",
                 "listing_details.townhouse",
                 "listing_details.commercial",
                 "listing_details.contact"]).toPromise();
+
+
+        this.title.setTitle(`${langTerms['app_title']} | ${this.listing.location} ${this.listing.price} ${this.listing.currency}`);
 
         let description = '';
         let keyToUse = '';
@@ -115,7 +114,5 @@ export class ListingDetailsComponent implements OnInit {
                            ${this.listing.bathrooms} ${langTerms["listing_details.bathrooms"]}
                            ${langTerms["listing_details.contact"]}: ${this.listing.contactNumber}`
         }
-
-        this.meta.updateTag({ property: 'og:description', content: description });
     }
 }
