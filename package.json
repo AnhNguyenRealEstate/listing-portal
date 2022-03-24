@@ -48,8 +48,8 @@
     "zone.js": "~0.11.5"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.2.2",
-    "@angular/cli": "~13.2.6",
+    "@angular-devkit/build-angular": "~13.3.0",
+    "@angular/cli": "~13.3.0",
     "@angular/compiler-cli": "~13.2.1",
     "@angular/localize": "^13.2.6",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
