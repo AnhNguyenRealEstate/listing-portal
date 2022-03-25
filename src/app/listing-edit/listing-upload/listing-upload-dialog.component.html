@@ -145,12 +145,14 @@
     </div>
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">
-            <button *ngIf="!isEditMode" mat-fab color="accent" (click)="publishListing()">
+            <button *ngIf="!isEditMode" mat-fab color="accent" (click)="publishListing()"
+                [disabled]="listingUploadService.inProgress() | async">
                 <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
                 </mat-spinner>
                 <mat-icon *ngIf="!(listingUploadService.inProgress() | async)">publish</mat-icon>
             </button>
-            <button *ngIf="isEditMode" mat-fab color="accent" (click)="saveEdit()">
+            <button *ngIf="isEditMode" mat-fab color="accent" (click)="saveEdit()"
+                [disabled]="listingUploadService.inProgress() | async">
                 <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
                 </mat-spinner>
                 <mat-icon *ngIf="!(listingUploadService.inProgress() | async)">save</mat-icon>
