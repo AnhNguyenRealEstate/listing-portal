@@ -8,7 +8,6 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { ListingUploadService } from './listing-upload.service';
-import mergeImages from 'merge-images';
 
 @Component({
     selector: 'listing-upload-dialog',
@@ -33,8 +32,6 @@ export class ListingUploadDialogComponent implements OnInit {
     coverImageFile: File | undefined = undefined;
     coverImageSrc: string | undefined = undefined;
     coverImageModified: boolean = false;
-
-    watermarkImg: string = '';
 
     subs: Subscription = new Subscription();
 
@@ -107,22 +104,6 @@ export class ListingUploadDialogComponent implements OnInit {
             return;
         }
 
-        if (!this.watermarkImg) {
-            const response = await fetch('/assets/images/logo.png');
-            const data = await response.blob();
-            const contentType = response.headers.get('content-type') || '';
-            const metadata = {
-                type: contentType
-            };
-            const fileExtension = contentType.split('/').pop() || '';
-            const file = new File([data], `watermark.${fileExtension}`, metadata);
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = async () => {
-                this.watermarkImg = reader.result as string;
-            };
-        }
-
         this.compressionInProgress = true;
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
@@ -131,11 +112,11 @@ export class ListingUploadDialogComponent implements OnInit {
             reader.readAsDataURL(file);
             reader.onload = async () => {
                 const base64Img = reader.result as string;
-                const watermarkedImg = await mergeImages([base64Img, this.watermarkImg]);
                 const compressedImgAsBase64Url =
                     await this.imageCompress.compressFile(
-                        watermarkedImg, DOC_ORIENTATION.Default,
+                        base64Img, DOC_ORIENTATION.Default,
                         100, 75, 1920, 1080);
+
                 const response = await fetch(compressedImgAsBase64Url);
                 const data = await response.blob();
                 const compressedFile = new File(
@@ -177,32 +158,17 @@ export class ListingUploadDialogComponent implements OnInit {
             return;
         }
 
-        if (!this.watermarkImg) {
-            const response = await fetch('/assets/images/logo.png');
-            const data = await response.blob();
-            const contentType = response.headers.get('content-type') || '';
-            const metadata = {
-                type: contentType
-            };
-            const fileExtension = contentType.split('/').pop() || '';
-            const file = new File([data], `watermark.${fileExtension}`, metadata);
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = async () => {
-                this.watermarkImg = reader.result as string;
-            };
-        }
-
         const file = files.item(0)!;
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = async () => {
             const base64Img = reader.result as string;
-            const watermarkedImg = await mergeImages([base64Img, this.watermarkImg]);
+
             const compressedImgAsBase64Url =
                 await this.imageCompress.compressFile(
-                    watermarkedImg, DOC_ORIENTATION.Default,
+                    base64Img, DOC_ORIENTATION.Default,
                     100, 75, 1920, 1080);
+
             const response = await fetch(compressedImgAsBase64Url);
             const data = await response.blob();
             const compressedFile = new File(

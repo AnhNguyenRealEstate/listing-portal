@@ -7,7 +7,6 @@ import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
-import mergeImages from 'merge-images';
 
 @Component({
     selector: 'listing-upload',
@@ -31,8 +30,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     coverImageFile: File | undefined = undefined;
     coverImageSrc: string | undefined = undefined;
     coverImageModified: boolean = false;
-
-    watermarkImg: string = '';
 
     subs: Subscription = new Subscription();
     showSpinner: boolean = false;
@@ -105,22 +102,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
 
         this.compressionInProgress = true;
 
-        if (!this.watermarkImg) {
-            const response = await fetch('/assets/images/logo.png');
-            const data = await response.blob();
-            const contentType = response.headers.get('content-type') || '';
-            const metadata = {
-                type: contentType
-            };
-            const fileExtension = contentType.split('/').pop() || '';
-            const file = new File([data], `watermark.${fileExtension}`, metadata);
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = async () => {
-                this.watermarkImg = reader.result as string;
-            };
-        }
-
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
 
@@ -128,11 +109,11 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             reader.readAsDataURL(file);
             reader.onload = async () => {
                 const base64Img = reader.result as string;
-                const watermarkedImg = await mergeImages([base64Img, this.watermarkImg]);
                 const compressedImgAsBase64Url =
                     await this.imageCompress.compressFile(
-                        watermarkedImg, DOC_ORIENTATION.Default,
+                        base64Img, DOC_ORIENTATION.Default,
                         100, 75, 1920, 1080);
+
                 const response = await fetch(compressedImgAsBase64Url);
                 const data = await response.blob();
                 const compressedFile = new File(
@@ -148,7 +129,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
                         this.sanitizer.bypassSecurityTrustResourceUrl(compressedImgAsBase64Url))!
                 );
 
-                if(i == files.length - 1) {
+                if (i == files.length - 1) {
                     this.compressionInProgress = false;
                 }
             }
@@ -174,32 +155,16 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             return;
         }
 
-        if (!this.watermarkImg) {
-            const response = await fetch('/assets/images/logo.png');
-            const data = await response.blob();
-            const contentType = response.headers.get('content-type') || '';
-            const metadata = {
-                type: contentType
-            };
-            const fileExtension = contentType.split('/').pop() || '';
-            const file = new File([data], `watermark.${fileExtension}`, metadata);
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = async () => {
-                this.watermarkImg = reader.result as string;
-            };
-        }
-
         const file = files.item(0)!;
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = async () => {
             const base64Img = reader.result as string;
-            const watermarkedImg = await mergeImages([base64Img, this.watermarkImg]);
             const compressedImgAsBase64Url =
                 await this.imageCompress.compressFile(
-                    watermarkedImg as string, DOC_ORIENTATION.Default,
+                    base64Img as string, DOC_ORIENTATION.Default,
                     100, 75, 1920, 1080);
+
             const response = await fetch(compressedImgAsBase64Url);
             const data = await response.blob();
             const compressedFile = new File(

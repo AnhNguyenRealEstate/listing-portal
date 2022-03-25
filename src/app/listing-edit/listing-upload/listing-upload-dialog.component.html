@@ -133,8 +133,9 @@
         </button>
 
         <div class="pt-2 mat-form-field-wrapper">
-            <div class="col-12" *ngFor="let imgSrc of imageSrcs">
+            <div class="col-12" *ngFor="let imgSrc of imageSrcs; let i = index">
                 <img [src]="imgSrc" class="listing-image">
+                <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
                 <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
                     [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
                     <mat-icon>delete</mat-icon>

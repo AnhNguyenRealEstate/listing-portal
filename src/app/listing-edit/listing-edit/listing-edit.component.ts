@@ -147,13 +147,10 @@ export class ListingEditComponent implements OnInit {
             }
         }).afterClosed().subscribe(async (toDelete) => {
             if (toDelete) {
-                this.loadingSpinnerService.start();
-
-                await this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
+                this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
                 this.listingToShow = undefined;
                 this.dbReferenceId = '';
 
-                this.loadingSpinnerService.stop();
                 this.snackbar.open(
                     this.snackbarMsgs['listing_edit.delete_msg'],
                     this.snackbarMsgs['listing_edit.dismiss_msg'],

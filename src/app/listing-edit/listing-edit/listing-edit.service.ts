@@ -15,18 +15,18 @@ export class ListingEditService {
 
     /* Completely remove the listing from DB */
     async deleteListing(listing: Listing, dbRefId: string) {
-        if (!environment.test) {
-            const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.listingImgsVideos}`
-            const allImages = (await listAll(ref(this.storage, imgsVideosStoragePath))).items;
-            await Promise.all(allImages.map(async image => {
-                await deleteObject(ref(image))
-            }));
+        const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.listingImgsVideos}`
+        listAll(ref(this.storage, imgsVideosStoragePath)).then(result => {
+            const allImages = result.items;
+            allImages.map(image => {
+                deleteObject(ref(image));
+            });
+        })
 
-            const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`
-            await deleteObject(ref(this.storage, coverImagePath));
-        }
+        const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`
+        deleteObject(ref(this.storage, coverImagePath));
 
-        await deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));
+        deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));
     }
 
     /* Change archived property of the listing */

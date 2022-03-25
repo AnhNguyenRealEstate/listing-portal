@@ -39,17 +39,6 @@ export class ListingDetailsService {
     }
 
     async getListingImageUrls(storagePath: string): Promise<string[]> {
-        if (!environment.production) {
-            const imageSources = new Array<string>();
-            for (let i = 0; i < 5; i++) {
-                imageSources.push(`https://picsum.photos/1920/1080/?${i}`);
-            }
-            for (let i = 0; i < 5; i++) {
-                imageSources.push(`https://picsum.photos/1080/1920/?${i}`);
-            }
-            return imageSources;
-        }
-
         const imageStoragePath = `${storagePath}/${FirebaseStorageConsts.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).items;
         allImages.sort((a, b) => {
