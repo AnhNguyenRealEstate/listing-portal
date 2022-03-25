@@ -11,7 +11,8 @@ import { FirebaseStorageConsts, FirestoreCollections } from '../../shared/global
 import { Unsubscribe } from '@angular/fire/auth';
 import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { ConfirmationDialogComponent } from '../confirmation/confirmation-dialog.component';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'listing-edit',
@@ -63,9 +64,9 @@ export class ListingEditComponent implements OnInit {
             }
         );
 
-        this.snackbarMsgs = await this.translate.get(
+        this.snackbarMsgs = await lastValueFrom(this.translate.get(
             ['listing_edit.delete_msg', 'listing_edit.dismiss_msg']
-        ).toPromise();
+        ));
     }
 
     ngOnDestroy() {
@@ -131,14 +132,14 @@ export class ListingEditComponent implements OnInit {
 
     /* Completely remove the listing from DB */
     async deleteListing(event: Event, index: number) {
-        const langTerms = await this.translate.get([
-            "listing_edit.confirmation_msg", "listing_edit.yes_msg", "listing_edit.no_msg"]).toPromise();
+        const langTerms = await lastValueFrom(this.translate.get([
+            "listing_edit.confirmation_msg", "listing_edit.yes_msg", "listing_edit.no_msg"]));
 
         event.stopPropagation();
 
-        this.dialog.open(ConfirmationComponent, {
+        this.dialog.open(ConfirmationDialogComponent, {
             height: '20%',
-            width: '90%',
+            width: '100%',
             data: {
                 message: langTerms['listing_edit.confirmation_msg'],
                 yesBtnText: langTerms['listing_edit.yes_msg'],

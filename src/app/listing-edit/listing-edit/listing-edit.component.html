@@ -128,71 +128,87 @@
                 <mat-card *ngIf="!listings?.length" class="mb-2 d-flex justify-content-center">
                     <mat-spinner class="d-block"></mat-spinner>
                 </mat-card>
-                <mat-card class="mb-2" *ngFor="let listing of listings; let i = index"
-                    (click)="showSelectedAsDialog(listing, i)">
-                    <mat-card-content>
-                        <div class="row">
-                            <div class="col-6">
-                                <img *ngIf="listing.coverImagePath" class="result-preview-img-mobile"
-                                    [src]="listing.coverImagePath">
-                                <div class="d-flex justify-content-center">
-                                    <button mat-icon-button color="default" *ngIf="!listing.archived"
-                                        (click)="archiveListing($event, i)">
-                                        <mat-icon color="accent">archive</mat-icon>
-                                    </button>
-                                    <button mat-icon-button color="default" *ngIf="listing.archived"
-                                        (click)="unarchiveListing($event, i)">
-                                        <mat-icon color="accent">unarchive</mat-icon>
-                                    </button>
-                                    <span class="ps-2 pe-2"></span>
-                                    <button mat-icon-button color="default" (click)="deleteListing($event, i)">
-                                        <mat-icon color="accent">delete</mat-icon>
-                                    </button>
+                <div *ngFor="let listing of listings; let i = index" class="listing-edit-card-wrapper">
+                    <mat-card class="mb-2" (click)="showSelectedAsDialog(listing, i)">
+                        <mat-card-title>
+                            <div class="pb-2 font-large">{{listing.location}} | {{listing.price | currency:
+                                listing.currency}}
+                            </div>
+                        </mat-card-title>
+                        <mat-card-content class="mb-1">
+                            <hr>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img *ngIf="listing.coverImagePath" class="result-preview-img-mobile"
+                                        [src]="listing.coverImagePath">
+                                </div>
+                                <div class="col-6">
+                                    <div *ngIf="listing.category && listing.location">
+                                        <span *ngIf="listing.category === 'Apartment'">{{ 'listing_edit.apartment' |
+                                            translate
+                                            }}</span>
+                                        <span *ngIf="listing.category === 'Villa'">{{ 'listing_edit.villa' |
+                                            translate
+                                            }}</span>
+                                        <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_edit.townhouse' |
+                                            translate
+                                            }}</span>
+                                        <span *ngIf="listing.category === 'Commercial'">{{ 'listing_edit.commercial'
+                                            |
+                                            translate
+                                            }}</span>
+                                    </div>
+                                    <div *ngIf="listing.address">
+                                        {{listing.address}}
+                                    </div>
+                                    <div *ngIf="listing.bedrooms !== undefined && listing.bathrooms !== undefined">
+                                        <mat-icon color="accent">bed</mat-icon><span
+                                            class="ps-2 pe-4">{{listing.bedrooms}}</span>
+                                        <mat-icon color="accent">bathtub</mat-icon>
+                                        <span class="ps-2">{{listing.bathrooms}}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-end"
+                                        style="position: absolute; top: 0; right: 0;">
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="pb-2 font-large">{{listing.price | currency: listing.currency}}</div>
-                                <div *ngIf="listing.category && listing.location">
-                                    <span *ngIf="listing.category === 'Apartment'">{{ 'listing_edit.apartment' |
-                                        translate
-                                        }}</span>
-                                    <span *ngIf="listing.category === 'Villa'">{{ 'listing_edit.villa' | translate
-                                        }}</span>
-                                    <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_edit.townhouse' |
-                                        translate
-                                        }}</span>
-                                    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_edit.commercial' |
-                                        translate
-                                        }}</span>
-                                    - {{listing.location}}
-                                </div>
-                                <div *ngIf="listing.address">
-                                    {{listing.address}}
-                                </div>
-                                <div *ngIf="listing.bedrooms !== undefined && listing.bathrooms !== undefined">
-                                    <mat-icon color="accent" class="pe-2">bed</mat-icon><span
-                                        class="pe-4">{{listing.bedrooms}}</span>
-                                    <mat-icon color="accent" class="pe-2">bathtub</mat-icon>
-                                    <span>{{listing.bathrooms}}</span>
-                                </div>
-                                <mat-chip-list class="ps-2" *ngIf="listing.purpose">
-                                    <mat-chip>
-                                        <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_edit.for_rent' |
-                                            translate }}</span>
-                                        <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_edit.for_sale' |
-                                            translate }}</span>
-                                    </mat-chip>
-                                    <mat-chip>
-                                        <span *ngIf="listing.archived">{{ 'listing_edit.archived' |
-                                            translate }}</span>
-                                        <span *ngIf="!listing.archived">{{ 'listing_edit.active' |
-                                            translate }}</span>
-                                    </mat-chip>
-                                </mat-chip-list>
+                            <hr>
+                        </mat-card-content>
+                        <mat-card-footer class="d-flex justify-content-between ps-1 pe-1 pb-1">
+                            <mat-chip-list class="pt-1 ps-2">
+                                <mat-chip>
+                                    <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_edit.for_rent'
+                                        |
+                                        translate }}</span>
+                                    <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_edit.for_sale'
+                                        |
+                                        translate }}</span>
+                                </mat-chip>
+                                <mat-chip>
+                                    <span *ngIf="listing.archived">{{ 'listing_edit.archived' |
+                                        translate }}</span>
+                                    <span *ngIf="!listing.archived">{{ 'listing_edit.active' |
+                                        translate }}</span>
+                                </mat-chip>
+                            </mat-chip-list>
+                            <div>
+                                <button mat-icon-button color="default" *ngIf="!listing.archived"
+                                    (click)="archiveListing($event, i)">
+                                    <mat-icon color="accent">archive</mat-icon>
+                                </button>
+                                <button mat-icon-button color="default" *ngIf="listing.archived"
+                                    (click)="unarchiveListing($event, i)">
+                                    <mat-icon color="accent">unarchive</mat-icon>
+                                </button>
+                                <span class="ps-2"></span>
+                                <button mat-icon-button color="default" (click)="deleteListing($event, i)">
+                                    <mat-icon color="accent">delete</mat-icon>
+                                </button>
                             </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+                        </mat-card-footer>
+                    </mat-card>
+                </div>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { ListingUploadService } from './listing-upload.service';
@@ -60,12 +60,12 @@ export class ListingUploadDialogComponent implements OnInit {
             this.locations = data;
         }));
 
-        this.snackbarMsgs = await this.translate.get(
+        this.snackbarMsgs = await lastValueFrom(this.translate.get(
             ['listing_upload.invalid_upload_msg',
                 'listing_upload.listing_published_msg',
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
-        ).toPromise();
+        ));
 
         if (this.listing.fireStoragePath) {
             this.showSpinner = true;

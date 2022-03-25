@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SecurityContext, Simple
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
@@ -54,12 +54,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             this.locations = data;
         }));
 
-        this.snackbarMsgs = await this.translate.get(
+        this.snackbarMsgs = await lastValueFrom(this.translate.get(
             ['listing_upload.invalid_upload_msg',
                 'listing_upload.listing_published_msg',
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
-        ).toPromise();
+        ));
     }
 
     async ngOnChanges(changes: SimpleChanges) {

@@ -8,14 +8,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask'
 import { RTEditorModule } from '../rich-text-editor/rich-text-editor.module';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { ConfirmationDialogComponent } from './confirmation/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     ListingUploadComponent,
     ListingUploadDialogComponent,
     ListingEditComponent,
-    ConfirmationComponent
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +31,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     ListingUploadComponent,
     ListingEditComponent,
     ListingUploadDialogComponent,
-    ConfirmationComponent
+    ConfirmationDialogComponent
   ]
 })
 export class ListingEditModule { }

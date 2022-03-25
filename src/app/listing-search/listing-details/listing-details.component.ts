@@ -6,6 +6,7 @@ import { ListingDetailsService } from './listing-details.service';
 import { DomSanitizer, Meta, SafeUrl } from '@angular/platform-browser';
 import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'listing-details',
@@ -69,7 +70,7 @@ export class ListingDetailsComponent implements OnInit {
             );
         } else {
             this.contactNumberUrl = this.sanitizer.bypassSecurityTrustUrl(
-                `tel:${await this.translate.get('listing_details.default_contact_number').toPromise()}`
+                `tel:${await lastValueFrom(this.translate.get('listing_details.default_contact_number'))}`
             );
         }
 
@@ -81,7 +82,7 @@ export class ListingDetailsComponent implements OnInit {
     }
 
     async setHeaderMetadata() {
-        const langTerms = await this.translate.get(
+        const langTerms = await lastValueFrom(this.translate.get(
             [
                 "app_title",
                 "listing_details.bedrooms",
@@ -90,7 +91,8 @@ export class ListingDetailsComponent implements OnInit {
                 "listing_details.villa",
                 "listing_details.townhouse",
                 "listing_details.commercial",
-                "listing_details.contact"]).toPromise();
+                "listing_details.contact"]
+        ));
 
 
         this.title.setTitle(`${langTerms['app_title']} | ${this.listing.location} ${this.listing.price} ${this.listing.currency}`);
