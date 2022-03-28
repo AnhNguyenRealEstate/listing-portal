@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="page-title">
-                    {{listing.location}} | {{listing.price | currency: listing.currency}} |
+                    {{listing.location}} | {{listing.price | currency: listing.currency  : 'symbol' : '1.0-0'}} |
                     <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
                     <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
                 </h1>
@@ -86,7 +86,7 @@
 
     <div *ngIf="listing.location">
         <div class="d-flex justify-content-between" style="vertical-align: middle;">
-            <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency}} |
+            <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency  : 'symbol' : '1.0-0'}} |
                 <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}
                 </ng-container>
                 <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}

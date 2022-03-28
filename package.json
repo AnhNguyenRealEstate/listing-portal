@@ -42,6 +42,7 @@
     "ngx-mask": "^13.1.1",
     "ngx-translate": "github:ngx-translate/core",
     "ngx-useful-swiper": "^10.0.1",
+    "placeholder-loading": "^0.5.0",
     "rxjs": "~7.5.5",
     "swiper": "^6.8.4",
     "tslib": "^2.0.0",
