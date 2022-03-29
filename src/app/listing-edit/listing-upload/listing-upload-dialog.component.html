@@ -74,6 +74,10 @@
                 <input matInput id="contactNumber" type="text" [(ngModel)]="listing.contactNumber" class="d-inline"
                     mask="000 000 0000">
             </mat-form-field>
+            <mat-form-field color="accent">
+                <mat-label>{{ 'listing_upload.contact_person' | translate }}</mat-label>
+                <input matInput id="contactPerson" type="text" [(ngModel)]="listing.contactPerson" class="d-inline">
+            </mat-form-field>
         </div>
         <div class="col-12">
             <div class="price-input-group">

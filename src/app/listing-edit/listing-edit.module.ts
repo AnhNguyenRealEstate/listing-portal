@@ -28,10 +28,6 @@ import { ConfirmationDialogComponent } from './confirmation/confirmation-dialog.
     RTEditorModule
   ],
   exports: [
-    ListingUploadComponent,
-    ListingEditComponent,
-    ListingUploadDialogComponent,
-    ConfirmationDialogComponent
   ]
 })
 export class ListingEditModule { }

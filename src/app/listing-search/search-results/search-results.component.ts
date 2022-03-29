@@ -31,7 +31,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     }
 
     viewListingDetails(listing: Listing) {
-        this.listingLocationService.showLocationOnMap(listing.id!, listing.address!);
+        //this.listingLocationService.showLocationOnMap(listing.id!, listing.address!);
         this.listingDetailsService.showListing(listing.id!);
     }
 }

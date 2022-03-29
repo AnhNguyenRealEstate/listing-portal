@@ -102,19 +102,15 @@ export class ListingSearchService {
                 }
             }
 
-
             listing.id = doc.id;
 
-            if (!environment.test) {
-                if (listing.fireStoragePath) {
-                    getDownloadURL(
-                        ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`)
-                    ).then(url => {
-                        listing.coverImagePath = url;
-                    });
-                }
+            if (listing.fireStoragePath) {
+                getDownloadURL(
+                    ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`)
+                ).then(url => {
+                    listing.coverImagePath = url;
+                });
             }
-
             results.push(listing);
         }
 

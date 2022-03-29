@@ -38,12 +38,6 @@ import { ResultItemComponent } from './search-results/result-item/result-item.co
     NgxMaskModule.forChild()
   ],
   exports: [
-    SearchBarComponent,
-    ListingSearchComponent,
-    ListingDetailsComponent,
-    SearchResultsComponent,
-    ListingLocationComponent,
-    ResultItemComponent
   ]
 })
 export class ListingSearchModule { }

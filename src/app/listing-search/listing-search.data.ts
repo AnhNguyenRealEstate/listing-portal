@@ -17,7 +17,9 @@ export interface Listing {
     purpose?: 'For Rent' | 'For Sale'
     archived?: boolean
     contactNumber?: string
-    view?: string //Referring to the property's living room's views
+    contactPerson?: string
+    view?: string //Referring to the property's living room's views,
+    featured?: boolean
 }
 
 export interface ListingImageFile {

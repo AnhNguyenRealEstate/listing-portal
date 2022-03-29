@@ -119,7 +119,8 @@
         "upload_new": "Đăng mới",
         "contact_number": "SĐT liên lạc",
         "media_to_upload": "Hình ảnh đính kèm",
-        "cover_image": "Hình đại diện"
+        "cover_image": "Hình đại diện",
+        "contact_person": "Liên hệ"
     },
     "login": {
         "page_title": "Đăng nhập",

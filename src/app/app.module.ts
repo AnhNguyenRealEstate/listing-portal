@@ -23,6 +23,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { ListingSearchModule } from './listing-search/listing-search.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,

@@ -45,4 +45,20 @@ export class ListingEditService {
             false
         );
     }
+
+    async featureListing(dbRefId: string) {
+        await updateDoc(
+            doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
+            'featured',
+            true
+        );
+    }
+
+    async unfeatureListing(dbRefId: string) {
+        await updateDoc(
+            doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
+            'featured',
+            false
+        );
+    }
 }

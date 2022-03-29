@@ -120,7 +120,8 @@
         "upload_new": "Upload new listing",
         "contact_number": "Contact number",
         "media_to_upload": "Media attachments",
-        "cover_image": "Cover image"
+        "cover_image": "Cover image",
+        "contact_person": "Name of contact"
     },
     "login": {
         "page_title": "Login",

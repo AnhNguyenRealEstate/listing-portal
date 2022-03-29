@@ -10,7 +10,7 @@
             </mat-form-field>
         </div>
         <div class="col-sm-4 d-flex align-items-center">
-            <button mat-raised-button color="accent" (click)="getListings()"
+            <button mat-raised-button color="accent" (click)="getListings(searchCriteria)"
                 [disabled]="listingSearchService.searchInProgress() | async">
                 <span>{{ 'search_bar.get_listings' | translate }}</span>
             </button>
@@ -193,7 +193,7 @@
             </mat-expansion-panel>
         </div>
         <div class="col-3 d-flex align-items-center">
-            <button mat-raised-button color="accent" (click)="getListings()"
+            <button mat-raised-button color="accent" (click)="getListings(searchCriteria)"
                 [disabled]="listingSearchService.searchInProgress() | async">
                 <span>{{ 'search_bar.get_listings' | translate }}</span>
             </button>

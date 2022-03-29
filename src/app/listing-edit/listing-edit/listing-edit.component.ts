@@ -130,6 +130,22 @@ export class ListingEditComponent implements OnInit {
         this.loadingSpinnerService.stop();
     }
 
+    async featureListing(event: Event, index: number) {
+        event.stopPropagation();
+
+        this.loadingSpinnerService.start();
+        await this.listingEditService.featureListing(this.dbReferences[index]);
+        this.loadingSpinnerService.stop();
+    }
+
+    async unfeatureListing(event: Event, index: number) {
+        event.stopPropagation();
+
+        this.loadingSpinnerService.start();
+        await this.listingEditService.unfeatureListing(this.dbReferences[index]);
+        this.loadingSpinnerService.stop();
+    }
+
     /* Completely remove the listing from DB */
     async deleteListing(event: Event, index: number) {
         const langTerms = await lastValueFrom(this.translate.get([

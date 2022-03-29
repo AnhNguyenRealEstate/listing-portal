@@ -17,3 +17,38 @@
     font-size: 24px;
     padding-top: 25%;
 }
+
+.home-background {
+    background-image: url("/assets/images/carousel_3.jpeg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 90vh;
+}
+
+.backdrop {
+    backdrop-filter: blur(10px);
+    height: 90vh;
+}
+
+.view-all {
+    color: black;
+}
+
+.result-card-wrapper:hover {
+    transform: translate3D(0, -1px, 0) scale(1.03);
+}
+
+.result-card {
+    background-color: white;
+
+    .result-card-address {
+        max-height: 6em;
+        overflow: hidden;
+    }
+}
+
+.result-preview-img {
+    max-width: 100%;
+    object-fit: contain;
+}

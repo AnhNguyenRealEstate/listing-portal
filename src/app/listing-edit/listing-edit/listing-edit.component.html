@@ -15,7 +15,7 @@
                         <mat-card class="mb-2" (click)="showSelected(listing, i)">
                             <mat-card-title>
                                 <div class="pb-2 font-large">{{listing.location}} | {{listing.price | currency:
-                                    listing.currency  : 'symbol' : '1.0-0'}}
+                                    listing.currency : 'symbol' : '1.0-0'}}
                                 </div>
                             </mat-card-title>
                             <mat-card-content class="mb-1">
@@ -76,6 +76,14 @@
                                     </mat-chip>
                                 </mat-chip-list>
                                 <div>
+                                    <button mat-icon-button color="default" *ngIf="!listing.featured"
+                                        (click)="featureListing($event, i)">
+                                        <mat-icon>star</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="default" *ngIf="listing.featured"
+                                        (click)="unfeatureListing($event, i)">
+                                        <mat-icon color="accent">star</mat-icon>
+                                    </button>
                                     <button mat-icon-button color="default" *ngIf="!listing.archived"
                                         (click)="archiveListing($event, i)">
                                         <mat-icon color="accent">archive</mat-icon>
@@ -132,7 +140,7 @@
                     <mat-card class="mb-2" (click)="showSelectedAsDialog(listing, i)">
                         <mat-card-title>
                             <div class="pb-2 font-large">{{listing.location}} | {{listing.price | currency:
-                                listing.currency  : 'symbol' : '1.0-0'}}
+                                listing.currency : 'symbol' : '1.0-0'}}
                             </div>
                         </mat-card-title>
                         <mat-card-content class="mb-1">
