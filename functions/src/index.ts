@@ -1,12 +1,12 @@
 import * as functions from "firebase-functions";
 
-// Start writing Firebase Functions
-// https://firebase.google.com/docs/functions/typescript
+// // Start writing Firebase Functions
+// // https://firebase.google.com/docs/functions/typescript
 
-exports.assignIdToListing = functions.firestore
+exports.assignIdToListing = functions.region('asia-southeast1').firestore
   .document('listings/{documentId}')
   .onCreate((snap, context) => {
     const id = context.params.documentId;
     console.log('Updated document ' + id);
     return snap.ref.update({ 'id': id });
-  }); 
+  });
