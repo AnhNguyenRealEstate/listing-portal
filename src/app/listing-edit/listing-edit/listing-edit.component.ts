@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, DocumentData, Firestore, onSnapshot, query } from '@angular/fire/firestore';
+import { collection, Firestore, limit, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -43,7 +43,7 @@ export class ListingEditComponent implements OnInit {
 
     async ngOnInit() {
         this.snapshotCancel = onSnapshot(
-            query(collection(this.firestore, FirestoreCollections.listings)),
+            query(collection(this.firestore, FirestoreCollections.listings), orderBy("creationDate", 'asc'), limit(20)),
             async snapshot => {
                 const listings: Listing[] = new Array<Listing>(snapshot.docs.length);
                 this.dbReferences = new Array<string>(snapshot.docs.length);

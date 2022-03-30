@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { Firestore, CollectionReference, DocumentData, Query, query, where, collection } from '@angular/fire/firestore';
+import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { getDocs } from '@firebase/firestore';
-import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'any' })
 export class ListingSearchService {
@@ -23,7 +22,7 @@ export class ListingSearchService {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
             let q = query(ref, where('purpose', '==', criteria.purpose));
-
+            q = query(q, orderBy("creationDate", 'asc'));
             if (criteria.location) q = query(q, where('location', '==', criteria.location));
             if (criteria.category) q = query(q, where('category', '==', criteria.category));
 

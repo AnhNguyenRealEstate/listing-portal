@@ -1,3 +1,5 @@
+import { Timestamp } from "@angular/fire/firestore"
+
 export interface Listing {
     id?: string // auto-generated Firebase Id
     title?: string
@@ -19,7 +21,8 @@ export interface Listing {
     contactNumber?: string
     contactPerson?: string
     view?: string //Referring to the property's living room's views,
-    featured?: boolean
+    featured?: boolean,
+    creationDate?: Timestamp
 }
 
 export interface ListingImageFile {
