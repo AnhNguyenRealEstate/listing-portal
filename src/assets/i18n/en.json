@@ -15,7 +15,9 @@
     "home": {
         "browse_listings": "Browse our listings",
         "anh_nguyen": "Anh Nguyen",
-        "real_estate": "Real Estate Ltd"
+        "real_estate": "Real Estate Ltd",
+        "rent": "RENT",
+        "buy": "BUY"
     },
     "layout": {
         "listings": "Listings",

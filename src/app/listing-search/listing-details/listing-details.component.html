@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="page-title">
-                    {{listing.location}} | {{listing.price | currency: listing.currency  : 'symbol' : '1.0-0'}} |
+                    {{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
                     <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
                     <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
                 </h1>
@@ -71,10 +71,12 @@
                 <p *ngIf="listing.description" [innerHtml]="listing.description">
                 </p>
 
-                <label class="pt-2 text-bold">{{ 'listing_details.contact' | translate }}</label>
-                <p *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
-                </p>
+                <label class="pt-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
+                <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+                </span>
                 <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
+                <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+
             </div>
         </div>
     </div>
@@ -86,7 +88,8 @@
 
     <div *ngIf="listing.location">
         <div class="d-flex justify-content-between" style="vertical-align: middle;">
-            <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency  : 'symbol' : '1.0-0'}} |
+            <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' :
+                '1.0-0'}} |
                 <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}
                 </ng-container>
                 <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}
@@ -152,7 +155,7 @@
         <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
         </span>
         <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</span>
-        
+        <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
         <hr>
     </div>
 </section>

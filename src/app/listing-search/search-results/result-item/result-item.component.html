@@ -38,9 +38,9 @@
 </ng-container>
 
 <ng-container *ngIf="mode === 'mobile'">
-    <mat-card class="pt-2 pb-2 mt-1 mb-1 result-card" >
+    <mat-card class="pt-2 pb-2 mt-2 mb-2 result-card" >
         <mat-card-content>
-            <div style="vertical-align: middle;">
+            <div class="pt-2" style="vertical-align: middle;">
                 <span class="text-bold font-medium">{{result.price |
                     currency:
                     result.currency : 'symbol' : '1.0-0'}}</span>

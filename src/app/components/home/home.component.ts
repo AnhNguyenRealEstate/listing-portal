@@ -13,7 +13,10 @@ export class HomeComponent implements OnInit {
     numberOfMockListings = Array(3).fill(0);
     featuredListings!: Listing[];
 
-    searchCriteria: SearchCriteria = {} as SearchCriteria;
+    searchCriteria: SearchCriteria = {
+        purpose: 'For Rent'
+    } as SearchCriteria;
+
     propertySizes = PropertySizes;
 
     constructor(
@@ -32,11 +35,21 @@ export class HomeComponent implements OnInit {
     }
 
     getListings() {
-        this.router.navigate(['/listings', this.searchCriteria])
+        this.router.navigate(['/listings', this.searchCriteria]);
+    }
+
+    findListingsForRent() {
+        this.searchCriteria.purpose = 'For Rent';
+        this.router.navigate(['/listings', this.searchCriteria]);
+    }
+
+    findListingsForSale() {
+        this.searchCriteria.purpose = 'For Sale';
+        this.router.navigate(['/listings', this.searchCriteria]);
     }
 
     onCategorySelect() {
-        if(this.searchCriteria.category === 'Commercial'){
+        if (this.searchCriteria.category === 'Commercial') {
             this.searchCriteria.bedrooms = '';
             this.searchCriteria.bathrooms = '';
             this.searchCriteria.propertySize = '';

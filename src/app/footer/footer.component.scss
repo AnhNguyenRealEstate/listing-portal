@@ -1,5 +1,5 @@
 @use "src/app/styles/colors" as colors;
 
 .footer {
-    background: rgb(211, 208, 208);
+    background: colors.$alt-primary;
 }

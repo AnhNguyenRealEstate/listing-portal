@@ -11,7 +11,7 @@
             </mat-form-field>
 
             <mat-form-field color="accent" class="col-2" *ngIf="searchCriteria.purpose">
-                <mat-label>Phân loại</mat-label>
+                <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
                 <mat-select id="category" [(ngModel)]="searchCriteria.category" (selectionChange)="onCategorySelect()">
                     <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                     <mat-option value=" Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
@@ -117,20 +117,29 @@
 </section>
 
 <section class="d-md-none background-mobile">
-    <div class="container-flex pt-2 ms-4 me-4 company-name-block">
-        <h1 class="page-title company-name">
-            <span class="d-block">{{ 'home.anh_nguyen' | translate }}</span>
-            <span>{{ 'home.real_estate' | translate }}</span>
-        </h1>
-    </div>
-    <div class="backdrop-mobile" (click)="goToListings()">
-        <div class="ps-4">
-            <a href="/listings" class="browse-listing-link">
-                <p class="browse-listing-text">
-                    {{ 'home.browse_listings' | translate }}
-                    <mat-icon>trending_flat</mat-icon>
-                </p>
-            </a>
+    <div class="container-flex pt-2 company-name-block">
+        <div class="row d-flex justify-content-center" style="margin-top: 20vh">
+            <button class="col-5" mat-button>
+                <span class="action-btn-text-mobile" (click)="findListingsForRent()">{{ 'home.rent' | translate }}</span>
+            </button>
+            <div class="col-1 pt-2 d-flex justify-content-center">
+               <span class="divider-mobile"> / </span>
+            </div>
+            <button class="col-5" mat-button (click)="findListingsForSale()">
+                <span class="action-btn-text-mobile">{{ 'home.buy' | translate }}</span>
+            </button>
+        </div>
+        <div class="row ms-2 me-2 backdrop-mobile">
+            <mat-form-field color="accent" class="col-12">
+                <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
+                <mat-select id="category" [(ngModel)]="searchCriteria.category">
+                    <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                    <mat-option value=" Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
+                    <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
+                    <mat-option value="Townhouse">{{ 'search_bar.townhouse' | translate }}</mat-option>
+                    <mat-option value="Commercial">{{ 'search_bar.commercial' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
 </section>

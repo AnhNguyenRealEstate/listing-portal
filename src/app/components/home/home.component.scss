@@ -33,7 +33,7 @@
 
 .backdrop-mobile {
     backdrop-filter: blur(10px);
-    height: 30vh;
+    height: 10vh;
 }
 
 .view-all {
@@ -56,4 +56,10 @@
 .result-preview-img {
     max-width: 100%;
     object-fit: contain;
+}
+
+.divider-mobile,
+.action-btn-text-mobile {
+    font-size: x-large;
+    color: gray;
 }

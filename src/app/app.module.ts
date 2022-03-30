@@ -18,12 +18,12 @@ import { firebaseConfig } from './shared/globals';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
 import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
+import { connectFunctionsEmulator, getFunctions } from '@angular/fire/functions';
 import { environment } from 'src/environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
-import { ListingSearchModule } from './listing-search/listing-search.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -56,7 +56,14 @@ const maskConfig: Partial<IConfig> = {
       }
     }),
     NgxMaskModule.forRoot(maskConfig),
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => {
+      const app = initializeApp(firebaseConfig);
+      if (!environment.production) {
+        const functions = getFunctions(getApp());
+        connectFunctionsEmulator(functions, "localhost", 5001);
+      }
+      return app;
+    }),
     provideFirestore(() => {
       const firestore = getFirestore();
       if (!environment.production) {
