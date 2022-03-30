@@ -22,7 +22,7 @@ export class ListingSearchService {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
             let q = query(ref, where('purpose', '==', criteria.purpose));
-            q = query(q, orderBy("creationDate", 'asc'));
+            q = query(q, orderBy('creationDate', 'desc'));
             if (criteria.location) q = query(q, where('location', '==', criteria.location));
             if (criteria.category) q = query(q, where('category', '==', criteria.category));
 

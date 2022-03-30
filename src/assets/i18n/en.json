@@ -17,7 +17,8 @@
         "anh_nguyen": "Anh Nguyen",
         "real_estate": "Real Estate Ltd",
         "rent": "RENT",
-        "buy": "BUY"
+        "buy": "BUY",
+        "view_all": "Xem toàn bộ sản phẩm"
     },
     "layout": {
         "listings": "Listings",

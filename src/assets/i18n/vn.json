@@ -17,7 +17,8 @@
         "anh_nguyen": "Bất Động Sản",
         "real_estate": "Anh Nguyễn",
         "rent": "THUÊ",
-        "buy": "MUA"
+        "buy": "MUA",
+        "view_all": "View all listings"
     },
     "layout": {
         "listings": "Sản phẩm",

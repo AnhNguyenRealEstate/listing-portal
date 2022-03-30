@@ -43,7 +43,7 @@ export class ListingEditComponent implements OnInit {
 
     async ngOnInit() {
         this.snapshotCancel = onSnapshot(
-            query(collection(this.firestore, FirestoreCollections.listings), orderBy("creationDate", 'asc'), limit(20)),
+            query(collection(this.firestore, FirestoreCollections.listings), orderBy("creationDate", 'desc')),
             async snapshot => {
                 const listings: Listing[] = new Array<Listing>(snapshot.docs.length);
                 this.dbReferences = new Array<string>(snapshot.docs.length);
