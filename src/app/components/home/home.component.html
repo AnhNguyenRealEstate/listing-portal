@@ -12,8 +12,7 @@
 
             <mat-form-field color="accent" class="col-2" *ngIf="searchCriteria.purpose">
                 <mat-label>Phân loại</mat-label>
-                <mat-select id="category" [(ngModel)]="searchCriteria.category" disableOptionCentering="true"
-                    (selectionChange)="onCategorySelect()">
+                <mat-select id="category" [(ngModel)]="searchCriteria.category" (selectionChange)="onCategorySelect()">
                     <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                     <mat-option value=" Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
                     <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
@@ -34,7 +33,7 @@
             </ng-container>
 
             <ng-container *ngIf="searchCriteria.category && searchCriteria.category === 'Commercial'">
-                <mat-form-field color="accent" class="col-2" disableOptionCentering="true">
+                <mat-form-field color="accent" class="col-2">
                     <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
                     <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
                         <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>

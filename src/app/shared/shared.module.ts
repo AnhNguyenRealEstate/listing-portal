@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectConfig, MatSelectModule, MAT_SELECT_CONFIG } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -48,6 +48,10 @@ import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
         NgxPageScrollCoreModule,
         FooterModule
     ],
-    providers: [CurrencyPipe]
+    providers: [CurrencyPipe,
+        {
+            provide: MAT_SELECT_CONFIG,
+            useValue: { disableOptionCentering: true } as MatSelectConfig
+        }]
 })
 export class SharedModule { }
