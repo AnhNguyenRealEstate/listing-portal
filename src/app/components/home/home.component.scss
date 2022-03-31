@@ -46,7 +46,7 @@
 
     .result-card-address {
         white-space: nowrap;
-        -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
+        mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
     }
 }
 
@@ -64,7 +64,7 @@
 .btn-active {
     transform: translateY(-2px);
     span {
-        border-bottom: 1px solid #000;
+        border-bottom: 10px solid #000;
         padding-bottom: 3px;
     }
 }
