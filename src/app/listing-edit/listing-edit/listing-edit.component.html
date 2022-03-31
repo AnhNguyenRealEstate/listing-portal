@@ -12,7 +12,7 @@
                 </mat-card>
                 <div class="row">
                     <div *ngFor="let listing of listings; let i = index" class="col-6 listing-edit-card-wrapper">
-                        <mat-card class="mb-2" (click)="showSelected(listing, i)">
+                        <mat-card class="mb-2" (click)="showSelected(listing)">
                             <mat-card-title>
                                 <div class="pb-2">
                                     <span class="font-large">
@@ -21,11 +21,11 @@
                                     </span>
                                     <div class="d-inline" style="float: right;">
                                         <button mat-icon-button color="default" *ngIf="!listing.featured"
-                                            (click)="featureListing($event, i)">
+                                            (click)="featureListing($event, listing.id!)">
                                             <mat-icon>star_outlined</mat-icon>
                                         </button>
                                         <button mat-icon-button color="default" *ngIf="listing.featured"
-                                            (click)="unfeatureListing($event, i)">
+                                            (click)="unfeatureListing($event, listing.id!)">
                                             <mat-icon color="accent">star</mat-icon>
                                         </button>
                                     </div>
@@ -86,14 +86,14 @@
                                 </mat-chip-list>
                                 <div>
                                     <button mat-icon-button color="default" *ngIf="!listing.archived"
-                                        (click)="archiveListing($event, i)">
+                                        (click)="archiveListing($event, listing.id!)">
                                         <mat-icon color="accent">archive</mat-icon>
                                     </button>
                                     <button mat-icon-button color="default" *ngIf="listing.archived"
-                                        (click)="unarchiveListing($event, i)">
+                                        (click)="unarchiveListing($event, listing.id!)">
                                         <mat-icon color="accent">unarchive</mat-icon>
                                     </button>
-                                    <button mat-icon-button color="default" (click)="deleteListing($event, i)">
+                                    <button mat-icon-button color="default" (click)="deleteListing($event, listing)">
                                         <mat-icon color="accent">delete</mat-icon>
                                     </button>
                                 </div>
@@ -137,7 +137,7 @@
                     <mat-spinner class="d-block"></mat-spinner>
                 </mat-card>
                 <div *ngFor="let listing of listings; let i = index" class="listing-edit-card-wrapper">
-                    <mat-card class="mb-2" (click)="showSelectedAsDialog(listing, i)">
+                    <mat-card class="mb-2" (click)="showSelectedAsDialog(listing)">
                         <mat-card-title>
                             <span class="font-large">
                                 {{listing.location}} | {{listing.price | currency:
@@ -145,11 +145,11 @@
                             </span>
                             <div class="d-inline" style="float: right;">
                                 <button mat-icon-button color="default" *ngIf="!listing.featured"
-                                    (click)="featureListing($event, i)">
+                                    (click)="featureListing($event, listing.id!)">
                                     <mat-icon>star_outlined</mat-icon>
                                 </button>
                                 <button mat-icon-button color="default" *ngIf="listing.featured"
-                                    (click)="unfeatureListing($event, i)">
+                                    (click)="unfeatureListing($event, listing.id!)">
                                     <mat-icon color="accent">star</mat-icon>
                                 </button>
                             </div>
@@ -213,15 +213,15 @@
                             </mat-chip-list>
                             <div>
                                 <button mat-icon-button color="default" *ngIf="!listing.archived"
-                                    (click)="archiveListing($event, i)">
+                                    (click)="archiveListing($event, listing.id!)">
                                     <mat-icon color="accent">archive</mat-icon>
                                 </button>
                                 <button mat-icon-button color="default" *ngIf="listing.archived"
-                                    (click)="unarchiveListing($event, i)">
+                                    (click)="unarchiveListing($event, listing.id!)">
                                     <mat-icon color="accent">unarchive</mat-icon>
                                 </button>
                                 <span class="ps-2"></span>
-                                <button mat-icon-button color="default" (click)="deleteListing($event, i)">
+                                <button mat-icon-button color="default" (click)="deleteListing($event, listing)">
                                     <mat-icon color="accent">delete</mat-icon>
                                 </button>
                             </div>

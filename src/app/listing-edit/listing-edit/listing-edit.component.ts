@@ -22,7 +22,6 @@ import { lastValueFrom } from 'rxjs';
 
 export class ListingEditComponent implements OnInit {
     listings: Listing[] = [];
-    dbReferences: string[] = [];
 
     files: File[] = [];
     listingToShow: Listing | undefined = undefined;
@@ -46,7 +45,6 @@ export class ListingEditComponent implements OnInit {
             query(collection(this.firestore, FirestoreCollections.listings), orderBy("creationDate", 'desc')),
             async snapshot => {
                 const listings: Listing[] = new Array<Listing>(snapshot.docs.length);
-                this.dbReferences = new Array<string>(snapshot.docs.length);
 
                 await Promise.all(snapshot.docs.map(async (doc, index) => {
                     const listing = doc.data() as Listing;
@@ -56,7 +54,6 @@ export class ListingEditComponent implements OnInit {
                     } catch (e) { console.log(e) }
                     finally {
                         listings[index] = listing;
-                        this.dbReferences[index] = doc.id;
                     }
                 }));
 
@@ -73,14 +70,14 @@ export class ListingEditComponent implements OnInit {
         this.snapshotCancel();
     }
 
-    showSelected(listing: Listing, index: number) {
+    showSelected(listing: Listing) {
         this.listingToShow = listing;
-        this.dbReferenceId = this.dbReferences[index];
+        this.dbReferenceId = this.listingToShow.id!;
     }
 
-    showSelectedAsDialog(listing: Listing, index: number) {
+    showSelectedAsDialog(listing: Listing) {
         this.listingToShow = listing;
-        this.dbReferenceId = this.dbReferences[index];
+        this.dbReferenceId = this.listingToShow.id!;
         const config = {
             height: '90%',
             width: '100%',
@@ -114,40 +111,40 @@ export class ListingEditComponent implements OnInit {
         this.dialog.open(ListingUploadDialogComponent, config);
     }
 
-    async archiveListing(event: Event, index: number) {
+    async archiveListing(event: Event, id: string) {
         event.stopPropagation();
 
         this.loadingSpinnerService.start();
-        await this.listingEditService.archiveListing(this.dbReferences[index]);
+        await this.listingEditService.archiveListing(id);
         this.loadingSpinnerService.stop();
     }
 
-    async unarchiveListing(event: Event, index: number) {
+    async unarchiveListing(event: Event, id: string) {
         event.stopPropagation();
 
         this.loadingSpinnerService.start();
-        await this.listingEditService.unarchiveListing(this.dbReferences[index]);
+        await this.listingEditService.unarchiveListing(id);
         this.loadingSpinnerService.stop();
     }
 
-    async featureListing(event: Event, index: number) {
+    async featureListing(event: Event, id: string) {
         event.stopPropagation();
 
         this.loadingSpinnerService.start();
-        await this.listingEditService.featureListing(this.dbReferences[index]);
+        await this.listingEditService.featureListing(id);
         this.loadingSpinnerService.stop();
     }
 
-    async unfeatureListing(event: Event, index: number) {
+    async unfeatureListing(event: Event, id: string) {
         event.stopPropagation();
 
         this.loadingSpinnerService.start();
-        await this.listingEditService.unfeatureListing(this.dbReferences[index]);
+        await this.listingEditService.unfeatureListing(id);
         this.loadingSpinnerService.stop();
     }
 
     /* Completely remove the listing from DB */
-    async deleteListing(event: Event, index: number) {
+    async deleteListing(event: Event, listing: Listing) {
         const langTerms = await lastValueFrom(this.translate.get([
             "listing_edit.confirmation_msg", "listing_edit.yes_msg", "listing_edit.no_msg"]));
 
@@ -163,7 +160,7 @@ export class ListingEditComponent implements OnInit {
             }
         }).afterClosed().subscribe(async (toDelete) => {
             if (toDelete) {
-                this.listingEditService.deleteListing(this.listings[index], this.dbReferences[index]);
+                this.listingEditService.deleteListing(listing, listing.id!);
                 this.listingToShow = undefined;
                 this.dbReferenceId = '';
 
