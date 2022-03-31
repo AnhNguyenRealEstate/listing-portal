@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/firestore';
 import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
-import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { FirebaseStorageConsts, FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
@@ -10,7 +9,6 @@ import { getMetadata } from '@firebase/storage';
 
 @Injectable({ providedIn: 'any' })
 export class ListingUploadService {
-    private locations: string[] = [];
 
     private inProgress$$ = new BehaviorSubject<boolean>(false);
     private inProgress$ = this.inProgress$$.asObservable();
@@ -18,12 +16,8 @@ export class ListingUploadService {
     watermarkImg: string = '';
 
     constructor(private firestore: Firestore,
-        private storage: Storage,
-        private metadata: MetadataService
+        private storage: Storage
     ) {
-        this.metadata.locations().subscribe(data => {
-            this.locations = data;
-        });
     }
 
     /**
@@ -49,7 +43,6 @@ export class ListingUploadService {
         await this.storeCoverImage(coverImageFile, fireStoragePath);
         await this.storeListingImages(imageFiles, fireStoragePath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
-        await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
 
         this.inProgress$$.next(false);
 
@@ -104,8 +97,6 @@ export class ListingUploadService {
         }
 
         await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { ...listing });
-
-        await this.updateMetadata(this.locations, listing.location!, this.metadata.metadataKeys.locations);
 
         this.inProgress$$.next(false);
     }
@@ -231,23 +222,6 @@ export class ListingUploadService {
             ),
             coverImageFile
         ).catch();
-    }
-
-    /**
-     * Update metadata on Firestore. Metadata contains data that should be synced in real-time
-     */
-    private async updateMetadata(currentEntries: string[], newEntry: string, attributeToUpdate: string) {
-        if (currentEntries.indexOf(newEntry) == -1) {
-            const newList = [...currentEntries];
-            newList.push(newEntry);
-            newList.sort((a, b) => a.localeCompare(b));
-
-            await updateDoc(
-                doc(this.firestore, `${FirestoreCollections.metadata}/${FirestoreDocs.listingMetadata}`),
-                attributeToUpdate,
-                newList
-            )
-        }
     }
 
     /**
