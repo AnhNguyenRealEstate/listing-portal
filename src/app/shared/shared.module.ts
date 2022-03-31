@@ -21,8 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { FooterModule } from '../footer/footer.module';
 import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
-
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
     exports: [
@@ -46,12 +45,16 @@ import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
         MatAutocompleteModule,
         LoadSpinnerModule,
         NgxPageScrollCoreModule,
-        FooterModule
+        FooterModule,
+        MatButtonToggleModule
     ],
     providers: [CurrencyPipe,
         {
             provide: MAT_SELECT_CONFIG,
-            useValue: { disableOptionCentering: true } as MatSelectConfig
-        }]
+            useValue: {
+                disableOptionCentering: true
+            } as MatSelectConfig
+        }
+    ]
 })
 export class SharedModule { }

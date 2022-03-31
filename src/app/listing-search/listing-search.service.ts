@@ -21,7 +21,7 @@ export class ListingSearchService {
     async getListingsByCriteria(searchCriteria: SearchCriteria): Promise<Listing[]> {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
-            let q = query(ref, where('purpose', '==', criteria.purpose));
+            let q = query(ref, where('purpose', '==', criteria.purpose || 'For Rent'));
             q = query(q, orderBy('creationDate', 'desc'));
             if (criteria.location) q = query(q, where('location', '==', criteria.location));
             if (criteria.category) q = query(q, where('category', '==', criteria.category));

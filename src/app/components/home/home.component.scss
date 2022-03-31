@@ -1,3 +1,5 @@
+@use "src/app/styles/colors" as colors;
+
 .company-name-block {
     height: 60vh;
 }
@@ -33,7 +35,7 @@
 
 .backdrop-mobile {
     backdrop-filter: blur(10px);
-    height: 10vh;
+
 }
 
 .view-all {
@@ -62,4 +64,9 @@
 .action-btn-text-mobile {
     font-size: x-large;
     color: gray;
+}
+
+.btn-active {
+    box-shadow: 0 6px 28px 1px rgba(0, 0, 0, 0.24);
+    transform: translateY(-4px);
 }

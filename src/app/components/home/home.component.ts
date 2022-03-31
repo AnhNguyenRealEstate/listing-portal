@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
     featuredListings!: Listing[];
 
     searchCriteria: SearchCriteria = {
-        purpose: 'For Rent'
     } as SearchCriteria;
 
     propertySizes = PropertySizes;
@@ -30,22 +29,16 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    goToListings() {
-        this.router.navigateByUrl('/listings');
-    }
-
     getListings() {
         this.router.navigate(['/listings', this.searchCriteria]);
     }
 
     findListingsForRent() {
         this.searchCriteria.purpose = 'For Rent';
-        this.router.navigate(['/listings', this.searchCriteria]);
     }
 
     findListingsForSale() {
         this.searchCriteria.purpose = 'For Sale';
-        this.router.navigate(['/listings', this.searchCriteria]);
     }
 
     onCategorySelect() {
