@@ -14,7 +14,7 @@
                 <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
                 <mat-select id="category" [(ngModel)]="searchCriteria.category" (selectionChange)="onCategorySelect()">
                     <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                    <mat-option value=" Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
+                    <mat-option value="Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
                     <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
                     <mat-option value="Townhouse">{{ 'search_bar.townhouse' | translate }}</mat-option>
                     <mat-option value="Commercial">{{ 'search_bar.commercial' | translate }}</mat-option>
@@ -24,11 +24,11 @@
             <ng-container *ngIf="searchCriteria.category && searchCriteria.category !== 'Commercial'">
                 <mat-form-field color="accent" class="col-1">
                     <mat-label>Số phòng ngủ</mat-label>
-                    <input matInput type="text" [(ngModel)]="searchCriteria.bedrooms" />
+                    <input matInput trim="blur" type="text" [(ngModel)]="searchCriteria.bedrooms" />
                 </mat-form-field>
                 <mat-form-field color="accent" class="col-1">
                     <mat-label>Số phòng tắm</mat-label>
-                    <input matInput type="text" [(ngModel)]="searchCriteria.bathrooms" />
+                    <input matInput trim="blur" type="text" [(ngModel)]="searchCriteria.bathrooms" />
                 </mat-form-field>
             </ng-container>
 
@@ -117,8 +117,8 @@
 </section>
 
 <section class="d-md-none background-mobile">
-    <div class="container-flex pt-2 company-name-block">
-        <div class="row d-flex justify-content-center pb-2" style="margin-top: 20vh">
+    <div class="container-flex pt-2">
+        <div class="row d-flex justify-content-center pb-2" style="margin-top: 20vh; margin-left: 20px; margin-right: 20px;">
             <button class="col-5" mat-button [class.btn-active]="searchCriteria.purpose === 'For Rent'"
                 (click)="findListingsForRent()">
                 <span class="action-btn-text-mobile">{{ 'home.rent' | translate }}</span>
@@ -131,13 +131,13 @@
                 <span class="action-btn-text-mobile">{{ 'home.buy' | translate }}</span>
             </button>
         </div>
-        <div class="row d-flex justify-content-center" style="margin-left: 20px; margin-right: 20px;">
+        <div class="row d-flex justify-content-center">
             <div class="col-8 backdrop-mobile">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
                     <mat-select id="category" [(ngModel)]="searchCriteria.category">
                         <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
-                        <mat-option value=" Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
+                        <mat-option value="Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
                         <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
                         <mat-option value="Townhouse">{{ 'search_bar.townhouse' | translate }}</mat-option>
                         <mat-option value="Commercial">{{ 'search_bar.commercial' | translate }}</mat-option>

@@ -83,7 +83,7 @@
                             <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
                                 }}</span>)
                         </mat-label>
-                        <input matInput type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
+                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
                             id="minPrice">
                     </mat-form-field>
                     <mat-form-field color="accent" [floatLabel]="'always'" class="col-3">
@@ -93,7 +93,7 @@
                             <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
                                 }}</span>)
                         </mat-label>
-                        <input matInput type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
+                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
                             id="maxPrice">
                     </mat-form-field>
                 </div>
@@ -176,7 +176,7 @@
                             <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
                                 }}</span>)
                         </mat-label>
-                        <input matInput type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
+                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
                             id="minPrice">
                     </mat-form-field>
                     <mat-form-field class="col-6" color="accent" [floatLabel]="'always'">
@@ -186,7 +186,7 @@
                             <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
                                 }}</span>)
                         </mat-label>
-                        <input matInput type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
+                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
                             id="maxPrice">
                     </mat-form-field>
                 </div>

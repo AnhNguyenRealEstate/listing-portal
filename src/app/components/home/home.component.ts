@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
     featuredListings!: Listing[];
 
     searchCriteria: SearchCriteria = {
+        purpose: 'For Rent'
     } as SearchCriteria;
 
     propertySizes = PropertySizes;

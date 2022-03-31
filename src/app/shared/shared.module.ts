@@ -22,6 +22,7 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { FooterModule } from '../footer/footer.module';
 import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
     exports: [
@@ -46,7 +47,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         LoadSpinnerModule,
         NgxPageScrollCoreModule,
         FooterModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        NgxTrimDirectiveModule
     ],
     providers: [CurrencyPipe,
         {
