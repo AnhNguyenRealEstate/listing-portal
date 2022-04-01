@@ -22,7 +22,9 @@ export class LoginComponent {
         private translateService: TranslateService) { }
 
     async login() {
+        this.successful = true;
         this.inProgress = true;
+
         await this.auth.setPersistence(browserSessionPersistence);
         await signInWithEmailAndPassword(this.auth, this.userName, this.password).catch(error => {
             this.successful = false;
