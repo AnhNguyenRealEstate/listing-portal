@@ -71,7 +71,7 @@
             <div *ngFor="let result of featuredListings" class="col-3 result-card-wrapper"
                 (click)="getListing(result.id)">
                 <mat-card class="mt-1 result-card">
-                    <img mat-card-image height="150px" *ngIf="result.coverImagePath" [src]="result.coverImagePath">
+                    <img mat-card-image *ngIf="result.coverImagePath" [src]="result.coverImagePath">
                     <mat-card-content>
                         <div class="row">
                             <div class="col-12 pb-1" style="line-height: 2; vertical-align: middle;">
