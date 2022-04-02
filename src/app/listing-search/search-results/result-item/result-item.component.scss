@@ -1,0 +1,17 @@
+.result-card {
+    background-color: white;
+
+    .result-card-address {
+        white-space: nowrap;
+        mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
+    }
+}
+
+.result-preview-img {
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.mat-card-image {
+    height: 200px !important;
+}

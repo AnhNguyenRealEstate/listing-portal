@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { Firestore, CollectionReference, DocumentData, orderBy, Query, query, where, collection } from '@angular/fire/firestore';
+import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { getDocs } from '@firebase/firestore';
-import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'any' })
 export class ListingSearchService {
@@ -22,10 +21,21 @@ export class ListingSearchService {
     async getListingsByCriteria(searchCriteria: SearchCriteria): Promise<Listing[]> {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
-            let q = query(ref, where('purpose', '==', criteria.purpose));
+            let q = query(ref, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
 
-            if (criteria.location) q = query(q, where('location', '==', criteria.location));
-            if (criteria.category) q = query(q, where('category', '==', criteria.category));
+            switch (criteria.orderBy) {
+                case 'Most Affordable':
+                    q = query(q, orderBy('price', 'asc'));
+                    break;
+                case 'Most Recent':
+                    q = query(q, orderBy('creationDate', 'desc'));
+                    break;
+                default:
+                    break;
+            }
+
+            if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
+            if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
 
             return q as Query<DocumentData>;
         }
@@ -102,23 +112,20 @@ export class ListingSearchService {
                 }
             }
 
-
             listing.id = doc.id;
 
-            if (!environment.test) {
-                if (listing.fireStoragePath) {
-                    getDownloadURL(
-                        ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`)
-                    ).then(url => {
-                        listing.coverImagePath = url;
-                    });
-                }
+            if (listing.fireStoragePath) {
+                getDownloadURL(
+                    ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`)
+                ).then(url => {
+                    listing.coverImagePath = url;
+                });
             }
-
             results.push(listing);
         }
 
         this.searchInProgress$$.next(false);
+
         return results;
     }
 

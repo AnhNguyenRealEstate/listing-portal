@@ -4,24 +4,6 @@
   padding-bottom: 20px;
 }
 
-.carousel-thumbnail {
-  list-style-type: none;
-  padding: 0;
-  margin: 1rem 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.result-card {
-  background-color: white;
-
-  .result-card-address {
-    max-height: 6em;
-    overflow: hidden;
-  }
-}
-
 .float-controls-mobile {
   top: auto !important;
   right: 20px !important;
@@ -35,7 +17,8 @@
 
 .listing-search-desktop-section,
 .listing-search-mobile-section {
-  height: 100vh;
+  height: fit-content;
+  min-height: 100vh;
 }
 
 .mat-dialog-container,
@@ -54,18 +37,13 @@
   display: block; /* Need this on a component for sticky to work */
 }
 
-.listing-tag {
-  background-color: colors.$accent-light !important;
-}
-
-.result-preview-img {
-  max-width: 100%;
-  object-fit: contain;
-}
-
 .no-result-icon {
-  color: #dadce0;
+  color: colors.$accent-light;
   font: 200px/1.25 Google Sans, Helvetica Neue, sans-serif;
   margin-bottom: 24px;
   margin-top: 24px;
+}
+
+.result-card-wrapper:hover {
+  transform: translate3D(0, -1px, 0) scale(1.03);
 }

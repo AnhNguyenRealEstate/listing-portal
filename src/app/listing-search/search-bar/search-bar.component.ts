@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { SearchCriteria, PropertySizes } from '../listing-search.data';
@@ -21,7 +22,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         maxPrice: undefined,
         bedrooms: '',
         bathrooms: '',
-        purpose: 'For Rent'
+        purpose: 'For Rent',
+        orderBy: 'Most Recent'
     } as SearchCriteria;
 
     locations: string[] = [];
@@ -32,9 +34,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     numberOfResults: number = 0;
 
+    filterDescription: string = '';
+
     constructor(
         public listingSearchService: ListingSearchService,
-        private metadata: MetadataService
+        private metadata: MetadataService,
+        private route: ActivatedRoute
     ) {
     }
 
@@ -43,14 +48,20 @@ export class SearchBarComponent implements OnInit, OnDestroy {
             this.locations = data;
         }));
 
-        this.getListings();
+        const map = this.route.snapshot.paramMap;
+        this.searchCriteria.purpose = map.get('purpose') as 'For Rent' | 'For Sale' || 'For Rent';
+        this.searchCriteria.category = map.get('category') || '';
+        this.searchCriteria.bathrooms = map.get('bathrooms') || '';
+        this.searchCriteria.bedrooms = map.get('bedrooms') || '';
+
+        this.getListings(this.searchCriteria);
     }
 
     ngOnDestroy(): void {
         this.subs.unsubscribe();
     }
 
-    async getListings(criteria: SearchCriteria = this.searchCriteria) {
+    async getListings(criteria: SearchCriteria) {
         this.listingSearchService.setSearchResults([]);
         const results = await this.listingSearchService.getListingsByCriteria(criteria);
         this.listingSearchService.setSearchResults(results);

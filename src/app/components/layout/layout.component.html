@@ -6,8 +6,8 @@
     </a>
 
     <div class="d-none d-md-flex">
-        <a class="ps-3" mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
-
+        <a mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
+        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">{{ 'layout.edit_listings' | translate }}</a>
         <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
 
         <div *ngIf="loggedIn">
@@ -30,7 +30,7 @@
         <div class="language-toggle">
             <mat-icon>language</mat-icon>
             <mat-form-field>
-                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)" [disableOptionCentering]="true">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
                     <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
                     <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
                 </mat-select>
@@ -48,7 +48,7 @@
         <div class="ps-4 language-toggle-mobile">
             <mat-icon>language</mat-icon>
             <mat-form-field class="ps-3" (click)="$event.stopPropagation()">
-                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)" [disableOptionCentering]="true">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
                     <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
                     <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
                 </mat-select>

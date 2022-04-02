@@ -1,6 +1,4 @@
-.company-name-block {
-    height: 60vh;
-}
+@use "src/app/styles/colors" as colors;
 
 .company-name {
     color: darkslategray;
@@ -16,4 +14,61 @@
 .browse-listing-text {
     font-size: 24px;
     padding-top: 25%;
+}
+
+.home-background {
+    background-image: url("/assets/images/carousel_3.jpeg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 90vh;
+}
+
+.backdrop {
+    backdrop-filter: blur(10px);
+    height: 90vh;
+}
+
+.backdrop-mobile {
+    backdrop-filter: blur(10px);
+}
+
+.view-all {
+    color: black;
+}
+
+.result-card-wrapper:hover {
+    transform: translate3D(0, -1px, 0) scale(1.03);
+}
+
+.result-card {
+    background-color: white;
+
+    .result-card-address {
+        white-space: nowrap;
+        mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
+    }
+}
+
+.result-preview-img {
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.divider-mobile,
+.action-btn-text-mobile {
+    font-size: x-large;
+    color: gray;
+}
+
+.btn-active {
+    transform: translateY(-2px);
+    span {
+        border-bottom: 10px solid #000;
+        padding-bottom: 3px;
+    }
+}
+
+.mat-card-image {
+    height: 200px !important;
 }

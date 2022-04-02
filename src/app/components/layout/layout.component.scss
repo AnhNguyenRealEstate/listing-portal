@@ -5,7 +5,7 @@
 }
 
 .navbar {
-    background-color: colors.$primary;
+    background: colors.$alt-primary;
 }
 
 .inactiveLink {
@@ -19,7 +19,7 @@
 }
 
 .sidenav {
-    background: colors.$primary;
+    background: colors.$alt-primary;
     min-width: 240px;
     a {
         display: block;

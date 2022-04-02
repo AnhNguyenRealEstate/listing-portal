@@ -15,7 +15,10 @@
     "home": {
         "browse_listings": "Browse our listings",
         "anh_nguyen": "Anh Nguyen",
-        "real_estate": "Real Estate Ltd"
+        "real_estate": "Real Estate Ltd",
+        "rent": "RENT",
+        "buy": "BUY",
+        "view_all": "View all listings"
     },
     "layout": {
         "listings": "Listings",
@@ -23,8 +26,8 @@
         "about_us": "About us",
         "sign_in": "Sign in",
         "sign_out": "Sign out",
-        "english": "English",
-        "vietnamese": "Vietnamese",
+        "english": "English 🇬🇧",
+        "vietnamese": "Vietnamese 🇻🇳",
         "employee": "Employee",
         "reporting": "Day reporting"
     },
@@ -40,7 +43,10 @@
         "apartment": "Apartment",
         "villa": "Villa",
         "townhouse": "Townhouse",
-        "commercial": "Commercial"
+        "commercial": "Commercial",
+        "confirmation_msg": "Are you sure you want to delete this listing?",
+        "yes_msg": "Delete",
+        "no_msg": "Cancel"
     },
     "search_results": {
         "no_results": "No result matches your criteria",
@@ -92,7 +98,10 @@
         "purpose": "Purpose",
         "for_rent": "For rent",
         "for_sale": "For sale",
-        "found_x_results": "Found {{numberOfResults}} listing(s)"
+        "found_x_results": "Found {{numberOfResults}} listing(s)",
+        "order_by": "Order by",
+        "most_recent": "Most recent",
+        "most_affordable": "Most affordable"
     },
     "listing_upload": {
         "category": "Category",
@@ -119,7 +128,8 @@
         "upload_new": "Upload new listing",
         "contact_number": "Contact number",
         "media_to_upload": "Media attachments",
-        "cover_image": "Cover image"
+        "cover_image": "Cover image",
+        "contact_person": "Name of contact"
     },
     "login": {
         "page_title": "Login",

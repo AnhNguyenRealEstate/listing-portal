@@ -16,7 +16,8 @@ import { LoginService } from '../login/login.service';
 export class LayoutComponent implements OnInit, OnDestroy {
     loggedIn: boolean = false;
     isMenuOpen: boolean = false;
-    lang: string = 'en';
+    defaultLang = 'vn';
+    lang: string = this.defaultLang;
     sub = new Subscription();
 
     constructor(
@@ -30,7 +31,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         const sessionLang = localStorage.getItem('lang');
-        this.lang = sessionLang || 'en';
+        this.lang = sessionLang || this.defaultLang;
         this.translate.setDefaultLang(this.lang);
         this.translate.use(this.lang);
     }

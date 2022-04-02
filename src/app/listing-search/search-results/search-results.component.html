@@ -12,52 +12,9 @@
                         {{ 'search_results.no_results' | translate }}
                     </div>
                 </div>
-
-                <div *ngFor="let result of searchResults" class="col-3" style="height:200px">
-                    <mat-card class="mt-1 result-card" (click)="viewListingDetails(result)">
-                        <mat-card-title>
-                            <div class="d-flex justify-content-between">
-                                <span style="line-height: 2;" class="font-medium">{{result.location}} | {{result.price |
-                                    currency:
-                                    result.currency}}</span>
-                            </div>
-                        </mat-card-title>
-                        <mat-card-content>
-                            <hr>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img class="result-preview-img" *ngIf="result.coverImagePath"
-                                        [src]="result.coverImagePath">
-                                </div>
-                                <div class="col-6">
-                                    <div *ngIf="result.category && result.location">
-                                        <span *ngIf="result.category === 'Apartment'">{{ 'search_results.apartment' |
-                                            translate}}</span>
-                                        <span *ngIf="result.category === 'Villa'">{{ 'search_results.villa' |
-                                            translate}}</span>
-                                        <span *ngIf="result.category === 'Townhouse'">{{ 'search_results.townhouse' |
-                                            translate}}</span>
-                                        <span *ngIf="result.category === 'Commercial'">{{ 'search_results.commercial'
-                                            |translate}}</span>
-                                    </div>
-                                    <div *ngIf="result.view">{{ 'search_results.view' | translate }}:
-                                        {{result.view | lowercase }}
-                                    </div>
-                                    <div class="pb-2 result-card-address" *ngIf="result.address">
-                                        <span>{{result.address}}</span>
-                                    </div>
-                                    <div class="pb-2"
-                                        *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
-                                        <mat-icon color="accent">bed</mat-icon><span
-                                            class="ps-2 pe-4">{{result.bedrooms}}</span>
-                                        <mat-icon color="accent">bathtub</mat-icon>
-                                        <span class="ps-2">{{result.bathrooms}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
+                <result-item *ngFor="let result of searchResults" class="col-3 result-card-wrapper"
+                    (click)="viewListingDetails(result)" [mode]="'desktop'" [result]="result">
+                </result-item>
             </ng-container>
         </div>
     </section>
@@ -78,45 +35,10 @@
                     </div>
                 </div>
 
-                <div *ngFor="let result of searchResults; let i = index" class="col-12 col-md-6">
-                    <mat-divider *ngIf="i"></mat-divider>
-                    <mat-card class="pt-2 pb-2 mt-1 mb-1 result-card" (click)="viewListingDetails(result)">
-                        <mat-card-content>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img *ngIf="result.coverImagePath" class="result-preview-img"
-                                        [src]="result.coverImagePath">
-                                </div>
-                                <div class="col-6">
-                                    <div class="pb-2 font-large">{{result.price | currency: result.currency}}</div>
-                                    <div *ngIf="result.category && result.location">
-                                        <span *ngIf="result.category === 'Apartment'">{{ 'search_results.apartment'
-                                            |
-                                            translate}}</span>
-                                        <span *ngIf="result.category === 'Villa'">{{ 'search_results.villa' |
-                                            translate}}</span>
-                                        <span *ngIf="result.category === 'Townhouse'">{{ 'search_results.townhouse'
-                                            |
-                                            translate}}</span>
-                                        <span *ngIf="result.category === 'Commercial'">{{
-                                            'search_results.commercial' |
-                                            translate}}</span>
-                                            - {{result.location}}
-                                    </div>
-                                    <div *ngIf="result.address">
-                                        <span class="d-block result-card-address">{{result.address}}</span>
-                                    </div>
-                                    <div *ngIf="result.bedrooms !== undefined && result.bathrooms !== undefined">
-                                        <mat-icon color="accent">bed</mat-icon><span
-                                            class="ps-2 pe-4">{{result.bedrooms}}</span>
-                                        <mat-icon color="accent">bathtub</mat-icon>
-                                        <span class="ps-2">{{result.bathrooms}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
+                <result-item *ngFor="let result of searchResults; let i = index"
+                    class="col-12 col-md-6 pt-1 result-card-wrapper" (click)="viewListingDetails(result)"
+                    [mode]="'mobile'" [result]="result">
+                </result-item>
             </div>
         </div>
     </section>

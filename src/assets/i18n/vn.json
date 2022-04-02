@@ -7,7 +7,7 @@
         "company_intro_1": "Thành lập năm 2008, Anh Nguyễn tự hào là một trong những công ty BDS lâu năm ở Quận 7, TP.HCM",
         "company_intro_2_title": "1000+ Khách Mỗi Năm",
         "company_intro_2": "Sự hài lòng của khách hàng là thành công của chúng tôi",
-        "contact_us": "Liên lạc",
+        "contact_us": "Liên hệ",
         "office_address": "168 Hà Huy Tập, Phường Tân Phong, Quận 7, TP.HCM",
         "first_contact": "Tel: 84-28-54170823"
     },
@@ -15,16 +15,19 @@
     "home": {
         "browse_listings": "Xem sản phẩm",
         "anh_nguyen": "Bất Động Sản",
-        "real_estate": "Anh Nguyễn"
+        "real_estate": "Anh Nguyễn",
+        "rent": "THUÊ",
+        "buy": "MUA",
+        "view_all": "Xem toàn bộ sản phẩm"
     },
     "layout": {
         "listings": "Sản phẩm",
         "edit_listings": "Đăng/Sửa sản phẩm",
-        "about_us": "Liên lạc",
+        "about_us": "Liên hệ",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
-        "english": "Tiếng Anh",
-        "vietnamese": "Tiếng Việt",
+        "english": "Tiếng Anh 🇬🇧",
+        "vietnamese": "Tiếng Việt 🇻🇳",
         "employee": "Nhân viên",
         "reporting": "Báo cáo ngày"
     },
@@ -40,7 +43,10 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Shop thương mại"
+        "commercial": "Shop thương mại",
+        "confirmation_msg": "Bạn chắc chắn muốn xoá sản phẩm này?",
+        "yes_msg": "Xoá",
+        "no_msg": "Huỷ"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
@@ -80,8 +86,8 @@
         "commercial": "Shop thương mại",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
-        "bedrooms": "Số phòng ngủ",
-        "bathrooms": "Số phòng tắm",
+        "bedrooms": "Phòng ngủ",
+        "bathrooms": "Phòng tắm",
         "min_price": "Giá thấp nhất",
         "max_price": "Giá cao nhất",
         "us_dollar": "USD",
@@ -91,7 +97,10 @@
         "purpose": "Mục đích",
         "for_rent": "Tìm thuê",
         "for_sale": "Tìm mua",
-        "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm"
+        "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm",
+        "order_by": "Sắp xếp",
+        "most_recent": "Mới nhất đến cũ nhất",
+        "most_affordable": "Rẻ nhất đến đắt nhất"
     },
     "listing_upload": {
         "category": "Phân loại",
@@ -101,8 +110,8 @@
         "commercial": "Shop thương mại",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
-        "bedrooms": "Số phòng ngủ",
-        "bathrooms": "Số phòng tắm",
+        "bedrooms": "Phòng ngủ",
+        "bathrooms": "Phòng tắm",
         "purpose": "Cho thuê hay Rao bán",
         "price": "Giá",
         "address": "Địa chỉ",
@@ -118,7 +127,8 @@
         "upload_new": "Đăng mới",
         "contact_number": "SĐT liên lạc",
         "media_to_upload": "Hình ảnh đính kèm",
-        "cover_image": "Hình đại diện"
+        "cover_image": "Hình đại diện",
+        "contact_person": "Liên hệ"
     },
     "login": {
         "page_title": "Đăng nhập",

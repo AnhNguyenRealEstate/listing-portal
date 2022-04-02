@@ -1,3 +1,5 @@
+import { Timestamp } from "@angular/fire/firestore"
+
 export interface Listing {
     id?: string // auto-generated Firebase Id
     title?: string
@@ -17,7 +19,10 @@ export interface Listing {
     purpose?: 'For Rent' | 'For Sale'
     archived?: boolean
     contactNumber?: string
-    view?: string //Referring to the property's living room's views
+    contactPerson?: string
+    view?: string //Referring to the property's living room's views,
+    featured?: boolean,
+    creationDate?: Timestamp
 }
 
 export interface ListingImageFile {
@@ -34,6 +39,7 @@ export interface SearchCriteria {
     bedrooms: string
     bathrooms: string
     purpose: 'For Rent' | 'For Sale'
+    orderBy: 'Most Recent' | 'Most Affordable'
 }
 
 /* The following const is used for searching purposes ONLY */

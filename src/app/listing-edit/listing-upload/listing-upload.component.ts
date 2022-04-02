@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SecurityContext, Simple
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
@@ -51,12 +51,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
             this.locations = data;
         }));
 
-        this.snackbarMsgs = await this.translate.get(
+        this.snackbarMsgs = await lastValueFrom(this.translate.get(
             ['listing_upload.invalid_upload_msg',
                 'listing_upload.listing_published_msg',
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
-        ).toPromise();
+        ));
     }
 
     async ngOnChanges(changes: SimpleChanges) {
@@ -94,23 +94,26 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
 
-    onMediaUpload(event: any) {
+    async onMediaUpload(event: any) {
         const files = (event.target.files as FileList);
         if (files.length === 0) {
             return;
         }
 
         this.compressionInProgress = true;
+
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
 
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = async () => {
+                const base64Img = reader.result as string;
                 const compressedImgAsBase64Url =
                     await this.imageCompress.compressFile(
-                        reader.result as string, DOC_ORIENTATION.Default,
+                        base64Img, DOC_ORIENTATION.Default,
                         100, 75, 1920, 1080);
+
                 const response = await fetch(compressedImgAsBase64Url);
                 const data = await response.blob();
                 const compressedFile = new File(
@@ -125,9 +128,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
                         SecurityContext.RESOURCE_URL,
                         this.sanitizer.bypassSecurityTrustResourceUrl(compressedImgAsBase64Url))!
                 );
+
+                if (i == files.length - 1) {
+                    this.compressionInProgress = false;
+                }
             }
         }
-        this.compressionInProgress = false;
 
         this.imageFilesModified = true;
     }
@@ -143,7 +149,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         this.imageFilesModified = true;
     }
 
-    onCoverImageUpload(event: any) {
+    async onCoverImageUpload(event: any) {
         const files = (event.target.files as FileList);
         if (files.length === 0) {
             return;
@@ -153,10 +159,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = async () => {
+            const base64Img = reader.result as string;
             const compressedImgAsBase64Url =
                 await this.imageCompress.compressFile(
-                    reader.result as string, DOC_ORIENTATION.Default,
+                    base64Img as string, DOC_ORIENTATION.Default,
                     100, 75, 1920, 1080);
+
             const response = await fetch(compressedImgAsBase64Url);
             const data = await response.blob();
             const compressedFile = new File(

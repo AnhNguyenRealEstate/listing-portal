@@ -8,13 +8,6 @@ import { Listing } from '../../listing-search/listing-search.data';
 
 @Injectable({ providedIn: 'any' })
 export class ListingEditService {
-
-    private deleteInProgress$$ = new BehaviorSubject<boolean>(false);
-    private deleteInProgress$ = this.deleteInProgress$$.asObservable();
-
-    private archiveInProgress$$ = new BehaviorSubject<boolean>(false);
-    private archiveInProgress$ = this.archiveInProgress$$.asObservable();
-
     constructor(
         private firestore: Firestore,
         private storage: Storage) {
@@ -22,54 +15,50 @@ export class ListingEditService {
 
     /* Completely remove the listing from DB */
     async deleteListing(listing: Listing, dbRefId: string) {
-        this.deleteInProgress$$.next(true);
+        const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.listingImgsVideos}`
+        listAll(ref(this.storage, imgsVideosStoragePath)).then(result => {
+            const allImages = result.items;
+            allImages.map(image => {
+                deleteObject(ref(image));
+            });
+        })
 
-        if (!environment.test) {
-            const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.listingImgsVideos}`
-            const allImages = (await listAll(ref(this.storage, imgsVideosStoragePath))).items;
-            await Promise.all(allImages.map(async image => {
-                await deleteObject(ref(image))
-            }));
+        const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`
+        deleteObject(ref(this.storage, coverImagePath));
 
-            const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`
-            await deleteObject(ref(this.storage, coverImagePath));
-        }
-
-        await deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));
-
-        this.deleteInProgress$$.next(false);
+        deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));
     }
 
     /* Change archived property of the listing */
     async archiveListing(dbRefId: string) {
-        this.archiveInProgress$$.next(true);
-
         await updateDoc(
             doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
             'archived',
             true
         );
-
-        this.archiveInProgress$$.next(false);
     }
 
     async unarchiveListing(dbRefId: string) {
-        this.archiveInProgress$$.next(true);
-
         await updateDoc(
             doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
             'archived',
             false
         );
-
-        this.archiveInProgress$$.next(false);
     }
 
-    deleteInProgress() {
-        return this.deleteInProgress$;
+    async featureListing(dbRefId: string) {
+        await updateDoc(
+            doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
+            'featured',
+            true
+        );
     }
 
-    archiveInProgress() {
-        return this.archiveInProgress$;
+    async unfeatureListing(dbRefId: string) {
+        await updateDoc(
+            doc(collection(this.firestore, FirestoreCollections.listings), dbRefId),
+            'featured',
+            false
+        );
     }
 }

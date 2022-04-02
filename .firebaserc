@@ -1,6 +1,7 @@
 {
   "projects": {
-    "listing-portal": "listing-portal-ec7bf"
+    "listing-portal": "listing-portal-ec7bf",
+    "default": "listing-portal-ec7bf"
   },
   "targets": {}
 }

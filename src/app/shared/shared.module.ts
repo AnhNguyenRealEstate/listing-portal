@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectConfig, MatSelectModule, MAT_SELECT_CONFIG } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -21,8 +21,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { FooterModule } from '../footer/footer.module';
 import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
-
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     exports: [
@@ -46,8 +47,18 @@ import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
         MatAutocompleteModule,
         LoadSpinnerModule,
         NgxPageScrollCoreModule,
-        FooterModule
+        FooterModule,
+        MatButtonToggleModule,
+        NgxTrimDirectiveModule,
+        MatMenuModule
     ],
-    providers: [CurrencyPipe]
+    providers: [CurrencyPipe,
+        {
+            provide: MAT_SELECT_CONFIG,
+            useValue: {
+                disableOptionCentering: true
+            } as MatSelectConfig
+        }
+    ]
 })
 export class SharedModule { }

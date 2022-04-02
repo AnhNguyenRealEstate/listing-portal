@@ -3,11 +3,11 @@
     <mat-divider class="pb-2"></mat-divider>
     <mat-form-field color="accent" class="d-block">
         <mat-label>{{ 'login.username' | translate }}</mat-label>
-        <input matInput type="text" [(ngModel)]="userName">
+        <input matInput trim="blur" type="text" [(ngModel)]="userName">
     </mat-form-field>
     <mat-form-field color="accent" class="d-block">
         <mat-label>{{ 'login.password' | translate }}</mat-label>
-        <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+        <input matInput trim="blur" [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
