@@ -12,7 +12,7 @@
                         {{ 'search_results.no_results' | translate }}
                     </div>
                 </div>
-                <result-item *ngFor="let result of searchResults" class="col-3 result-card-wrapper"
+                <result-item *ngFor="let result of searchResults" class="col-4 result-card-wrapper"
                     (click)="viewListingDetails(result)" [mode]="'desktop'" [result]="result">
                 </result-item>
             </ng-container>
