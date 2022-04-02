@@ -96,7 +96,9 @@
         "purpose": "Purpose",
         "for_rent": "For rent",
         "for_sale": "For sale",
-        "found_x_results": "Found {{numberOfResults}} listing(s)"
+        "found_x_results": "Found {{numberOfResults}} listing(s)",
+        "from": "from",
+        "up_to": "up to"
     },
     "listing_upload": {
         "category": "Category",

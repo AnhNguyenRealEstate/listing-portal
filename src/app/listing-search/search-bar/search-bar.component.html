@@ -24,13 +24,16 @@
             <mat-expansion-panel [(expanded)]="panelOpenState">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        {{ 'search_bar.filters' | translate }}
+                        <span>{{ 'search_bar.filters' | translate }}</span>
+                        <span class="pe-1" *ngIf="filterDescription">:</span>
+                        <span [innerHtml]="filterDescription"></span>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row">
                     <mat-form-field color="accent" class="col-3">
                         <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
-                        <mat-select id="category" [(ngModel)]="searchCriteria.category">
+                        <mat-select id="category" [(ngModel)]="searchCriteria.category"
+                            (ngModelChange)=constructFilterDescription()>
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                             <mat-option value="Apartment">{{ 'search_bar.apartment' | translate }}</mat-option>
                             <mat-option value="Villa">{{ 'search_bar.villa' | translate }}</mat-option>
@@ -40,7 +43,8 @@
                     </mat-form-field>
                     <mat-form-field color="accent" class="col-3">
                         <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
-                        <mat-select id="locations" [(ngModel)]="searchCriteria.location">
+                        <mat-select id="locations" [(ngModel)]="searchCriteria.location"
+                            (ngModelChange)=constructFilterDescription()>
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                             <mat-option *ngFor="let loc of locations " value="{{loc}}">{{loc}}
                             </mat-option>
@@ -48,7 +52,8 @@
                     </mat-form-field>
                     <mat-form-field color="accent" class="col-3">
                         <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
-                        <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
+                        <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize"
+                            (ngModelChange)=constructFilterDescription()>
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                             <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">
                                 {{type.value}}
@@ -57,7 +62,8 @@
                     </mat-form-field>
                     <mat-form-field color="accent" class="col-3">
                         <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
-                        <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
+                        <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms"
+                            (ngModelChange)=constructFilterDescription()>
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                             <mat-option value='1'>1</mat-option>
                             <mat-option value='2'>2</mat-option>
@@ -67,7 +73,8 @@
                     </mat-form-field>
                     <mat-form-field color="accent" class="col-3">
                         <mat-label>{{ 'search_bar.bathrooms' | translate }}</mat-label>
-                        <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
+                        <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms"
+                            (ngModelChange)=constructFilterDescription()>
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                             <mat-option value='1'>1</mat-option>
                             <mat-option value='2'>2</mat-option>
@@ -84,7 +91,7 @@
                                 }}</span>)
                         </mat-label>
                         <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
-                            id="minPrice">
+                            id="minPrice" (ngModelChange)=constructFilterDescription()>
                     </mat-form-field>
                     <mat-form-field color="accent" [floatLabel]="'always'" class="col-3">
                         <mat-label>{{ 'search_bar.max_price' | translate }}
@@ -94,7 +101,7 @@
                                 }}</span>)
                         </mat-label>
                         <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
-                            id="maxPrice">
+                            id="maxPrice" (ngModelChange)=constructFilterDescription()>
                     </mat-form-field>
                 </div>
             </mat-expansion-panel>
