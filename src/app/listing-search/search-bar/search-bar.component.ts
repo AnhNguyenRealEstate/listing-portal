@@ -22,7 +22,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         maxPrice: undefined,
         bedrooms: '',
         bathrooms: '',
-        purpose: 'For Rent'
+        purpose: 'For Rent',
+        orderBy: 'Most Recent'
     } as SearchCriteria;
 
     locations: string[] = [];
@@ -32,6 +33,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     subs: Subscription = new Subscription();
 
     numberOfResults: number = 0;
+
+    filterDescription: string = '';
 
     constructor(
         public listingSearchService: ListingSearchService,

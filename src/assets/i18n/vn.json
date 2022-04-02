@@ -84,8 +84,8 @@
         "commercial": "Shop thương mại",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
-        "bedrooms": "Số phòng ngủ",
-        "bathrooms": "Số phòng tắm",
+        "bedrooms": "Phòng ngủ",
+        "bathrooms": "Phòng tắm",
         "min_price": "Giá thấp nhất",
         "max_price": "Giá cao nhất",
         "us_dollar": "USD",
@@ -95,7 +95,10 @@
         "purpose": "Mục đích",
         "for_rent": "Tìm thuê",
         "for_sale": "Tìm mua",
-        "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm"
+        "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm",
+        "order_by": "Sắp xếp",
+        "most_recent": "Mới nhất đến cũ nhất",
+        "most_affordable": "Rẻ nhất đến đắt nhất"
     },
     "listing_upload": {
         "category": "Phân loại",
@@ -105,8 +108,8 @@
         "commercial": "Shop thương mại",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
-        "bedrooms": "Số phòng ngủ",
-        "bathrooms": "Số phòng tắm",
+        "bedrooms": "Phòng ngủ",
+        "bathrooms": "Phòng tắm",
         "purpose": "Cho thuê hay Rao bán",
         "price": "Giá",
         "address": "Địa chỉ",
