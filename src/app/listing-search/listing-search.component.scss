@@ -18,6 +18,7 @@
 .listing-search-desktop-section,
 .listing-search-mobile-section {
   height: fit-content;
+  min-height: 100vh;
 }
 
 .mat-dialog-container,

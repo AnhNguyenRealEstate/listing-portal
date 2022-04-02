@@ -96,8 +96,9 @@
         "for_rent": "Tìm thuê",
         "for_sale": "Tìm mua",
         "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm",
-        "from": "từ",
-        "up_to": "đến"
+        "order_by": "Sắp xếp",
+        "most_recent": "Mới nhất đến cũ nhất",
+        "most_affordable": "Rẻ nhất đến đắt nhất"
     },
     "listing_upload": {
         "category": "Phân loại",

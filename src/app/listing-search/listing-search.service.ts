@@ -22,7 +22,18 @@ export class ListingSearchService {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
             let q = query(ref, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
-            q = query(q, orderBy('creationDate', 'desc'));
+
+            switch (criteria.orderBy) {
+                case 'Most Affordable':
+                    q = query(q, orderBy('price', 'asc'));
+                    break;
+                case 'Most Recent':
+                    q = query(q, orderBy('creationDate', 'desc'));
+                    break;
+                default:
+                    break;
+            }
+
             if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
             if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
 
@@ -114,12 +125,6 @@ export class ListingSearchService {
         }
 
         this.searchInProgress$$.next(false);
-
-        results.sort((a, b) => {
-            if (a.price! > b.price!) return 1;
-            if (a.price! < b.price!) return -1;
-            return 0;
-        });
 
         return results;
     }

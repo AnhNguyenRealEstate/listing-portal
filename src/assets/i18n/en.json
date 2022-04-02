@@ -97,8 +97,9 @@
         "for_rent": "For rent",
         "for_sale": "For sale",
         "found_x_results": "Found {{numberOfResults}} listing(s)",
-        "from": "from",
-        "up_to": "up to"
+        "order_by": "Order by",
+        "most_recent": "Most recent",
+        "most_affordable": "Most affordable"
     },
     "listing_upload": {
         "category": "Category",
