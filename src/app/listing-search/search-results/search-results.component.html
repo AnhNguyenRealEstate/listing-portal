@@ -12,7 +12,7 @@
                         {{ 'search_results.no_results' | translate }}
                     </div>
                 </div>
-                <result-item *ngFor="let result of searchResults" class="col-4 result-card-wrapper"
+                <result-item *ngFor="let result of searchResults" class="col-4 pb-2 result-card-wrapper"
                     (click)="viewListingDetails(result)" [mode]="'desktop'" [result]="result">
                 </result-item>
             </ng-container>
@@ -36,7 +36,7 @@
                 </div>
 
                 <result-item *ngFor="let result of searchResults; let i = index"
-                    class="col-12 col-md-6 pt-1 result-card-wrapper" (click)="viewListingDetails(result)"
+                    class="col-12 col-md-6 pt-1 pb-1 result-card-wrapper" (click)="viewListingDetails(result)"
                     [mode]="'mobile'" [result]="result">
                 </result-item>
             </div>
