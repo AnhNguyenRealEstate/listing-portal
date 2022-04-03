@@ -2,7 +2,7 @@
     <h1 class="page-title">
         {{ 'listing_search.page_title' | translate }}
     </h1>
-    <hr>
+    <mat-divider class="pb-2"></mat-divider>
     <div class="row">
         <div class="col-3">
             <search-bar [mode]="'desktop'"></search-bar>
@@ -18,7 +18,7 @@
 
 <section #mobileSearchView class="container pt-2 py-2 d-lg-none listing-search-mobile-section">
     <search-bar [mode]="'mobile'"></search-bar>
-    <hr>
+    <mat-divider class="pb-1"></mat-divider>
     <search-results [mode]="'mobile'"></search-results>
 
     <div class="float-controls-mobile d-sm-none">

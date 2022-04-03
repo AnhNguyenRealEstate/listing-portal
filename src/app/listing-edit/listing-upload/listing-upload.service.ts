@@ -46,8 +46,9 @@ export class ListingUploadService {
 
         const fireStoragePath = createStoragePath(listing);
         listing.fireStoragePath = fireStoragePath;
+        listing.coverImagePath = `${fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
 
-        await this.storeCoverImage(coverImageFile, fireStoragePath);
+        await this.storeCoverImage(coverImageFile, listing.coverImagePath);
         await this.storeListingImages(imageFiles, fireStoragePath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
 
@@ -102,7 +103,7 @@ export class ListingUploadService {
         }
 
         if (updateCoverImage) {
-            await this.storeCoverImage(coverImageFile, listing.fireStoragePath!);
+            await this.storeCoverImage(coverImageFile, listing.coverImagePath!);
         }
 
         await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { ...listing });
@@ -218,12 +219,11 @@ export class ListingUploadService {
         }));
     }
 
-    private async storeCoverImage(coverImageFile: File, storagePath: string) {
+    private async storeCoverImage(coverImageFile: File, coverImagePath: string) {
         if (environment.test) {
             return;
         }
 
-        const coverImagePath = `${storagePath}/${FirebaseStorageConsts.coverImage}`;
         await uploadBytes(
             ref(
                 this.storage,

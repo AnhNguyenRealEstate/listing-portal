@@ -13,7 +13,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { NgxMaskModule } from 'ngx-mask';
-import { ResultItemComponent } from './search-results/result-item/result-item.component';
+import { ListingCardModule } from '../listing-card/listing-card.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,7 @@ import { ResultItemComponent } from './search-results/result-item/result-item.co
     ListingSearchComponent,
     ListingDetailsComponent,
     SearchResultsComponent,
-    ListingLocationComponent,
-    ResultItemComponent
+    ListingLocationComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +34,8 @@ import { ResultItemComponent } from './search-results/result-item/result-item.co
     GoogleMapsModule,
     MatExpansionModule,
     NgxUsefulSwiperModule,
-    NgxMaskModule.forChild()
+    NgxMaskModule.forChild(),
+    ListingCardModule
   ],
   exports: [
   ]

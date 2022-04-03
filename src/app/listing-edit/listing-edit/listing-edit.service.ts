@@ -21,7 +21,7 @@ export class ListingEditService {
             });
         })
 
-        const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`
+        const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
         deleteObject(ref(this.storage, coverImagePath));
 
         deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));

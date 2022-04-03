@@ -41,20 +41,6 @@
     transform: translate3D(0, -1px, 0) scale(1.03);
 }
 
-.result-card {
-    background-color: white;
-
-    .result-card-address {
-        white-space: nowrap;
-        mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
-    }
-}
-
-.result-preview-img {
-    max-width: 100%;
-    object-fit: contain;
-}
-
 .divider-mobile,
 .action-btn-text-mobile {
     font-size: x-large;
@@ -67,8 +53,4 @@
         border-bottom: 10px solid #000;
         padding-bottom: 3px;
     }
-}
-
-.mat-card-image {
-    height: 200px !important;
 }

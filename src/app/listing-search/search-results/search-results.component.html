@@ -12,9 +12,15 @@
                         {{ 'search_results.no_results' | translate }}
                     </div>
                 </div>
+<<<<<<< HEAD
                 <result-item *ngFor="let result of searchResults" class="col-4 pb-2 result-card-wrapper"
                     (click)="viewListingDetails(result)" [mode]="'desktop'" [result]="result">
                 </result-item>
+=======
+                <listing-card *ngFor="let result of searchResults" class="col-4 result-card-wrapper"
+                    (click)="viewListingDetails(result)" [mode]="'desktop'" [listing]="result">
+                </listing-card>
+>>>>>>> dynamic-og-tags-using-functions
             </ng-container>
         </div>
     </section>
@@ -35,10 +41,17 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <result-item *ngFor="let result of searchResults; let i = index"
                     class="col-12 col-md-6 pt-1 pb-1 result-card-wrapper" (click)="viewListingDetails(result)"
                     [mode]="'mobile'" [result]="result">
                 </result-item>
+=======
+                <listing-card *ngFor="let result of searchResults; let i = index"
+                    class="col-12 col-md-6 pt-1 result-card-wrapper" (click)="viewListingDetails(result)"
+                    [mode]="'mobile'" [listing]="result">
+                </listing-card>
+>>>>>>> dynamic-og-tags-using-functions
             </div>
         </div>
     </section>
