@@ -1,13 +1,13 @@
 import { TestBed } from "@angular/core/testing";
 import { collection, connectFirestoreEmulator, doc, Firestore, getDoc, getDocs, getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { connectStorageEmulator, FirebaseStorage, getStorage, provideStorage } from "@angular/fire/storage";
-import { MetadataService } from "src/app/shared/metadata.service";
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { ListingEditService } from "./listing-edit.service";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile } from "../../listing-search/listing-search.data";
 import { ListingUploadService } from "../listing-upload/listing-upload.service";
+import { getFunctions, connectFunctionsEmulator } from "@angular/fire/functions";
 
 
 describe('Listing Upload Service', () => {
@@ -18,13 +18,14 @@ describe('Listing Upload Service', () => {
 
     let listingUpload: ListingUploadService;
     let listingEdit: ListingEditService;
-    let metadata: MetadataService;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
+                    const functions = getFunctions(firebaseApp);
+                    connectFunctionsEmulator(functions, "localhost", 5001);
                     return firebaseApp;
                 }),
                 provideFirestore(() => {
@@ -41,15 +42,10 @@ describe('Listing Upload Service', () => {
                     auth = getAuth();
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
-                })],
-            providers: [
-                MetadataService
-            ]
+                })]
         });
 
-        metadata = TestBed.inject(MetadataService);
-
-        listingUpload = new ListingUploadService(firestore, storage, metadata);
+        listingUpload = new ListingUploadService(firestore, storage);
         listingEdit = new ListingEditService(firestore, storage);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')

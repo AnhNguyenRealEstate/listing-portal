@@ -7,6 +7,11 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
 
+
+/**
+ * TODO: transfer the upload logic to cloud functions
+ * to ensure atomic writing
+ */
 @Injectable({ providedIn: 'any' })
 export class ListingUploadService {
 
@@ -37,6 +42,8 @@ export class ListingUploadService {
 
         this.inProgress$$.next(true);
 
+        this.sanitizeListing(listing);
+
         const fireStoragePath = createStoragePath(listing);
         listing.fireStoragePath = fireStoragePath;
 
@@ -60,6 +67,8 @@ export class ListingUploadService {
         updateCoverImage: boolean) {
 
         this.inProgress$$.next(true);
+
+        this.sanitizeListing(listing);
 
         if (updateImages) {
             /**
@@ -222,6 +231,20 @@ export class ListingUploadService {
             ),
             coverImageFile
         ).catch();
+    }
+
+    /**
+     * 
+     * @param listing the listing to be uploaded
+     * 
+     * NgModel always bind values as strings, this function corrects that behavior to prevent uploading
+     * numeric values as strings to Firebase
+     */
+    private sanitizeListing(listing: Listing) {
+        listing.bathrooms = Number(listing.bathrooms);
+        listing.bedrooms = Number(listing.bedrooms);
+        listing.price = Number(listing.price);
+        listing.propertySize = Number(listing.propertySize);
     }
 
     /**

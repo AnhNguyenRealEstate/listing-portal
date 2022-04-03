@@ -6,12 +6,12 @@ import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile, SearchCriteria } from "../listing-search/listing-search.data";
-import { MetadataService } from "src/app/shared/metadata.service";
 import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { ListingUploadService } from "../listing-edit/listing-upload/listing-upload.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { Router } from "@angular/router";
 import { ListingDetailsService } from "./listing-details/listing-details.service";
+import { getFunctions, connectFunctionsEmulator } from "@angular/fire/functions";
 
 
 describe('Listing Search Service', () => {
@@ -25,7 +25,6 @@ describe('Listing Search Service', () => {
     let listingSearch: ListingSearchService;
     let listingEdit: ListingEditService;
 
-    let metadata: MetadataService;
     let router: Router;
 
     beforeEach(async () => {
@@ -34,6 +33,8 @@ describe('Listing Search Service', () => {
                 RouterTestingModule.withRoutes([]),
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
+                    const functions = getFunctions(firebaseApp);
+                    connectFunctionsEmulator(functions, "localhost", 5001);
                     return firebaseApp;
                 }),
                 provideFirestore(() => {
@@ -51,17 +52,13 @@ describe('Listing Search Service', () => {
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
                 })
-            ],
-            providers: [
-                MetadataService
             ]
         });
-        metadata = TestBed.inject(MetadataService);
         router = TestBed.inject(Router);
 
         listingDetails = new ListingDetailsService(firestore, storage, router);
         listingSearch = new ListingSearchService(firestore, storage);
-        listingUpload = new ListingUploadService(firestore, storage, metadata);
+        listingUpload = new ListingUploadService(firestore, storage);
         listingEdit = new ListingEditService(firestore, storage);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
