@@ -20,7 +20,7 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "host"
+        "function": "/index.html"
       }
     ]
   },
