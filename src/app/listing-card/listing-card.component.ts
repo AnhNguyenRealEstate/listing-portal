@@ -17,6 +17,6 @@ export class ListingCardComponent implements OnInit {
     constructor(private storage: Storage) { }
 
     async ngOnInit() {
-        this.coverImageUrl = await getDownloadURL(ref(this.storage, this.listing.coverImagePath));
+       this.coverImageUrl = await getDownloadURL(ref(this.storage, this.listing.coverImagePath));
     }
 }

@@ -54,7 +54,7 @@
             <hr>
             <div class="row">
                 <div class="col-6">
-                    <img *ngIf="listing.coverImagePath" class="result-preview-img" [src]="listing.coverImagePath">
+                    <img *ngIf="coverImageUrl" class="result-preview-img" [src]="coverImageUrl">
                 </div>
                 <div class="col-6">
                     <div class="pb-2" *ngIf="listing.category && listing.location">
