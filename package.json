@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && cp src/index.html functions/hosting",
+    "build": "ng build && cp src/index.html functions/lib/hosting",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
