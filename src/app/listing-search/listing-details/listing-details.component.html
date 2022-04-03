@@ -14,10 +14,11 @@
         <hr>
         <div class="row pb-4">
             <div class="col-6 listing-images">
-                <ng-container *ngIf="listing.imageSources && listing.imageSources!.length">
+                <ng-container
+                    *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
                     <swiper #usefulSwiper [config]="{}">
                         <div class="swiper-wrapper">
-                            <img *ngFor="let src of listing.imageSources" class="swiper-slide swiper-image" [src]="src">
+                            <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
                         </div>
                     </swiper>
                     <br>
@@ -26,7 +27,7 @@
                         (imageClick)="cycleToSlide($event)">
                     </ng-image-slider>
                 </ng-container>
-                <mat-spinner *ngIf="!(listing.imageSources && listing.imageSources!.length)"></mat-spinner>
+                <mat-spinner *ngIf="!(imageSources && imageSources!.length)"></mat-spinner>
             </div>
             <div class="col-6">
                 <div class="row pb-2">
@@ -98,7 +99,7 @@
         </div>
         <hr>
 
-        <div class="row pt-2 pb-2 listing-images" *ngIf="images.length">
+        <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
             <ng-image-slider [images]="images" [animationSpeed]="0.1"></ng-image-slider>
         </div>
 

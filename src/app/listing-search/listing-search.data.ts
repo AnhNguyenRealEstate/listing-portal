@@ -6,8 +6,6 @@ export interface Listing {
     description?: string
     coverImagePath?: string,
     fireStoragePath?: string
-    images?: ListingImageFile[]
-    imageSources?: string[]
     category?: 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial' | undefined
     location?: string
     address?: string

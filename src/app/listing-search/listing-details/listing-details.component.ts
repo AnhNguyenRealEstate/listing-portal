@@ -18,6 +18,8 @@ import mergeImages from 'merge-images';
 export class ListingDetailsComponent implements OnInit {
     listing: Listing = {} as Listing;
     images: Array<Object> = [];
+    imageSources: string[] = [];
+    
     contactNumberUrl: SafeUrl = '';
 
     watermarkImg = '';
@@ -124,7 +126,7 @@ export class ListingDetailsComponent implements OnInit {
             }
         }));
 
-        this.listing.imageSources = tempImageSrcs;
+        this.imageSources = tempImageSrcs;
         this.images = tempImages;
     }
 
