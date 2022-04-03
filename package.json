@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod": "ng build --configuration production --aot --outputHashing=all && cp dist/listing-portal/index.html functions/hosting",
+    "build-prod": "ng build --configuration production --aot --outputHashing=all && cp dist/listing-portal/index.html functions/lib/hosting/index.html",
     "preview-live": "npm run build-prod && firebase hosting:channel:deploy",
     "deploy": "npm run build-prod && firebase deploy --only hosting",
     "build-docker": "docker build -t listing-portal:latest \".\" ",
