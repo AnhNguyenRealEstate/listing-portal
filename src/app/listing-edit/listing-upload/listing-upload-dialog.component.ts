@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { lastValueFrom, Subscription } from 'rxjs';
+import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { ListingUploadService } from './listing-upload.service';
@@ -73,7 +74,8 @@ export class ListingUploadDialogComponent implements OnInit {
                 this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
             );
 
-            this.coverImageFile = await this.listingUploadService.getListingCoverImage(this.listing.coverImagePath!);
+            const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
+            this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
 
             const reader = new FileReader();
             reader.readAsDataURL(this.coverImageFile);

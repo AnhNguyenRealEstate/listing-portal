@@ -22,7 +22,9 @@ export class ListingSearchService {
 
         function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
             let q = query(ref, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
-
+            if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
+            if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
+            
             switch (criteria.orderBy) {
                 case 'Most Affordable':
                     q = query(q, orderBy('price', 'asc'));
@@ -33,9 +35,6 @@ export class ListingSearchService {
                 default:
                     break;
             }
-
-            if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
-            if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
 
             return q as Query<DocumentData>;
         }
@@ -113,14 +112,6 @@ export class ListingSearchService {
             }
 
             listing.id = doc.id;
-
-            if (listing.fireStoragePath) {
-                getDownloadURL(
-                    ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`)
-                ).then(url => {
-                    listing.coverImagePath = url;
-                });
-            }
             results.push(listing);
         }
 

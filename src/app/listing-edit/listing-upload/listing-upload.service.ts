@@ -7,6 +7,11 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
 
+
+/**
+ * TODO: transfer the upload logic to cloud functions
+ * to ensure atomic writing
+ */
 @Injectable({ providedIn: 'any' })
 export class ListingUploadService {
 
@@ -37,10 +42,13 @@ export class ListingUploadService {
 
         this.inProgress$$.next(true);
 
+        this.sanitizeListing(listing);
+
         const fireStoragePath = createStoragePath(listing);
         listing.fireStoragePath = fireStoragePath;
+        listing.coverImagePath = `${fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
 
-        await this.storeCoverImage(coverImageFile, fireStoragePath);
+        await this.storeCoverImage(coverImageFile, listing.coverImagePath);
         await this.storeListingImages(imageFiles, fireStoragePath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
 
@@ -60,6 +68,8 @@ export class ListingUploadService {
         updateCoverImage: boolean) {
 
         this.inProgress$$.next(true);
+
+        this.sanitizeListing(listing);
 
         if (updateImages) {
             /**
@@ -93,7 +103,7 @@ export class ListingUploadService {
         }
 
         if (updateCoverImage) {
-            await this.storeCoverImage(coverImageFile, listing.fireStoragePath!);
+            await this.storeCoverImage(coverImageFile, listing.coverImagePath!);
         }
 
         await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { ...listing });
@@ -209,12 +219,11 @@ export class ListingUploadService {
         }));
     }
 
-    private async storeCoverImage(coverImageFile: File, storagePath: string) {
+    private async storeCoverImage(coverImageFile: File, coverImagePath: string) {
         if (environment.test) {
             return;
         }
 
-        const coverImagePath = `${storagePath}/${FirebaseStorageConsts.coverImage}`;
         await uploadBytes(
             ref(
                 this.storage,
@@ -222,6 +231,20 @@ export class ListingUploadService {
             ),
             coverImageFile
         ).catch();
+    }
+
+    /**
+     * 
+     * @param listing the listing to be uploaded
+     * 
+     * NgModel always bind values as strings, this function corrects that behavior to prevent uploading
+     * numeric values as strings to Firebase
+     */
+    private sanitizeListing(listing: Listing) {
+        listing.bathrooms = Number(listing.bathrooms);
+        listing.bedrooms = Number(listing.bedrooms);
+        listing.price = Number(listing.price);
+        listing.propertySize = Number(listing.propertySize);
     }
 
     /**

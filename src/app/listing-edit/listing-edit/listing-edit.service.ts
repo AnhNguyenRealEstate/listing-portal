@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, deleteDoc, updateDoc, doc, collection } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage } from '@angular/fire/storage';
-import { BehaviorSubject } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { environment } from 'src/environments/environment';
 import { Listing } from '../../listing-search/listing-search.data';
 
 @Injectable({ providedIn: 'any' })
@@ -23,7 +21,7 @@ export class ListingEditService {
             });
         })
 
-        const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`
+        const coverImagePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
         deleteObject(ref(this.storage, coverImagePath));
 
         deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbRefId}`));

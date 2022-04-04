@@ -18,7 +18,7 @@ import { firebaseConfig } from './shared/globals';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
 import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
-import { connectFunctionsEmulator, getFunctions } from '@angular/fire/functions';
+import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
 import { environment } from 'src/environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -26,6 +26,7 @@ import { SharedModule } from './shared/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { ListingCardModule } from './listing-card/listing-card.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -51,6 +52,7 @@ const maskConfig: Partial<IConfig> = {
     SharedModule,
     MatExpansionModule,
     MatMenuModule,
+    ListingCardModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -62,10 +64,6 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig),
     provideFirebaseApp(() => {
       const app = initializeApp(firebaseConfig);
-      if (!environment.production) {
-        const functions = getFunctions(getApp());
-        connectFunctionsEmulator(functions, "localhost", 5001);
-      }
       return app;
     }),
     provideFirestore(() => {
@@ -89,7 +87,14 @@ const maskConfig: Partial<IConfig> = {
       }
       return auth;
     }),
-    provideAnalytics(() => getAnalytics(getApp()))
+    provideAnalytics(() => getAnalytics(getApp())),
+    provideFunctions(() => {
+      const functions = getFunctions(getApp());
+      if (!environment.production) {
+        connectFunctionsEmulator(functions, "localhost", 5001);
+      }
+      return functions;
+    })
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,84 @@
+<ng-container *ngIf="mode === 'desktop'">
+    <mat-card class="mt-1 pb-2 result-card">
+        <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
+        <mat-card-content>
+            <div class="row">
+                <div class="col-12 pb-1" style="line-height: 2; vertical-align: middle;">
+                    <span class="text-bold font-medium" *ngIf="listing.price">{{listing.price | currency:
+                        listing.currency : 'symbol' : '1.0-0'}}</span>
+                    <div class="d-inline" style="float: right;" *ngIf="listing.bedrooms && listing.bathrooms">
+                        <mat-icon color="accent">bed</mat-icon>
+                        <span class="ps-2 pe-4">{{listing.bedrooms}}</span>
+                        <mat-icon color="accent">bathtub</mat-icon>
+                        <span class="ps-2">{{listing.bathrooms}}</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div *ngIf="listing.category && listing.location">
+                        <span *ngIf="listing.category === 'Apartment'">{{ 'search_results.apartment' |
+                            translate}}</span>
+                        <span *ngIf="listing.category === 'Villa'">{{ 'search_results.villa' |
+                            translate}}</span>
+                        <span *ngIf="listing.category === 'Townhouse'">{{ 'search_results.townhouse' |
+                            translate}}</span>
+                        <span *ngIf="listing.category === 'Commercial'">{{ 'search_results.commercial'
+                            | translate}}</span>
+                        <span class="ps-1 pe-1">{{listing.location}}</span>
+                        <span *ngIf="listing.view">{{ 'search_results.view' | translate | lowercase }}
+                            {{listing.view | lowercase }}
+                        </span>
+                    </div>
+                    <div class="pb-2 result-card-address" *ngIf="listing.address">
+                        <span>{{listing.address}}</span>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-container>
+
+<ng-container *ngIf="mode === 'mobile'">
+    <mat-card class="pt-2 pb-2 mt-2 mb-2 result-card">
+        <mat-card-content>
+            <div class="pt-2" style="vertical-align: middle;">
+                <span class="text-bold font-medium">{{listing.price |
+                    currency:
+                    listing.currency : 'symbol' : '1.0-0'}}</span>
+                <div class="d-inline" style="float: right;">
+                    <mat-icon color="accent">bed</mat-icon>
+                    <span class="ps-2 pe-4">{{listing.bedrooms}}</span>
+                    <mat-icon color="accent">bathtub</mat-icon>
+                    <span class="ps-2">{{listing.bathrooms}}</span>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    <img *ngIf="coverImageUrl" class="result-preview-img" [src]="coverImageUrl">
+                </div>
+                <div class="col-6">
+                    <div class="pb-2" *ngIf="listing.category && listing.location">
+                        <span *ngIf="listing.category === 'Apartment'">{{ 'search_results.apartment'
+                            |
+                            translate}}</span>
+                        <span *ngIf="listing.category === 'Villa'">{{ 'search_results.villa' |
+                            translate}}</span>
+                        <span *ngIf="listing.category === 'Townhouse'">{{ 'search_results.townhouse'
+                            |
+                            translate}}</span>
+                        <span *ngIf="listing.category === 'Commercial'">{{
+                            'search_results.commercial' |
+                            translate}}</span>
+                        <span class="ps-1 pe-1">{{listing.location}}</span>
+                        <span *ngIf="listing.view">{{ 'search_results.view' | translate | lowercase }}
+                            {{listing.view | lowercase }}
+                        </span>
+                    </div>
+                    <div *ngIf="listing.address">
+                        <span class="d-block result-card-address">{{listing.address}}</span>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-container>

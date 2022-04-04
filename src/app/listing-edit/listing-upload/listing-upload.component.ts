@@ -7,6 +7,7 @@ import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FirebaseStorageConsts } from 'src/app/shared/globals';
 
 @Component({
     selector: 'listing-upload',
@@ -69,7 +70,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
                 this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
             );
 
-            this.coverImageFile = await this.listingUploadService.getListingCoverImage(this.listing.coverImagePath!);
+            const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
+            this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
 
             const reader = new FileReader();
             reader.readAsDataURL(this.coverImageFile);
