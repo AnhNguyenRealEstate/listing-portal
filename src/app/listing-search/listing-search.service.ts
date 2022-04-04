@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy } from '@angular/fire/firestore';
+import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy, limit, startAt } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { getDocs } from '@firebase/firestore';
+import { DocumentSnapshot, getDocs } from '@firebase/firestore';
 
 @Injectable({ providedIn: 'any' })
 export class ListingSearchService {
@@ -14,17 +14,19 @@ export class ListingSearchService {
     private searchInProgress$$ = new BehaviorSubject<boolean>(false);
     private searchInProgress$ = this.searchInProgress$$.asObservable();
 
+    paginationLimit: number = 6;
+    lastResultOfCurrentPagination!: DocumentSnapshot;
 
     constructor(private firestore: Firestore, private storage: Storage) {
     }
 
     async getListingsByCriteria(searchCriteria: SearchCriteria): Promise<Listing[]> {
 
-        function criteriaToDBQuery(ref: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> {
-            let q = query(ref, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
+        const criteriaToDBQuery = (listings: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> => {
+            let q = query(listings, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
             if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
             if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
-            
+
             switch (criteria.orderBy) {
                 case 'Most Affordable':
                     q = query(q, orderBy('price', 'asc'));
@@ -36,10 +38,12 @@ export class ListingSearchService {
                     break;
             }
 
+            q = query(q, limit(this.paginationLimit));
+
             return q as Query<DocumentData>;
         }
 
-        function propertySizesToMinMaxSizes(propertySizes: string): number[] {
+        const propertySizesToMinMaxSizes = (propertySizes: string): number[] => {
             switch (propertySizes) {
                 case '_050to100': return [50, 100];
                 case '_100to200': return [100, 200];
@@ -53,12 +57,13 @@ export class ListingSearchService {
         this.searchInProgress$$.next(true);
 
         const results: Listing[] = [];
-        const dbResponse = await getDocs(
-            criteriaToDBQuery(collection(this.firestore, FirestoreCollections.listings),
+        const querySnapshot = await getDocs(
+            criteriaToDBQuery(
+                collection(this.firestore, FirestoreCollections.listings),
                 searchCriteria
             ));
 
-        if (!dbResponse) {
+        if (querySnapshot?.size === 0) {
             this.searchInProgress$$.next(false);
             return [];
         }
@@ -68,7 +73,7 @@ export class ListingSearchService {
         const maxSize = minMaxSizes[1];
 
         //TODO: map reduce?
-        const docs = dbResponse.docs;
+        const docs = querySnapshot.docs;
         for (let i = 0; i < docs.length; i++) {
             const doc = docs[i];
             const listing = doc.data() as Listing;
@@ -111,7 +116,10 @@ export class ListingSearchService {
                 }
             }
 
-            listing.id = doc.id;
+            if (i == docs.length - 1) {
+                this.lastResultOfCurrentPagination = doc;
+            }
+
             results.push(listing);
         }
 
