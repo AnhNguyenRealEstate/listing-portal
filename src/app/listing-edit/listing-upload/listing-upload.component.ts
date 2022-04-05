@@ -256,18 +256,27 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     }
 
     checkValidityForUpload(listing: Listing): boolean {
-        if (listing.purpose?.length
+        const requiredFieldsAreFilled = listing.purpose?.length
             && listing.category?.length
             && listing.location?.length
             && !isNaN(Number(listing.bedrooms))
             && !isNaN(Number(listing.bathrooms))
             && !isNaN(Number(listing.price))
             && listing.currency?.length
-            && listing.description?.length
-            && this.imageFiles.length
-            && this.coverImageFile) {
+            && listing.description?.length;
+
+        if (requiredFieldsAreFilled && this.isEditMode) {
             return true;
         }
+
+        if (requiredFieldsAreFilled && !this.isEditMode) {
+            const imagesUploaded = this.imageFiles.length && this.coverImageFile;
+            if (imagesUploaded) {
+                return true;
+            }
+        }
+
+
         return false;
     }
 }
