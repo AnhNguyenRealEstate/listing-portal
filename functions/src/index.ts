@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as firebase from "firebase-admin";
 import * as currency from 'currency.js';
+import * as fs from 'fs';
 
 firebase.initializeApp();
 
@@ -79,14 +80,14 @@ exports.postProcessListingDelete = functions.region('asia-southeast1').firestore
   });
 
 
-exports.customIndexHtml = functions.region('asia-southeast1').https.onRequest(async (req, res) => {
+exports.customIndexHtml = functions.https.onRequest(async (req, res) => {
   const isListingDetailsPage = req.url.indexOf('/listings/details/') !== -1;
 
-  let indexHTML = `INDEX_HTML_REPLACEMENT`;
+  let indexHTML = fs.readFileSync('src/hosting/index.html', "utf-8").toString();
 
   const defaultDesc = 'Real estate services in District 7, Ho Chi Minh City';
   const defaultTitle = 'Anh Nguyen Real Estate';
-  const defaultLogo = '/assets/images/logo.png';
+  const defaultLogo = 'https://anhnguyenre.com/assets/images/logo.png';
   const defaultUrl = 'https://anhnguyenre.com';
 
   const getOpenGraph = async (isListingDetailsPage: boolean) => {
@@ -143,8 +144,6 @@ exports.customIndexHtml = functions.region('asia-southeast1').https.onRequest(as
   const ogPlaceholder = '<meta name="functions-insert-dynamic-og">';
   const ogReplacement = await getOpenGraph(isListingDetailsPage);
   indexHTML = indexHTML.replace(ogPlaceholder, ogReplacement);
-  console.log(indexHTML);
-
   res.status(200).send(indexHTML);
 });
 
