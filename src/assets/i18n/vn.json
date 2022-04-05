@@ -126,7 +126,9 @@
         "contact_number": "SĐT liên lạc",
         "media_to_upload": "Hình ảnh đính kèm",
         "cover_image": "Hình đại diện",
-        "contact_person": "Liên hệ"
+        "contact_person": "Liên hệ",
+        "edit_cover_img": "Sửa hình đại diện",
+        "edit_media": "Sửa hình ảnh kèm"
     },
     "login": {
         "page_title": "Đăng nhập",

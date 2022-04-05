@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SecurityContext, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SecurityContext } from '@angular/core';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
@@ -14,7 +14,7 @@ import { FirebaseStorageConsts } from 'src/app/shared/globals';
     templateUrl: 'listing-upload.component.html',
     styleUrls: ['./listing-upload.component.scss']
 })
-export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
+export class ListingUploadComponent implements OnInit, OnDestroy {
     @Input() listing: Listing = {} as Listing;
     @Input() isEditMode = false;
     @Input() dbReferenceId: string = '';
@@ -31,9 +31,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     coverImageFile: File | undefined = undefined;
     coverImageSrc: string | undefined = undefined;
     coverImageModified: boolean = false;
+    coverImageEditRequested: boolean = false;
+    gettingCoverImage: boolean = false;
 
     subs: Subscription = new Subscription();
-    showSpinner: boolean = false;
+
+    mediaEditRequested: boolean = false;
+    gettingMedia: boolean = false;
 
     snackbarMsgs!: any;
 
@@ -60,31 +64,33 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         ));
     }
 
-    async ngOnChanges(changes: SimpleChanges) {
-        if (changes.listing && changes.listing.currentValue) {
-            this.showSpinner = true;
-
-            this.imageFiles = [];
-            this.imageSrcs = [];
-            await this.listingUploadService.getListingImages(
-                this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
-            );
-
-            const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
-            this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
-
-            const reader = new FileReader();
-            reader.readAsDataURL(this.coverImageFile);
-            reader.onloadend = () => {
-                this.coverImageSrc = reader.result as string;
-            }
-
-            this.showSpinner = false;
-        }
-    }
-
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+    }
+
+    async onEditCoverImage() {
+        this.gettingCoverImage = true;
+
+        const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
+        this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
+
+        const reader = new FileReader();
+        reader.readAsDataURL(this.coverImageFile);
+        reader.onloadend = () => {
+            this.coverImageSrc = reader.result as string;
+        }
+
+        this.gettingCoverImage = false;
+        this.coverImageEditRequested = true;
+    }
+
+    async onEditMedia() {
+        this.gettingMedia = true;
+        await this.listingUploadService.getListingImages(
+            this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
+        );
+        this.gettingMedia = false;
+        this.mediaEditRequested = true;
     }
 
     onPurposeSelect(event: any) {

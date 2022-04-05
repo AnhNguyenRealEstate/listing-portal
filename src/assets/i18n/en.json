@@ -127,7 +127,9 @@
         "contact_number": "Contact number",
         "media_to_upload": "Media attachments",
         "cover_image": "Cover image",
-        "contact_person": "Name of contact"
+        "contact_person": "Name of contact",
+        "edit_cover_img": "Edit cover image",
+        "edit_media": "Edit attached images"
     },
     "login": {
         "page_title": "Login",

@@ -21,7 +21,6 @@ export class ListingUploadDialogComponent implements OnInit {
     dbReferenceId: string = '';
 
     isEditMode: boolean = false;
-    showSpinner: boolean = false;
 
     locations: string[] = [];
 
@@ -33,8 +32,13 @@ export class ListingUploadDialogComponent implements OnInit {
     coverImageFile: File | undefined = undefined;
     coverImageSrc: string | undefined = undefined;
     coverImageModified: boolean = false;
+    coverImageEditRequested: boolean = false;
+    gettingCoverImage: boolean = false;
 
     subs: Subscription = new Subscription();
+
+    mediaEditRequested: boolean = false;
+    gettingMedia: boolean = false;
 
     snackbarMsgs!: any;
 
@@ -64,31 +68,35 @@ export class ListingUploadDialogComponent implements OnInit {
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
         ));
-
-        if (this.listing.fireStoragePath) {
-            this.showSpinner = true;
-
-            this.imageFiles = [];
-            this.imageSrcs = [];
-            await this.listingUploadService.getListingImages(
-                this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
-            );
-
-            const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
-            this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
-
-            const reader = new FileReader();
-            reader.readAsDataURL(this.coverImageFile);
-            reader.onloadend = () => {
-                this.coverImageSrc = reader.result as string;
-            }
-
-            this.showSpinner = false;
-        }
     }
 
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+    }
+
+    async onEditCoverImage() {
+        this.gettingCoverImage = true;
+
+        const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
+        this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
+
+        const reader = new FileReader();
+        reader.readAsDataURL(this.coverImageFile);
+        reader.onloadend = () => {
+            this.coverImageSrc = reader.result as string;
+        }
+
+        this.gettingCoverImage = false;
+        this.coverImageEditRequested = true;
+    }
+
+    async onEditMedia() {
+        this.gettingMedia = true;
+        await this.listingUploadService.getListingImages(
+            this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
+        );
+        this.gettingMedia = false;
+        this.mediaEditRequested = true;
     }
 
     onPurposeSelect(event: any) {

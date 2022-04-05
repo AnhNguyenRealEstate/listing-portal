@@ -1,7 +1,4 @@
-<div *ngIf="showSpinner" class="d-flex justify-content-center">
-    <mat-spinner></mat-spinner>
-</div>
-<section #desktopUploadView class="container pt-2 d-none d-lg-block" *ngIf="!showSpinner">
+<section #desktopUploadView class="container pt-2 d-none d-lg-block">
     <app-spinner></app-spinner>
     <div class="row">
         <div class="col-12">
@@ -59,8 +56,8 @@
         <div class="col-3">
             <mat-form-field color="accent">
                 <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
-                <input matInput trim="blur" type="text" [(ngModel)]="listing.propertySize" class="d-inline" id="propertySize"
-                    placeholder="100, 200..." required>
+                <input matInput trim="blur" type="text" [(ngModel)]="listing.propertySize" class="d-inline"
+                    id="propertySize" placeholder="100, 200..." required>
             </mat-form-field>
         </div>
         <div class="col-3">
@@ -74,8 +71,8 @@
             <div class="price-input-group">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.price' | translate }}</mat-label>
-                    <input matInput trim="blur" type="text" [(ngModel)]="listing.price" id="price" placeholder="0" required
-                        mask="separator" thousandSeparator=",">
+                    <input matInput trim="blur" type="text" [(ngModel)]="listing.price" id="price" placeholder="0"
+                        required mask="separator" thousandSeparator=",">
                     <mat-select [(ngModel)]="listing.currency" required>
                         <mat-option value='USD'>US$</mat-option>
                         <mat-option value='VND'>đ</mat-option>
@@ -86,12 +83,13 @@
         <div class="col-6">
             <mat-form-field color="accent" style="width: 50%">
                 <mat-label>{{ 'listing_upload.contact_number' | translate }}</mat-label>
-                <input matInput trim="blur" id="contactNumber" type="text" [(ngModel)]="listing.contactNumber" class="d-inline"
-                    mask="000 000 0000">
+                <input matInput trim="blur" id="contactNumber" type="text" [(ngModel)]="listing.contactNumber"
+                    class="d-inline" mask="000 000 0000">
             </mat-form-field>
             <mat-form-field color="accent" style="width: 50%">
                 <mat-label>{{ 'listing_upload.contact_person' | translate }}</mat-label>
-                <input matInput trim="blur" id="contactPerson" type="text" [(ngModel)]="listing.contactPerson" class="d-inline">
+                <input matInput trim="blur" id="contactPerson" type="text" [(ngModel)]="listing.contactPerson"
+                    class="d-inline">
             </mat-form-field>
         </div>
     </div>
@@ -112,43 +110,36 @@
         </div>
     </div>
     <hr>
-    <div>
-        <mat-label class="pe-2">{{ 'listing_upload.cover_image' | translate }}</mat-label>
-        <input #coverImageInput hidden="true" type="file" accept="image/*" onclick="this.value=null"
-            (change)="onCoverImageUpload($event)" />
-        <button *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
-            <mat-icon>upload</mat-icon>
-        </button>
-        <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
-            <img height="90px" width="150px" [src]="coverImageSrc">
-            <button mat-icon-button color="accent" (click)="removeCoverImage()">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
-    </div>
-
-    <div class="pt-4 image-container">
-        <mat-label class="pe-2">{{ 'listing_upload.media_to_upload' | translate }}</mat-label>
-
-        <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
-            (change)="onMediaUpload($event)" />
-        <button mat-button color="accent" [matBadge]="imageFiles.length" matBadgeColor="primary"
-            (click)="imageInput.click()">
-            <mat-icon *ngIf="!compressionInProgress">image</mat-icon>
-            <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
-        </button>
-
-        <div class="pt-2">
-            <div *ngFor="let imgSrc of imageSrcs; let i = index;">
-                <img [src]="imgSrc" class="listing-image">
-                <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
-                <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
-                    [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
-                    <mat-icon>delete</mat-icon>
+    <ng-container *ngIf="isEditMode">
+        <div>
+            <ng-container *ngIf="!coverImageEditRequested; else coverImageUpload">
+                <button mat-button (click)="onEditCoverImage()" [disabled]="gettingCoverImage">
+                    <span>{{ 'listing_upload.edit_cover_img' | translate }}</span>
+                    <mat-spinner *ngIf="gettingCoverImage"></mat-spinner>
                 </button>
-            </div>
+            </ng-container>
         </div>
-    </div>
+
+        <div class="pt-4 image-container">
+            <ng-container *ngIf="!mediaEditRequested; else mediaUpload">
+                <button mat-button (click)="onEditMedia()" [disabled]="gettingMedia">
+                    <span>{{ 'listing_upload.edit_media' | translate }}</span>
+                    <mat-spinner *ngIf="gettingMedia"></mat-spinner>
+                </button>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isEditMode">
+        <div>
+            <ng-container *ngTemplateOutlet="coverImageUpload"></ng-container>
+        </div>
+
+        <div class="pt-4 image-container">
+            <ng-container *ngTemplateOutlet="mediaUpload"></ng-container>
+        </div>
+    </ng-container>
+
     <div class="row pb-2">
         <div class="col-12 d-flex justify-content-end">
             <button *ngIf="!isEditMode" mat-fab color="accent" (click)="publishListing()"
@@ -166,3 +157,41 @@
         </div>
     </div>
 </section>
+
+<ng-template #coverImageUpload>
+    <mat-label class="pe-2">{{ 'listing_upload.cover_image' | translate }}</mat-label>
+    <input #coverImageInput hidden="true" type="file" accept="image/*" onclick="this.value=null"
+        (change)="onCoverImageUpload($event)" />
+    <button *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
+        <mat-icon>upload</mat-icon>
+    </button>
+    <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
+        <img height="90px" width="150px" [src]="coverImageSrc">
+        <button mat-icon-button color="accent" (click)="removeCoverImage()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #mediaUpload>
+    <mat-label class="pe-2">{{ 'listing_upload.media_to_upload' | translate }}</mat-label>
+
+    <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
+        (change)="onMediaUpload($event)" />
+    <button mat-button color="accent" [matBadge]="imageFiles.length" matBadgeColor="primary"
+        (click)="imageInput.click()">
+        <mat-icon *ngIf="!compressionInProgress">image</mat-icon>
+        <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
+    </button>
+
+    <div class="pt-2">
+        <div *ngFor="let imgSrc of imageSrcs; let i = index;">
+            <img [src]="imgSrc" class="listing-image">
+            <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
+            <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
+                [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</ng-template>
