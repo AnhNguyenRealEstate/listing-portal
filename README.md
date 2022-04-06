@@ -43,3 +43,7 @@ Example: `ng test --include='**/listing-upload/**.spec.ts'`
 
 ## Deploying to Firebase
 Run `npm run deploy -- -m [your comment]` to deploy to Firebase.
+
+### Deployment process
+1. Deploy the app `npm run deplpy`
+2. Deploy functions `cd functions && npm run build && npm run deplpy`
