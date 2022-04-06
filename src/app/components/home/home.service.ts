@@ -21,12 +21,6 @@ export class HomeService {
 
         const results = await Promise.all(featuredListings.docs.map(async doc => {
             const listing = doc.data() as Listing;
-            listing.id = doc.id;
-            if (listing.fireStoragePath) {
-                listing.coverImagePath = await getDownloadURL(
-                    ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`)
-                );
-            }
             return listing;
         }));
 

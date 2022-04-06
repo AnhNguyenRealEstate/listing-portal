@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, Firestore, limit, onSnapshot, orderBy, query } from '@angular/fire/firestore';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { collection, Firestore, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Listing } from '../../listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { ListingEditService } from './listing-edit.service';
-import { FirebaseStorageConsts, FirestoreCollections } from '../../shared/globals';
+import { FirestoreCollections } from '../../shared/globals';
 import { Unsubscribe } from '@angular/fire/auth';
-import { LoadSpinnerService } from 'src/app/load-spinner/load-spinner.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ConfirmationDialogComponent } from '../confirmation/confirmation-dialog.component';
-import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'listing-edit',
@@ -25,20 +19,13 @@ export class ListingEditComponent implements OnInit {
 
     files: File[] = [];
     listingToShow: Listing | undefined = undefined;
-    dbReferenceId: string = "";
-
-    snackbarMsgs!: any;
 
     snapshotCancel: Unsubscribe = () => { };
 
     constructor(
         private firestore: Firestore,
-        private storage: Storage,
         private dialog: MatDialog,
-        private snackbar: MatSnackBar,
-        public listingEditService: ListingEditService,
-        private loadingSpinnerService: LoadSpinnerService,
-        private translate: TranslateService) { }
+        public listingEditService: ListingEditService) { }
 
     async ngOnInit() {
         this.snapshotCancel = onSnapshot(
@@ -48,22 +35,12 @@ export class ListingEditComponent implements OnInit {
 
                 await Promise.all(snapshot.docs.map(async (doc, index) => {
                     const listing = doc.data() as Listing;
-                    try {
-                        listing.coverImagePath = await getDownloadURL(
-                            ref(this.storage, `${listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`));
-                    } catch (e) { console.log(e) }
-                    finally {
-                        listings[index] = listing;
-                    }
+                    listings[index] = listing;
                 }));
 
                 this.listings = listings;
             }
         );
-
-        this.snackbarMsgs = await lastValueFrom(this.translate.get(
-            ['listing_edit.delete_msg', 'listing_edit.dismiss_msg']
-        ));
     }
 
     ngOnDestroy() {
@@ -72,18 +49,16 @@ export class ListingEditComponent implements OnInit {
 
     showSelected(listing: Listing) {
         this.listingToShow = listing;
-        this.dbReferenceId = this.listingToShow.id!;
     }
 
     showSelectedAsDialog(listing: Listing) {
         this.listingToShow = listing;
-        this.dbReferenceId = this.listingToShow.id!;
         const config = {
             height: '90%',
             width: '100%',
             data: {
                 listing: listing,
-                dbReferenceId: this.dbReferenceId,
+                dbReferenceId: this.listingToShow.id!,
                 isEditMode: true
             }
         } as MatDialogConfig;
@@ -109,69 +84,5 @@ export class ListingEditComponent implements OnInit {
             }
         } as MatDialogConfig;
         this.dialog.open(ListingUploadDialogComponent, config);
-    }
-
-    async archiveListing(event: Event, id: string) {
-        event.stopPropagation();
-
-        this.loadingSpinnerService.start();
-        await this.listingEditService.archiveListing(id);
-        this.loadingSpinnerService.stop();
-    }
-
-    async unarchiveListing(event: Event, id: string) {
-        event.stopPropagation();
-
-        this.loadingSpinnerService.start();
-        await this.listingEditService.unarchiveListing(id);
-        this.loadingSpinnerService.stop();
-    }
-
-    async featureListing(event: Event, id: string) {
-        event.stopPropagation();
-
-        this.loadingSpinnerService.start();
-        await this.listingEditService.featureListing(id);
-        this.loadingSpinnerService.stop();
-    }
-
-    async unfeatureListing(event: Event, id: string) {
-        event.stopPropagation();
-
-        this.loadingSpinnerService.start();
-        await this.listingEditService.unfeatureListing(id);
-        this.loadingSpinnerService.stop();
-    }
-
-    /* Completely remove the listing from DB */
-    async deleteListing(event: Event, listing: Listing) {
-        const langTerms = await lastValueFrom(this.translate.get([
-            "listing_edit.confirmation_msg", "listing_edit.yes_msg", "listing_edit.no_msg"]));
-
-        event.stopPropagation();
-
-        this.dialog.open(ConfirmationDialogComponent, {
-            height: '20%',
-            width: '100%',
-            data: {
-                message: langTerms['listing_edit.confirmation_msg'],
-                yesBtnText: langTerms['listing_edit.yes_msg'],
-                noBtnText: langTerms['listing_edit.no_msg']
-            }
-        }).afterClosed().subscribe(async (toDelete) => {
-            if (toDelete) {
-                this.listingEditService.deleteListing(listing, listing.id!);
-                this.listingToShow = undefined;
-                this.dbReferenceId = '';
-
-                this.snackbar.open(
-                    this.snackbarMsgs['listing_edit.delete_msg'],
-                    this.snackbarMsgs['listing_edit.dismiss_msg'],
-                    {
-                        duration: 3000
-                    }
-                );
-            }
-        });
     }
 }
