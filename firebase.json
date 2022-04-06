@@ -20,7 +20,7 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "customIndexHtml"
+        "destination": "/index.html"
       }
     ]
   },
