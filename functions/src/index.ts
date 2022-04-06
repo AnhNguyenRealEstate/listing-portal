@@ -80,7 +80,7 @@ exports.postProcessListingDelete = functions.region('asia-southeast1').firestore
   });
 
 
-exports.customIndexHtml = functions.https.onRequest(async (req, res) => {
+exports.customIndexHtml = functions.region('us-central1').https.onRequest(async (req, res) => {
   const isListingDetailsPage = req.url.indexOf('listings/details') !== -1;
   let indexHTML = fs.readFileSync('src/hosting/index.html', "utf-8").toString();
 
