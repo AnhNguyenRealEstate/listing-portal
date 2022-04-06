@@ -6,15 +6,19 @@
                 <div class="col-12 pb-1" style="line-height: 2; vertical-align: middle;">
                     <span class="text-bold font-medium" *ngIf="listing.price">{{listing.price | currency:
                         listing.currency : 'symbol' : '1.0-0'}}</span>
-                    <div class="d-inline" style="float: right;" *ngIf="listing.bedrooms && listing.bathrooms">
-                        <mat-icon color="accent">bed</mat-icon>
-                        <span class="ps-2 pe-4">{{listing.bedrooms}}</span>
-                        <mat-icon color="accent">bathtub</mat-icon>
-                        <span class="ps-2">{{listing.bathrooms}}</span>
+                    <div class="d-inline text-small d-flex align-item-middle" style="float: right;">
+                        <ng-container *ngIf="listing.bedrooms">
+                            <mat-icon color="accent">bed</mat-icon>
+                            <span class="ps-1 pe-3">{{listing.bedrooms}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="listing.bathrooms">
+                            <mat-icon color="accent">bathtub</mat-icon>
+                            <span class="ps-1">{{listing.bathrooms}}</span>
+                        </ng-container>
                     </div>
                 </div>
                 <div class="col-12">
-                    <div *ngIf="listing.category && listing.location">
+                    <div *ngIf="listing.category && listing.location" class="result-card-description">
                         <span *ngIf="listing.category === 'Apartment'">{{ 'search_results.apartment' |
                             translate}}</span>
                         <span *ngIf="listing.category === 'Villa'">{{ 'search_results.villa' |
@@ -45,10 +49,14 @@
                     currency:
                     listing.currency : 'symbol' : '1.0-0'}}</span>
                 <div class="d-inline" style="float: right;">
-                    <mat-icon color="accent">bed</mat-icon>
-                    <span class="ps-2 pe-4">{{listing.bedrooms}}</span>
-                    <mat-icon color="accent">bathtub</mat-icon>
-                    <span class="ps-2">{{listing.bathrooms}}</span>
+                    <ng-container *ngIf="listing.bedrooms">
+                        <mat-icon color="accent">bed</mat-icon>
+                        <span class="ps-2 pe-4">{{listing.bedrooms}}</span>
+                    </ng-container>
+                    <ng-container *ngIf="listing.bathrooms">
+                        <mat-icon color="accent">bathtub</mat-icon>
+                        <span class="ps-2">{{listing.bathrooms}}</span>
+                    </ng-container>
                 </div>
             </div>
             <hr>
@@ -57,7 +65,7 @@
                     <img *ngIf="coverImageUrl" class="result-preview-img" [src]="coverImageUrl">
                 </div>
                 <div class="col-6">
-                    <div class="pb-2" *ngIf="listing.category && listing.location">
+                    <div class="pb-2 result-card-description" *ngIf="listing.category && listing.location">
                         <span *ngIf="listing.category === 'Apartment'">{{ 'search_results.apartment'
                             |
                             translate}}</span>
