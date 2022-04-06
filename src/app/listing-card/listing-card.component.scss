@@ -6,6 +6,9 @@
         white-space: nowrap;
         mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
     }
+    mat-icon {
+        transform: scale(0.75);
+    }
 }
 
 .result-preview-img {
