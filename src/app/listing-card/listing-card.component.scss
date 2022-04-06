@@ -1,7 +1,8 @@
 .result-card {
     background-color: white;
 
-    .result-card-address {
+    .result-card-address,
+    .result-card-description {
         white-space: nowrap;
         mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
     }
