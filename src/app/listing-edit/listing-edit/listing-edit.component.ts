@@ -85,4 +85,28 @@ export class ListingEditComponent implements OnInit {
         } as MatDialogConfig;
         this.dialog.open(ListingUploadDialogComponent, config);
     }
+
+    cloneListing(listingToClone: Listing) {
+        const config = {
+            height: '90%',
+            width: '100%',
+            data: {
+                listing: listingToClone
+            }
+        } as MatDialogConfig;
+        this.dialog.open(ListingUploadComponent, config);
+    }
+
+    cloneListingMobile(listingToClone: Listing) {
+        const config = {
+            height: '90%',
+            width: '100%',
+            data: {
+                listing: listingToClone,
+                dbReferenceId: '',
+                isEditMode: false
+            }
+        } as MatDialogConfig;
+        this.dialog.open(ListingUploadDialogComponent, config);
+    }
 }

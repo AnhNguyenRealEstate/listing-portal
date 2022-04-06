@@ -71,6 +71,9 @@
                 </mat-chip>
             </mat-chip-list>
             <div>
+                <button mat-icon-button color="default" *ngIf="!listing.archived" (click)="onClone($event, listing)">
+                    <mat-icon color="accent">add_box</mat-icon>
+                </button>
                 <button mat-icon-button color="default" *ngIf="!listing.archived"
                     (click)="archiveListing($event, listing.id!)">
                     <mat-icon color="accent">archive</mat-icon>
@@ -161,6 +164,10 @@
                 </mat-chip>
             </mat-chip-list>
             <div>
+                <button mat-icon-button color="default" *ngIf="!listing.archived" (click)="onClone($event, listing)">
+                    <mat-icon color="accent">add_box</mat-icon>
+                </button>
+                <span class="ps-2"></span>
                 <button mat-icon-button color="default" *ngIf="!listing.archived"
                     (click)="archiveListing($event, listing.id!)">
                     <mat-icon color="accent">archive</mat-icon>

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, Firestore, getDoc, getDocs, limit, query, where } from '@angular/fire/firestore';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { collection, Firestore, getDocs, limit, query, where } from '@angular/fire/firestore';
 import { Listing } from 'src/app/listing-search/listing-search.data';
-import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
+import { FirestoreCollections } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
+    numberOfListingsToFeature = 3;
+
     constructor(
         private firestore: Firestore,
-        private storage: Storage
     ) { }
 
     async getFeaturedListings() {
@@ -16,7 +16,7 @@ export class HomeService {
             query(
                 collection(this.firestore, FirestoreCollections.listings),
                 where("featured", "==", true),
-                limit(3))
+                limit(this.numberOfListingsToFeature))
         );
 
         const results = await Promise.all(featuredListings.docs.map(async doc => {

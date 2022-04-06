@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, SecurityContext } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, SecurityContext } from '@angular/core';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'listing-upload',
@@ -47,8 +48,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         private imageCompress: NgxImageCompressService,
         private sanitizer: DomSanitizer,
         public listingUploadService: ListingUploadService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        @Inject(MAT_DIALOG_DATA) private data: any
     ) {
+        if (this.data?.listing) {
+            this.listing = { ...this.data.listing };
+        }
     }
 
     async ngOnInit() {

@@ -21,7 +21,8 @@ exports.postProcessListingCreation = functions.region('asia-southeast1').firesto
     return snap.ref.update(
       {
         'id': id,
-        'creationDate': creationDate
+        'creationDate': creationDate,
+        'featured': false
       });
   });
 

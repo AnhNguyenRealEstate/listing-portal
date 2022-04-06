@@ -19,6 +19,7 @@ export class ListingEditCardComponent implements OnInit {
     @Input() listing!: Listing;
     @Input() mode!: 'desktop' | 'mobile';
     @Output() listingDeleted = new EventEmitter<boolean>();
+    @Output() cloneListing = new EventEmitter<Listing>();
 
     snackbarMsgs!: any;
     coverImageUrl!: string;
@@ -100,5 +101,18 @@ export class ListingEditCardComponent implements OnInit {
                 );
             }
         });
+    }
+
+    onClone(event: Event, listingToClone: Listing) {
+        event.stopPropagation();
+
+        const sanitizedListing = { ...listingToClone };
+        sanitizedListing.coverImagePath = '';
+        sanitizedListing.fireStoragePath = '';
+        sanitizedListing.id = '';
+        delete sanitizedListing.creationDate;
+        sanitizedListing.featured = false;
+
+        this.cloneListing.emit(sanitizedListing);
     }
 }
