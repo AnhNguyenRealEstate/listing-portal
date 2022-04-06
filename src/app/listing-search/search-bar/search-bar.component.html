@@ -100,6 +100,7 @@
         <div class="col-3 d-flex align-items-center">
             <button mat-button [matMenuTriggerFor]="orderByMenu">
                 <mat-icon>sort</mat-icon>
+                <span class="text-small" style="font-weight:normal">{{ 'search_bar.order_by' | translate }}</span>
             </button>
             <mat-menu #orderByMenu="matMenu">
                 <button mat-menu-item (click)="searchCriteria.orderBy = 'Most Recent'; getListings(searchCriteria)">
@@ -235,6 +236,7 @@
             <div class="col-3 d-flex justify-content-end">
                 <button mat-button [matMenuTriggerFor]="orderByMenu">
                     <mat-icon>sort</mat-icon>
+                    <span class="text-small" style="font-weight:normal">{{ 'search_bar.order_by' | translate }}</span>
                 </button>
                 <mat-menu #orderByMenu="matMenu">
                     <button mat-menu-item (click)="searchCriteria.orderBy = 'Most Recent'; getListings(searchCriteria)">
