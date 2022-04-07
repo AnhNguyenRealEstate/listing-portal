@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'listing-upload',
@@ -49,6 +49,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer,
         public listingUploadService: ListingUploadService,
         private translate: TranslateService,
+        @Optional() private dialogRef: MatDialogRef<ListingUploadComponent>,
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
         if (this.data?.listing) {
@@ -229,6 +230,10 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
                 duration: 3000
             }
         );
+
+        if (this.dialogRef) {
+            this.dialogRef.close();
+        }
     }
 
     async saveEdit() {

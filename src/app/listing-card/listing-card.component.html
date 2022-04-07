@@ -28,7 +28,7 @@
                             translate}}</span>
                         <span *ngIf="listing.category === 'Commercial'">{{ 'search_results.commercial'
                             | translate}}</span>
-                        <span class="ps-1 pe-1">{{listing.location}}</span>
+                        <span class="text-bold ps-1 pe-1">{{listing.location}}</span>
                         <span *ngIf="listing.view">{{ 'search_results.view' | translate | lowercase }}
                             {{listing.view | lowercase }}
                         </span>
@@ -79,7 +79,7 @@
                         <span *ngIf="listing.category === 'Commercial'">{{
                             'search_results.commercial' |
                             translate}}</span>
-                        <span class="ps-1 pe-1">{{listing.location}}</span>
+                        <span class="text-bold ps-1 pe-1">{{listing.location}}</span>
                         <span *ngIf="listing.view">{{ 'search_results.view' | translate | lowercase }}
                             {{listing.view | lowercase }}
                         </span>

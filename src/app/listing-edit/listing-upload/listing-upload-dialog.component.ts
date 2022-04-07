@@ -230,6 +230,8 @@ export class ListingUploadDialogComponent implements OnInit {
                 duration: 3000
             }
         );
+
+        this.dialogRef.close();
     }
 
     async saveEdit() {

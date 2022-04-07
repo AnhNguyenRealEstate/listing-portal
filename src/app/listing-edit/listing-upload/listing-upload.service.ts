@@ -32,6 +32,7 @@ export class ListingUploadService {
     
     Images must be stored first because in case of interruption, there won't be a null pointer 
     for fireStoragePath in the newly-created listing */
+    //TODO: move to Cloud Functions for atomic publish
     async publishListing(listing: Listing, imageFiles: ListingImageFile[], coverImageFile: File): Promise<string> {
         function createStoragePath(listing: Listing) {
             const date = new Date();
@@ -59,6 +60,7 @@ export class ListingUploadService {
 
     /**  Save any changes made to the listing and its images
     */
+    //TODO: move to Cloud Functions for atomic publish
     async saveEdit(
         listing: Listing,
         dbReferenceId: string,

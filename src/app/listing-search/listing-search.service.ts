@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
 import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy } from '@angular/fire/firestore';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
-import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
+import { FirestoreCollections } from 'src/app/shared/globals';
 import { getDocs } from '@firebase/firestore';
 
 @Injectable({ providedIn: 'any' })
@@ -24,7 +24,7 @@ export class ListingSearchService {
             let q = query(ref, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
             if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
             if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
-            
+
             switch (criteria.orderBy) {
                 case 'Most Affordable':
                     q = query(q, orderBy('price', 'asc'));
@@ -67,7 +67,6 @@ export class ListingSearchService {
         const minSize = minMaxSizes[0];
         const maxSize = minMaxSizes[1];
 
-        //TODO: map reduce?
         const docs = dbResponse.docs;
         for (let i = 0; i < docs.length; i++) {
             const doc = docs[i];
@@ -111,12 +110,10 @@ export class ListingSearchService {
                 }
             }
 
-            listing.id = doc.id;
             results.push(listing);
         }
 
         this.searchInProgress$$.next(false);
-
         return results;
     }
 
