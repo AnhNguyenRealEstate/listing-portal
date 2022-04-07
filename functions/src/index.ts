@@ -86,12 +86,12 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
   let indexHTML = fs.readFileSync('src/hosting/index.html', "utf-8").toString();
 
   const defaultDesc = 'Real estate services in District 7, Ho Chi Minh City';
-  const defaultTitle = 'Anh Nguyen Real Estate';
+  const companyName = 'Anh Nguyen Real Estate';
   const defaultLogo = 'https://anhnguyenre.com/assets/images/logo.png';
   const defaultUrl = 'https://anhnguyenre.com';
 
   const getOpenGraph = async (isListingDetailsPage: boolean) => {
-    const defaultOg = `<meta property="og:title" content="${defaultTitle}" />
+    const defaultOg = `<meta property="og:title" content="${companyName}" />
                       <meta property="og:description" content="${defaultDesc}" />
                       <meta property="og:image" content="${defaultLogo}" />
                       <meta property="og:image:type" content="image/*">
@@ -120,7 +120,7 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
     } else if (listing.currency === 'USD') {
       priceText = USD(listing['price']).format();
     }
-    const ogTitle = `${listing['purpose']}: ${listing['location']} - ${priceText}`;
+    const ogTitle = `${listing['purpose']}: ${listing['location']} ${priceText} - ${companyName}`;
 
     const ogDesc = `${listing['contactNumber']} - ${listing['contactPerson']} `;
     const ogUrl = defaultUrl + req.url;
