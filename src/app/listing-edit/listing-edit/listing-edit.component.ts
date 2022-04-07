@@ -68,7 +68,10 @@ export class ListingEditComponent implements OnInit {
     openUploadModalDesktop() {
         const config = {
             height: '90%',
-            width: '100%'
+            width: '100%',
+            data: {
+                listing: undefined
+            }
         } as MatDialogConfig;
         this.dialog.open(ListingUploadComponent, config);
     }

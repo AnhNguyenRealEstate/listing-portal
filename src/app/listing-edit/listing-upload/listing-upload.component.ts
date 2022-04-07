@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, SecurityContext } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext } from '@angular/core';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
@@ -49,7 +49,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer,
         public listingUploadService: ListingUploadService,
         private translate: TranslateService,
-        @Inject(MAT_DIALOG_DATA) private data: any
+        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
         if (this.data?.listing) {
             this.listing = { ...this.data.listing };
