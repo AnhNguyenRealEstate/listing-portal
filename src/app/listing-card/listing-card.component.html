@@ -1,4 +1,4 @@
-<mat-card class="mt-1 result-card">
+<mat-card class="mt-1 result-card" (click)="showListing()">
     <div *ngIf="!coverImageUrl" class="ph-picture"></div>
     <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
     <mat-card-content>

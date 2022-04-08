@@ -68,9 +68,10 @@
         </div>
 
         <div class="row d-flex ms-2 pb-4 justify-content-center">
-            <listing-card *ngFor="let listing of featuredListings" class="col-3 result-card-wrapper"
-                (click)="getListing(listing.id)" [listing]="listing">
-            </listing-card>
+            <div *ngFor="let listing of featuredListings" class="col-3 result-card-wrapper">
+                <listing-card [listing]="listing">
+                </listing-card>
+            </div>
         </div>
 
         <div class="d-flex justify-content-center">
