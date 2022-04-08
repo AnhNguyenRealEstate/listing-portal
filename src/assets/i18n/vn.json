@@ -129,7 +129,8 @@
         "cover_image": "Hình đại diện",
         "contact_person": "Liên hệ",
         "edit_cover_img": "Sửa hình đại diện",
-        "edit_media": "Sửa hình ảnh kèm"
+        "edit_media": "Sửa hình ảnh kèm",
+        "available_on": "Liên hệ qua chat app khác"
     },
     "login": {
         "page_title": "Đăng nhập",

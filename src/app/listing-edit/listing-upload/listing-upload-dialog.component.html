@@ -87,6 +87,16 @@
                     required>
             </mat-form-field>
         </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label class="pt-1 pb-1">{{ 'listing_upload.description' | translate }}</label>
+            <div class="mat-form-field-wrapper">
+                <app-editor [text]="listing.description!" (textChange)="listing.description = $event"></app-editor>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             <div>
                 <mat-form-field color="accent" style="width: 50%">
@@ -97,17 +107,18 @@
                 <mat-form-field color="accent" style="width: 50%">
                     <mat-label>{{ 'listing_upload.contact_person' | translate }}</mat-label>
                     <input matInput trim="blur" id="contactPerson" type="text" [(ngModel)]="listing.contactPerson"
-                        class="d-inline">
+                        class="d-inline" placeholder="Mr. Philip...">
                 </mat-form-field>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <label class="pt-1 pb-1">{{ 'listing_upload.description' | translate }}</label>
-            <div class="mat-form-field-wrapper">
-                <app-editor [text]="listing.description!" (textChange)="listing.description = $event"></app-editor>
-            </div>
+        <div class="col-12">
+            <mat-form-field color="accent" [floatLabel]="'always'">
+                <mat-label>{{ 'listing_upload.available_on' | translate }}</mat-label>
+                <mat-select [(ngModel)]="listing.contactChannels" multiple>
+                    <mat-option *ngFor="let channel of AvailableContactChannels" [value]="channel">{{channel}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
     <hr>

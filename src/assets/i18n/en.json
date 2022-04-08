@@ -130,7 +130,8 @@
         "cover_image": "Cover image",
         "contact_person": "Name of contact",
         "edit_cover_img": "Edit cover image",
-        "edit_media": "Edit attached images"
+        "edit_media": "Edit attached images",
+        "available_on": "Additional contact channels"
     },
     "login": {
         "page_title": "Login",

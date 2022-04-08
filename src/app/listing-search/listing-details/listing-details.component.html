@@ -83,6 +83,8 @@
                     </span>
                     <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
                     <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+                    <div *ngIf="listing.contactChannels?.length">Also available on: {{listing.contactChannels!.join(',
+                        ') }}</div>
                 </div>
 
             </div>
@@ -164,14 +166,18 @@
         <label class="pt-2 pb-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
 
         <div class="pb-4">
-            <a mat-mini-fab color="accent" [href]="contactNumberUrl">
-                <mat-icon>phone_in_talk</mat-icon>
-            </a>
-            <span class="ps-2"></span>
-            <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
-            </span>
-            <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</span>
-            <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+            <div class="pb-2">
+                <a mat-mini-fab color="accent" [href]="contactNumberUrl">
+                    <mat-icon>phone_in_talk</mat-icon>
+                </a>
+                <span class="ps-2"></span>
+                <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+                </span>
+                <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</span>
+                <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+            </div>
+            <div *ngIf="listing.contactChannels?.length">Also available on: {{listing.contactChannels!.join(', ') }}
+            </div>
         </div>
     </div>
 </section>

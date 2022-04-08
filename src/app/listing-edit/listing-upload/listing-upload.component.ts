@@ -9,6 +9,7 @@ import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AvailableContactChannels } from './listing-upload.data';
 
 @Component({
     selector: 'listing-upload',
@@ -41,6 +42,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     gettingMedia: boolean = false;
 
     snackbarMsgs!: any;
+
+    AvailableContactChannels = AvailableContactChannels;
 
     constructor(
         private snackbar: MatSnackBar,

@@ -8,6 +8,7 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
+import { AvailableContactChannels } from './listing-upload.data';
 import { ListingUploadService } from './listing-upload.service';
 
 @Component({
@@ -41,6 +42,8 @@ export class ListingUploadDialogComponent implements OnInit {
     gettingMedia: boolean = false;
 
     snackbarMsgs!: any;
+
+    AvailableContactChannels = AvailableContactChannels;
 
     constructor(
         private metadata: MetadataService,
