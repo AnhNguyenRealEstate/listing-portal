@@ -42,8 +42,12 @@ Service tests (**.service.spec.ts) are all integration tests that involve multip
 Example: `ng test --include='**/listing-upload/**.spec.ts'`
 
 ## Deploying to Firebase
-Run `npm run deploy -- -m [your comment]` to deploy to Firebase.
+Run `npm run deploy-full` to deploy to Firebase.
+If you need to deploy ng-app, you need to deploy cloud functions.
+If you only modified cloud functions, you can deploy it separately using `npm run deploy-functions`
 
-### Deployment process
-1. Deploy the app `npm run deplpy`
-2. Deploy functions `cd functions && npm run build && npm run deplpy`
+### Deployment process: `npm run deploy-full`
+1. Build the ng-app, copy index.html into `functions/src/hosting`
+2. Build cloud functions
+3. Deploy to Firebase Hosting and Cloud Functions
+

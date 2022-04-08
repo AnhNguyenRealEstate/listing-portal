@@ -1,9 +1,9 @@
-import { Component, OnInit, SecurityContext, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, SecurityContext, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
-import { DomSanitizer, Meta, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
 import { lastValueFrom } from 'rxjs';
@@ -19,7 +19,7 @@ export class ListingDetailsComponent implements OnInit {
     listing: Listing = {} as Listing;
     images: Array<Object> = [];
     imageSources: string[] = [];
-    
+
     contactNumberUrl: SafeUrl = '';
 
     watermarkImg = '';
@@ -27,13 +27,16 @@ export class ListingDetailsComponent implements OnInit {
     @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
     highlightedThumbnailRef: any;
 
+    showFooter: boolean= false;
+
     constructor(
         private sanitizer: DomSanitizer,
-        private translate: TranslateService,
+        public translate: TranslateService,
         private listingDetailsService: ListingDetailsService,
         private route: ActivatedRoute,
         private router: Router,
-        private title: Title) {
+        private title: Title,
+        private changeDetector: ChangeDetectorRef) {
     }
 
     async ngOnInit() {
@@ -54,6 +57,8 @@ export class ListingDetailsComponent implements OnInit {
         this.listingDetailsService.getListingImageUrls(listing?.fireStoragePath!).then(async imgSrcs => {
             if (imgSrcs.length) {
                 await this.applyWatermarkToImagesAndDisplay(imgSrcs);
+                this.changeDetector.detectChanges();
+                this.showFooter = true;
             }
         });
 
@@ -67,7 +72,7 @@ export class ListingDetailsComponent implements OnInit {
             );
         }
 
-        this.setHeaderMetadata();
+        this.setBrowserTitle();
     }
 
     cycleToSlide(slideId: number) {
@@ -130,34 +135,11 @@ export class ListingDetailsComponent implements OnInit {
         this.images = tempImages;
     }
 
-    async setHeaderMetadata() {
-        const langTerms = await lastValueFrom(this.translate.get(
-            [
-                "app_title",
-                "listing_details.bedrooms",
-                "listing_details.bathrooms",
-                "listing_details.apartment",
-                "listing_details.villa",
-                "listing_details.townhouse",
-                "listing_details.commercial"]
+    async setBrowserTitle() {
+        const appTitle = await lastValueFrom(this.translate.get(
+            "app_title"
         ));
 
-
-        this.title.setTitle(`${langTerms['app_title']} | ${this.listing.location} ${this.listing.price} ${this.listing.currency}`);
-
-        let keyToUse = '';
-        if (this.listing.category !== 'Commercial') {
-            switch (this.listing.category) {
-                case 'Apartment':
-                    keyToUse = "listing_details.apartment";
-                    break;
-                case 'Townhouse':
-                    keyToUse = "listing_details.townhouse";
-                    break;
-                case 'Villa':
-                    keyToUse = "listing_details.villa";
-                    break;
-            }
-        }
+        this.title.setTitle(`${appTitle} | ${this.listing.location} ${this.listing.price} ${this.listing.currency}`);
     }
 }

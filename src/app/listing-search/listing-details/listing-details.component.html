@@ -1,18 +1,17 @@
 <section class="container d-none d-md-block listing-details-desktop">
-    <mat-spinner class="pt-4" *ngIf="!listing.location">
-    </mat-spinner>
+    <div *ngIf="!listing.location" class="pt-4">
+        <mat-spinner></mat-spinner>
+    </div>
     <div *ngIf="listing.location">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="page-title">
-                    {{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
-                    <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
-                    <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
-                </h1>
-            </div>
-        </div>
-        <hr>
         <div class="row pb-4">
+            <h1 class="page-title">
+                {{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
+                <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
+                <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
+            </h1>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row">
             <div class="col-6 listing-images">
                 <ng-container
                     *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
@@ -27,7 +26,9 @@
                         (imageClick)="cycleToSlide($event)">
                     </ng-image-slider>
                 </ng-container>
-                <mat-spinner *ngIf="!(imageSources && imageSources!.length)"></mat-spinner>
+                <div *ngIf="!(imageSources && imageSources!.length)">
+                    <mat-spinner></mat-spinner>
+                </div>
             </div>
             <div class="col-6">
                 <div class="row pb-2">
@@ -65,45 +66,54 @@
                     </div>
                 </div>
 
-                <label class="pt-2 text-bold">{{ 'listing_details.address' | translate }}</label>
-                <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
+                <div>
+                    <label class="pt-2 text-bold">{{ 'listing_details.address' | translate }}</label>
+                    <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
+                </div>
 
-                <label class="pt-2 text-bold">{{ 'listing_details.description' | translate }}</label>
-                <p *ngIf="listing.description" [innerHtml]="listing.description">
-                </p>
+                <div>
+                    <label class="pt-2 text-bold">{{ 'listing_details.description' | translate }}</label>
+                    <p *ngIf="listing.description" [innerHtml]="listing.description">
+                    </p>
+                </div>
 
-                <label class="pt-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
-                <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
-                </span>
-                <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
-                <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+                <div class="pb-4">
+                    <label class="pt-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
+                    <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+                    </span>
+                    <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
+                    <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+                </div>
 
             </div>
         </div>
     </div>
 </section>
 
-<section class="container d-md-none listing-details-mobile" style="height: 90vh">
-    <mat-spinner class="pt-4" *ngIf="!listing.location">
-    </mat-spinner>
+<section class="container d-md-none listing-details-mobile">
+    <div class="pt-4" *ngIf="!listing.location">
+        <mat-spinner></mat-spinner>
+    </div>
 
     <div *ngIf="listing.location">
         <div class="d-flex justify-content-between" style="vertical-align: middle;">
-            <span class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' :
+            <h1 class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' :
                 '1.0-0'}} |
                 <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}
                 </ng-container>
                 <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}
                 </ng-container>
-            </span>
+            </h1>
         </div>
-        <hr>
+        <mat-divider></mat-divider>
 
         <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
             <ng-image-slider [images]="images" [animationSpeed]="0.1"></ng-image-slider>
         </div>
 
-        <mat-spinner class="pt-2 pb-2" *ngIf="!images.length"></mat-spinner>
+        <div class="pt-2 pb-2" *ngIf="!images.length">
+            <mat-spinner></mat-spinner>
+        </div>
 
         <div class="row pb-2">
             <div class="col-6">
@@ -140,23 +150,30 @@
             </div>
         </div>
 
-        <label class="pt-2 text-bold">{{ 'listing_details.address' | translate }}</label>
-        <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
+        <div>
+            <label class="pt-2 text-bold">{{ 'listing_details.address' | translate }}</label>
+            <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
+        </div>
 
-        <label class="pt-2 text-bold">{{ 'listing_details.description' | translate }}</label>
-        <p *ngIf="listing.description" [innerHtml]="listing.description">
-        </p>
+        <div>
+            <label class="pt-2 text-bold">{{ 'listing_details.description' | translate }}</label>
+            <p *ngIf="listing.description" [innerHtml]="listing.description">
+            </p>
+        </div>
 
         <label class="pt-2 pb-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
 
-        <a mat-mini-fab color="accent" [href]="contactNumberUrl">
-            <mat-icon>phone_in_talk</mat-icon>
-        </a>
-        <span class="ps-2"></span>
-        <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
-        </span>
-        <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</span>
-        <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
-        <hr>
+        <div class="pb-4">
+            <a mat-mini-fab color="accent" [href]="contactNumberUrl">
+                <mat-icon>phone_in_talk</mat-icon>
+            </a>
+            <span class="ps-2"></span>
+            <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+            </span>
+            <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</span>
+            <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+        </div>
     </div>
 </section>
+
+<app-footer *ngIf="showFooter"></app-footer>
