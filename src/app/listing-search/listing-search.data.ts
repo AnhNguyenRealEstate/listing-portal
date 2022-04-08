@@ -21,7 +21,8 @@ export interface Listing {
     contactChannels?: string[],
     view?: string //Referring to the property's living room's views,
     featured?: boolean,
-    creationDate?: Timestamp
+    creationDate?: Timestamp,
+    createdBy?: string
 }
 
 export interface ListingImageFile {

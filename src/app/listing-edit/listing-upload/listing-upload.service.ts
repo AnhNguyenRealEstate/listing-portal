@@ -6,6 +6,7 @@ import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/glob
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
+import { Auth } from '@angular/fire/auth';
 
 
 /**
@@ -21,7 +22,8 @@ export class ListingUploadService {
     watermarkImg: string = '';
 
     constructor(private firestore: Firestore,
-        private storage: Storage
+        private storage: Storage,
+        private auth: Auth
     ) {
     }
 
@@ -44,6 +46,8 @@ export class ListingUploadService {
         this.inProgress$$.next(true);
 
         this.sanitizeListing(listing);
+
+        listing.createdBy = this.auth.currentUser?.email || '';
 
         const fireStoragePath = createStoragePath(listing);
         listing.fireStoragePath = fireStoragePath;

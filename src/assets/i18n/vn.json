@@ -74,7 +74,8 @@
         "address": "Địa chỉ",
         "description": "Chi tiết sản phẩm",
         "contact": "Liên hệ",
-        "view": "View"
+        "view": "View",
+        "available_on": "Có thể liên lạc qua"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",

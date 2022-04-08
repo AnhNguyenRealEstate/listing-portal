@@ -83,7 +83,7 @@
                     </span>
                     <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
                     <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
-                    <div *ngIf="listing.contactChannels?.length">Also available on: {{listing.contactChannels!.join(',
+                    <div *ngIf="listing.contactChannels?.length">{{ 'listing_details.available_on' | translate }}: {{listing.contactChannels!.join(',
                         ') }}</div>
                 </div>
 

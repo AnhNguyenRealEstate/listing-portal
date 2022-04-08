@@ -75,7 +75,8 @@
         "address": "Address",
         "description": "Description",
         "contact": "Contact",
-        "view": "View"
+        "view": "View",
+        "available_on": "Also available on"
     },
     "search_bar": {
         "filters": "Filters",
