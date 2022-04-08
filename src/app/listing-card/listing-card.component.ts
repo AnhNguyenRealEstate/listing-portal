@@ -1,6 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, Input, OnInit } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { TranslateService } from '@ngx-translate/core';
 import { Listing } from '../listing-search/listing-search.data';
 
 @Component({
@@ -10,7 +11,6 @@ import { Listing } from '../listing-search/listing-search.data';
 })
 
 export class ListingCardComponent implements OnInit {
-    @Input() mode!: 'mobile' | 'desktop';
     @Input() listing!: Listing;
 
     coverImageUrl: string = '';
@@ -18,7 +18,8 @@ export class ListingCardComponent implements OnInit {
 
     constructor(
         private storage: Storage,
-        private clipboard: Clipboard) { }
+        private clipboard: Clipboard,
+        public translate: TranslateService) { }
 
     async ngOnInit() {
         getDownloadURL(ref(this.storage, this.listing.coverImagePath)).then(url => {

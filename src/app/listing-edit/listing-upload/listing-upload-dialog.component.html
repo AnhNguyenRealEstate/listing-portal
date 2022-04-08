@@ -113,33 +113,27 @@
     <hr>
 
     <ng-container *ngIf="isEditMode">
-        <div>
-            <ng-container *ngIf="!coverImageEditRequested; else coverImageUpload">
+        <ng-container *ngIf="!coverImageEditRequested; else coverImageUpload">
+            <div>
                 <button mat-button (click)="onEditCoverImage()" [disabled]="gettingCoverImage">
                     <span>{{ 'listing_upload.edit_cover_img' | translate }}</span>
                     <mat-spinner *ngIf="gettingCoverImage"></mat-spinner>
                 </button>
-            </ng-container>
-        </div>
-
-        <div class="pt-4 image-container">
-            <ng-container *ngIf="!mediaEditRequested; else mediaUpload">
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!mediaEditRequested; else mediaUpload">
+            <div class="pt-4 image-container">
                 <button mat-button (click)="onEditMedia()" [disabled]="gettingMedia">
                     <span>{{ 'listing_upload.edit_media' | translate }}</span>
                     <mat-spinner *ngIf="gettingMedia"></mat-spinner>
                 </button>
-            </ng-container>
-        </div>
+            </div>
+        </ng-container>
     </ng-container>
 
     <ng-container *ngIf="!isEditMode">
-        <div>
-            <ng-container *ngTemplateOutlet="coverImageUpload"></ng-container>
-        </div>
-
-        <div class="pt-4 image-container">
-            <ng-container *ngTemplateOutlet="mediaUpload"></ng-container>
-        </div>
+        <ng-container *ngTemplateOutlet="coverImageUpload"></ng-container>
+        <ng-container *ngTemplateOutlet="mediaUpload"></ng-container>
     </ng-container>
 
     <div class="row pb-2">
@@ -161,40 +155,44 @@
 </section>
 
 <ng-template #coverImageUpload>
-    <mat-label class="pe-2">{{ 'listing_upload.cover_image' | translate }}</mat-label>
-    <input #coverImageInput hidden="true" type="file" accept="image/*" onclick="this.value=null"
-        (change)="onCoverImageUpload($event)" />
-    <button *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
-        <mat-icon>upload</mat-icon>
-    </button>
-    <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
-        <img height="90px" width="150px" [src]="coverImageSrc">
-        <button mat-icon-button color="accent" (click)="removeCoverImage()">
-            <mat-icon>delete</mat-icon>
+    <div>
+        <mat-label class="pe-2">{{ 'listing_upload.cover_image' | translate }}</mat-label>
+        <input #coverImageInput hidden="true" type="file" accept="image/*" onclick="this.value=null"
+            (change)="onCoverImageUpload($event)" />
+        <button *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
+            <mat-icon>upload</mat-icon>
         </button>
+        <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
+            <img height="90px" width="150px" [src]="coverImageSrc">
+            <button mat-icon-button color="accent" (click)="removeCoverImage()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </div>
 </ng-template>
 
 <ng-template #mediaUpload>
-    <mat-label>{{ 'listing_upload.media_to_upload' | translate }}</mat-label>
+    <div class="pt-4 image-container">
+        <mat-label>{{ 'listing_upload.media_to_upload' | translate }}</mat-label>
 
-    <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
-        (change)="onMediaUpload($event)" />
+        <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
+            (change)="onMediaUpload($event)" />
 
-    <button mat-button color="accent" [matBadge]="imageFiles.length" matBadgeColor="primary"
-        (click)="imageInput.click()">
-        <mat-icon *ngIf="!compressionInProgress">image</mat-icon>
-        <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
-    </button>
+        <button mat-button color="accent" [matBadge]="imageFiles.length" matBadgeColor="primary"
+            (click)="imageInput.click()">
+            <mat-icon *ngIf="!compressionInProgress">image</mat-icon>
+            <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
+        </button>
 
-    <div class="pt-2 mat-form-field-wrapper">
-        <div class="col-12" *ngFor="let imgSrc of imageSrcs; let i = index">
-            <img [src]="imgSrc" class="listing-image">
-            <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
-            <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
-                [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
-                <mat-icon>delete</mat-icon>
-            </button>
+        <div class="pt-2 mat-form-field-wrapper">
+            <div class="col-12" *ngFor="let imgSrc of imageSrcs; let i = index">
+                <img [src]="imgSrc" class="listing-image">
+                <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
+                <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
+                    [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
 </ng-template>

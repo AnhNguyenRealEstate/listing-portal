@@ -69,7 +69,7 @@
 
         <div class="row d-flex ms-2 pb-4 justify-content-center">
             <listing-card *ngFor="let listing of featuredListings" class="col-3 result-card-wrapper"
-                (click)="getListing(listing.id)" [mode]="'desktop'" [listing]="listing">
+                (click)="getListing(listing.id)" [listing]="listing">
             </listing-card>
         </div>
 

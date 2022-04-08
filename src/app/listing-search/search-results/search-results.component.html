@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <listing-card *ngFor="let result of searchResults" class="col-4 pb-3 result-card-wrapper"
-                    (click)="viewListingDetails(result)" [mode]="'desktop'" [listing]="result">
+                    (click)="viewListingDetails(result)" [listing]="result">
                 </listing-card>
             </ng-container>
         </div>
@@ -35,10 +35,11 @@
                     </div>
                 </div>
 
-                <listing-card *ngFor="let result of searchResults; let i = index"
-                    class="col-12 col-md-6 pt-1 result-card-wrapper" (click)="viewListingDetails(result)"
-                    [mode]="'mobile'" [listing]="result">
-                </listing-card>
+                <div class="col-12 col-sm-6 pb-2"
+                    *ngFor="let result of searchResults; let i = index">
+                    <listing-card (click)="viewListingDetails(result)" [listing]="result">
+                    </listing-card>
+                </div>
             </div>
         </div>
     </section>

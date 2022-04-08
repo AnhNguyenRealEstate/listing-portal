@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/firestore';
 import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
-import { FirebaseStorageConsts, FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
+import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
@@ -148,20 +148,6 @@ export class ListingUploadService {
             return new File([data], `${index}.${fileExtension}`, metadata);
         }
 
-        function getMockFiles(imageFiles: ListingImageFile[], imageSrcs: string[]) {
-            for (let i = 0; i < imageFiles.length; i++) {
-                const blob = new Blob();
-                const file = new File([blob], `${i}.jpg`, { type: blob.type })
-                imageFiles[i] = ({ file: file } as ListingImageFile);
-
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onloadend = () => {
-                    imageSrcs[i] = reader.result as string;
-                }
-            }
-        }
-
         const imageStoragePath = `${storagePath}/${FirebaseStorageConsts.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).items;
         allImages.sort((a, b) => {
@@ -172,11 +158,6 @@ export class ListingUploadService {
 
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));
-
-        if (!environment.production) {
-            getMockFiles(imageFiles, imageSrcs);
-            return;
-        }
 
         // Storage Emulator isn't supporting the operations below
         await Promise.all(allImages.map(async (imageFile, index) => {
