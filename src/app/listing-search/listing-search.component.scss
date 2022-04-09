@@ -4,6 +4,14 @@
   padding-bottom: 20px;
 }
 
+.float-search-controls-desktop {
+  position: fixed !important;
+  width: 30vw !important;
+  button {
+    background-color: white !important;
+  }
+}
+
 .float-controls-mobile {
   top: auto !important;
   right: 20px !important;

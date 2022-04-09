@@ -1,5 +1,6 @@
 <ng-container *ngIf="mode === 'desktop'">
-    <section>
+    <section infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
+        (scrolled)="onScroll()">
         <div class="search-results-desktop row">
             <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
@@ -16,14 +17,14 @@
                     <listing-card [listing]="result">
                     </listing-card>
                 </div>
-
             </ng-container>
         </div>
     </section>
 </ng-container>
 
 <ng-container *ngIf="mode === 'mobile'">
-    <section class="container-flex ps-2 pe-2">
+    <section class="container-flex ps-2 pe-2" infiniteScroll [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
         <div class="row">
             <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 

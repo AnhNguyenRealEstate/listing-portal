@@ -32,8 +32,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     subs: Subscription = new Subscription();
 
-    numberOfResults: number = 0;
-
     filterDescription: string = '';
 
     constructor(
@@ -65,7 +63,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.listingSearchService.setSearchResults([]);
         const results = await this.listingSearchService.getListingsByCriteria(criteria);
         this.listingSearchService.setSearchResults(results);
-        this.numberOfResults = results.length;
 
         if (this.mode === 'mobile') {
             this.panelOpenState = false;

@@ -122,13 +122,6 @@
             </button>
         </div>
     </div>
-    <div class="row" *ngIf="numberOfResults > 0">
-        <div class="col-12 d-flex justify-content-end">
-            <i>{{ 'search_bar.found_x_results' | translate:
-                {numberOfResults:
-                numberOfResults} }}</i>
-        </div>
-    </div>
 </section>
 
 <section *ngIf="mode === 'mobile'" class="pt-2">
@@ -227,12 +220,7 @@
                 <span>{{ 'search_bar.get_listings' | translate }}</span>
             </button>
         </div>
-        <div class="col-12 pt-3 d-flex align-items-center justify-content-between">
-            <div class="ps-2 d-inline">
-                <i *ngIf="numberOfResults > 0">{{ 'search_bar.found_x_results' | translate:
-                    {numberOfResults:
-                    numberOfResults} }}</i>
-            </div>
+        <div class="col-12 pt-3 d-flex align-items-center justify-content-end">
             <div class="col-3 d-flex justify-content-end">
                 <button mat-button [matMenuTriggerFor]="orderByMenu">
                     <mat-icon>sort</mat-icon>

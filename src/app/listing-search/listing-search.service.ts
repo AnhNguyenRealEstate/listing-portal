@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy, DocumentSnapshot, limit } from '@angular/fire/firestore';
-import { Storage } from '@angular/fire/storage';
+import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy, DocumentSnapshot, limit, startAfter, limitToLast } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
-import { getDocs } from '@firebase/firestore';
+import { getDocs, QuerySnapshot } from '@firebase/firestore';
 
 @Injectable({ providedIn: 'any' })
 export class ListingSearchService {
@@ -14,35 +13,82 @@ export class ListingSearchService {
     private searchInProgress$$ = new BehaviorSubject<boolean>(false);
     private searchInProgress$ = this.searchInProgress$$.asObservable();
 
-    paginationLimit: number = 6;
-    lastResultOfCurrentPagination!: DocumentSnapshot;
+    private paginationLimit: number = 9;
+    private lastResultOfCurrentPagination!: DocumentSnapshot;
 
-    constructor(private firestore: Firestore, private storage: Storage) {
+    private currentSearchCriteria!: SearchCriteria;
+    private currentQuery!: Query<DocumentData>;
+    private querySnapshot!: QuerySnapshot<DocumentData>;
+
+    constructor(private firestore: Firestore) {
     }
 
-    async getListingsByCriteria(searchCriteria: SearchCriteria): Promise<Listing[]> {
+    async getListingsByCriteria(newSearchCriteria: SearchCriteria): Promise<Listing[]> {
+        this.searchInProgress$$.next(true);
+        const results: Listing[] = [];
 
-        const criteriaToDBQuery = (listings: CollectionReference<DocumentData>, criteria: SearchCriteria): Query<DocumentData> => {
-            let q = query(listings, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
-            if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
-            if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
-
-            switch (criteria.orderBy) {
-                case 'Most Affordable':
-                    q = query(q, orderBy('price', 'asc'));
-                    break;
-                case 'Most Recent':
-                    q = query(q, orderBy('creationDate', 'desc'));
-                    break;
-                default:
-                    break;
-            }
-
-            q = query(q, limit(this.paginationLimit));
-
-            return q as Query<DocumentData>;
+        if (this.isNewSnapshotNeeded(newSearchCriteria)) {
+            this.currentSearchCriteria = newSearchCriteria;
+            this.currentQuery = this.criteriaToQuery(
+                collection(this.firestore, FirestoreCollections.listings),
+                newSearchCriteria,
+            );
+            this.querySnapshot = await getDocs(
+                this.currentQuery
+            );
         }
 
+        if (this.querySnapshot?.size === 0) {
+            this.searchInProgress$$.next(false);
+            return [];
+        }
+
+        const docs = this.querySnapshot.docs;
+        for (let i = 0; i < docs.length; i++) {
+            const doc = docs[i];
+            const listing = doc.data() as Listing;
+
+            if (i == docs.length - 1) {
+                this.lastResultOfCurrentPagination = doc;
+            }
+
+            const listingPassesCriteria = this.applyRangedQueries(listing, newSearchCriteria);
+            if (listingPassesCriteria) {
+                results.push(listing);
+            }
+        }
+
+        this.searchInProgress$$.next(false);
+        return results;
+    }
+
+    private isNewSnapshotNeeded(newSearchCriteria: SearchCriteria) {
+        return !this.querySnapshot || (this.currentSearchCriteria.category !== newSearchCriteria.category)
+            || (this.currentSearchCriteria.purpose !== newSearchCriteria.purpose)
+            || (this.currentSearchCriteria.location !== newSearchCriteria.location)
+            || (this.currentSearchCriteria.orderBy) !== newSearchCriteria.orderBy;
+    }
+
+    private criteriaToQuery(
+        listings: CollectionReference<DocumentData>,
+        criteria: SearchCriteria): Query<DocumentData> {
+        let q = query(listings, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
+
+        if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
+        if (criteria.category) q = query(q, where('category', '==', criteria.category.trim()));
+
+        if (criteria.orderBy === 'Most Affordable') {
+            q = query(q, orderBy('price', 'asc'));
+        } else if (criteria.orderBy === 'Most Recent') {
+            q = query(q, orderBy('creationDate', 'desc'));
+        }
+
+        q = query(q, limit(this.paginationLimit));
+
+        return q as Query<DocumentData>;
+    }
+
+    private applyRangedQueries(listing: Listing, criteria: SearchCriteria) {
         const propertySizesToMinMaxSizes = (propertySizes: string): number[] => {
             switch (propertySizes) {
                 case '_050to100': return [50, 100];
@@ -53,77 +99,48 @@ export class ListingSearchService {
                 default: return [0, 9999];
             }
         }
-
-        this.searchInProgress$$.next(true);
-
-        const results: Listing[] = [];
-        const querySnapshot = await getDocs(
-            criteriaToDBQuery(
-                collection(this.firestore, FirestoreCollections.listings),
-                searchCriteria
-            ));
-
-        if (querySnapshot?.size === 0) {
-            this.searchInProgress$$.next(false);
-            return [];
-        }
-
-        const minMaxSizes = propertySizesToMinMaxSizes(searchCriteria.propertySize);
+        const minMaxSizes = propertySizesToMinMaxSizes(criteria.propertySize);
         const minSize = minMaxSizes[0];
         const maxSize = minMaxSizes[1];
-
-        const docs = querySnapshot.docs;
-        for (let i = 0; i < docs.length; i++) {
-            const doc = docs[i];
-            const listing = doc.data() as Listing;
-
-            // Range queries to be done here as Firestore does not allow it
-            // Filter by property size
-            if (
-                listing.propertySize! > maxSize ||
-                listing.propertySize! < minSize) {
-                continue;
-            }
-
-            // Filter by max and min prices
-            const maxPrice = searchCriteria.maxPrice || Number.POSITIVE_INFINITY;
-            if (
-                listing.price! > maxPrice ||
-                listing.price! < searchCriteria.minPrice) {
-                continue;
-            }
-
-            // Filter by bathrooms
-            if (searchCriteria.bathrooms === "3+") {
-                if (Number(listing.bathrooms) <= 3) {
-                    continue;
-                }
-            } else if (searchCriteria.bathrooms) {
-                if (Number(searchCriteria.bathrooms) != listing.bathrooms!) {
-                    continue;
-                }
-            }
-
-            // Filter by bedrooms
-            if (searchCriteria.bedrooms === "3+") {
-                if (Number(listing.bedrooms) <= 3) {
-                    continue;
-                }
-            } else if (searchCriteria.bedrooms) {
-                if (Number(searchCriteria.bedrooms) != listing.bedrooms!) {
-                    continue;
-                }
-            }
-
-            if (i == docs.length - 1) {
-                this.lastResultOfCurrentPagination = doc;
-            }
-
-            results.push(listing);
+        // Range queries to be done here as Firestore does not allow it
+        // Filter by property size
+        if (
+            listing.propertySize! > maxSize ||
+            listing.propertySize! < minSize) {
+            return false;
         }
 
-        this.searchInProgress$$.next(false);
-        return results;
+        // Filter by max and min prices
+        const maxPrice = criteria.maxPrice || Number.POSITIVE_INFINITY;
+        if (
+            listing.price! > maxPrice ||
+            listing.price! < criteria.minPrice) {
+            return false;
+        }
+
+        // Filter by bathrooms
+        if (criteria.bathrooms === "3+") {
+            if (Number(listing.bathrooms) <= 3) {
+                return false;
+            }
+        } else if (criteria.bathrooms) {
+            if (Number(criteria.bathrooms) != listing.bathrooms!) {
+                return false;
+            }
+        }
+
+        // Filter by bedrooms
+        if (criteria.bedrooms === "3+") {
+            if (Number(listing.bedrooms) <= 3) {
+                return false;
+            }
+        } else if (criteria.bedrooms) {
+            if (Number(criteria.bedrooms) != listing.bedrooms!) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     searchInProgress() {
@@ -136,5 +153,27 @@ export class ListingSearchService {
 
     setSearchResults(value: Listing[]) {
         this.searchResults$$.next(value);
+    }
+
+    async getMoreResults(): Promise<Listing[]> {
+        console.log("Getting more results");
+        const results: Listing[] = [];
+        const additionalDocs = await getDocs(query(this.currentQuery, startAfter(this.lastResultOfCurrentPagination), limit(this.paginationLimit)));
+        const docs = additionalDocs.docs;
+
+        if (!docs.length) {
+            return results;
+        }
+
+        this.lastResultOfCurrentPagination = docs[docs.length - 1];
+
+        for (const doc of docs) {
+            const listing = doc.data() as Listing;
+            const listingPassesCriteria = this.applyRangedQueries(listing, this.currentSearchCriteria);
+            if (listingPassesCriteria) {
+                results.push(listing);
+            }
+        }
+        return results;
     }
 }
