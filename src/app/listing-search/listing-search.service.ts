@@ -25,6 +25,8 @@ export class ListingSearchService {
 
     async getListingsByCriteria(newSearchCriteria: SearchCriteria): Promise<Listing[]> {
         this.searchInProgress$$.next(true);
+
+        newSearchCriteria = { ...newSearchCriteria };
         const results: Listing[] = [];
 
         if (this.isNewSnapshotNeeded(newSearchCriteria)) {
@@ -156,7 +158,6 @@ export class ListingSearchService {
     }
 
     async getMoreResults(): Promise<Listing[]> {
-        console.log("Getting more results");
         const results: Listing[] = [];
         const additionalDocs = await getDocs(query(this.currentQuery, startAfter(this.lastResultOfCurrentPagination), limit(this.paginationLimit)));
         const docs = additionalDocs.docs;
