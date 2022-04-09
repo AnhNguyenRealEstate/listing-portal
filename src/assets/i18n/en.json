@@ -56,6 +56,10 @@
         "commercial": "Commercial",
         "view": "View"
     },
+    "listing_card" : {
+        "share_listing": "Get link to this listing",
+        "link_copied": "Shareable link copied 🌟"
+    },
     "listing_search.page_title": "Listings",
     "listing_details": {
         "details": "Details",
@@ -74,7 +78,8 @@
         "address": "Address",
         "description": "Description",
         "contact": "Contact",
-        "view": "View"
+        "view": "View",
+        "available_on": "Also available on"
     },
     "search_bar": {
         "filters": "Filters",
@@ -127,7 +132,10 @@
         "contact_number": "Contact number",
         "media_to_upload": "Media attachments",
         "cover_image": "Cover image",
-        "contact_person": "Name of contact"
+        "contact_person": "Name of contact",
+        "edit_cover_img": "Edit cover image",
+        "edit_media": "Edit attached images",
+        "available_on": "Additional contact channels"
     },
     "login": {
         "page_title": "Login",

@@ -3,3 +3,8 @@
     width: 100%;
     height: 400px;
 }
+
+.listing-details-desktop,
+.listing-details-mobile {
+    height: max-content;
+}

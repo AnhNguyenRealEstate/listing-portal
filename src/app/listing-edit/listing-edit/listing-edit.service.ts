@@ -12,6 +12,7 @@ export class ListingEditService {
     }
 
     /* Completely remove the listing from DB */
+    //TODO: move to cloud functions for batch delete
     async deleteListing(listing: Listing, dbRefId: string) {
         const imgsVideosStoragePath = `${listing.fireStoragePath}/${FirebaseStorageConsts.listingImgsVideos}`
         listAll(ref(this.storage, imgsVideosStoragePath)).then(result => {

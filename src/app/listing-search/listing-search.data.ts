@@ -17,10 +17,12 @@ export interface Listing {
     purpose?: 'For Rent' | 'For Sale'
     archived?: boolean
     contactNumber?: string
-    contactPerson?: string
+    contactPerson?: string,
+    contactChannels?: string[],
     view?: string //Referring to the property's living room's views,
     featured?: boolean,
-    creationDate?: Timestamp
+    creationDate?: Timestamp,
+    createdBy?: string
 }
 
 export interface ListingImageFile {

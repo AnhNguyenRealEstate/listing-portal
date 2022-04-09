@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SecurityContext, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext } from '@angular/core';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
@@ -8,13 +8,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AvailableContactChannels } from './listing-upload.data';
 
 @Component({
     selector: 'listing-upload',
     templateUrl: 'listing-upload.component.html',
     styleUrls: ['./listing-upload.component.scss']
 })
-export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
+export class ListingUploadComponent implements OnInit, OnDestroy {
     @Input() listing: Listing = {} as Listing;
     @Input() isEditMode = false;
     @Input() dbReferenceId: string = '';
@@ -31,11 +33,17 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     coverImageFile: File | undefined = undefined;
     coverImageSrc: string | undefined = undefined;
     coverImageModified: boolean = false;
+    coverImageEditRequested: boolean = false;
+    gettingCoverImage: boolean = false;
 
     subs: Subscription = new Subscription();
-    showSpinner: boolean = false;
+
+    mediaEditRequested: boolean = false;
+    gettingMedia: boolean = false;
 
     snackbarMsgs!: any;
+
+    AvailableContactChannels = AvailableContactChannels;
 
     constructor(
         private snackbar: MatSnackBar,
@@ -43,8 +51,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         private imageCompress: NgxImageCompressService,
         private sanitizer: DomSanitizer,
         public listingUploadService: ListingUploadService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        @Optional() private dialogRef: MatDialogRef<ListingUploadComponent>,
+        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
+        if (this.data?.listing) {
+            this.listing = { ...this.data.listing };
+        }
     }
 
     async ngOnInit() {
@@ -60,31 +73,33 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
         ));
     }
 
-    async ngOnChanges(changes: SimpleChanges) {
-        if (changes.listing && changes.listing.currentValue) {
-            this.showSpinner = true;
-
-            this.imageFiles = [];
-            this.imageSrcs = [];
-            await this.listingUploadService.getListingImages(
-                this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
-            );
-
-            const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
-            this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
-
-            const reader = new FileReader();
-            reader.readAsDataURL(this.coverImageFile);
-            reader.onloadend = () => {
-                this.coverImageSrc = reader.result as string;
-            }
-
-            this.showSpinner = false;
-        }
-    }
-
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+    }
+
+    async onEditCoverImage() {
+        this.gettingCoverImage = true;
+
+        const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
+        this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
+
+        const reader = new FileReader();
+        reader.readAsDataURL(this.coverImageFile);
+        reader.onloadend = () => {
+            this.coverImageSrc = reader.result as string;
+        }
+
+        this.gettingCoverImage = false;
+        this.coverImageEditRequested = true;
+    }
+
+    async onEditMedia() {
+        this.gettingMedia = true;
+        await this.listingUploadService.getListingImages(
+            this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
+        );
+        this.gettingMedia = false;
+        this.mediaEditRequested = true;
     }
 
     onPurposeSelect(event: any) {
@@ -218,6 +233,10 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
                 duration: 3000
             }
         );
+
+        if (this.dialogRef) {
+            this.dialogRef.close();
+        }
     }
 
     async saveEdit() {
@@ -250,18 +269,27 @@ export class ListingUploadComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     checkValidityForUpload(listing: Listing): boolean {
-        if (listing.purpose?.length
+        const requiredFieldsAreFilled = listing.purpose?.length
             && listing.category?.length
             && listing.location?.length
             && !isNaN(Number(listing.bedrooms))
             && !isNaN(Number(listing.bathrooms))
             && !isNaN(Number(listing.price))
             && listing.currency?.length
-            && listing.description?.length
-            && this.imageFiles.length
-            && this.coverImageFile) {
+            && listing.description?.length;
+
+        if (requiredFieldsAreFilled && this.isEditMode) {
             return true;
         }
+
+        if (requiredFieldsAreFilled && !this.isEditMode) {
+            const imagesUploaded = this.imageFiles.length && this.coverImageFile;
+            if (imagesUploaded) {
+                return true;
+            }
+        }
+
+
         return false;
     }
 }

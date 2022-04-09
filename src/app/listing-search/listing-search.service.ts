@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
-import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy, limit, startAt } from '@angular/fire/firestore';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy, DocumentSnapshot, limit } from '@angular/fire/firestore';
+import { Storage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
-import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { DocumentSnapshot, getDocs } from '@firebase/firestore';
+import { FirestoreCollections } from 'src/app/shared/globals';
+import { getDocs } from '@firebase/firestore';
 
 @Injectable({ providedIn: 'any' })
 export class ListingSearchService {
@@ -72,7 +72,6 @@ export class ListingSearchService {
         const minSize = minMaxSizes[0];
         const maxSize = minMaxSizes[1];
 
-        //TODO: map reduce?
         const docs = querySnapshot.docs;
         for (let i = 0; i < docs.length; i++) {
             const doc = docs[i];
@@ -124,7 +123,6 @@ export class ListingSearchService {
         }
 
         this.searchInProgress$$.next(false);
-
         return results;
     }
 
