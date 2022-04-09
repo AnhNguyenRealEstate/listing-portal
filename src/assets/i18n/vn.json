@@ -55,7 +55,10 @@
         "commercial": "Shop thương mại",
         "view": "View"
     },
-    "listing_card.share_listing": "Lấy link sản phẩm",
+    "listing_card" : {
+        "share_listing": "Lấy link sản phẩm",
+        "link_copied": "Đã lấy link sản phẩm 🌟"
+    },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
         "details": "Chi tiết",

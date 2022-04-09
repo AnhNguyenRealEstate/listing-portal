@@ -56,7 +56,10 @@
         "commercial": "Commercial",
         "view": "View"
     },
-    "listing_card.share_listing": "Get link to this listing",
+    "listing_card" : {
+        "share_listing": "Get link to this listing",
+        "link_copied": "Shareable link copied 🌟"
+    },
     "listing_search.page_title": "Listings",
     "listing_details": {
         "details": "Details",
