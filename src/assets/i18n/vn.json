@@ -54,10 +54,9 @@
         "townhouse": "Song lập",
         "commercial": "Shop thương mại",
         "view": "View",
-        "more_content": "Đã lấy thêm sản phẩm 🍻",
-        "dismiss": "Tắt"
+        "view_more": "Xem thêm"
     },
-    "listing_card" : {
+    "listing_card": {
         "share_listing": "Lấy link sản phẩm",
         "link_copied": "Đã lấy link sản phẩm 🌟"
     },
@@ -102,6 +101,7 @@
         "purpose": "Mục đích",
         "for_rent": "Tìm thuê",
         "for_sale": "Tìm mua",
+        "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm",
         "order_by": "Thứ tự",
         "most_recent": "Mới nhất đến cũ nhất",
         "most_affordable": "Rẻ nhất đến đắt nhất"

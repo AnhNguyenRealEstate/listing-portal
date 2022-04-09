@@ -1,7 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Listing } from '../listing-search.data';
 import { ListingSearchService } from '../listing-search.service';
 
@@ -15,32 +13,30 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     @Input() mode: 'desktop' | 'mobile' = 'desktop';
     subscription = new Subscription();
     searchResults: Listing[] = [];
-    fetchingMoreResults: boolean = false;
-    numberOfMockListings = Array(1).fill(0);
-    snackbarMsgs: any;
 
-    constructor(public listingSearchService: ListingSearchService,
-        private snackbar: MatSnackBar,
-        private translate: TranslateService) { }
+    isLoadingMore: boolean = false;
+    noMoreToLoad: boolean = false;
+
+    constructor(public listingSearchService: ListingSearchService) { }
 
     async ngOnInit() {
         this.subscription.add(this.listingSearchService.searchResults().subscribe(results => {
             this.searchResults = results;
+            this.noMoreToLoad = false;
         }));
-
-        this.snackbarMsgs = await lastValueFrom(
-            this.translate.get(['search_results.more_content', 'search_results.dismiss'])
-        );
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
 
-    async onScroll() {
+    async loadMore() {
+        this.isLoadingMore = true;
         const results = await this.listingSearchService.getMoreResults();
 
         if (!results.length) {
+            this.noMoreToLoad = true;
+            this.isLoadingMore = false;
             return
         }
 
@@ -51,12 +47,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
             this.searchResults.push(listing);
         }
 
-        this.snackbar.open(
-            this.snackbarMsgs['search_results.more_content'],
-            this.snackbarMsgs['search_results.dismiss'],
-            {
-                duration: 1500
-            }
-        )
+        this.isLoadingMore = false;
     }
 }

@@ -34,6 +34,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     filterDescription: string = '';
 
+    numberOfResults!: number;
+
     constructor(
         public listingSearchService: ListingSearchService,
         private metadata: MetadataService,
@@ -45,6 +47,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
+
+        this.subs.add(this.listingSearchService.numberOfResults().subscribe(num => {
+            this.numberOfResults = num;
+        }))
 
         const map = this.route.snapshot.paramMap;
         this.searchCriteria.purpose = map.get('purpose') as 'For Rent' | 'For Sale' || 'For Rent';

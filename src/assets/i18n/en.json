@@ -55,10 +55,9 @@
         "townhouse": "Townhouse",
         "commercial": "Commercial",
         "view": "View",
-        "more_content": "More listings retrieved 🍻",
-        "dismiss": "Dismiss"
+        "view_more": "View more"
     },
-    "listing_card" : {
+    "listing_card": {
         "share_listing": "Get link to this listing",
         "link_copied": "Shareable link copied 🌟"
     },
@@ -103,6 +102,7 @@
         "purpose": "Purpose",
         "for_rent": "For rent",
         "for_sale": "For sale",
+        "found_x_results": "Found {{numberOfResults}} listing(s)",
         "order_by": "Order by",
         "most_recent": "Most recent",
         "most_affordable": "Most affordable"

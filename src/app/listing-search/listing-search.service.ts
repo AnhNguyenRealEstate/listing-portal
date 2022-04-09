@@ -13,6 +13,9 @@ export class ListingSearchService {
     private searchInProgress$$ = new BehaviorSubject<boolean>(false);
     private searchInProgress$ = this.searchInProgress$$.asObservable();
 
+    private numberOfResults$$ = new BehaviorSubject<number>(0);
+    private numberOfResults$ = this.numberOfResults$$.asObservable();
+
     private paginationLimit: number = 9;
     private lastResultOfCurrentPagination!: DocumentSnapshot;
 
@@ -60,6 +63,7 @@ export class ListingSearchService {
             }
         }
 
+        this.numberOfResults$$.next(results.length);
         this.searchInProgress$$.next(false);
         return results;
     }
@@ -153,6 +157,10 @@ export class ListingSearchService {
         return this.searchResults$;
     }
 
+    numberOfResults() {
+        return this.numberOfResults$;
+    }
+
     setSearchResults(value: Listing[]) {
         this.searchResults$$.next(value);
     }
@@ -175,6 +183,8 @@ export class ListingSearchService {
                 results.push(listing);
             }
         }
+
+        this.numberOfResults$$.next(this.numberOfResults$$.value + results.length);
         return results;
     }
 }

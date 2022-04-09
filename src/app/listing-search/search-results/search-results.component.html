@@ -1,6 +1,5 @@
 <ng-container *ngIf="mode === 'desktop'">
-    <section infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
-        (scrolled)="onScroll()">
+    <section>
         <div class="search-results-desktop row">
             <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
@@ -17,18 +16,26 @@
                     <listing-card [listing]="result">
                     </listing-card>
                 </div>
+                <div class="col-12 d-flex justify-content-center" *ngIf="!noMoreToLoad">
+                    <button mat-button [disabled]="isLoadingMore" (click)="loadMore()" style="width: 100%">
+                        <span>{{ 'search_results.view_more' | translate }}</span>
+                        <mat-icon *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <div class="d-inline">
+                            <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
+                        </div>
+                    </button>
+                </div>
             </ng-container>
         </div>
     </section>
 </ng-container>
 
 <ng-container *ngIf="mode === 'mobile'">
-    <section class="container-flex ps-2 pe-2" infiniteScroll [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+    <section class="container-flex ps-2 pe-2">
         <div class="row">
             <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
-            <div *ngIf="!(listingSearchService.searchInProgress() | async)">
+            <ng-container *ngIf="!(listingSearchService.searchInProgress() | async)">
                 <div *ngIf="searchResults.length === 0" style="height: 70vh">
                     <div class="d-flex justify-content-center no-result-icon">
                         <mat-icon [inline]="true">search_off</mat-icon>
@@ -42,7 +49,16 @@
                     <listing-card [listing]="result">
                     </listing-card>
                 </div>
-            </div>
+                <div class="col-12 d-flex justify-content-center" *ngIf="!noMoreToLoad">
+                    <button mat-button (click)="loadMore()">
+                        <span>{{ 'search_results.view_more' | translate }}</span>
+                        <mat-icon *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <div class="d-inline">
+                            <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
+                        </div>
+                    </button>
+                </div>
+            </ng-container>
         </div>
     </section>
 </ng-container>
