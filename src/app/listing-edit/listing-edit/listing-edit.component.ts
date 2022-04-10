@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { collection, Firestore, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Listing } from '../../listing-search/listing-search.data';
@@ -7,6 +7,8 @@ import { ListingUploadComponent } from '../listing-upload/listing-upload.compone
 import { ListingEditService } from './listing-edit.service';
 import { FirestoreCollections } from '../../shared/globals';
 import { Unsubscribe } from '@angular/fire/auth';
+import { PageScrollService } from 'ngx-page-scroll-core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'listing-edit',
@@ -25,7 +27,9 @@ export class ListingEditComponent implements OnInit {
     constructor(
         private firestore: Firestore,
         private dialog: MatDialog,
-        public listingEditService: ListingEditService) { }
+        public listingEditService: ListingEditService,
+        private pageScroll: PageScrollService,
+        @Inject(DOCUMENT) private document: any) { }
 
     async ngOnInit() {
         this.snapshotCancel = onSnapshot(
@@ -111,5 +115,13 @@ export class ListingEditComponent implements OnInit {
             }
         } as MatDialogConfig;
         this.dialog.open(ListingUploadDialogComponent, config);
+    }
+
+    scrollTop() {
+        this.pageScroll.scroll({
+            document: this.document,
+            scrollTarget: '.navbar',
+            duration: 250
+        });
     }
 }

@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Listing, SearchCriteria } from './listing-search.data';
 import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy, DocumentSnapshot, limit, startAfter, limitToLast } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { getDocs, QuerySnapshot } from '@firebase/firestore';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({ providedIn: 'any' })
 export class ListingSearchService {
@@ -16,14 +17,19 @@ export class ListingSearchService {
     private resultCount$$ = new BehaviorSubject<number>(0);
     private resultCount$ = this.resultCount$$.asObservable();
 
-    private paginationLimit: number = 9;
+    private paginationLimit: number = 15;
     private lastResultOfCurrentPagination!: DocumentSnapshot;
 
     private currentSearchCriteria!: SearchCriteria;
     private currentQuery!: Query<DocumentData>;
     private querySnapshot!: QuerySnapshot<DocumentData>;
 
-    constructor(private firestore: Firestore) {
+    constructor(private firestore: Firestore, @Inject(DOCUMENT) { defaultView }: Document) {
+        const width = defaultView ? defaultView.innerWidth : 0;
+        const mobileDevicesWidth = 600;
+        if (width <= mobileDevicesWidth) {
+            this.paginationLimit = 9;
+        }
     }
 
     async getListingsByCriteria(newSearchCriteria: SearchCriteria): Promise<Listing[]> {

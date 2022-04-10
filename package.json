@@ -7,9 +7,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng build && gulp copy-index-html-to-cloud-functions",
+    "bundle-report": "webpack-bundle-analyzer dist/listing-portal/stats.json",
+    "build": "ng build --stats-json && gulp copy-index-html-to-cloud-functions",
     "build-functions": "npm run --prefix functions build",
-    "build-all-prod": "ng build --configuration production --aot --outputHashing=all && gulp copy-index-html-to-cloud-functions && npm run build-functions",
+    "build-all-prod": "ng build --stats-json --configuration production --aot --outputHashing=all && gulp copy-index-html-to-cloud-functions && npm run build-functions",
     "preview-live": "npm run build-all-prod && firebase hosting:channel:deploy listing-portal-uat && npm run deploy-functions",
     "deploy-functions": "npm run --prefix functions deploy",
     "deploy-hosting": "npm run build-all-prod && firebase deploy --only hosting",
@@ -77,6 +78,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~10.7.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.6.3"
+    "typescript": "~4.6.3",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }
