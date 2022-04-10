@@ -52,7 +52,8 @@
             "archive": "Gỡ bài đăng",
             "unarchive": "Đăng lại",
             "delete": "Xoá sản phẩm"
-        }
+        },
+        "view_more": "Xem thêm"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",

@@ -17,18 +17,22 @@ export class ListingSearchService {
     private resultCount$$ = new BehaviorSubject<number>(0);
     private resultCount$ = this.resultCount$$.asObservable();
 
-    private paginationLimit: number = 15;
+    private desktopPaginationLimit = 12;
+    private mobilePaginationLimit = 9;
+    private paginationLimit: number = this.desktopPaginationLimit;
     private lastResultOfCurrentPagination!: DocumentSnapshot;
 
     private currentSearchCriteria!: SearchCriteria;
     private currentQuery!: Query<DocumentData>;
     private querySnapshot!: QuerySnapshot<DocumentData>;
 
-    constructor(private firestore: Firestore, @Inject(DOCUMENT) { defaultView }: Document) {
+    constructor(
+        private firestore: Firestore,
+        @Inject(DOCUMENT) { defaultView }: Document) {
         const width = defaultView ? defaultView.innerWidth : 0;
         const mobileDevicesWidth = 600;
         if (width <= mobileDevicesWidth) {
-            this.paginationLimit = 9;
+            this.paginationLimit = this.mobilePaginationLimit;
         }
     }
 

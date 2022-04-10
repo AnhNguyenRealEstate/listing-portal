@@ -52,7 +52,8 @@
             "archive": "Archive this listing",
             "unarchive": "Unarchive this listing",
             "delete": "Delete this listing"
-        }
+        },
+        "view_more": "View more"
     },
     "search_results": {
         "no_results": "No result matches your criteria",

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { collection, Firestore, onSnapshot, orderBy, query } from '@angular/fire/firestore';
+import { collection, Firestore, limit, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Listing } from '../../listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
@@ -22,6 +22,9 @@ export class ListingEditComponent implements OnInit {
     files: File[] = [];
     listingToShow: Listing | undefined = undefined;
 
+    isLoadingMore = false;
+    noMoreToLoad = false;
+
     snapshotCancel: Unsubscribe = () => { };
 
     constructor(
@@ -33,11 +36,14 @@ export class ListingEditComponent implements OnInit {
 
     async ngOnInit() {
         this.snapshotCancel = onSnapshot(
-            query(collection(this.firestore, FirestoreCollections.listings), orderBy("creationDate", 'desc')),
+            this.listingEditService.queryListingsByCreationDateDesc(),
             async snapshot => {
-                const listings: Listing[] = new Array<Listing>(snapshot.docs.length);
+                const snapshotDocs = snapshot.docs;
+                const listings: Listing[] = new Array<Listing>(snapshotDocs.length);
 
-                await Promise.all(snapshot.docs.map(async (doc, index) => {
+                this.listingEditService.setLastResultOfPagination(snapshotDocs[snapshotDocs.length - 1]);
+
+                await Promise.all(snapshotDocs.map(async (doc, index) => {
                     const listing = doc.data() as Listing;
                     listings[index] = listing;
                 }));
@@ -123,5 +129,20 @@ export class ListingEditComponent implements OnInit {
             scrollTarget: '.navbar',
             duration: 250
         });
+    }
+
+    async loadMore() {
+        this.isLoadingMore = true;
+
+        const results = await this.listingEditService.getMoreListings();
+        if (!results.length) {
+            this.isLoadingMore = false;
+            this.noMoreToLoad = true;
+            return;
+        }
+
+        this.listings.push(...results);
+
+        this.isLoadingMore = false;
     }
 }

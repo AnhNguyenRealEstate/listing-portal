@@ -1,14 +1,40 @@
-import { Injectable } from '@angular/core';
-import { Firestore, deleteDoc, updateDoc, doc, collection } from '@angular/fire/firestore';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
+import { Firestore, deleteDoc, updateDoc, doc, collection, Query, DocumentData, query, orderBy, limit, getDocs, startAfter, DocumentSnapshot } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Listing } from '../../listing-search/listing-search.data';
 
 @Injectable({ providedIn: 'any' })
 export class ListingEditService {
+    private desktopPaginationLimit = 8;
+    private mobilePaginationLimit = 5;
+    private _paginationLimit: number = this.desktopPaginationLimit;
+    private _lastResultOfCurrentPagination!: DocumentSnapshot;
+
+    private _queryListingsByCreationDateDesc: Query<DocumentData> = query(collection(this.firestore, FirestoreCollections.listings),
+        orderBy("creationDate", 'desc'),
+        limit(this._paginationLimit));
+
     constructor(
         private firestore: Firestore,
-        private storage: Storage) {
+        private storage: Storage,
+        @Inject(DOCUMENT) { defaultView }: Document) {
+        const width = defaultView ? defaultView.innerWidth : 0;
+        const mobileDevicesWidth = 600;
+        if (width <= mobileDevicesWidth) {
+            this._paginationLimit = this.mobilePaginationLimit;
+        }
+    }
+
+    async getMoreListings(): Promise<Listing[]> {
+        const snapshot = await getDocs(
+            query(this._queryListingsByCreationDateDesc, startAfter(this._lastResultOfCurrentPagination))
+        );
+
+        const snapshotDocs = snapshot.docs;
+        this.setLastResultOfPagination(snapshotDocs[snapshotDocs.length - 1]);
+        return await Promise.all(snapshotDocs.map(doc => doc.data() as Listing));
     }
 
     /* Completely remove the listing from DB */
@@ -59,5 +85,21 @@ export class ListingEditService {
             'featured',
             false
         );
+    }
+
+    getLastResultOfCurrentPagination() {
+        return this._lastResultOfCurrentPagination;
+    }
+
+    setLastResultOfPagination(lastResult: DocumentSnapshot) {
+        this._lastResultOfCurrentPagination = lastResult;
+    }
+
+    paginationLimit() {
+        return this.paginationLimit;
+    }
+
+    queryListingsByCreationDateDesc() {
+        return this._queryListingsByCreationDateDesc;
     }
 }
