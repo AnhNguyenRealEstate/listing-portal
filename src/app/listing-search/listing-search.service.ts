@@ -13,8 +13,8 @@ export class ListingSearchService {
     private searchInProgress$$ = new BehaviorSubject<boolean>(false);
     private searchInProgress$ = this.searchInProgress$$.asObservable();
 
-    private numberOfResults$$ = new BehaviorSubject<number>(0);
-    private numberOfResults$ = this.numberOfResults$$.asObservable();
+    private resultCount$$ = new BehaviorSubject<number>(0);
+    private resultCount$ = this.resultCount$$.asObservable();
 
     private paginationLimit: number = 9;
     private lastResultOfCurrentPagination!: DocumentSnapshot;
@@ -63,7 +63,7 @@ export class ListingSearchService {
             }
         }
 
-        this.numberOfResults$$.next(results.length);
+        this.resultCount$$.next(results.length);
         this.searchInProgress$$.next(false);
         return results;
     }
@@ -157,8 +157,8 @@ export class ListingSearchService {
         return this.searchResults$;
     }
 
-    numberOfResults() {
-        return this.numberOfResults$;
+    resultCount() {
+        return this.resultCount$;
     }
 
     setSearchResults(value: Listing[]) {
@@ -167,7 +167,13 @@ export class ListingSearchService {
 
     async getMoreResults(): Promise<Listing[]> {
         const results: Listing[] = [];
-        const additionalDocs = await getDocs(query(this.currentQuery, startAfter(this.lastResultOfCurrentPagination), limit(this.paginationLimit)));
+        const additionalDocs = await getDocs(
+            query(this.currentQuery,
+                startAfter(this.lastResultOfCurrentPagination),
+                limit(this.paginationLimit)
+            )
+        );
+
         const docs = additionalDocs.docs;
 
         if (!docs.length) {
@@ -184,7 +190,7 @@ export class ListingSearchService {
             }
         }
 
-        this.numberOfResults$$.next(this.numberOfResults$$.value + results.length);
+        this.resultCount$$.next(this.resultCount$$.value + results.length);
         return results;
     }
 }

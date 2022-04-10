@@ -34,7 +34,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     filterDescription: string = '';
 
-    numberOfResults!: number;
+    resultCount!: number;
 
     constructor(
         public listingSearchService: ListingSearchService,
@@ -48,8 +48,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
             this.locations = data;
         }));
 
-        this.subs.add(this.listingSearchService.numberOfResults().subscribe(num => {
-            this.numberOfResults = num;
+        this.subs.add(this.listingSearchService.resultCount().subscribe(num => {
+            this.resultCount = num;
         }))
 
         const map = this.route.snapshot.paramMap;

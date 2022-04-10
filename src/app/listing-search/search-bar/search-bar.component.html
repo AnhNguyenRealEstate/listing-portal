@@ -122,11 +122,11 @@
             </button>
         </div>
     </div>
-    <div class="row" *ngIf="numberOfResults > 0">
+    <div class="row" *ngIf="resultCount > 0">
         <div class="col-12 d-flex justify-content-end">
             <i>{{ 'search_bar.found_x_results' | translate:
-                {numberOfResults:
-                numberOfResults} }}</i>
+                {resultCount:
+                resultCount} }}</i>
         </div>
     </div>
 </section>
@@ -229,9 +229,9 @@
         </div>
         <div class="col-12 pt-3 d-flex align-items-center justify-content-between">
             <div class="ps-2 d-inline">
-                <i *ngIf="numberOfResults > 0">{{ 'search_bar.found_x_results' | translate:
-                    {numberOfResults:
-                    numberOfResults} }}</i>
+                <i *ngIf="resultCount > 0">{{ 'search_bar.found_x_results' | translate:
+                    {resultCount:
+                    resultCount} }}</i>
             </div>
             <div class="col-3 d-flex justify-content-end">
                 <button mat-button [matMenuTriggerFor]="orderByMenu">
