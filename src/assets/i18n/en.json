@@ -44,7 +44,15 @@
         "commercial": "Commercial",
         "confirmation_msg": "Are you sure you want to delete this listing?",
         "yes_msg": "Delete",
-        "no_msg": "Cancel"
+        "no_msg": "Cancel",
+        "tooltip": {
+            "feature": "Feature this listing",
+            "unfeature": "Unfeature this listing",
+            "clone": "Create new from this listing",
+            "archive": "Archive this listing",
+            "unarchive": "Unarchive this listing",
+            "delete": "Delete this listing"
+        }
     },
     "search_results": {
         "no_results": "No result matches your criteria",

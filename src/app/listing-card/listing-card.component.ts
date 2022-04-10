@@ -19,8 +19,6 @@ export class ListingCardComponent implements OnInit {
     coverImageUrl: string = '';
     shareListingBtnTitle: string = '';
 
-    linkCopiedMsg: string = '';
-
     constructor(
         private storage: Storage,
         private clipboard: Clipboard,
@@ -28,15 +26,13 @@ export class ListingCardComponent implements OnInit {
         private snackbar: MatSnackBar,
         public translate: TranslateService) { }
 
-    async ngOnInit() {
+    ngOnInit() {
         getDownloadURL(ref(this.storage, this.listing.coverImagePath)).then(url => {
             this.coverImageUrl = url;
         });
-
-        this.linkCopiedMsg = await lastValueFrom(this.translate.get('listing_card.link_copied'));
     }
 
-    getShareableLink(e: Event) {
+    async getShareableLink(e: Event) {
         e.stopPropagation();
 
         if (!this.listing) {
@@ -45,7 +41,7 @@ export class ListingCardComponent implements OnInit {
 
         this.clipboard.copy(`${window.location.host}/listings/details/${this.listing.id}`);
         this.snackbar.open(
-            this.linkCopiedMsg,
+            await lastValueFrom(this.translate.get('listing_card.link_copied')),
             undefined,
             {
                 duration: 1000

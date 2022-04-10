@@ -8,11 +8,13 @@
                 </span>
                 <div class="d-inline" style="float: right;">
                     <button mat-icon-button color="default" *ngIf="!listing.featured"
-                        (click)="featureListing($event, listing.id!)">
+                        (click)="featureListing($event, listing.id!)"
+                        [matTooltip]="'listing_edit.tooltip.feature' | translate">
                         <mat-icon>star_outlined</mat-icon>
                     </button>
                     <button mat-icon-button color="default" *ngIf="listing.featured"
-                        (click)="unfeatureListing($event, listing.id!)">
+                        (click)="unfeatureListing($event, listing.id!)"
+                        [matTooltip]="'listing_edit.tooltip.unfeature' | translate">
                         <mat-icon color="accent">star</mat-icon>
                     </button>
                 </div>
@@ -71,18 +73,22 @@
                 </mat-chip>
             </mat-chip-list>
             <div>
-                <button mat-icon-button color="default" *ngIf="!listing.archived" (click)="onClone($event, listing)">
+                <button mat-icon-button color="default" (click)="onClone($event, listing)"
+                    [matTooltip]="'listing_edit.tooltip.clone' | translate">
                     <mat-icon color="accent">add_box</mat-icon>
                 </button>
                 <button mat-icon-button color="default" *ngIf="!listing.archived"
-                    (click)="archiveListing($event, listing.id!)">
+                    (click)="archiveListing($event, listing.id!)"
+                    [matTooltip]="'listing_edit.tooltip.archive' | translate">
                     <mat-icon color="accent">archive</mat-icon>
                 </button>
                 <button mat-icon-button color="default" *ngIf="listing.archived"
-                    (click)="unarchiveListing($event, listing.id!)">
+                    (click)="unarchiveListing($event, listing.id!)"
+                    [matTooltip]="'listing_edit.tooltip.unarchive' | translate">
                     <mat-icon color="accent">unarchive</mat-icon>
                 </button>
-                <button mat-icon-button color="default" (click)="deleteListing($event, listing)">
+                <button mat-icon-button color="default" (click)="deleteListing($event, listing)"
+                    [matTooltip]="'listing_edit.tooltip.delete' | translate">
                     <mat-icon color="accent">delete</mat-icon>
                 </button>
             </div>
@@ -99,11 +105,13 @@
             </span>
             <div class="d-inline" style="float: right;">
                 <button mat-icon-button color="default" *ngIf="!listing.featured"
-                    (click)="featureListing($event, listing.id!)">
+                    (click)="featureListing($event, listing.id!)"
+                    [matTooltip]="'listing_edit.tooltip.feature' | translate">
                     <mat-icon>star_outlined</mat-icon>
                 </button>
                 <button mat-icon-button color="default" *ngIf="listing.featured"
-                    (click)="unfeatureListing($event, listing.id!)">
+                    (click)="unfeatureListing($event, listing.id!)"
+                    [matTooltip]="'listing_edit.tooltip.unfeature' | translate">
                     <mat-icon color="accent">star</mat-icon>
                 </button>
             </div>
@@ -164,20 +172,24 @@
                 </mat-chip>
             </mat-chip-list>
             <div>
-                <button mat-icon-button color="default" *ngIf="!listing.archived" (click)="onClone($event, listing)">
+                <button mat-icon-button color="default" *ngIf="!listing.archived" (click)="onClone($event, listing)"
+                    [matTooltip]="'listing_edit.tooltip.clone' | translate">
                     <mat-icon color="accent">add_box</mat-icon>
                 </button>
                 <span class="ps-2"></span>
                 <button mat-icon-button color="default" *ngIf="!listing.archived"
-                    (click)="archiveListing($event, listing.id!)">
+                    (click)="archiveListing($event, listing.id!)"
+                    [matTooltip]="'listing_edit.tooltip.archive' | translate">
                     <mat-icon color="accent">archive</mat-icon>
                 </button>
                 <button mat-icon-button color="default" *ngIf="listing.archived"
-                    (click)="unarchiveListing($event, listing.id!)">
+                    (click)="unarchiveListing($event, listing.id!)"
+                    [matTooltip]="'listing_edit.tooltip.unarchive' | translate">
                     <mat-icon color="accent">unarchive</mat-icon>
                 </button>
                 <span class="ps-2"></span>
-                <button mat-icon-button color="default" (click)="deleteListing($event, listing)">
+                <button mat-icon-button color="default" (click)="deleteListing($event, listing)"
+                    [matTooltip]="'listing_edit.tooltip.delete' | translate">
                     <mat-icon color="accent">delete</mat-icon>
                 </button>
             </div>

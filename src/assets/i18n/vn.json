@@ -44,7 +44,15 @@
         "commercial": "Shop thương mại",
         "confirmation_msg": "Bạn chắc chắn muốn xoá sản phẩm này?",
         "yes_msg": "Xoá",
-        "no_msg": "Huỷ"
+        "no_msg": "Huỷ",
+        "tooltip": {
+            "feature": "Ưu tiên lên trang chủ",
+            "unfeature": "Tháo ưu tiên trên trang chủ",
+            "clone": "Tạo mới từ sản phẩm này",
+            "archive": "Gỡ bài đăng",
+            "unarchive": "Đăng lại",
+            "delete": "Xoá sản phẩm"
+        }
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",

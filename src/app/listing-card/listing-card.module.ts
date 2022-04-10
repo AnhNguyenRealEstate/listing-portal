@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ListingCardComponent],
@@ -17,7 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
     TranslateModule.forChild({
       extend: true
     }),
-    ClipboardModule
+    ClipboardModule,
+    MatTooltipModule
   ],
   exports: [ListingCardComponent]
 })

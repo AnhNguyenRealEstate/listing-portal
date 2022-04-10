@@ -24,6 +24,7 @@ import { LoadSpinnerModule } from '../load-spinner/load-spinner.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     exports: [
@@ -50,7 +51,8 @@ import { MatMenuModule } from '@angular/material/menu';
         FooterModule,
         MatButtonToggleModule,
         NgxTrimDirectiveModule,
-        MatMenuModule
+        MatMenuModule,
+        MatTooltipModule
     ],
     providers: [CurrencyPipe,
         {

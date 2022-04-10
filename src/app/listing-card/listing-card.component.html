@@ -32,7 +32,7 @@
                     <span *ngIf="listing.address" class="col-10 result-card-address">{{listing.address}}</span>
                 </div>
                 <button mat-icon-button (click)="getShareableLink($event)" class="share-link-btn"
-                    [title]="'listing_card.share_listing' | translate">
+                    [matTooltip]="'listing_card.share_listing' | translate">
                     <mat-icon>link</mat-icon>
                 </button>
             </div>
