@@ -195,14 +195,18 @@
             <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
         </button>
 
-        <div class="pt-2 mat-form-field-wrapper">
-            <div class="col-12" *ngFor="let imgSrc of imageSrcs; let i = index">
-                <img [src]="imgSrc" class="listing-image">
-                <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
-                <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
-                    [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
-                    <mat-icon>delete</mat-icon>
-                </button>
+        <div class="pt-2 mat-form-field-wrapper" cdkDropList (cdkDropListDropped)="uploadedMediaDrop($event)">
+            <div class="col-12 pb-1" *ngFor="let imgSrc of imageSrcs; let i = index" cdkDrag>
+                <mat-card>
+                    <mat-card-content>
+                        <img [src]="imgSrc" class="listing-image">
+                        <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
+                        <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
+                            [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </div>

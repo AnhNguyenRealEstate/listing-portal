@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -264,6 +265,12 @@ export class ListingUploadDialogComponent implements OnInit {
                 duration: 3000
             }
         );
+    }
+
+    uploadedMediaDrop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.imageSrcs, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.imageFiles, event.previousIndex, event.currentIndex);
+        this.imageFilesModified = true;
     }
 
     checkValidityForUpload(listing: Listing): boolean {

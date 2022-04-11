@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AvailableContactChannels } from './listing-upload.data';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'listing-upload',
@@ -266,6 +267,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
                 duration: 3000
             }
         );
+    }
+
+    uploadedMediaDrop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.imageSrcs, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.imageFiles, event.previousIndex, event.currentIndex);
+        this.imageFilesModified = true;
     }
 
     checkValidityForUpload(listing: Listing): boolean {
