@@ -46,7 +46,16 @@
         "commercial": "Shop thương mại",
         "confirmation_msg": "Bạn chắc chắn muốn xoá sản phẩm này?",
         "yes_msg": "Xoá",
-        "no_msg": "Huỷ"
+        "no_msg": "Huỷ",
+        "tooltip": {
+            "feature": "Ưu tiên lên trang chủ",
+            "unfeature": "Tháo ưu tiên trên trang chủ",
+            "clone": "Tạo mới từ sản phẩm này",
+            "archive": "Gỡ bài đăng",
+            "unarchive": "Đăng lại",
+            "delete": "Xoá sản phẩm"
+        },
+        "view_more": "Xem thêm"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
@@ -55,7 +64,12 @@
         "villa": "Biệt thự",
         "townhouse": "Song lập",
         "commercial": "Shop thương mại",
-        "view": "View"
+        "view": "View",
+        "view_more": "Xem thêm"
+    },
+    "listing_card": {
+        "share_listing": "Lấy link sản phẩm",
+        "link_copied": "Đã lấy link sản phẩm 🌟"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
@@ -75,7 +89,8 @@
         "address": "Địa chỉ",
         "description": "Chi tiết sản phẩm",
         "contact": "Liên hệ",
-        "view": "View"
+        "view": "View",
+        "available_on": "Có thể liên lạc qua"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",
@@ -97,8 +112,8 @@
         "purpose": "Mục đích",
         "for_rent": "Tìm thuê",
         "for_sale": "Tìm mua",
-        "found_x_results": "Tìm thấy {{numberOfResults}} sản phẩm",
-        "order_by": "Sắp xếp",
+        "found_x_results": "Đã lấy {{resultCount}} sản phẩm",
+        "order_by": "Thứ tự",
         "most_recent": "Mới nhất đến cũ nhất",
         "most_affordable": "Rẻ nhất đến đắt nhất"
     },
@@ -128,7 +143,10 @@
         "contact_number": "SĐT liên lạc",
         "media_to_upload": "Hình ảnh đính kèm",
         "cover_image": "Hình đại diện",
-        "contact_person": "Liên hệ"
+        "contact_person": "Liên hệ",
+        "edit_cover_img": "Sửa hình đại diện",
+        "edit_media": "Sửa hình ảnh kèm",
+        "available_on": "Liên hệ qua chat app khác"
     },
     "login": {
         "page_title": "Đăng nhập",

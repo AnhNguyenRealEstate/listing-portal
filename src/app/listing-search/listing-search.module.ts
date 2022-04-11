@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from '../listing-card/listing-card.module';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ListingCardModule } from '../listing-card/listing-card.module';
     MatExpansionModule,
     NgxUsefulSwiperModule,
     NgxMaskModule.forChild(),
-    ListingCardModule
+    ListingCardModule,
+    InfiniteScrollModule
   ],
   exports: [
   ]

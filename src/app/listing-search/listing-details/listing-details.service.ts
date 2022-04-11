@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { getDownloadURL, listAll, ref, Storage } from '@angular/fire/storage';
-import { Router } from '@angular/router';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { environment } from 'src/environments/environment';
 import { Listing } from '../listing-search.data';
 
 @Injectable({ providedIn: 'any' })
@@ -11,16 +9,8 @@ export class ListingDetailsService {
 
     constructor(
         private firestore: Firestore,
-        private storage: Storage,
-        private router: Router
+        private storage: Storage
     ) { }
-
-    showListing(id: string) {
-        const url = this.router.serializeUrl(
-            this.router.createUrlTree([`listings/details/${id}`])
-        );
-        window.open(url, '_blank');
-    }
 
     /**
      * Get a listing from Firestore by its Id

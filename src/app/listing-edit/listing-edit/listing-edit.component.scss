@@ -16,15 +16,21 @@
     width: 100%;
 }
 
-.result-preview-img-mobile {
-    max-width: 100%;
-    max-height: 100%;
-}
-
 .listing-edit-wrapper {
     height: 90vh;
 }
 
-.listing-edit-card-wrapper:hover{
+.listing-edit-card-wrapper:hover {
     transform: translate3D(0, -1px, 0) scale(1.03);
+}
+
+.float-controls-mobile {
+    top: auto !important;
+    right: 20px !important;
+    bottom: 55px !important;
+    left: auto !important;
+    position: fixed !important;
+    button {
+        background-color: white !important;
+    }
 }

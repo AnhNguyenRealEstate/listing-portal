@@ -12,9 +12,19 @@
                         {{ 'search_results.no_results' | translate }}
                     </div>
                 </div>
-                <listing-card *ngFor="let result of searchResults" class="col-4 result-card-wrapper"
-                    (click)="viewListingDetails(result)" [mode]="'desktop'" [listing]="result">
-                </listing-card>
+                <div *ngFor="let result of searchResults" class="col-4 pb-3 result-card-wrapper">
+                    <listing-card [listing]="result">
+                    </listing-card>
+                </div>
+                <div class="col-12 d-flex justify-content-center" *ngIf="!noMoreToLoad">
+                    <button mat-button [disabled]="isLoadingMore" (click)="loadMore()" style="width: 100%">
+                        <span>{{ 'search_results.view_more' | translate }}</span>
+                        <mat-icon *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <div class="d-inline">
+                            <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
+                        </div>
+                    </button>
+                </div>
             </ng-container>
         </div>
     </section>
@@ -25,7 +35,7 @@
         <div class="row">
             <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
 
-            <div *ngIf="!(listingSearchService.searchInProgress() | async)">
+            <ng-container *ngIf="!(listingSearchService.searchInProgress() | async)">
                 <div *ngIf="searchResults.length === 0" style="height: 70vh">
                     <div class="d-flex justify-content-center no-result-icon">
                         <mat-icon [inline]="true">search_off</mat-icon>
@@ -35,11 +45,20 @@
                     </div>
                 </div>
 
-                <listing-card *ngFor="let result of searchResults; let i = index"
-                    class="col-12 col-md-6 pt-1 result-card-wrapper" (click)="viewListingDetails(result)"
-                    [mode]="'mobile'" [listing]="result">
-                </listing-card>
-            </div>
+                <div class="col-12 col-sm-6 pb-2" *ngFor="let result of searchResults; let i = index">
+                    <listing-card [listing]="result">
+                    </listing-card>
+                </div>
+                <div class="col-12 d-flex justify-content-center" *ngIf="!noMoreToLoad">
+                    <button mat-button (click)="loadMore()">
+                        <span>{{ 'search_results.view_more' | translate }}</span>
+                        <mat-icon *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <div class="d-inline">
+                            <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
+                        </div>
+                    </button>
+                </div>
+            </ng-container>
         </div>
     </section>
 </ng-container>

@@ -32,9 +32,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     subs: Subscription = new Subscription();
 
-    numberOfResults: number = 0;
-
     filterDescription: string = '';
+
+    resultCount!: number;
 
     constructor(
         public listingSearchService: ListingSearchService,
@@ -47,6 +47,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
         }));
+
+        this.subs.add(this.listingSearchService.resultCount().subscribe(num => {
+            this.resultCount = num;
+        }))
 
         const map = this.route.snapshot.paramMap;
         this.searchCriteria.purpose = map.get('purpose') as 'For Rent' | 'For Sale' || 'For Rent';
@@ -65,7 +69,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.listingSearchService.setSearchResults([]);
         const results = await this.listingSearchService.getListingsByCriteria(criteria);
         this.listingSearchService.setSearchResults(results);
-        this.numberOfResults = results.length;
 
         if (this.mode === 'mobile') {
             this.panelOpenState = false;

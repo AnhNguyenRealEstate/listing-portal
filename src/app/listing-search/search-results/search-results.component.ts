@@ -1,7 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ListingDetailsService } from '../listing-details/listing-details.service';
-import { ListingLocationService } from '../listing-location/listing-location.service';
 import { Listing } from '../listing-search.data';
 import { ListingSearchService } from '../listing-search.service';
 
@@ -16,13 +14,15 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
     searchResults: Listing[] = [];
 
-    constructor(public listingSearchService: ListingSearchService,
-        private listingLocationService: ListingLocationService,
-        private listingDetailsService: ListingDetailsService) { }
+    isLoadingMore: boolean = false;
+    noMoreToLoad: boolean = false;
 
-    ngOnInit() {
+    constructor(public listingSearchService: ListingSearchService) { }
+
+    async ngOnInit() {
         this.subscription.add(this.listingSearchService.searchResults().subscribe(results => {
             this.searchResults = results;
+            this.noMoreToLoad = false;
         }));
     }
 
@@ -30,8 +30,23 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    viewListingDetails(listing: Listing) {
-        //this.listingLocationService.showLocationOnMap(listing.id!, listing.address!);
-        this.listingDetailsService.showListing(listing.id!);
+    async loadMore() {
+        this.isLoadingMore = true;
+        const results = await this.listingSearchService.getMoreResults();
+
+        if (!results.length) {
+            this.noMoreToLoad = true;
+            this.isLoadingMore = false;
+            return
+        }
+
+        for (const listing of results) {
+            if (this.searchResults.find(result => result.id == listing.id)) {
+                continue;
+            }
+            this.searchResults.push(listing);
+        }
+
+        this.isLoadingMore = false;
     }
 }

@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +9,7 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
+import { AvailableContactChannels } from './listing-upload.data';
 import { ListingUploadService } from './listing-upload.service';
 
 @Component({
@@ -21,7 +23,6 @@ export class ListingUploadDialogComponent implements OnInit {
     dbReferenceId: string = '';
 
     isEditMode: boolean = false;
-    showSpinner: boolean = false;
 
     locations: string[] = [];
 
@@ -33,10 +34,17 @@ export class ListingUploadDialogComponent implements OnInit {
     coverImageFile: File | undefined = undefined;
     coverImageSrc: string | undefined = undefined;
     coverImageModified: boolean = false;
+    coverImageEditRequested: boolean = false;
+    gettingCoverImage: boolean = false;
 
     subs: Subscription = new Subscription();
 
+    mediaEditRequested: boolean = false;
+    gettingMedia: boolean = false;
+
     snackbarMsgs!: any;
+
+    AvailableContactChannels = AvailableContactChannels;
 
     constructor(
         private metadata: MetadataService,
@@ -64,31 +72,35 @@ export class ListingUploadDialogComponent implements OnInit {
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
         ));
-
-        if (this.listing.fireStoragePath) {
-            this.showSpinner = true;
-
-            this.imageFiles = [];
-            this.imageSrcs = [];
-            await this.listingUploadService.getListingImages(
-                this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
-            );
-
-            const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
-            this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
-
-            const reader = new FileReader();
-            reader.readAsDataURL(this.coverImageFile);
-            reader.onloadend = () => {
-                this.coverImageSrc = reader.result as string;
-            }
-
-            this.showSpinner = false;
-        }
     }
 
     ngOnDestroy(): void {
         this.subs.unsubscribe();
+    }
+
+    async onEditCoverImage() {
+        this.gettingCoverImage = true;
+
+        const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
+        this.coverImageFile = await this.listingUploadService.getListingCoverImage(coverImagePath);
+
+        const reader = new FileReader();
+        reader.readAsDataURL(this.coverImageFile);
+        reader.onloadend = () => {
+            this.coverImageSrc = reader.result as string;
+        }
+
+        this.gettingCoverImage = false;
+        this.coverImageEditRequested = true;
+    }
+
+    async onEditMedia() {
+        this.gettingMedia = true;
+        await this.listingUploadService.getListingImages(
+            this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
+        );
+        this.gettingMedia = false;
+        this.mediaEditRequested = true;
     }
 
     onPurposeSelect(event: any) {
@@ -222,6 +234,8 @@ export class ListingUploadDialogComponent implements OnInit {
                 duration: 3000
             }
         );
+
+        this.dialogRef.close();
     }
 
     async saveEdit() {
@@ -253,19 +267,34 @@ export class ListingUploadDialogComponent implements OnInit {
         );
     }
 
+    uploadedMediaDrop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.imageSrcs, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.imageFiles, event.previousIndex, event.currentIndex);
+        this.imageFilesModified = true;
+    }
+
     checkValidityForUpload(listing: Listing): boolean {
-        if (listing.purpose?.length
+        const requiredFieldsAreFilled = listing.purpose?.length
             && listing.category?.length
             && listing.location?.length
             && !isNaN(Number(listing.bedrooms))
             && !isNaN(Number(listing.bathrooms))
             && !isNaN(Number(listing.price))
             && listing.currency?.length
-            && listing.description?.length
-            && this.imageFiles.length
-            && this.coverImageFile) {
+            && listing.description?.length;
+
+        if (requiredFieldsAreFilled && this.isEditMode) {
             return true;
         }
+
+        if (requiredFieldsAreFilled && !this.isEditMode) {
+            const imagesUploaded = this.imageFiles.length && this.coverImageFile;
+            if (imagesUploaded) {
+                return true;
+            }
+        }
+
+
         return false;
     }
 }

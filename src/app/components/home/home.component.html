@@ -23,12 +23,12 @@
 
             <ng-container *ngIf="searchCriteria.category && searchCriteria.category !== 'Commercial'">
                 <mat-form-field color="accent" class="col-1">
-                    <mat-label>Số phòng ngủ</mat-label>
-                    <input matInput trim="blur" type="text" [(ngModel)]="searchCriteria.bedrooms" />
+                    <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
+                    <input matInput placeholder="0" trim="blur" type="text" [(ngModel)]="searchCriteria.bedrooms" />
                 </mat-form-field>
                 <mat-form-field color="accent" class="col-1">
-                    <mat-label>Số phòng tắm</mat-label>
-                    <input matInput trim="blur" type="text" [(ngModel)]="searchCriteria.bathrooms" />
+                    <mat-label>{{ 'search_bar.bathrooms' | translate }}</mat-label>
+                    <input matInput placeholder="0" trim="blur" type="text" [(ngModel)]="searchCriteria.bathrooms" />
                 </mat-form-field>
             </ng-container>
 
@@ -68,9 +68,10 @@
         </div>
 
         <div class="row d-flex ms-2 pb-4 justify-content-center">
-            <listing-card *ngFor="let listing of featuredListings" class="col-3 result-card-wrapper"
-                (click)="getListing(listing.id)" [mode]="'desktop'" [listing]="listing">
-            </listing-card>
+            <div *ngFor="let listing of featuredListings" class="col-3 result-card-wrapper">
+                <listing-card [listing]="listing">
+                </listing-card>
+            </div>
         </div>
 
         <div class="d-flex justify-content-center">

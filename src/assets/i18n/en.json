@@ -46,7 +46,16 @@
         "commercial": "Commercial",
         "confirmation_msg": "Are you sure you want to delete this listing?",
         "yes_msg": "Delete",
-        "no_msg": "Cancel"
+        "no_msg": "Cancel",
+        "tooltip": {
+            "feature": "Feature this listing",
+            "unfeature": "Unfeature this listing",
+            "clone": "Create new from this listing",
+            "archive": "Archive this listing",
+            "unarchive": "Unarchive this listing",
+            "delete": "Delete this listing"
+        },
+        "view_more": "View more"
     },
     "search_results": {
         "no_results": "No result matches your criteria",
@@ -56,7 +65,12 @@
         "villa": "Villa",
         "townhouse": "Townhouse",
         "commercial": "Commercial",
-        "view": "View"
+        "view": "View",
+        "view_more": "View more"
+    },
+    "listing_card": {
+        "share_listing": "Get link to this listing",
+        "link_copied": "Shareable link copied 🌟"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {
@@ -76,7 +90,8 @@
         "address": "Address",
         "description": "Description",
         "contact": "Contact",
-        "view": "View"
+        "view": "View",
+        "available_on": "Also available on"
     },
     "search_bar": {
         "filters": "Filters",
@@ -98,7 +113,7 @@
         "purpose": "Purpose",
         "for_rent": "For rent",
         "for_sale": "For sale",
-        "found_x_results": "Found {{numberOfResults}} listing(s)",
+        "found_x_results": "Retrieved {{resultCount}} listing(s)",
         "order_by": "Order by",
         "most_recent": "Most recent",
         "most_affordable": "Most affordable"
@@ -129,7 +144,10 @@
         "contact_number": "Contact number",
         "media_to_upload": "Media attachments",
         "cover_image": "Cover image",
-        "contact_person": "Name of contact"
+        "contact_person": "Name of contact",
+        "edit_cover_img": "Edit cover image",
+        "edit_media": "Edit attached images",
+        "available_on": "Additional contact channels"
     },
     "login": {
         "page_title": "Login",

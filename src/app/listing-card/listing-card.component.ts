@@ -1,5 +1,10 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, Input, OnInit } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 import { Listing } from '../listing-search/listing-search.data';
 
 @Component({
@@ -9,14 +14,44 @@ import { Listing } from '../listing-search/listing-search.data';
 })
 
 export class ListingCardComponent implements OnInit {
-    @Input() mode!: 'mobile' | 'desktop';
     @Input() listing!: Listing;
 
     coverImageUrl: string = '';
+    shareListingBtnTitle: string = '';
 
-    constructor(private storage: Storage) { }
+    constructor(
+        private storage: Storage,
+        private clipboard: Clipboard,
+        private router: Router,
+        private snackbar: MatSnackBar,
+        public translate: TranslateService) { }
 
-    async ngOnInit() {
-       this.coverImageUrl = await getDownloadURL(ref(this.storage, this.listing.coverImagePath));
+    ngOnInit() {
+        getDownloadURL(ref(this.storage, this.listing.coverImagePath)).then(url => {
+            this.coverImageUrl = url;
+        });
+    }
+
+    async getShareableLink(e: Event) {
+        e.stopPropagation();
+
+        if (!this.listing) {
+            return;
+        }
+
+        this.clipboard.copy(`${window.location.host}/listings/details/${this.listing.id}`);
+        this.snackbar.open(
+            await lastValueFrom(this.translate.get('listing_card.link_copied')),
+            undefined,
+            {
+                duration: 1000
+            })
+    }
+
+    showListing() {
+        const url = this.router.serializeUrl(
+            this.router.createUrlTree([`listings/details/${this.listing.id}`])
+        );
+        window.open(url, '_blank');
     }
 }

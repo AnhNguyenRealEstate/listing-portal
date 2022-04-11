@@ -51,4 +51,4 @@ testem.log
 Thumbs.db
 
 # Dynamic index.html
-/functions/lib/hosting/index.html
+/functions/src/hosting/index.html

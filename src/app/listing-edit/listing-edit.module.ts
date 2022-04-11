@@ -9,13 +9,16 @@ import { SharedModule } from '../shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask'
 import { RTEditorModule } from '../rich-text-editor/rich-text-editor.module';
 import { ConfirmationDialogComponent } from './confirmation/confirmation-dialog.component';
+import { ListingEditCardComponent } from './listing-edit-card/listing-edit-card.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
     ListingUploadComponent,
     ListingUploadDialogComponent,
     ListingEditComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ListingEditCardComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import { ConfirmationDialogComponent } from './confirmation/confirmation-dialog.
       extend: true
     }),
     NgxMaskModule.forChild(),
-    RTEditorModule
+    RTEditorModule,
+    DragDropModule
   ],
   exports: [
   ]

@@ -1,9 +1,13 @@
 .result-card {
     background-color: white;
 
-    .result-card-address {
+    .result-card-address,
+    .result-card-description {
         white-space: nowrap;
         mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
+    }
+    mat-icon {
+        transform: scale(0.75);
     }
 }
 
@@ -14,4 +18,14 @@
 
 .mat-card-image {
     height: 200px !important;
+}
+
+.share-link-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.property-desc-icons {
+    margin-top: -0.25rem;
 }

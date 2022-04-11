@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/firestore';
 import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
-import { FirebaseStorageConsts, FirestoreCollections, FirestoreDocs } from 'src/app/shared/globals';
+import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
+import { Auth } from '@angular/fire/auth';
 
 
 /**
@@ -21,7 +22,8 @@ export class ListingUploadService {
     watermarkImg: string = '';
 
     constructor(private firestore: Firestore,
-        private storage: Storage
+        private storage: Storage,
+        private auth: Auth
     ) {
     }
 
@@ -32,6 +34,7 @@ export class ListingUploadService {
     
     Images must be stored first because in case of interruption, there won't be a null pointer 
     for fireStoragePath in the newly-created listing */
+    //TODO: move to Cloud Functions for atomic publish
     async publishListing(listing: Listing, imageFiles: ListingImageFile[], coverImageFile: File): Promise<string> {
         function createStoragePath(listing: Listing) {
             const date = new Date();
@@ -43,6 +46,8 @@ export class ListingUploadService {
         this.inProgress$$.next(true);
 
         this.sanitizeListing(listing);
+
+        listing.createdBy = this.auth.currentUser?.email || '';
 
         const fireStoragePath = createStoragePath(listing);
         listing.fireStoragePath = fireStoragePath;
@@ -59,6 +64,7 @@ export class ListingUploadService {
 
     /**  Save any changes made to the listing and its images
     */
+    //TODO: move to Cloud Functions for atomic publish
     async saveEdit(
         listing: Listing,
         dbReferenceId: string,
@@ -146,20 +152,6 @@ export class ListingUploadService {
             return new File([data], `${index}.${fileExtension}`, metadata);
         }
 
-        function getMockFiles(imageFiles: ListingImageFile[], imageSrcs: string[]) {
-            for (let i = 0; i < imageFiles.length; i++) {
-                const blob = new Blob();
-                const file = new File([blob], `${i}.jpg`, { type: blob.type })
-                imageFiles[i] = ({ file: file } as ListingImageFile);
-
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onloadend = () => {
-                    imageSrcs[i] = reader.result as string;
-                }
-            }
-        }
-
         const imageStoragePath = `${storagePath}/${FirebaseStorageConsts.listingImgsVideos}`;
         let allImages = (await listAll(ref(this.storage, imageStoragePath))).items;
         allImages.sort((a, b) => {
@@ -170,11 +162,6 @@ export class ListingUploadService {
 
         imageSrcs.push(...new Array<string>(allImages.length));
         imageFiles.push(...new Array<ListingImageFile>(allImages.length));
-
-        if (!environment.production) {
-            getMockFiles(imageFiles, imageSrcs);
-            return;
-        }
 
         // Storage Emulator isn't supporting the operations below
         await Promise.all(allImages.map(async (imageFile, index) => {
