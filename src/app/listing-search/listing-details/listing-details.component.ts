@@ -8,6 +8,7 @@ import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
 import { lastValueFrom } from 'rxjs';
 import mergeImages from 'merge-images';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
     selector: 'listing-details',
@@ -27,7 +28,7 @@ export class ListingDetailsComponent implements OnInit {
     @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
     highlightedThumbnailRef: any;
 
-    showFooter: boolean= false;
+    showFooter: boolean = false;
 
     constructor(
         private sanitizer: DomSanitizer,
@@ -36,6 +37,7 @@ export class ListingDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private title: Title,
+        private currency: CurrencyPipe,
         private changeDetector: ChangeDetectorRef) {
     }
 
@@ -139,7 +141,14 @@ export class ListingDetailsComponent implements OnInit {
         const appTitle = await lastValueFrom(this.translate.get(
             "app_title"
         ));
+        const purpose: string = this.listing.purpose === 'For Rent' ? await lastValueFrom(this.translate.get(
+            "listing_details.for_rent"
+        )) : await lastValueFrom(this.translate.get(
+            "listing_details.for_sale"
+        ));
 
-        this.title.setTitle(`${appTitle} | ${this.listing.location} ${this.listing.price} ${this.listing.currency}`);
+        this.title.setTitle(`${appTitle} | ${this.listing.location} 
+                            ${this.currency.transform(this.listing.price, this.listing.currency, 'symbol', '1.0-0')} 
+                            ${purpose.toLowerCase()}`);
     }
 }

@@ -10,6 +10,7 @@ import { NgxMaskModule } from 'ngx-mask'
 import { RTEditorModule } from '../rich-text-editor/rich-text-editor.module';
 import { ConfirmationDialogComponent } from './confirmation/confirmation-dialog.component';
 import { ListingEditCardComponent } from './listing-edit-card/listing-edit-card.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ListingEditCardComponent } from './listing-edit-card/listing-edit-card.
       extend: true
     }),
     NgxMaskModule.forChild(),
-    RTEditorModule
+    RTEditorModule,
+    DragDropModule
   ],
   exports: [
   ]
