@@ -25,3 +25,11 @@
     bottom: 50px;
     width: 36px;
 }
+
+.uploaded-media-draggable {
+    width: 50%;
+}
+
+.uploaded-media-draggable:hover{
+    transform: translate3D(0, -1px, 0) scale(1.03);
+}
