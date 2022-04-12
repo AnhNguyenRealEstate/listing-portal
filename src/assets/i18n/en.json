@@ -89,7 +89,9 @@
         "description": "Description",
         "contact": "Contact",
         "view": "View",
-        "available_on": "Also available on"
+        "available_on": "Also available on",
+        "view_all": "View all",
+        "all_imgs_loaded": "All images loaded 🎉"
     },
     "search_bar": {
         "filters": "Filters",

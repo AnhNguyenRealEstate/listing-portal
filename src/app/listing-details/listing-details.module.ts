@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterModule } from '../footer/footer.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [ListingDetailsComponent],
@@ -25,7 +26,8 @@ import { MatDividerModule } from '@angular/material/divider';
         FooterModule,
         MatProgressSpinnerModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+        MatButtonModule
     ]
 })
 export class ListingDetailsModule { }

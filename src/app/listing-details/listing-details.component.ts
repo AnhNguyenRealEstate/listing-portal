@@ -9,6 +9,7 @@ import { lastValueFrom } from 'rxjs';
 import mergeImages from 'merge-images';
 import { CurrencyPipe } from '@angular/common';
 import { Listing } from '../listing-search/listing-search.data';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'listing-details',
@@ -18,12 +19,13 @@ import { Listing } from '../listing-search/listing-search.data';
 
 export class ListingDetailsComponent implements OnInit {
     listing: Listing = {} as Listing;
+
     images: Array<Object> = [];
     imageSources: string[] = [];
+    watermarkImg = '';
+    allImagesLoaded: boolean = false;
 
     contactNumberUrl: SafeUrl = '';
-
-    watermarkImg = '';
 
     @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
     highlightedThumbnailRef: any;
@@ -33,11 +35,12 @@ export class ListingDetailsComponent implements OnInit {
     constructor(
         private sanitizer: DomSanitizer,
         public translate: TranslateService,
-        private listingDetailsService: ListingDetailsService,
+        public listingDetails: ListingDetailsService,
         private route: ActivatedRoute,
         private router: Router,
         private title: Title,
         private currency: CurrencyPipe,
+        private snackbar: MatSnackBar,
         private changeDetector: ChangeDetectorRef) {
     }
 
@@ -48,7 +51,7 @@ export class ListingDetailsComponent implements OnInit {
             return;
         }
 
-        const listing = await this.listingDetailsService.getListingById(id);
+        const listing = await this.listingDetails.getListingById(id);
         if (!listing) {
             this.router.navigate(['../'], { relativeTo: this.route })
             return;
@@ -56,11 +59,11 @@ export class ListingDetailsComponent implements OnInit {
 
         this.listing = listing;
 
-        this.listingDetailsService.getListingImageUrls(listing?.fireStoragePath!).then(async imgSrcs => {
+        this.listingDetails.getInitialImageUrls(listing.fireStoragePath!).then(async imgSrcs => {
             if (imgSrcs.length) {
                 await this.applyWatermarkToImagesAndDisplay(imgSrcs);
-                this.changeDetector.detectChanges();
                 this.showFooter = true;
+                this.changeDetector.detectChanges();
             }
         });
 
@@ -79,6 +82,24 @@ export class ListingDetailsComponent implements OnInit {
 
     cycleToSlide(slideId: number) {
         this.usefulSwiper?.swiper.slideTo(slideId);
+    }
+
+    getAllImages() {
+        this.listingDetails.getAllImages(this.listing.fireStoragePath!).then(async imgSrcs => {
+            if (imgSrcs.length) {
+                await this.applyWatermarkToImagesAndDisplay(imgSrcs);
+                this.allImagesLoaded = true;
+                this.changeDetector.detectChanges();
+            }
+        });
+    }
+
+    async showAllImgsLoadedMsg() {
+        this.snackbar.open(
+            await lastValueFrom(this.translate.get("listing_details.all_imgs_loaded")),
+            undefined,
+            { duration: 1000 }
+        );
     }
 
     async applyWatermarkToImagesAndDisplay(imgSrcs: string[]) {

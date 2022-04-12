@@ -10,7 +10,6 @@ import { ListingSearchRoutingModule } from './listing-search-routing.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ListingCardModule } from '../listing-card/listing-card.module';
-import { FooterModule } from '../footer/footer.module';
 
 @NgModule({
   declarations: [

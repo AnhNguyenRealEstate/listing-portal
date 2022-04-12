@@ -1,4 +1,4 @@
-<section class="container d-none d-md-block listing-details-desktop">
+<section class="pb-4 container d-none d-md-block listing-details-desktop">
     <div *ngIf="!listing.location" class="pt-4">
         <mat-spinner></mat-spinner>
     </div>
@@ -20,11 +20,18 @@
                             <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
                         </div>
                     </swiper>
-                    <br>
-                    <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
-                        [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
-                        (imageClick)="cycleToSlide($event)">
-                    </ng-image-slider>
+                    <div class="row pt-4 d-flex">
+                        <div [class.col-10]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
+                            <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
+                                [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
+                                (imageClick)="cycleToSlide($event)">
+                            </ng-image-slider>
+                        </div>
+                        <button class="col-2" *ngIf="!allImagesLoaded" mat-button (click)="getAllImages()">
+                            <mat-icon color="accent">photo_library</mat-icon> {{ 'listing_details.view_all' | translate
+                            }}
+                        </button>
+                    </div>
                 </ng-container>
                 <div *ngIf="!(imageSources && imageSources!.length)">
                     <mat-spinner></mat-spinner>
@@ -83,10 +90,10 @@
                     </span>
                     <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
                     <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
-                    <div *ngIf="listing.contactChannels?.length">{{ 'listing_details.available_on' | translate }}: {{listing.contactChannels!.join(',
+                    <div *ngIf="listing.contactChannels?.length">{{ 'listing_details.available_on' | translate }}:
+                        {{listing.contactChannels!.join(',
                         ') }}</div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -110,7 +117,12 @@
         <mat-divider></mat-divider>
 
         <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
-            <ng-image-slider [images]="images" [animationSpeed]="0.1"></ng-image-slider>
+            <ng-image-slider class="col-12" [images]="images" [animationSpeed]="0.1"></ng-image-slider>
+            <div class="col-6">
+                <button *ngIf="!allImagesLoaded" mat-raised-button color="default" (click)="getAllImages(); showAllImgsLoadedMsg()">
+                    <mat-icon color="accent">photo_library</mat-icon> {{ 'listing_details.view_all' | translate }}
+                </button>
+            </div>
         </div>
 
         <div class="pt-2 pb-2" *ngIf="!images.length">
