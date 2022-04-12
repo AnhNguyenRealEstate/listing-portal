@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListingDetailsComponent } from './listing-details/listing-details.component';
 import { ListingSearchComponent } from './listing-search.component';
 
 const routes: Routes = [
@@ -10,7 +9,7 @@ const routes: Routes = [
     },
     {
         path: 'details/:listingId',
-        component: ListingDetailsComponent
+        loadChildren: () => import('src/app/listing-details/listing-details.module').then(mod => mod.ListingDetailsModule)
     },
     { path: '**', redirectTo: '' }
 ];

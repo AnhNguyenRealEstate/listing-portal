@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, SecurityContext, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Title } from "@angular/platform-browser";
@@ -9,11 +8,12 @@ import { SwiperComponent } from 'ngx-useful-swiper';
 import { lastValueFrom } from 'rxjs';
 import mergeImages from 'merge-images';
 import { CurrencyPipe } from '@angular/common';
+import { Listing } from '../listing-search/listing-search.data';
 
 @Component({
     selector: 'listing-details',
     templateUrl: 'listing-details.component.html',
-    styleUrls: ['../listing-search.component.scss', './listing-details.component.scss']
+    styleUrls: ['./listing-details.component.scss']
 })
 
 export class ListingDetailsComponent implements OnInit {
@@ -44,13 +44,13 @@ export class ListingDetailsComponent implements OnInit {
     async ngOnInit() {
         const id = this.route.snapshot.paramMap.get('listingId');
         if (!id) {
-            this.router.navigate(['/listing-search']);
+            this.router.navigate(['../'], { relativeTo: this.route });
             return;
         }
 
         const listing = await this.listingDetailsService.getListingById(id);
         if (!listing) {
-            this.router.navigate(['/listing-search']);
+            this.router.navigate(['../'], { relativeTo: this.route })
             return;
         }
 

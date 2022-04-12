@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { getDownloadURL, listAll, ref, Storage } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { Listing } from '../listing-search.data';
+import { Listing } from '../listing-search/listing-search.data';
 
 @Injectable({ providedIn: 'any' })
 export class ListingDetailsService {
@@ -18,13 +18,13 @@ export class ListingDetailsService {
      * @returns A Promise that resolves to a Listing object or undefined if Firebase Id is invalid
      */
     async getListingById(listingId: string): Promise<Listing | undefined> {
-        const dbResponse = await getDoc(doc(collection(this.firestore, FirestoreCollections.listings), listingId)).catch(() => { });
+        const snapshot = await getDoc(doc(collection(this.firestore, FirestoreCollections.listings), listingId)).catch(() => { });
 
-        if (!(dbResponse && dbResponse.exists())) {
+        if (!(snapshot && snapshot.exists())) {
             return undefined;
         }
 
-        const listing = dbResponse.data() as Listing;
+        const listing = snapshot.data() as Listing;
         return listing;
     }
 

@@ -42,7 +42,6 @@ const maskConfig: Partial<IConfig> = {
     TimeoutComponent
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
