@@ -24,6 +24,7 @@ export class ListingDetailsComponent implements OnInit {
     imageSources: string[] = [];
     watermarkImg = '';
     allImagesLoaded: boolean = false;
+    gettingAllImages: boolean = false;
 
     contactNumberUrl: SafeUrl = '';
 
@@ -84,14 +85,19 @@ export class ListingDetailsComponent implements OnInit {
         this.usefulSwiper?.swiper.slideTo(slideId);
     }
 
-    getAllImages() {
-        this.listingDetails.getAllImages(this.listing.fireStoragePath!).then(async imgSrcs => {
-            if (imgSrcs.length) {
-                await this.applyWatermarkToImagesAndDisplay(imgSrcs);
-                this.allImagesLoaded = true;
-                this.changeDetector.detectChanges();
-            }
-        });
+    async getAllImages(isMobile?: boolean) {
+        this.gettingAllImages = true;
+        const imgSrcs = await this.listingDetails.getAllImages(this.listing.fireStoragePath!);
+        if (imgSrcs.length) {
+            await this.applyWatermarkToImagesAndDisplay(imgSrcs);
+            this.allImagesLoaded = true;
+            this.changeDetector.detectChanges();
+        }
+        this.gettingAllImages = false
+
+        if (isMobile) {
+            this.showAllImgsLoadedMsg();
+        }
     }
 
     async showAllImgsLoadedMsg() {

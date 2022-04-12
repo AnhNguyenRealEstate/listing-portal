@@ -119,8 +119,10 @@
         <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
             <ng-image-slider class="col-12" [images]="images" [animationSpeed]="0.1"></ng-image-slider>
             <div class="col-6">
-                <button *ngIf="!allImagesLoaded" mat-raised-button color="default" (click)="getAllImages(); showAllImgsLoadedMsg()">
-                    <mat-icon color="accent">photo_library</mat-icon> {{ 'listing_details.view_all' | translate }}
+                <button *ngIf="!allImagesLoaded" [disabled]="gettingAllImages" mat-raised-button color="default"
+                    (click)="getAllImages(true);">
+                    <mat-icon color="accent">photo_library</mat-icon>
+                    <span class="ps-1">{{ 'listing_details.view_all' | translate }}</span>
                 </button>
             </div>
         </div>
