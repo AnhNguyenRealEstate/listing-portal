@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
 import { Auth } from '@angular/fire/auth';
+import { getAnalytics, logEvent } from '@angular/fire/analytics';
 
 
 /**
@@ -56,6 +57,13 @@ export class ListingUploadService {
         await this.storeCoverImage(coverImageFile, listing.coverImagePath);
         await this.storeListingImages(imageFiles, fireStoragePath);
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.listings), listing);
+
+        logEvent(getAnalytics(), 'publish_listing', {
+            id: docRef.id,
+            category: listing.category,
+            location: listing.location,
+            author: listing.createdBy
+        });
 
         this.inProgress$$.next(false);
 
@@ -113,6 +121,13 @@ export class ListingUploadService {
         }
 
         await updateDoc(doc(this.firestore, `${FirestoreCollections.listings}/${dbReferenceId}`), { ...listing });
+
+        logEvent(getAnalytics(), 'edit_listing', {
+            id: listing.id,
+            category: listing.category,
+            location: listing.location,
+            media_updated: updateImages
+        });
 
         this.inProgress$$.next(false);
     }

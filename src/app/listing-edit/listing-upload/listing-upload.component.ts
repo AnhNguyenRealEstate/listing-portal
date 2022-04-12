@@ -296,7 +296,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
             }
         }
 
-
         return false;
     }
 }

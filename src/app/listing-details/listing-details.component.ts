@@ -10,6 +10,7 @@ import mergeImages from 'merge-images';
 import { CurrencyPipe } from '@angular/common';
 import { Listing } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { getAnalytics, logEvent } from '@angular/fire/analytics';
 
 @Component({
     selector: 'listing-details',
@@ -79,6 +80,12 @@ export class ListingDetailsComponent implements OnInit {
         }
 
         this.setBrowserTitle();
+
+        logEvent(getAnalytics(), 'listing_details_view', {
+            id: listing.id,
+            category: listing.category,
+            location: listing.location
+        });
     }
 
     cycleToSlide(slideId: number) {
