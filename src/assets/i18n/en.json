@@ -2,7 +2,7 @@
     "app_title": "Anh Nguyen Real Estate",
     "generics.any": "Any",
     "about_us": {
-        "about_us": "About Us",
+        "about_us": "Contact Us",
         "company_intro_1_title": "{{tenure}}+ Years",
         "company_intro_1": "Founded in 2008, we are proud to be one of the longest-serving real-estate brokerages in District 7, Ho Chi Minh City.",
         "company_intro_2_title": "1000+ Customers Annually",
@@ -18,7 +18,9 @@
         "real_estate": "Real Estate Ltd",
         "rent": "RENT",
         "buy": "BUY",
-        "view_all": "View all listings"
+        "find": "Find listings",
+        "view_all": "View all listings",
+        "featured": "Featured listings"
     },
     "layout": {
         "listings": "Listings",
@@ -67,7 +69,7 @@
         "view_more": "View more"
     },
     "listing_card": {
-        "share_listing": "Get link to this listing",
+        "share_listing": "Copy link",
         "link_copied": "Shareable link copied 🌟"
     },
     "listing_search.page_title": "Listings",

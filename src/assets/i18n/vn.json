@@ -18,7 +18,9 @@
         "real_estate": "Anh Nguyễn",
         "rent": "THUÊ",
         "buy": "MUA",
-        "view_all": "Xem toàn bộ sản phẩm"
+        "find": "Tìm sản phẩm",
+        "view_all": "Xem toàn bộ sản phẩm",
+        "featured": "Sản phẩm tiêu biểu"
     },
     "layout": {
         "listings": "Sản phẩm",

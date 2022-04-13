@@ -21,12 +21,14 @@
     background-size: cover;
     background-position: center;
     position: relative;
-    height: 90vh;
+    min-height: 90vh;
+    height: fit-content;
 }
 
 .backdrop {
     backdrop-filter: blur(10px);
-    height: 90vh;
+    min-height: 90vh;
+    height: fit-content;
 }
 
 .backdrop-mobile {

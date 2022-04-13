@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Listing, SearchCriteria } from 'src/app/listing-search/listing-search.data';
 import { HomeService } from './home.service';
@@ -24,6 +24,7 @@ export class HomeComponent {
     constructor(
         private router: Router,
         private homeService: HomeService,
+        private changeDetector: ChangeDetectorRef,
         @Inject(DOCUMENT) { defaultView }: Document
     ) {
         const width = defaultView ? defaultView.innerWidth : 0;
@@ -32,6 +33,7 @@ export class HomeComponent {
         if (isDesktop) {
             this.homeService.getFeaturedListings().then(listings => {
                 this.featuredListings = listings;
+                this.changeDetector.detectChanges();
             });
         }
 

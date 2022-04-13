@@ -5,7 +5,7 @@ import { FirestoreCollections } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
-    numberOfListingsToFeature = 3;
+    public numberOfListingsToFeature = 3;
 
     constructor(
         private firestore: Firestore,
