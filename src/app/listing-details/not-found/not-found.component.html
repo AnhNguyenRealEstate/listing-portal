@@ -1,8 +1,8 @@
 <section>
     <div class="row">
         <div class="col-12">
-            <p>The listing you are trying to view may not exist, or have been removed from our database.</p>
-            <a>Click here to view our other listings</a>
+            <p>{{ 'listing_details.not_found.main_msg' | translate }}</p>
+            <a mat-button href="/listing-search">{{ 'listing_details.not_found.view_others' | translate }}</a>
         </div>
     </div>
 </section>

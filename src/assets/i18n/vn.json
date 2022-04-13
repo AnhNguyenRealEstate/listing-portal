@@ -92,7 +92,11 @@
         "view": "View",
         "available_on": "Có thể liên lạc qua",
         "view_all": "Xem hết",
-        "all_imgs_loaded": "Đã lấy hết hình 🎉"
+        "all_imgs_loaded": "Đã lấy hết hình 🎉",
+        "not_found": {
+            "main_msg": "Sản phẩm đã được gỡ, hoặc không tồn tại trong kho dữ liệu",
+            "view_others": "Xem các sản phẩm khác"
+        }
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",

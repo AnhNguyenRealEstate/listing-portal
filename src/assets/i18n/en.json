@@ -93,7 +93,11 @@
         "view": "View",
         "available_on": "Also available on",
         "view_all": "View all",
-        "all_imgs_loaded": "All images loaded 🎉"
+        "all_imgs_loaded": "All images loaded 🎉",
+        "not_found": {
+            "main_msg": "The listing you are trying to view have either been archived or removed from our database",
+            "view_others": "Click here to view our other listings"
+        }
     },
     "search_bar": {
         "filters": "Filters",
