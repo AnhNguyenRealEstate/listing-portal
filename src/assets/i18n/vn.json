@@ -96,7 +96,9 @@
         "not_found": {
             "main_msg": "Sản phẩm đã được gỡ, hoặc không tồn tại trong kho dữ liệu",
             "view_others": "Xem các sản phẩm khác"
-        }
+        },
+        "photos": "Hình ảnh",
+        "video": "Video"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",
@@ -152,7 +154,8 @@
         "contact_person": "Liên hệ",
         "edit_cover_img": "Sửa hình đại diện",
         "edit_media": "Sửa hình ảnh kèm",
-        "available_on": "Liên hệ qua chat app khác"
+        "available_on": "Liên hệ qua chat app khác",
+        "tiktok_link": "Link TikTok"
     },
     "login": {
         "page_title": "Đăng nhập",

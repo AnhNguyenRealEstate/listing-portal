@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, SecurityContext, ViewChild } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ListingDetailsService } from './listing-details.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
 import { lastValueFrom } from 'rxjs';
@@ -26,6 +26,9 @@ export class ListingDetailsComponent implements OnInit {
     watermarkImg = '';
     allImagesLoaded: boolean = false;
     gettingAllImages: boolean = false;
+
+    showVideo = false;
+    videoLink!: SafeResourceUrl;
 
     contactNumberUrl: SafeUrl = '';
 
@@ -81,6 +84,10 @@ export class ListingDetailsComponent implements OnInit {
 
         this.setBrowserTitle();
 
+        if (listing.tiktokUrl) {
+            await this.getTiktokVideo(listing.tiktokUrl);
+        }
+
         logEvent(getAnalytics(), 'listing_details_view', {
             id: listing.id,
             category: listing.category,
@@ -113,6 +120,44 @@ export class ListingDetailsComponent implements OnInit {
             undefined,
             { duration: 1000 }
         );
+    }
+
+    async getTiktokVideo(videoUrl: string) {
+
+        const loadScript = (url: string) => {
+            return new Promise((resolve, reject) => {
+
+                if (document.getElementById('tiktok-script')) {
+                    resolve("loaded");
+                }
+                const script = document.createElement("script");
+                script.async = true;
+                script.src = url;
+                script.setAttribute('id', 'tiktok-script');
+
+                script.onload = () => {
+                    // script is loaded successfully, call resolve()
+                    resolve("loaded");
+                };
+
+                script.onerror = () => {
+                    // script is not loaded, call reject()
+                    reject("error");
+                };
+
+                document.head.appendChild(script);
+            });
+        }
+
+        const tiktokScriptStatus = await loadScript('https://www.tiktok.com/embed.js');
+        if (tiktokScriptStatus !== "loaded") {
+            return;
+        }
+
+        const videoIdRegex = /video\/(.+?(?=\?))/;
+        const videoId = videoIdRegex.exec(videoUrl)![1];
+        this.videoLink = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.tiktok.com/embed/v2/${videoId}`);
+        this.showVideo = true;
     }
 
     async applyWatermarkToImagesAndDisplay(imgSrcs: string[]) {

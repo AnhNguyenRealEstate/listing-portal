@@ -11,9 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { FooterModule } from '../footer/footer.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { ListingDetailsNotFound } from './not-found/not-found.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
-    declarations: [ListingDetailsComponent],
+    declarations: [ListingDetailsComponent, ListingDetailsNotFound],
     imports: [
         CommonModule,
         ListingDetailsRoutingModule,
@@ -27,7 +29,8 @@ import { MatButtonModule } from '@angular/material/button';
         MatProgressSpinnerModule,
         MatIconModule,
         MatDividerModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTabsModule
     ]
 })
 export class ListingDetailsModule { }

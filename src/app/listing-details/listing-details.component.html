@@ -12,32 +12,41 @@
             <mat-divider></mat-divider>
         </div>
         <div class="row">
-            <div class="col-6 listing-images">
-                <ng-container
-                    *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
-                    <swiper #usefulSwiper [config]="{}">
-                        <div class="swiper-wrapper">
-                            <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
-                        </div>
-                    </swiper>
-                    <div class="row pt-4 d-flex">
-                        <div [class.col-10]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
-                            <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
-                                [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
-                                (imageClick)="cycleToSlide($event)">
-                            </ng-image-slider>
-                        </div>
-                        <button class="col-2" *ngIf="!allImagesLoaded" mat-button (click)="getAllImages()">
-                            <mat-icon color="accent">photo_library</mat-icon> {{ 'listing_details.view_all' | translate
-                            }}
-                        </button>
-                    </div>
-                </ng-container>
-                <div *ngIf="!(imageSources && imageSources!.length)">
-                    <mat-spinner></mat-spinner>
-                </div>
-            </div>
             <div class="col-6">
+                <mat-tab-group mat-stretch-tabs color="accent">
+                    <mat-tab [label]="'listing_details.photos' | translate">
+                        <div class="pt-2"
+                            *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
+                            <swiper #usefulSwiper [config]="{}">
+                                <div class="swiper-wrapper">
+                                    <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
+                                </div>
+                            </swiper>
+                            <div class="row pt-4 d-flex">
+                                <div [class.col-10]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
+                                    <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
+                                        [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
+                                        (imageClick)="cycleToSlide($event)">
+                                    </ng-image-slider>
+                                </div>
+                                <button class="col-2" *ngIf="!allImagesLoaded" mat-button (click)="getAllImages()">
+                                    <mat-icon color="accent">photo_library</mat-icon> {{ 'listing_details.view_all' |
+                                    translate
+                                    }}
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="!(imageSources && imageSources!.length)">
+                            <mat-spinner></mat-spinner>
+                        </div>
+                    </mat-tab>
+                    <mat-tab [label]="'listing_details.video' | translate" *ngIf="showVideo">
+                        <iframe [src]="videoLink" style="width:100%; height: 550px">
+                        </iframe>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <div class="col-6 listing-information">
                 <div class="row pb-2">
                     <div class="col-6">
                         <mat-icon color="accent">apartment</mat-icon>
@@ -116,20 +125,27 @@
         </div>
         <mat-divider></mat-divider>
 
-        <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
-            <ng-image-slider class="col-12" [images]="images" [animationSpeed]="0.1"></ng-image-slider>
-            <div class="col-6">
-                <button *ngIf="!allImagesLoaded" [disabled]="gettingAllImages" mat-raised-button color="default"
-                    (click)="getAllImages(true);">
-                    <mat-icon color="accent">photo_library</mat-icon>
-                    <span class="ps-1">{{ 'listing_details.view_all' | translate }}</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="pt-2 pb-2" *ngIf="!images.length">
-            <mat-spinner></mat-spinner>
-        </div>
+        <mat-tab-group mat-stretch-tabs color="accent">
+            <mat-tab [label]="'listing_details.photos' | translate">
+                <div class="pt-2 pb-2" *ngIf="!images.length">
+                    <mat-spinner></mat-spinner>
+                </div>
+                <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
+                    <ng-image-slider class="col-12" [images]="images" [animationSpeed]="0.1"></ng-image-slider>
+                    <div class="col-6">
+                        <button *ngIf="!allImagesLoaded" [disabled]="gettingAllImages" mat-raised-button color="default"
+                            (click)="getAllImages(true);">
+                            <mat-icon color="accent">photo_library</mat-icon>
+                            <span class="ps-1">{{ 'listing_details.view_all' | translate }}</span>
+                        </button>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab [label]="'listing_details.video' | translate" *ngIf="showVideo">
+                <iframe class="pt-2 pb-2" [src]="videoLink" style="width:100%; height: 550px">
+                </iframe>
+            </mat-tab>
+        </mat-tab-group>
 
         <div class="row pb-2">
             <div class="col-6">

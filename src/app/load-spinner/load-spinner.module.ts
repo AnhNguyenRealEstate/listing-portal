@@ -14,9 +14,9 @@ import { LoadingInterceptorService } from './interceptor.service';
     MatProgressSpinnerModule,
     MatIconModule
   ],
-  exports: [LoadingSpinnerComponent],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
-  ]
+  exports: [LoadingSpinnerComponent]
+  // providers: [
+  //   { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true },
+  // ]
 })
 export class LoadSpinnerModule { }
