@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, SecurityContext, ViewChild } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ListingDetailsService } from './listing-details.service';
-import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
 import { lastValueFrom } from 'rxjs';
