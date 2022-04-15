@@ -7,7 +7,7 @@ import { Listing } from '../listing-search/listing-search.data';
 @Injectable({ providedIn: 'any' })
 export class ListingDetailsService {
 
-    private initialImageLoadLimit = 4;
+    private initialImageLoadLimit = 6;
 
     constructor(
         private firestore: Firestore,

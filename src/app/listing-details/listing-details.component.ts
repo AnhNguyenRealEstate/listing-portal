@@ -58,7 +58,7 @@ export class ListingDetailsComponent implements OnInit {
 
         const listing = await this.listingDetails.getListingById(id);
         if (!listing) {
-            this.router.navigate(['../'], { relativeTo: this.route })
+            this.router.navigate(['../details/not-found'], { relativeTo: this.route })
             return;
         }
 
@@ -154,7 +154,7 @@ export class ListingDetailsComponent implements OnInit {
             return;
         }
 
-        const videoIdRegex = /video\/(.+?(?=\?))/;
+        const videoIdRegex = /video\/(.+?(?![0-9]))/;
         const videoId = videoIdRegex.exec(videoUrl)![1];
         this.videoLink = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.tiktok.com/embed/v2/${videoId}`);
         this.showVideo = true;
