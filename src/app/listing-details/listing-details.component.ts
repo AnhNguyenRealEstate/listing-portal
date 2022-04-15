@@ -155,9 +155,15 @@ export class ListingDetailsComponent implements OnInit {
         }
 
         const videoIdRegex = /video\/(.+?(?![0-9]))/;
-        const videoId = videoIdRegex.exec(videoUrl)![1];
+        const regexResult = videoIdRegex.exec(videoUrl);
+        if (!regexResult) {
+            return;
+        }
+
+        const videoId = regexResult[1];
         this.videoLink = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.tiktok.com/embed/v2/${videoId}`);
         this.showVideo = true;
+
     }
 
     async applyWatermarkToImagesAndDisplay(imgSrcs: string[]) {
