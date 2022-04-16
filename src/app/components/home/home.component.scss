@@ -16,27 +16,33 @@
     padding-top: 25%;
 }
 
-.home-background {
-    background-image: url("/assets/images/carousel_3.jpeg");
-    background-size: cover;
-    background-position: center;
-    position: relative;
+.home {
     min-height: 90vh;
     height: fit-content;
+    padding-bottom: 45vh;
+    background: white;
+}
+
+.home-background {
+    background-image: url('/assets/images/background_home.jpeg');
+    background-size: cover;
+    background-position: 0% 40%;
+    height: 50vh;
+}
+
+.featured-listings {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    background: white;
+    border-radius: 10px;
 }
 
 .backdrop {
-    backdrop-filter: blur(10px);
-    min-height: 90vh;
-    height: fit-content;
+    backdrop-filter: blur(30px);
 }
 
 .backdrop-mobile {
     backdrop-filter: blur(10px);
-}
-
-.view-all {
-    color: black;
 }
 
 .result-card-wrapper:hover {
@@ -50,7 +56,7 @@
 }
 
 .btn-active {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     span {
         border-bottom: 10px solid #000;
         padding-bottom: 3px;

@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClient, HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
-import { AboutUsComponent } from './components/about-us/about-us.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login-dialog.component';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
@@ -30,13 +27,10 @@ const maskConfig: Partial<IConfig> = {
   validation: false,
 };
 
-
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CarouselComponent,
-    AboutUsComponent,
     LayoutComponent,
     LoginComponent,
     TimeoutComponent
