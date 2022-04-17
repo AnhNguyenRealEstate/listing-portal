@@ -23,11 +23,24 @@
     background: white;
 }
 
-.home-background {
-    background-image: url('/assets/images/background_home.jpeg');
+.home-background-mobile {
+    background-image: url("/assets/images/background_home.jpeg");
     background-size: cover;
-    background-position: 0% 40%;
+    background-position: 50% 0%;
+    position: relative;
+    height: 90vh;
+}
+
+.home-background {
+    background-image: url("/assets/images/background_home.jpeg");
+    background-size: cover;
+    background-position: 0% 50%;
     height: 50vh;
+}
+
+.mock-listings {
+    margin-left: 10vw;
+    margin-right: 10vw;
 }
 
 .featured-listings {
@@ -37,8 +50,15 @@
     border-radius: 10px;
 }
 
+.rent-or-sale {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .backdrop {
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(10px);
+    background: transparent;
+    height: fit-content;
 }
 
 .backdrop-mobile {
