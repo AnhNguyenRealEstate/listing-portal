@@ -25,7 +25,8 @@
         "send": "Send",
         "newsletter_signup_msg": "Sign up for our newsletter and receive updates on new listings and projects",
         "email_addr": "Email address",
-        "newsletter_signup": "Sign up"
+        "newsletter_signup": "Sign up",
+        "inquiry_submitted": "Your inquiry has been submitted"
     },
     "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
     "home": {

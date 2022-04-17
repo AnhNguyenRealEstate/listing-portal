@@ -25,7 +25,8 @@
         "send": "Gửi",
         "newsletter_signup_msg": "Đăng ký nhận email quảng cáo/giới thiệu sản phẩm mới",
         "email_addr": "Địa chỉ email",
-        "newsletter_signup": "Đăng ký"
+        "newsletter_signup": "Đăng ký",
+        "inquiry_submitted": "Chúng tôi đã nhận được lời nhắn của bạn"
     },
     "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
     "home": {
