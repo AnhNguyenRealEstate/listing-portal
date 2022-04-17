@@ -9,6 +9,8 @@ import { FooterModule } from '../footer/footer.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AboutUsRoutingModule,
     MatDividerModule,
     MatCardModule,
@@ -23,7 +26,8 @@ import { MatIconModule } from '@angular/material/icon';
     FooterModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    NgxTrimDirectiveModule
   ]
 })
 export class AboutUsModule { }
