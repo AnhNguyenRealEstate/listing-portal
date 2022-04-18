@@ -19,8 +19,9 @@ export class AboutUsComponent implements OnInit {
 
     inquiry: Inquiry = {};
     inquiryForm!: FormGroup;
-
     submitInProgress: boolean = false;
+
+    email!: string;
 
     constructor(
         private fb: FormBuilder,
@@ -59,6 +60,17 @@ export class AboutUsComponent implements OnInit {
         this.inquiryForm.reset();
 
         this.submitInProgress = false;
+    }
+
+    async submitEmail() {
+        if (!this.email) {
+            return;
+        }
+        
+        this.email = '';
+
+        const emailSubmitted = await lastValueFrom(this.translate.get("about_us.email_submitted"));
+        this.snackbar.open(emailSubmitted, undefined, { duration: 2000 });
     }
 
 }

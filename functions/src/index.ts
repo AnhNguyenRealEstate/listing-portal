@@ -6,8 +6,8 @@ import * as fs from 'fs';
 admin.initializeApp();
 
 /**
- * After a listing's creation
- * Update id an creation date for a listing upon upload
+ * After an inquiry's creation
+ * Update id and creation date for that inquiry
  */
  exports.postProcessInquiryCreation = functions.region('asia-southeast1').firestore
  .document('inquiries/{documentId}')
@@ -24,7 +24,7 @@ admin.initializeApp();
 
 /**
  * After a listing's creation
- * Update id an creation date for a listing upon upload
+ * Update id and creation date for that listing
  */
 exports.postProcessListingCreation = functions.region('asia-southeast1').firestore
   .document('listings/{documentId}')
