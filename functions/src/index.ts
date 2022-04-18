@@ -9,18 +9,18 @@ admin.initializeApp();
  * After an inquiry's creation
  * Update id and creation date for that inquiry
  */
- exports.postProcessInquiryCreation = functions.region('asia-southeast1').firestore
- .document('inquiries/{documentId}')
- .onCreate((snap, context) => {
-   const id = context.params.documentId;
-   const creationDate = admin.firestore.Timestamp.fromDate(new Date());
+exports.postProcessInquiryCreation = functions.region('asia-southeast1').firestore
+  .document('inquiries/{documentId}')
+  .onCreate((snap, context) => {
+    const id = context.params.documentId;
+    const creationDate = admin.firestore.Timestamp.fromDate(new Date());
 
-   return snap.ref.update(
-     {
-       'id': id,
-       'creationDate': creationDate
-     });
- });
+    return snap.ref.update(
+      {
+        'id': id,
+        'creationDate': creationDate
+      });
+  });
 
 /**
  * After a listing's creation
@@ -161,6 +161,20 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
   const ogPlaceholder = '<meta name="functions-insert-dynamic-og">';
   const ogReplacement = await getOpenGraph(isListingDetailsPage);
   indexHTML = indexHTML.replace(ogPlaceholder, ogReplacement);
+
+  const googleAdsPlaceHolder = '<meta name="functions-insert-google-analytics">';
+  const googleAdsReplacement = `<script async src="https://www.googletagmanager.com/gtag/js?id=UA-196264780-1">
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-196264780-1');
+  </script>`;
+  indexHTML = indexHTML.replace(googleAdsPlaceHolder, googleAdsReplacement);
+
+
   res.status(200).send(indexHTML);
 });
 
