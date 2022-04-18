@@ -9,6 +9,23 @@ admin.initializeApp();
  * After a listing's creation
  * Update id an creation date for a listing upon upload
  */
+ exports.postProcessInquiryCreation = functions.region('asia-southeast1').firestore
+ .document('inquiries/{documentId}')
+ .onCreate((snap, context) => {
+   const id = context.params.documentId;
+   const creationDate = admin.firestore.Timestamp.fromDate(new Date());
+
+   return snap.ref.update(
+     {
+       'id': id,
+       'creationDate': creationDate
+     });
+ });
+
+/**
+ * After a listing's creation
+ * Update id an creation date for a listing upon upload
+ */
 exports.postProcessListingCreation = functions.region('asia-southeast1').firestore
   .document('listings/{documentId}')
   .onCreate((snap, context) => {

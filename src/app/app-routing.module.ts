@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutUsComponent } from './components/about-us/about-us.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
@@ -32,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'about-us',
-    component: AboutUsComponent,
+    loadChildren: () => import('./about-us/about-us.module').then(mod => mod.AboutUsModule),
     data: { title: 'layout.about_us' }
   }
 ];

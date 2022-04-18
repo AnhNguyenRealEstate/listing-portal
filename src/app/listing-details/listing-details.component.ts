@@ -1,29 +1,36 @@
 import { ChangeDetectorRef, Component, OnInit, SecurityContext, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Listing } from '../listing-search.data';
 import { ListingDetailsService } from './listing-details.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
 import { lastValueFrom } from 'rxjs';
 import mergeImages from 'merge-images';
 import { CurrencyPipe } from '@angular/common';
+import { Listing } from '../listing-search/listing-search.data';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { getAnalytics, logEvent } from '@angular/fire/analytics';
 
 @Component({
     selector: 'listing-details',
     templateUrl: 'listing-details.component.html',
-    styleUrls: ['../listing-search.component.scss', './listing-details.component.scss']
+    styleUrls: ['./listing-details.component.scss']
 })
 
 export class ListingDetailsComponent implements OnInit {
     listing: Listing = {} as Listing;
+
     images: Array<Object> = [];
     imageSources: string[] = [];
+    watermarkImg = '';
+    allImagesLoaded: boolean = false;
+    gettingAllImages: boolean = false;
+
+    showVideo = false;
+    videoLink!: SafeResourceUrl;
 
     contactNumberUrl: SafeUrl = '';
-
-    watermarkImg = '';
 
     @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
     highlightedThumbnailRef: any;
@@ -33,34 +40,35 @@ export class ListingDetailsComponent implements OnInit {
     constructor(
         private sanitizer: DomSanitizer,
         public translate: TranslateService,
-        private listingDetailsService: ListingDetailsService,
+        public listingDetails: ListingDetailsService,
         private route: ActivatedRoute,
         private router: Router,
         private title: Title,
         private currency: CurrencyPipe,
+        private snackbar: MatSnackBar,
         private changeDetector: ChangeDetectorRef) {
     }
 
     async ngOnInit() {
         const id = this.route.snapshot.paramMap.get('listingId');
         if (!id) {
-            this.router.navigate(['/listing-search']);
+            this.router.navigate(['../'], { relativeTo: this.route });
             return;
         }
 
-        const listing = await this.listingDetailsService.getListingById(id);
+        const listing = await this.listingDetails.getListingById(id);
         if (!listing) {
-            this.router.navigate(['/listing-search']);
+            this.router.navigate(['../details/not-found'], { relativeTo: this.route })
             return;
         }
 
         this.listing = listing;
 
-        this.listingDetailsService.getListingImageUrls(listing?.fireStoragePath!).then(async imgSrcs => {
+        this.listingDetails.getInitialImageUrls(listing.fireStoragePath!).then(async imgSrcs => {
             if (imgSrcs.length) {
                 await this.applyWatermarkToImagesAndDisplay(imgSrcs);
-                this.changeDetector.detectChanges();
                 this.showFooter = true;
+                this.changeDetector.detectChanges();
             }
         });
 
@@ -75,10 +83,87 @@ export class ListingDetailsComponent implements OnInit {
         }
 
         this.setBrowserTitle();
+
+        if (listing.tiktokUrl) {
+            await this.getTiktokVideo(listing.tiktokUrl);
+        }
+
+        logEvent(getAnalytics(), 'listing_details_view', {
+            id: listing.id,
+            category: listing.category,
+            location: listing.location
+        });
     }
 
     cycleToSlide(slideId: number) {
         this.usefulSwiper?.swiper.slideTo(slideId);
+    }
+
+    async getAllImages(isMobile?: boolean) {
+        this.gettingAllImages = true;
+        const imgSrcs = await this.listingDetails.getAllImages(this.listing.fireStoragePath!);
+        if (imgSrcs.length) {
+            await this.applyWatermarkToImagesAndDisplay(imgSrcs);
+            this.allImagesLoaded = true;
+            this.changeDetector.detectChanges();
+        }
+        this.gettingAllImages = false
+
+        if (isMobile) {
+            this.showAllImgsLoadedMsg();
+        }
+    }
+
+    async showAllImgsLoadedMsg() {
+        this.snackbar.open(
+            await lastValueFrom(this.translate.get("listing_details.all_imgs_loaded")),
+            undefined,
+            { duration: 1000 }
+        );
+    }
+
+    async getTiktokVideo(videoUrl: string) {
+
+        const loadScript = (url: string) => {
+            return new Promise((resolve, reject) => {
+
+                if (document.getElementById('tiktok-script')) {
+                    resolve("loaded");
+                }
+                const script = document.createElement("script");
+                script.async = true;
+                script.src = url;
+                script.setAttribute('id', 'tiktok-script');
+
+                script.onload = () => {
+                    // script is loaded successfully, call resolve()
+                    resolve("loaded");
+                };
+
+                script.onerror = () => {
+                    // script is not loaded, call reject()
+                    reject("error");
+                };
+
+                document.head.appendChild(script);
+            });
+        }
+
+        const tiktokScriptStatus = await loadScript('https://www.tiktok.com/embed.js');
+        if (tiktokScriptStatus !== "loaded") {
+            return;
+        }
+
+        const videoIdRegex = /video\/(.+?(?![0-9]))/;
+        const regexResult = videoIdRegex.exec(videoUrl);
+        if (!regexResult) {
+            return;
+        }
+
+        const videoId = regexResult[1];
+        this.videoLink = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.tiktok.com/embed/v2/${videoId}`);
+        this.showVideo = true;
+
     }
 
     async applyWatermarkToImagesAndDisplay(imgSrcs: string[]) {

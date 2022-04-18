@@ -51,3 +51,6 @@ If you only modified cloud functions, you can deploy it separately using `npm ru
 2. Build cloud functions
 3. Deploy to Firebase Hosting and Cloud Functions
 
+## Stock images
+Home background: https://www.pexels.com/photo/spacious-living-room-near-table-7195897/
+

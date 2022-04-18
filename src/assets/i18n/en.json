@@ -2,14 +2,31 @@
     "app_title": "Anh Nguyen Real Estate",
     "generics.any": "Any",
     "about_us": {
-        "about_us": "About Us",
+        "about_us": "Contact Us",
         "company_intro_1_title": "{{tenure}}+ Years",
-        "company_intro_1": "Founded in 2008, we are proud to be one of the longest-serving real-estate brokerages in District 7, Ho Chi Minh City.",
+        "company_intro_1": "Founded in 2008, we are proud to be one of the longest-serving real-estate brokerages in District 7, Ho Chi Minh City",
         "company_intro_2_title": "1000+ Customers Annually",
-        "company_intro_2": "We have served over ten thousand clients, with unwavering commitment to customer satisfactions.",
+        "company_intro_2": "We have served over ten thousand clients, with unwavering commitment to customer satisfactions",
         "contact_us": "Contact Us",
         "office_address": "168 Ha Huy Tap, Tan Phong Ward, District 7, Ho Chi Minh City",
-        "first_contact": "Tel: 84-28-54170823"
+        "first_contact": "Tel: 84-28-54170823",
+        "our_mission": "Our mission",
+        "mission_statement": "To make the home-finding experience a breeze",
+        "experience": "Experience",
+        "commitment": "Commitment",
+        "main_office": "Main office",
+        "hours": "Hours",
+        "weekdays_hours": "Weekdays: 9:00 AM to 5:30 PM",
+        "weekends_hours": "Weekends: 10:00 AM to 4:30 PM",
+        "msg_us": "Send us a message",
+        "inquiry_label": "What's your inquiry?",
+        "contact_method": " How should we contact you?",
+        "inquiry_details": "Details of your inquiry",
+        "send": "Send",
+        "newsletter_signup_msg": "Sign up for our newsletter and receive updates on new listings and projects",
+        "email_addr": "Email address",
+        "newsletter_signup": "Sign up",
+        "inquiry_submitted": "Your inquiry has been submitted"
     },
     "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
     "home": {
@@ -18,7 +35,9 @@
         "real_estate": "Real Estate Ltd",
         "rent": "RENT",
         "buy": "BUY",
-        "view_all": "View all listings"
+        "find": "Find listings",
+        "view_all": "View all listings",
+        "featured": "Featured listings"
     },
     "layout": {
         "listings": "Listings",
@@ -69,7 +88,7 @@
         "view_more": "View more"
     },
     "listing_card": {
-        "share_listing": "Get link to this listing",
+        "share_listing": "Copy link",
         "link_copied": "Shareable link copied 🌟"
     },
     "listing_search.page_title": "Listings",
@@ -91,7 +110,15 @@
         "description": "Description",
         "contact": "Contact",
         "view": "View",
-        "available_on": "Also available on"
+        "available_on": "Also available on",
+        "view_all": "View all",
+        "all_imgs_loaded": "All images loaded 🎉",
+        "not_found": {
+            "main_msg": "The listing you are trying to view have either been archived or removed from our database",
+            "view_others": "Click here to view our other listings"
+        },
+        "photos": "Photos",
+        "video": "Video tour"
     },
     "search_bar": {
         "filters": "Filters",
@@ -147,7 +174,8 @@
         "contact_person": "Name of contact",
         "edit_cover_img": "Edit cover image",
         "edit_media": "Edit attached images",
-        "available_on": "Additional contact channels"
+        "available_on": "Additional contact channels",
+        "tiktok_link": "TikTok link"
     },
     "login": {
         "page_title": "Login",

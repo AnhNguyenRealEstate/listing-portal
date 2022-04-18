@@ -1,0 +1,213 @@
+<section class="d-none d-md-block">
+    <section class="about-us-section">
+        <div class="row d-flex justify-content-between ml-15 mr-15">
+            <div class="col-12 d-flex justify-content-center pt-10" style="padding-bottom: 10vh">
+                <div class="section-title">{{ 'about_us.our_mission' | translate }}
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-center"
+                style="font-size: 2.5rem; line-height: 1.5; padding-bottom: 10vh">
+                {{ 'about_us.mission_statement' | translate }}
+            </div>
+            <div class="col-5">
+                <mat-card style="height: 20vh">
+                    <mat-card-title class="d-flex justify-content-center">
+                        {{ 'about_us.experience' | translate }}
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="pt-4">{{ 'about_us.company_intro_1' | translate }}</div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-5">
+                <mat-card style="height: 20vh">
+                    <mat-card-title class="d-flex justify-content-center">
+                        {{ 'about_us.commitment' | translate }}
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="pt-4">{{ 'about_us.company_intro_2' | translate }}</div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-us-section">
+        <div class="row d-flex justify-content-between  ml-15 mr-15 pt-10">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="section-title pb-10">{{ 'about_us.contact_us' | translate }}</div>
+            </div>
+            <div class="col-5">
+                <div style="font-size: 1.10rem">{{ 'about_us.main_office' | translate }}</div>
+                <mat-divider class="pb-2"></mat-divider>
+                <div>{{ 'about_us.office_address' | translate }}</div>
+                <div>{{ 'about_us.first_contact' | translate }}</div>
+
+                <div class="pt-4" style="font-size: 1.10rem">{{ 'about_us.hours' | translate }}</div>
+                <mat-divider class="pb-2"></mat-divider>
+                <div>{{ 'about_us.weekdays_hours' | translate }}</div>
+                <div>{{ 'about_us.weekends_hours' | translate }}</div>
+            </div>
+            <div class="col-5">
+                <div style="font-size: 1.10rem">
+                    {{ 'about_us.msg_us' | translate }}
+                </div>
+                <mat-divider class="pb-2"></mat-divider>
+                <form [formGroup]="inquiryForm" (ngSubmit)="submitInquiry()">
+                    <div class="row">
+                        <mat-form-field class="col-12" color="accent">
+                            <mat-label>
+                                {{ 'about_us.inquiry_label' | translate }}
+                            </mat-label>
+                            <input matInput trim="blur" type="text" formControlName="title" />
+                        </mat-form-field>
+                        <mat-form-field class="col-12" color="accent">
+                            <mat-label>
+                                {{ 'about_us.contact_method' | translate }}
+                            </mat-label>
+                            <input matInput trim="blur" type="text" formControlName="contactMethod" />
+                        </mat-form-field>
+                        <div class="col-12">
+                            <label>{{ 'about_us.inquiry_details' | translate }}</label>
+                            <textarea rows="10" cols="47" formControlName="message" trim="blur"></textarea>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            <button mat-raised-button color="accent" type="submit" [disabled]="submitInProgress">{{
+                                'about_us.send' |
+                                translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="pt-10 pb-10 sign-up-for-newsletter">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                {{ 'about_us.newsletter_signup_msg' | translate }}
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <mat-form-field color="accent" class="ml-15 mr-15">
+                    <mat-label>
+                        {{ 'about_us.email_addr' | translate }}
+                    </mat-label>
+                    <input matInput type="text" />
+                </mat-form-field>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <button mat-raised-button color="accent">{{ 'about_us.newsletter_signup' | translate }} <mat-icon>send
+                    </mat-icon></button>
+            </div>
+        </div>
+    </section>
+</section>
+
+<section class="d-md-none">
+    <section class="about-us-section-mobile">
+        <div class="row d-flex justify-content-between me-2">
+            <div class="col-12 d-flex justify-content-center" style="padding-top: 5vh; padding-bottom: 5vh">
+                <div class="section-title">{{ 'about_us.our_mission' | translate }}
+                </div>
+            </div>
+            <div class="col-12 ms-2" style="font-size: 2rem; line-height: 1.5; padding-bottom: 5vh">
+                {{ 'about_us.mission_statement' | translate }}
+            </div>
+            <div class="col-12 pb-4 ms-2">
+                <mat-card>
+                    <mat-card-title class="d-flex justify-content-center">
+                        {{ 'about_us.experience' | translate }}
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="pt-4 pb-4">{{ 'about_us.company_intro_1' | translate }}</div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-12 pb-2 ms-2">
+                <mat-card>
+                    <mat-card-title class="d-flex justify-content-center">
+                        {{ 'about_us.commitment' | translate }}
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="pt-4 pb-4">{{ 'about_us.company_intro_2' | translate }}</div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-us-section">
+        <div class="row d-flex justify-content-between me-4">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="section-title" style="padding-top: 5vh;
+                    padding-bottom: 5vh">
+                    {{ 'about_us.contact_us' | translate}}
+                </div>
+            </div>
+            <div class="col-12 ms-4">
+                <div style="font-size: 1.10rem">{{ 'about_us.main_office' | translate }}</div>
+                <mat-divider class="pb-2"></mat-divider>
+                <div>{{ 'about_us.office_address' | translate }}</div>
+                <div>{{ 'about_us.first_contact' | translate }}</div>
+
+                <div class="pt-4" style="font-size: 1.10rem">{{ 'about_us.hours' | translate }}</div>
+                <mat-divider class="pb-2"></mat-divider>
+                <div>{{ 'about_us.weekdays_hours' | translate }}</div>
+                <div>{{ 'about_us.weekends_hours' | translate }}</div>
+            </div>
+            <div class="col-12 ms-4 pt-4">
+                <div style="font-size: 1.10rem">
+                    {{ 'about_us.msg_us' | translate }}
+                </div>
+                <mat-divider class="pb-2"></mat-divider>
+                <form [formGroup]="inquiryForm" (ngSubmit)="submitInquiry()">
+                    <div class="row">
+                        <mat-form-field class="col-12" color="accent">
+                            <mat-label>
+                                {{ 'about_us.inquiry_label' | translate }}
+                            </mat-label>
+                            <input matInput trim="blur" type="text" formControlName="title" />
+                        </mat-form-field>
+                        <mat-form-field class="col-12" color="accent">
+                            <mat-label>
+                                {{ 'about_us.contact_method' | translate }}
+                            </mat-label>
+                            <input matInput trim="blur" type="text" formControlName="contactMethod" />
+                        </mat-form-field>
+                        <div class="col-12">
+                            <label class="d-block">{{ 'about_us.inquiry_details' | translate }}</label>
+                            <textarea rows="10" cols="42" formControlName="message" trim="blur"></textarea>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            <button mat-raised-button color="accent" type="submit" [disabled]="submitInProgress">{{
+                                'about_us.send' |
+                                translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="pb-10 sign-up-for-newsletter">
+        <div class="row me-2">
+            <div class="col-12 d-flex justify-content-center ms-2">
+                {{ 'about_us.newsletter_signup_msg' | translate }}
+            </div>
+            <div class="col-12 d-flex justify-content-center ms-2">
+                <mat-form-field color="accent" class="ml-15 mr-15">
+                    <mat-label>
+                        {{ 'about_us.email_addr' | translate }}
+                    </mat-label>
+                    <input matInput type="text" />
+                </mat-form-field>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <button mat-raised-button color="accent">{{ 'about_us.newsletter_signup' | translate }} <mat-icon>send
+                    </mat-icon></button>
+            </div>
+        </div>
+    </section>
+</section>
+
+<app-footer></app-footer>

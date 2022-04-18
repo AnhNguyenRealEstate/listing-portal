@@ -1,0 +1,18 @@
+<section style="height: 90vh">
+    <div class="row pt-4">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="text-large">{{ 'listing_details.not_found.main_msg' | translate }}</div>
+        </div>
+        <div class="col-12 d-flex justify-content-center no-result-icon">
+            <span>
+                <mat-icon [inline]="true">search_off</mat-icon>
+            </span>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <a class="d-block" mat-raised-button href="/listing-search">{{ 'listing_details.not_found.view_others' | translate
+                }}</a>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

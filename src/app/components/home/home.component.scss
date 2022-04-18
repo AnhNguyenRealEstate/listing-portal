@@ -16,25 +16,53 @@
     padding-top: 25%;
 }
 
-.home-background {
-    background-image: url("/assets/images/carousel_3.jpeg");
+.home {
+    min-height: 90vh;
+    height: fit-content;
+    padding-bottom: 45vh;
+    background: white;
+}
+
+.home-background-mobile {
+    background-image: url("/assets/images/background_home.jpeg");
     background-size: cover;
-    background-position: center;
+    background-position: 50% 0%;
     position: relative;
     height: 90vh;
 }
 
+.home-background {
+    background-image: url("/assets/images/background_home.jpeg");
+    background-size: cover;
+    background-position: 0% 50%;
+    height: 50vh;
+}
+
+.mock-listings {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.featured-listings {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    background: white;
+    border-radius: 10px;
+}
+
+.rent-or-sale {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .backdrop {
     backdrop-filter: blur(10px);
-    height: 90vh;
+    background: transparent;
+    height: fit-content;
 }
 
 .backdrop-mobile {
     backdrop-filter: blur(10px);
-}
-
-.view-all {
-    color: black;
 }
 
 .result-card-wrapper:hover {
@@ -48,7 +76,7 @@
 }
 
 .btn-active {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     span {
         border-bottom: 10px solid #000;
         padding-bottom: 3px;

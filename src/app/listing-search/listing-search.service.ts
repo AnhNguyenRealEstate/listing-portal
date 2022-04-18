@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { getDocs, QuerySnapshot } from '@firebase/firestore';
 import { DOCUMENT } from '@angular/common';
+import { getAnalytics, logEvent } from '@angular/fire/analytics';
 
 @Injectable({ providedIn: 'any' })
 export class ListingSearchService {
@@ -43,6 +44,10 @@ export class ListingSearchService {
         const results: Listing[] = [];
 
         if (this.isNewSnapshotNeeded(newSearchCriteria)) {
+            logEvent(getAnalytics(), 'search_criteria_applied', {
+                ...this.currentSearchCriteria
+            });
+
             this.currentSearchCriteria = newSearchCriteria;
             this.currentQuery = this.criteriaToQuery(
                 collection(this.firestore, FirestoreCollections.listings),

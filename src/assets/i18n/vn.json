@@ -9,7 +9,24 @@
         "company_intro_2": "Sự hài lòng của khách hàng là thành công của chúng tôi",
         "contact_us": "Liên hệ",
         "office_address": "168 Hà Huy Tập, Phường Tân Phong, Quận 7, TP.HCM",
-        "first_contact": "Tel: 84-28-54170823"
+        "first_contact": "Tel: 84-28-54170823",
+        "our_mission": "Mục đích",
+        "mission_statement": "Giúp khách hàng mua bán bất động sản một cách dễ dàng, nhanh chóng",
+        "experience": "Giàu kinh nghiệm",
+        "commitment": "Ân cần",
+        "main_office": "Văn phòng chính",
+        "hours": "Giờ hành chính",
+        "weekdays_hours": "Ngày thường: 9:00 sáng đến 5:30 chiều",
+        "weekends_hours": "Cuối tuần: 10:00 sáng to 4:30 chiều",
+        "msg_us": "Liên hệ qua lời nhắn",
+        "inquiry_label": "Chủ đề",
+        "contact_method": "Cách chúng tôi liên lạc bạn",
+        "inquiry_details": "Chi tiết",
+        "send": "Gửi",
+        "newsletter_signup_msg": "Đăng ký nhận email quảng cáo/giới thiệu sản phẩm mới",
+        "email_addr": "Địa chỉ email",
+        "newsletter_signup": "Đăng ký",
+        "inquiry_submitted": "Chúng tôi đã nhận được lời nhắn của bạn"
     },
     "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
     "home": {
@@ -18,12 +35,14 @@
         "real_estate": "Anh Nguyễn",
         "rent": "THUÊ",
         "buy": "MUA",
-        "view_all": "Xem toàn bộ sản phẩm"
+        "find": "Tìm sản phẩm",
+        "view_all": "Xem toàn bộ",
+        "featured": "Sản phẩm tiêu biểu"
     },
     "layout": {
         "listings": "Sản phẩm",
         "edit_listings": "Đăng/Sửa sản phẩm",
-        "about_us": "Liên hệ",
+        "about_us": "Giới thiệu",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "english": "Tiếng Anh 🇬🇧",
@@ -90,7 +109,15 @@
         "description": "Chi tiết sản phẩm",
         "contact": "Liên hệ",
         "view": "View",
-        "available_on": "Có thể liên lạc qua"
+        "available_on": "Có thể liên lạc qua",
+        "view_all": "Xem hết",
+        "all_imgs_loaded": "Đã lấy hết hình 🎉",
+        "not_found": {
+            "main_msg": "Sản phẩm đã được gỡ, hoặc không tồn tại trong kho dữ liệu",
+            "view_others": "Xem các sản phẩm khác"
+        },
+        "photos": "Hình ảnh",
+        "video": "Video"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",
@@ -146,7 +173,8 @@
         "contact_person": "Liên hệ",
         "edit_cover_img": "Sửa hình đại diện",
         "edit_media": "Sửa hình ảnh kèm",
-        "available_on": "Liên hệ qua chat app khác"
+        "available_on": "Liên hệ qua chat app khác",
+        "tiktok_link": "Link TikTok"
     },
     "login": {
         "page_title": "Đăng nhập",

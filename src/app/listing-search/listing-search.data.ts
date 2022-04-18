@@ -22,7 +22,8 @@ export interface Listing {
     view?: string //Referring to the property's living room's views,
     featured?: boolean,
     creationDate?: Timestamp,
-    createdBy?: string
+    createdBy?: string,
+    tiktokUrl?: string
 }
 
 export interface ListingImageFile {
