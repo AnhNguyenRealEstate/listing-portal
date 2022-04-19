@@ -22,6 +22,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -41,6 +42,7 @@ const maskConfig: Partial<IConfig> = {
     HttpClientModule,
     HttpClientJsonpModule,
     SharedModule,
+    MatSidenavModule,
     ListingCardModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({

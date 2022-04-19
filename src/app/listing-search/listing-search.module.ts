@@ -10,6 +10,8 @@ import { ListingSearchRoutingModule } from './listing-search-routing.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ListingCardModule } from '../listing-card/listing-card.module';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ListingCardModule } from '../listing-card/listing-card.module';
     }),
     GoogleMapsModule,
     MatExpansionModule,
-    ListingCardModule
+    MatMenuModule,
+    ListingCardModule,
+    NgxPageScrollCoreModule
   ]
 })
 export class ListingSearchModule { }
