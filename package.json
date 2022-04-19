@@ -33,7 +33,7 @@
     "@angular/material": "^13.3.2",
     "@angular/platform-browser": "~13.3.3",
     "@angular/platform-browser-dynamic": "~13.3.3",
-    "@angular/router": "~13.3.2",
+    "@angular/router": "~13.3.3",
     "@ng-idle/core": "*",
     "@ng-idle/keepalive": "*",
     "@ngx-translate/core": "^14.0.0",
