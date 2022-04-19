@@ -162,19 +162,6 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
   const ogReplacement = await getOpenGraph(isListingDetailsPage);
   indexHTML = indexHTML.replace(ogPlaceholder, ogReplacement);
 
-  const googleAdsPlaceHolder = '<meta name="functions-insert-google-analytics">';
-  const googleAdsReplacement = `<script async src="https://www.googletagmanager.com/gtag/js?id=UA-196264780-1">
-  </script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-196264780-1');
-  </script>`;
-  indexHTML = indexHTML.replace(googleAdsPlaceHolder, googleAdsReplacement);
-
-
   res.status(200).send(indexHTML);
 });
 
