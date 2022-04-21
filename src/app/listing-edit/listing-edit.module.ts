@@ -11,6 +11,10 @@ import { RTEditorModule } from '../rich-text-editor/rich-text-editor.module';
 import { ConfirmationDialogComponent } from './confirmation/confirmation-dialog.component';
 import { ListingEditCardComponent } from './listing-edit-card/listing-edit-card.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     }),
     NgxMaskModule.forChild(),
     RTEditorModule,
-    DragDropModule
+    DragDropModule,
+    MatChipsModule,
+    MatBadgeModule,
+    MatAutocompleteModule,
+    NgxPageScrollCoreModule
   ],
   exports: [
   ]

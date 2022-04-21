@@ -6,25 +6,25 @@ import * as fs from 'fs';
 admin.initializeApp();
 
 /**
- * After a listing's creation
- * Update id an creation date for a listing upon upload
+ * After an inquiry's creation
+ * Update id and creation date for that inquiry
  */
- exports.postProcessInquiryCreation = functions.region('asia-southeast1').firestore
- .document('inquiries/{documentId}')
- .onCreate((snap, context) => {
-   const id = context.params.documentId;
-   const creationDate = admin.firestore.Timestamp.fromDate(new Date());
+exports.postProcessInquiryCreation = functions.region('asia-southeast1').firestore
+  .document('inquiries/{documentId}')
+  .onCreate((snap, context) => {
+    const id = context.params.documentId;
+    const creationDate = admin.firestore.Timestamp.fromDate(new Date());
 
-   return snap.ref.update(
-     {
-       'id': id,
-       'creationDate': creationDate
-     });
- });
+    return snap.ref.update(
+      {
+        'id': id,
+        'creationDate': creationDate
+      });
+  });
 
 /**
  * After a listing's creation
- * Update id an creation date for a listing upon upload
+ * Update id and creation date for that listing
  */
 exports.postProcessListingCreation = functions.region('asia-southeast1').firestore
   .document('listings/{documentId}')
@@ -161,6 +161,7 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
   const ogPlaceholder = '<meta name="functions-insert-dynamic-og">';
   const ogReplacement = await getOpenGraph(isListingDetailsPage);
   indexHTML = indexHTML.replace(ogPlaceholder, ogReplacement);
+
   res.status(200).send(indexHTML);
 });
 

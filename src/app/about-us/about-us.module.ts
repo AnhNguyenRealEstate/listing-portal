@@ -9,7 +9,7 @@ import { FooterModule } from '../footer/footer.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
@@ -19,6 +19,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     AboutUsRoutingModule,
     MatDividerModule,
     MatCardModule,

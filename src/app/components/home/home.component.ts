@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Listing, SearchCriteria } from 'src/app/listing-search/listing-search.data';
 import { HomeService } from './home.service';
@@ -11,7 +11,7 @@ import { getAnalytics, logEvent } from '@angular/fire/analytics';
     templateUrl: 'home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     numberOfMockListings = Array(3).fill(0);
     featuredListings!: Listing[];
 
@@ -24,16 +24,17 @@ export class HomeComponent {
     constructor(
         private router: Router,
         private homeService: HomeService,
-        private changeDetector: ChangeDetectorRef,
-        @Inject(DOCUMENT) { defaultView }: Document
+        @Inject(DOCUMENT) private document: Document
     ) {
-        const width = defaultView ? defaultView.innerWidth : 0;
+    }
+
+    ngOnInit(): void {
+        const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
         const mobileDevicesWidth = 600;
         const isDesktop = width > mobileDevicesWidth;
         if (isDesktop) {
             this.homeService.getFeaturedListings().then(listings => {
                 this.featuredListings = listings;
-                this.changeDetector.detectChanges();
             });
         }
 

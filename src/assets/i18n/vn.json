@@ -4,9 +4,9 @@
     "about_us": {
         "about_us": "Bất Động Sản Anh Nguyễn",
         "company_intro_1_title": "Hơn {{tenure}} Năm Hành Nghề",
-        "company_intro_1": "Thành lập năm 2008, Anh Nguyễn tự hào là một trong những công ty BDS lâu năm ở Quận 7, TP.HCM",
+        "company_intro_1": "Thành lập năm 2008, BĐS Anh Nguyễn tự hào là một trong những công ty BĐS lâu đời ở khu vực Phú Mỹ Hưng, Quận 7, TP.HCM. ",
         "company_intro_2_title": "1000+ Khách Mỗi Năm",
-        "company_intro_2": "Sự hài lòng của khách hàng là thành công của chúng tôi",
+        "company_intro_2": "Sự hài lòng của khách hàng là thành công của chúng tôi. Trong suốt quá trình phục vụ, chúng tôi luôn tận tâm xử lý các khúc mắc của khách hàng.",
         "contact_us": "Liên hệ",
         "office_address": "168 Hà Huy Tập, Phường Tân Phong, Quận 7, TP.HCM",
         "first_contact": "Tel: 84-28-54170823",
@@ -17,7 +17,7 @@
         "main_office": "Văn phòng chính",
         "hours": "Giờ hành chính",
         "weekdays_hours": "Ngày thường: 9:00 sáng đến 5:30 chiều",
-        "weekends_hours": "Cuối tuần: 10:00 sáng to 4:30 chiều",
+        "weekends_hours": "Cuối tuần: 10:00 sáng đến 4:30 chiều",
         "msg_us": "Liên hệ qua lời nhắn",
         "inquiry_label": "Chủ đề",
         "contact_method": "Cách chúng tôi liên lạc bạn",
@@ -26,7 +26,8 @@
         "newsletter_signup_msg": "Đăng ký nhận email quảng cáo/giới thiệu sản phẩm mới",
         "email_addr": "Địa chỉ email",
         "newsletter_signup": "Đăng ký",
-        "inquiry_submitted": "Chúng tôi đã nhận được lời nhắn của bạn"
+        "inquiry_submitted": "Chúng tôi đã nhận được lời nhắn của bạn",
+        "email_submitted": "Bạn đã đăng ký nhận email quảng cáo từ công ty"
     },
     "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
     "home": {

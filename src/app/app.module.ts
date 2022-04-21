@@ -24,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -45,6 +46,7 @@ const maskConfig: Partial<IConfig> = {
     SharedModule,
     MatExpansionModule,
     MatMenuModule,
+    MatSidenavModule,
     ListingCardModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({

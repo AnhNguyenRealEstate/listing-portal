@@ -19,8 +19,12 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "/listings/details/**",
         "function": "customIndexHtml"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   },
