@@ -142,7 +142,9 @@
         "found_x_results": "Retrieved {{resultCount}} listing(s)",
         "order_by": "Order by",
         "most_recent": "Most recent",
-        "most_affordable": "Most affordable"
+        "least_recent": "Least recent",
+        "most_affordable": "Most affordable",
+        "least_affordable": "Most expensive"
     },
     "listing_upload": {
         "category": "Category",
