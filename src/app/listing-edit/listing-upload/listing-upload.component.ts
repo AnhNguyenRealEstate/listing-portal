@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext 
 import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
@@ -25,6 +25,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     modalTitle: string = '';
 
     locations: string[] = [];
+    filteredLocations$$ = new BehaviorSubject<string[]>([]);
+    filteredLocations$: Observable<string[]> = this.filteredLocations$$.asObservable();
 
     imageFiles: ListingImageFile[] = [];
     imageSrcs: string[] = [];
@@ -64,6 +66,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     async ngOnInit() {
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
+            this.updateOptions();
         }));
 
         this.snackbarMsgs = await lastValueFrom(this.translate.get(
@@ -273,6 +276,13 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         moveItemInArray(this.imageSrcs, event.previousIndex, event.currentIndex);
         moveItemInArray(this.imageFiles, event.previousIndex, event.currentIndex);
         this.imageFilesModified = true;
+    }
+
+    updateOptions() {
+        // Filter for location as user types, return all if left blank
+        this.filteredLocations$$.next(this.locations.filter(loc =>
+            !this.listing.location || loc.toLowerCase().includes(this.listing.location.toLowerCase())
+        ));
     }
 
     checkValidityForUpload(listing: Listing): boolean {
