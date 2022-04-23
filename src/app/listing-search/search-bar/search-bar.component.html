@@ -107,9 +107,18 @@
                     <span [class.text-bold]="searchCriteria.orderBy === 'Most Recent'">{{ 'search_bar.most_recent' |
                         translate }}</span>
                 </button>
+                <button mat-menu-item (click)="searchCriteria.orderBy = 'Least Recent'; getListings(searchCriteria)">
+                    <span [class.text-bold]="searchCriteria.orderBy === 'Least Recent'">{{ 'search_bar.least_recent' |
+                        translate }}</span>
+                </button>
                 <button mat-menu-item (click)="searchCriteria.orderBy = 'Most Affordable'; getListings(searchCriteria)">
                     <span [class.text-bold]="searchCriteria.orderBy === 'Most Affordable'">{{
                         'search_bar.most_affordable' | translate }}</span>
+                </button>
+                <button mat-menu-item
+                    (click)="searchCriteria.orderBy = 'Least Affordable'; getListings(searchCriteria)">
+                    <span [class.text-bold]="searchCriteria.orderBy === 'Least Affordable'">{{
+                        'search_bar.least_affordable' | translate }}</span>
                 </button>
             </mat-menu>
         </div>
@@ -244,9 +253,20 @@
                             translate }}</span>
                     </button>
                     <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Least Recent'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Least Recent'">{{ 'search_bar.least_recent'
+                            |
+                            translate }}</span>
+                    </button>
+                    <button mat-menu-item
                         (click)="searchCriteria.orderBy = 'Most Affordable'; getListings(searchCriteria)">
                         <span [class.text-bold]="searchCriteria.orderBy === 'Most Affordable'">{{
                             'search_bar.most_affordable' | translate }}</span>
+                    </button>
+                    <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Least Affordable'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Least Affordable'">{{
+                            'search_bar.least_affordable' | translate }}</span>
                     </button>
                 </mat-menu>
             </div>

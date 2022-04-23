@@ -125,7 +125,7 @@
         </div>
         <mat-divider></mat-divider>
 
-        <mat-tab-group mat-stretch-tabs color="accent">
+        <mat-tab-group mat-stretch-tabs color="accent" dynamicHeight>
             <mat-tab [label]="'listing_details.photos' | translate">
                 <div class="pt-2 pb-2" *ngIf="!images.length">
                     <mat-spinner></mat-spinner>

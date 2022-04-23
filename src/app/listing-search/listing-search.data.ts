@@ -40,7 +40,7 @@ export interface SearchCriteria {
     bedrooms: string
     bathrooms: string
     purpose: 'For Rent' | 'For Sale'
-    orderBy: 'Most Recent' | 'Most Affordable'
+    orderBy: 'Most Recent' | 'Most Affordable' | 'Least Recent' | 'Least Affordable'
 }
 
 /* The following const is used for searching purposes ONLY */

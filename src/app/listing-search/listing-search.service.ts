@@ -102,6 +102,10 @@ export class ListingSearchService {
             q = query(q, orderBy('price', 'asc'));
         } else if (criteria.orderBy === 'Most Recent') {
             q = query(q, orderBy('creationDate', 'desc'));
+        } else if (criteria.orderBy === 'Least Affordable') {
+            q = query(q, orderBy('price', 'desc'));
+        } else if (criteria.orderBy === 'Least Recent') {
+            q = query(q, orderBy('creationDate', 'asc'));
         }
 
         q = query(q, limit(this.paginationLimit));
