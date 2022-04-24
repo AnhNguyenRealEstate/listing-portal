@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { collection, Firestore, limit, onSnapshot, orderBy, query } from '@angular/fire/firestore';
+import { onSnapshot } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Listing } from '../../listing-search/listing-search.data';
 import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
 import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { ListingEditService } from './listing-edit.service';
-import { FirestoreCollections } from '../../shared/globals';
 import { Unsubscribe } from '@angular/fire/auth';
 import { PageScrollService } from 'ngx-page-scroll-core';
 import { DOCUMENT } from '@angular/common';
@@ -28,7 +27,6 @@ export class ListingEditComponent implements OnInit {
     snapshotCancel: Unsubscribe = () => { };
 
     constructor(
-        private firestore: Firestore,
         private dialog: MatDialog,
         public listingEditService: ListingEditService,
         private pageScroll: PageScrollService,
