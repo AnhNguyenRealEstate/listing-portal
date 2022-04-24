@@ -23,7 +23,6 @@ import { SharedModule } from './shared/shared.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { FacebookModule } from 'ngx-facebook';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -45,7 +44,6 @@ const maskConfig: Partial<IConfig> = {
     SharedModule,
     MatSidenavModule,
     ListingCardModule,
-    FacebookModule.forRoot(),
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
