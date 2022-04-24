@@ -33,6 +33,10 @@ Go to Firestore, add `app-data` as a new collection, add `listing-data` as a new
 
 #### 4. Run ng serve at project root and begin devving.
 
+#### 5. Debug from other devices
+Add `"host" : "0.0.0.0"` to firebase.json's emulator's Hosting config
+Browse `http://[local IP address]:5050` from your phone or other devices
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
