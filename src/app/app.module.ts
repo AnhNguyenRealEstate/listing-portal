@@ -78,14 +78,7 @@ const maskConfig: Partial<IConfig> = {
       }
       return auth;
     }),
-    provideAnalytics(() => getAnalytics(getApp())),
-    provideFunctions(() => {
-      const functions = getFunctions(getApp());
-      if (!environment.production) {
-        connectFunctionsEmulator(functions, "localhost", 5001);
-      }
-      return functions;
-    })
+    provideAnalytics(() => getAnalytics(getApp()))
   ],
   bootstrap: [AppComponent]
 })

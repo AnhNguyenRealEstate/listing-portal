@@ -7,7 +7,6 @@ import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/ap
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile } from "../../listing-search/listing-search.data";
 import { ListingUploadService } from "../listing-upload/listing-upload.service";
-import { getFunctions, connectFunctionsEmulator } from "@angular/fire/functions";
 
 
 describe('Listing Upload Service', () => {
@@ -26,8 +25,6 @@ describe('Listing Upload Service', () => {
             imports: [
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
-                    const functions = getFunctions(firebaseApp);
-                    connectFunctionsEmulator(functions, "localhost", 5001);
                     return firebaseApp;
                 }),
                 provideFirestore(() => {

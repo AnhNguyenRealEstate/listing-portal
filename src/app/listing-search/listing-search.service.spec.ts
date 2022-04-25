@@ -10,7 +10,6 @@ import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.se
 import { ListingUploadService } from "../listing-edit/listing-upload/listing-upload.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { Router } from "@angular/router";
-import { getFunctions, connectFunctionsEmulator } from "@angular/fire/functions";
 import { ListingDetailsService } from "../listing-details/listing-details.service";
 
 
@@ -35,8 +34,6 @@ describe('Listing Search Service', () => {
                 RouterTestingModule.withRoutes([]),
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
-                    const functions = getFunctions(firebaseApp);
-                    connectFunctionsEmulator(functions, "localhost", 5001);
                     return firebaseApp;
                 }),
                 provideFirestore(() => {
