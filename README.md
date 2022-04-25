@@ -56,5 +56,10 @@ If you only modified cloud functions, you can deploy it separately using `npm ru
 3. Deploy to Firebase Hosting and Cloud Functions
 
 ## Stock images
-Home background: https://www.pexels.com/photo/spacious-living-room-near-table-7195897/
+Home background: https://www.pexels.com/photo/four-brown-wooden-chairs-2635038
+Home background mobile: https://www.pexels.com/photo/white-and-brown-table-lamp-on-brown-wooden-round-table-7363341
 
+## Allowing other devices to connect to local development site
+1. Download ngrok
+2. Use the following command:
+`ngrok http --host-header="localhost:4200" 4200`
