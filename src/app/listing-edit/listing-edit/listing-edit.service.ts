@@ -12,9 +12,7 @@ export class ListingEditService {
     private _paginationLimit: number = this.desktopPaginationLimit;
     private _lastResultOfCurrentPagination!: DocumentSnapshot;
 
-    private _queryListingsByCreationDateDesc: Query<DocumentData> = query(collection(this.firestore, FirestoreCollections.listings),
-        orderBy("creationDate", 'desc'),
-        limit(this._paginationLimit));
+    private _queryListingsByCreationDateDesc!: Query<DocumentData>;
 
     constructor(
         private firestore: Firestore,
@@ -25,6 +23,10 @@ export class ListingEditService {
         if (width <= mobileDevicesWidth) {
             this._paginationLimit = this.mobilePaginationLimit;
         }
+
+        this._queryListingsByCreationDateDesc = query(collection(this.firestore, FirestoreCollections.listings),
+            orderBy("creationDate", 'desc'),
+            limit(this._paginationLimit));
     }
 
     async getMoreListings(): Promise<Listing[]> {

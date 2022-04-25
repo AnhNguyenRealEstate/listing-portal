@@ -20,6 +20,8 @@ describe('Listing Upload Service', () => {
     let listingEdit: ListingEditService;
 
     beforeEach(async () => {
+        const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
+        
         TestBed.configureTestingModule({
             imports: [
                 provideFirebaseApp(() => {
@@ -42,11 +44,12 @@ describe('Listing Upload Service', () => {
                     auth = getAuth();
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
-                })]
+                })],
+                providers: [{provide: Document, useValue: documentSpy}]
         });
 
-        listingUpload = new ListingUploadService(firestore, storage);
-        listingEdit = new ListingEditService(firestore, storage);
+        listingUpload = new ListingUploadService(firestore, storage, auth);
+        listingEdit = new ListingEditService(firestore, storage, documentSpy);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
     });

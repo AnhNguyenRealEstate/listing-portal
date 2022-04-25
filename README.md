@@ -35,7 +35,7 @@ Go to Firestore, add `app-data` as a new collection, add `listing-data` as a new
 
 #### 5. Debug from other devices
 Add `"host" : "0.0.0.0"` to firebase.json's emulator's Hosting config
-Browse `http://[local IP address]:5050` from your phone or other devices
+Browse `http://[local-IP-address]:5050` from your phone or other devices
 
 ## Running unit tests
 

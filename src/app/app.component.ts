@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { FacebookService } from 'ngx-facebook';
 import { lastValueFrom } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { SessionTimeoutService } from './components/session-timeout/session-timeout.service';
@@ -21,16 +20,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     private translate: TranslateService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private titleService: Title,
-    private facebook: FacebookService) {
+    private titleService: Title) {
   }
 
   async ngOnInit() {
-    this.facebook.init({
-      xfbml: true,
-      version: 'v13.0'
-    });
-    
     this.timeoutService.setTimeout();
 
     this.router.events.pipe(
