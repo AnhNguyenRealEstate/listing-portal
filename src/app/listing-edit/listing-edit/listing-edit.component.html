@@ -37,8 +37,7 @@
                 <div *ngIf="listingToShow !== undefined">
                     <mat-card>
                         <mat-card-content>
-                            <listing-upload [listing]="listingToShow" [isEditMode]="true"
-                                [dbReferenceId]="listingToShow.id!">
+                            <listing-upload [listing]="listingToShow" [isEditMode]="true">
                             </listing-upload>
                         </mat-card-content>
                     </mat-card>

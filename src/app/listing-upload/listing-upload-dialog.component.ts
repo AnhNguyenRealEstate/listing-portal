@@ -1,28 +1,28 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext } from '@angular/core';
-import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MetadataService } from 'src/app/shared/metadata.service';
-import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
-import { ListingUploadService } from './listing-upload.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
-import { DomSanitizer } from '@angular/platform-browser';
+import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MetadataService } from 'src/app/shared/metadata.service';
+import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { AvailableContactChannels } from './listing-upload.data';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ListingUploadService } from './listing-upload.service';
 
 @Component({
-    selector: 'listing-upload',
-    templateUrl: 'listing-upload.component.html',
-    styleUrls: ['./listing-upload.component.scss']
+    selector: 'listing-upload-dialog',
+    templateUrl: 'listing-upload-dialog.component.html',
+    styleUrls: ['./listing-upload-dialog.component.scss']
 })
-export class ListingUploadComponent implements OnInit, OnDestroy {
-    @Input() listing: Listing = {} as Listing;
-    @Input() isEditMode = false;
-    @Input() dbReferenceId: string = '';
 
-    modalTitle: string = '';
+export class ListingUploadDialogComponent implements OnInit {
+    listing: Listing = {};
+    dbReferenceId: string = '';
+
+    isEditMode: boolean = false;
 
     locations: string[] = [];
     filteredLocations$$ = new BehaviorSubject<string[]>([]);
@@ -49,18 +49,18 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     AvailableContactChannels = AvailableContactChannels;
 
     constructor(
-        private snackbar: MatSnackBar,
         private metadata: MetadataService,
-        private imageCompress: NgxImageCompressService,
-        private sanitizer: DomSanitizer,
         public listingUploadService: ListingUploadService,
+        private imageCompress: NgxImageCompressService,
+        private snackbar: MatSnackBar,
+        public dialogRef: MatDialogRef<ListingUploadDialogComponent>,
         private translate: TranslateService,
-        @Optional() private dialogRef: MatDialogRef<ListingUploadComponent>,
-        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
+        private sanitizer: DomSanitizer,
+        @Inject(MAT_DIALOG_DATA) private data: any
     ) {
-        if (this.data?.listing) {
-            this.listing = { ...this.data.listing };
-        }
+        this.listing = { ...this.data.listing }
+        this.dbReferenceId =  this.listing.id!;
+        this.isEditMode = this.data.isEditMode;
     }
 
     async ngOnInit() {
@@ -122,7 +122,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         }
 
         this.compressionInProgress = true;
-
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
 
@@ -181,9 +180,10 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         reader.readAsDataURL(file);
         reader.onload = async () => {
             const base64Img = reader.result as string;
+
             const compressedImgAsBase64Url =
                 await this.imageCompress.compressFile(
-                    base64Img as string, DOC_ORIENTATION.Default,
+                    base64Img, DOC_ORIENTATION.Default,
                     100, 75, 1920, 1080);
 
             const response = await fetch(compressedImgAsBase64Url);
@@ -238,9 +238,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
             }
         );
 
-        if (this.dialogRef) {
-            this.dialogRef.close();
-        }
+        this.dialogRef.close();
     }
 
     async saveEdit() {
@@ -305,6 +303,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
                 return true;
             }
         }
+
 
         return false;
     }

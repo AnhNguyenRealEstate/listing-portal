@@ -15,7 +15,6 @@ import { firebaseConfig } from './shared/globals';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
 import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
-import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
 import { environment } from 'src/environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -23,6 +22,7 @@ import { SharedModule } from './shared/shared.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -43,6 +43,7 @@ const maskConfig: Partial<IConfig> = {
     HttpClientJsonpModule,
     SharedModule,
     MatSidenavModule,
+    MatMenuModule,
     ListingCardModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({

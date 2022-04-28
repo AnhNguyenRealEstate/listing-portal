@@ -7,9 +7,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ListingUploadModule } from '../listing-upload/listing-upload.module';
 
 @NgModule({
-  declarations: [ListingCardComponent],
+  declarations: [
+    ListingCardComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -19,7 +21,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
       extend: true
     }),
     ClipboardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ListingUploadModule
   ],
   exports: [ListingCardComponent]
 })

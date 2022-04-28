@@ -1,6 +1,14 @@
 <mat-card class="mt-1 result-card" (click)="showListing()">
     <div *ngIf="!coverImageUrl" class="ph-picture"></div>
     <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
+    <button *ngIf="login.loggedIn$ | async" mat-icon-button color="accent" 
+    class="d-none d-lg-block edit-btn" (click)="editListing($event)">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button *ngIf="login.loggedIn$ | async" mat-icon-button color="accent" 
+    class="d-lg-none edit-btn" (click)="editListingMobile($event)">
+        <mat-icon>edit</mat-icon>
+    </button>
     <mat-card-content>
         <div class="row">
             <div class="col-12 pb-2 text-vertical-align">

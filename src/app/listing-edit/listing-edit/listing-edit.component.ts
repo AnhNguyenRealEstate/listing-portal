@@ -2,12 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { onSnapshot } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Listing } from '../../listing-search/listing-search.data';
-import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
-import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 import { ListingEditService } from './listing-edit.service';
 import { Unsubscribe } from '@angular/fire/auth';
 import { PageScrollService } from 'ngx-page-scroll-core';
 import { DOCUMENT } from '@angular/common';
+import { ListingUploadDialogComponent } from 'src/app/listing-upload/listing-upload-dialog.component';
+import { ListingUploadComponent } from 'src/app/listing-upload/listing-upload.component';
 
 @Component({
     selector: 'listing-edit',

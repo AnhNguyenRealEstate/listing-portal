@@ -36,6 +36,10 @@
     line-height: normal;
 }
 
+::ng-deep .employee-actions-menu {
+    background: colors.$alt-primary;
+}
+
 mat-sidenav-container,
 mat-sidenav-content {
     overflow: initial !important; //allowing position sticky on criteria panel
@@ -44,10 +48,6 @@ mat-sidenav-content {
 .language-toggle {
     font-size: 10px;
     width: 80px;
-
-    mat-form-field {
-        width: 70px !important;
-    }
 }
 
 .language-toggle-mobile {
