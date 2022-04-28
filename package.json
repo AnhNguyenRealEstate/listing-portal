@@ -43,7 +43,7 @@
     "jquery": "^3.6.0",
     "merge-images": "^2.0.0",
     "ngx-image-compress": "^13.1.9",
-    "ngx-mask": "^13.1.10",
+    "ngx-mask": "^13.1.12",
     "ngx-translate": "github:ngx-translate/core",
     "ngx-trim-directive": "^2.0.0",
     "ngx-useful-swiper": "^10.0.1",
