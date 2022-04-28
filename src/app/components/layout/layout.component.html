@@ -20,7 +20,7 @@
         </div>
 
         <ng-container *ngIf="loggedIn">
-            <a mat-button [matMenuTriggerFor]="menu">
+            <a mat-button [matMenuTriggerFor]="menu" [matTooltip]="auth.currentUser?.email || ' '">
                 <mat-icon>account_circle</mat-icon>
             </a>
             <mat-menu #menu="matMenu" class="employee-actions-menu">

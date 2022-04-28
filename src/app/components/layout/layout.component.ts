@@ -22,7 +22,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     constructor(
         private router: Router,
-        private auth: Auth,
+        public auth: Auth,
         private loginService: LoginService,
         private dialog: MatDialog,
         public translate: TranslateService) {

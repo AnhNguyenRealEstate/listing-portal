@@ -88,7 +88,8 @@
     },
     "listing_card": {
         "share_listing": "Copy link",
-        "link_copied": "Shareable link copied 🌟"
+        "link_copied": "Shareable link copied 🌟",
+        "edit": "Edit this listing"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {

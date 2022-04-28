@@ -87,7 +87,8 @@
     },
     "listing_card": {
         "share_listing": "Lấy link sản phẩm",
-        "link_copied": "Đã lấy link sản phẩm 🌟"
+        "link_copied": "Đã lấy link sản phẩm 🌟",
+        "edit": "Chỉnh sửa sản phẩm"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
