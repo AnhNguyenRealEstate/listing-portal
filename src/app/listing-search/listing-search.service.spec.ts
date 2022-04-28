@@ -7,10 +7,9 @@ import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/ap
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile, SearchCriteria } from "../listing-search/listing-search.data";
 import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
-import { ListingUploadService } from "../listing-edit/listing-upload/listing-upload.service";
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router } from "@angular/router";
 import { ListingDetailsService } from "../listing-details/listing-details.service";
+import { ListingUploadService } from "../listing-upload/listing-upload.service";
 
 
 describe('Listing Search Service', () => {
@@ -23,8 +22,6 @@ describe('Listing Search Service', () => {
     let listingUpload: ListingUploadService;
     let listingSearch: ListingSearchService;
     let listingEdit: ListingEditService;
-
-    let router: Router;
 
     beforeEach(async () => {
         const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
@@ -54,7 +51,6 @@ describe('Listing Search Service', () => {
             ],
             providers: [{ provide: Document, useValue: documentSpy }]
         });
-        router = TestBed.inject(Router);
 
         listingDetails = new ListingDetailsService(firestore, storage);
         listingSearch = new ListingSearchService(firestore, documentSpy);

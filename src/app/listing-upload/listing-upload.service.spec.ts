@@ -3,10 +3,10 @@ import { collection, connectFirestoreEmulator, doc, Firestore, getDoc, getDocs, 
 import { connectStorageEmulator, FirebaseStorage, getStorage, provideStorage } from "@angular/fire/storage";
 import { ListingUploadService } from "./listing-upload.service"
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
-import { ListingEditService } from "../listing-edit/listing-edit.service";
+import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
-import { Listing, ListingImageFile } from "../../listing-search/listing-search.data";
+import { Listing, ListingImageFile } from "../listing-search/listing-search.data";
 
 
 describe('Listing Upload Service', () => {
@@ -48,7 +48,7 @@ describe('Listing Upload Service', () => {
         listingUpload = new ListingUploadService(firestore, storage, auth);
         listingEdit = new ListingEditService(firestore, storage, documentSpy);
 
-        await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
+        await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!');
     });
 
     afterEach(async () => {
