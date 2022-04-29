@@ -1,15 +1,13 @@
 import { Clipboard } from '@angular/cdk/clipboard';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, createNgModuleRef, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { LoginService } from '../components/login/login.service';
 import { Listing } from '../listing-search/listing-search.data';
-import { ListingUploadDialogComponent } from '../listing-upload/listing-upload-dialog.component';
-import { ListingUploadComponent } from '../listing-upload/listing-upload.component';
 
 @Component({
     selector: 'listing-card',
@@ -17,11 +15,14 @@ import { ListingUploadComponent } from '../listing-upload/listing-upload.compone
     styleUrls: ['./listing-card.component.scss']
 })
 
-export class ListingCardComponent implements OnInit {
+export class ListingCardComponent implements OnInit, OnDestroy {
     @Input() listing!: Listing;
 
     coverImageUrl: string = '';
     shareListingBtnTitle: string = '';
+
+    showEditBtn: boolean = false;
+    subs: Subscription = new Subscription();
 
     constructor(
         private storage: Storage,
@@ -29,13 +30,22 @@ export class ListingCardComponent implements OnInit {
         private router: Router,
         private snackbar: MatSnackBar,
         private dialog: MatDialog,
-        public login: LoginService,
+        private login: LoginService,
+        private injector: Injector,
         public translate: TranslateService) { }
 
     ngOnInit() {
         getDownloadURL(ref(this.storage, this.listing.coverImagePath)).then(url => {
             this.coverImageUrl = url;
         });
+
+        this.subs.add(this.login.loggedIn$.subscribe(isLoggedIn => {
+            this.showEditBtn = isLoggedIn;
+        }))
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
     }
 
     async getShareableLink(e: Event) {
@@ -61,7 +71,7 @@ export class ListingCardComponent implements OnInit {
         window.open(url, '_blank');
     }
 
-    editListing(event: Event) {
+    async editListing(event: Event) {
         event.stopPropagation();
 
         const config = {
@@ -72,10 +82,15 @@ export class ListingCardComponent implements OnInit {
                 isEditMode: true
             }
         } as MatDialogConfig;
-        this.dialog.open(ListingUploadComponent, config)
+
+        const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
+        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const listingUploadComponent = moduleRef.instance.getListingUploadComponent();
+
+        this.dialog.open(listingUploadComponent, config);
     }
 
-    editListingMobile(event: Event) {
+    async editListingMobile(event: Event) {
         event.stopPropagation();
 
         const config = {
@@ -86,6 +101,11 @@ export class ListingCardComponent implements OnInit {
                 isEditMode: true
             }
         } as MatDialogConfig;
-        this.dialog.open(ListingUploadDialogComponent, config)
+
+        const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
+        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const listingUploadDialogComponent = moduleRef.instance.getListingUploadDialogComponent();
+
+        this.dialog.open(listingUploadDialogComponent, config);
     }
 }

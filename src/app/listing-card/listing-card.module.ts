@@ -7,11 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ListingUploadModule } from '../listing-upload/listing-upload.module';
+import { MAT_AUTOCOMPLETE_SCROLL_STRATEGY } from '@angular/material/autocomplete';
+import { NoopScrollStrategy } from '@angular/cdk/overlay/scroll';
+import { Overlay } from '@angular/cdk/overlay';
 
 @NgModule({
-  declarations: [
-    ListingCardComponent],
+  declarations: [ListingCardComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -21,9 +22,13 @@ import { ListingUploadModule } from '../listing-upload/listing-upload.module';
       extend: true
     }),
     ClipboardModule,
-    MatTooltipModule,
-    ListingUploadModule
+    MatTooltipModule
   ],
-  exports: [ListingCardComponent]
+  exports: [ListingCardComponent],
+  providers: [{ provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY, useFactory: scrollFactory, deps: [Overlay] }]
 })
 export class ListingCardModule { }
+
+export function scrollFactory(overlay: Overlay): () => NoopScrollStrategy {
+  return () => overlay.scrollStrategies.noop();
+}

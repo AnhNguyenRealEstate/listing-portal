@@ -11,7 +11,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from '../shared/shared.module';
 
 
-
 @NgModule({
   declarations: [
     ListingUploadComponent,
@@ -34,4 +33,14 @@ import { SharedModule } from '../shared/shared.module';
     ListingUploadDialogComponent,
   ]
 })
-export class ListingUploadModule { }
+export class ListingUploadModule {
+  constructor() { }
+
+  getListingUploadComponent() {
+    return ListingUploadComponent;
+  }
+
+  getListingUploadDialogComponent() {
+    return ListingUploadDialogComponent;
+  }
+}
