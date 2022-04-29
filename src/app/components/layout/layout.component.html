@@ -9,40 +9,42 @@
         <a mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
         <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
 
-        <div class="language-toggle">
-            <div class="language-toggle ms-2 me-4">
-                <mat-icon>language</mat-icon>
-                <mat-form-field color="accent">
-                    <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
-                        <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
-                        <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <ng-container *ngIf="loggedIn">
-                <a mat-button [matMenuTriggerFor]="menu" [matTooltip]="auth.currentUser?.email || ' '">
-                    <mat-icon>account_circle</mat-icon>
-                </a>
-                <mat-menu #menu="matMenu" class="employee-actions-menu">
-                    <a mat-menu-item [routerLink]="['/listing-edit']">
-                        <mat-icon>edit</mat-icon>
-                        {{ 'layout.edit_listings' | translate }}
-                    </a>
-                    <a mat-menu-item [routerLink]="['/employee-reporting']">{{ 'layout.reporting' | translate }}</a>
-                    <a mat-menu-item (click)="logout()">
-                        <mat-icon>logout</mat-icon> {{ 'layout.sign_out' | translate }}
-                    </a>
-                </mat-menu>
-            </ng-container>
-
-            <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()" [matTooltip]="'layout.sign_in' | translate">
-                <mat-icon>login</mat-icon>
-            </a>
+        <div class="language-toggle ms-2 me-4">
+            <mat-icon>language</mat-icon>
+            <mat-form-field color="accent">
+                <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
+                    <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
+                    <mat-option value='vn'>{{ 'layout.vietnamese' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
-            <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
-        </button>
+
+        <ng-container *ngIf="loggedIn">
+            <a mat-button [matMenuTriggerFor]="menu" [matTooltip]="auth.currentUser?.email || ' '">
+                <mat-icon>account_circle</mat-icon>
+            </a>
+            <mat-menu #menu="matMenu" class="employee-actions-menu">
+                <a mat-menu-item [routerLink]="['/listing-edit']">
+                    <mat-icon>edit</mat-icon>
+                    {{ 'layout.edit_listings' | translate }}
+                </a>
+                <a mat-menu-item [routerLink]="['/employee-reporting']">
+                    <mat-icon>assignment_ind</mat-icon>
+                    {{ 'layout.reporting' | translate }}
+                </a>
+                <a mat-menu-item (click)="logout()">
+                    <mat-icon>logout</mat-icon> {{ 'layout.sign_out' | translate }}
+                </a>
+            </mat-menu>
+        </ng-container>
+
+        <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()" [matTooltip]="'layout.sign_in' | translate">
+            <mat-icon>login</mat-icon>
+        </a>
+    </div>
+    <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
+        <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
@@ -69,7 +71,7 @@
             <mat-icon>real_estate_agent</mat-icon>
             <span class="ps-3">{{ 'layout.about_us' | translate }}</span>
         </a>
-        
+
         <mat-divider inset="true"></mat-divider>
 
         <a *ngIf="!loggedIn" mat-button (click)="showLoginModal()">

@@ -20,7 +20,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatMenuModule } from '@angular/material/menu';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
