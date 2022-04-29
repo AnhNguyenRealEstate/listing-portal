@@ -89,7 +89,8 @@
     },
     "listing_card": {
         "share_listing": "Lấy link sản phẩm",
-        "link_copied": "Đã lấy link sản phẩm 🌟"
+        "link_copied": "Đã lấy link sản phẩm 🌟",
+        "edit": "Chỉnh sửa sản phẩm"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
@@ -172,7 +173,7 @@
         "upload_new": "Đăng mới",
         "contact_number": "SĐT liên lạc",
         "media_to_upload": "Hình ảnh đính kèm",
-        "cover_image": "Hình đại diện",
+        "cover_image": "Hình đại diện (dùng hình chụp ngang)",
         "contact_person": "Liên hệ",
         "edit_cover_img": "Sửa hình đại diện",
         "edit_media": "Sửa hình ảnh kèm",

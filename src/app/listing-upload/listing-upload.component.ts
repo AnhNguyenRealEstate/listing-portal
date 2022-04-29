@@ -1,30 +1,31 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext } from '@angular/core';
+import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DomSanitizer } from '@angular/platform-browser';
+import { MetadataService } from 'src/app/shared/metadata.service';
+import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
-import { MetadataService } from 'src/app/shared/metadata.service';
-import { Listing, ListingImageFile } from '../../listing-search/listing-search.data';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AvailableContactChannels } from './listing-upload.data';
-import { ListingUploadService } from './listing-upload.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
-    selector: 'listing-upload-dialog',
-    templateUrl: 'listing-upload-dialog.component.html',
-    styleUrls: ['./listing-upload-dialog.component.scss']
+    selector: 'listing-upload',
+    templateUrl: 'listing-upload.component.html',
+    styleUrls: ['./listing-upload.component.scss']
 })
+export class ListingUploadComponent implements OnInit, OnDestroy {
+    @Input() listing: Listing = {} as Listing;
+    @Input() isEditMode = false;
 
-export class ListingUploadDialogComponent implements OnInit {
-    listing: Listing = {};
-    dbReferenceId: string = '';
-
-    isEditMode: boolean = false;
+    modalTitle: string = '';
 
     locations: string[] = [];
+    filteredLocations$$ = new BehaviorSubject<string[]>([]);
+    filteredLocations$: Observable<string[]> = this.filteredLocations$$.asObservable();
 
     imageFiles: ListingImageFile[] = [];
     imageSrcs: string[] = [];
@@ -47,23 +48,28 @@ export class ListingUploadDialogComponent implements OnInit {
     AvailableContactChannels = AvailableContactChannels;
 
     constructor(
-        private metadata: MetadataService,
-        public listingUploadService: ListingUploadService,
-        private imageCompress: NgxImageCompressService,
         private snackbar: MatSnackBar,
-        public dialogRef: MatDialogRef<ListingUploadDialogComponent>,
-        private translate: TranslateService,
+        private metadata: MetadataService,
+        private imageCompress: NgxImageCompressService,
         private sanitizer: DomSanitizer,
-        @Inject(MAT_DIALOG_DATA) private data: any
+        public listingUploadService: ListingUploadService,
+        private translate: TranslateService,
+        @Optional() private dialogRef: MatDialogRef<ListingUploadComponent>,
+        @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
-        this.listing = { ...this.data.listing }
-        this.dbReferenceId = this.data.dbReferenceId;
-        this.isEditMode = this.data.isEditMode;
+        if (this.data?.listing) {
+            this.listing = { ...this.data.listing };
+        }
+
+        if (this.data?.isEditMode) {
+            this.isEditMode = true;
+        }
     }
 
     async ngOnInit() {
         this.subs.add(this.metadata.locations().subscribe(data => {
             this.locations = data;
+            this.updateOptions();
         }));
 
         this.snackbarMsgs = await lastValueFrom(this.translate.get(
@@ -119,6 +125,7 @@ export class ListingUploadDialogComponent implements OnInit {
         }
 
         this.compressionInProgress = true;
+
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
 
@@ -177,10 +184,9 @@ export class ListingUploadDialogComponent implements OnInit {
         reader.readAsDataURL(file);
         reader.onload = async () => {
             const base64Img = reader.result as string;
-
             const compressedImgAsBase64Url =
                 await this.imageCompress.compressFile(
-                    base64Img, DOC_ORIENTATION.Default,
+                    base64Img as string, DOC_ORIENTATION.Default,
                     100, 75, 1920, 1080);
 
             const response = await fetch(compressedImgAsBase64Url);
@@ -235,7 +241,9 @@ export class ListingUploadDialogComponent implements OnInit {
             }
         );
 
-        this.dialogRef.close();
+        if (this.dialogRef) {
+            this.dialogRef.close();
+        }
     }
 
     async saveEdit() {
@@ -252,7 +260,7 @@ export class ListingUploadDialogComponent implements OnInit {
 
         await this.listingUploadService.saveEdit(
             this.listing,
-            this.dbReferenceId,
+            this.listing.id!,
             this.imageFiles, this.imageFilesModified,
             this.coverImageFile!, this.coverImageModified
         );
@@ -271,6 +279,13 @@ export class ListingUploadDialogComponent implements OnInit {
         moveItemInArray(this.imageSrcs, event.previousIndex, event.currentIndex);
         moveItemInArray(this.imageFiles, event.previousIndex, event.currentIndex);
         this.imageFilesModified = true;
+    }
+
+    updateOptions() {
+        // Filter for location as user types, return all if left blank
+        this.filteredLocations$$.next(this.locations.filter(loc =>
+            !this.listing.location || loc.toLowerCase().includes(this.listing.location.toLowerCase())
+        ));
     }
 
     checkValidityForUpload(listing: Listing): boolean {
@@ -293,7 +308,6 @@ export class ListingUploadDialogComponent implements OnInit {
                 return true;
             }
         }
-
 
         return false;
     }

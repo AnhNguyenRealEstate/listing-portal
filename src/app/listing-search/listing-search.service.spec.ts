@@ -7,11 +7,9 @@ import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/ap
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile, SearchCriteria } from "../listing-search/listing-search.data";
 import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
-import { ListingUploadService } from "../listing-edit/listing-upload/listing-upload.service";
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router } from "@angular/router";
-import { ListingDetailsService } from "./listing-details/listing-details.service";
-import { getFunctions, connectFunctionsEmulator } from "@angular/fire/functions";
+import { ListingDetailsService } from "../listing-details/listing-details.service";
+import { ListingUploadService } from "../listing-upload/listing-upload.service";
 
 
 describe('Listing Search Service', () => {
@@ -25,16 +23,14 @@ describe('Listing Search Service', () => {
     let listingSearch: ListingSearchService;
     let listingEdit: ListingEditService;
 
-    let router: Router;
-
     beforeEach(async () => {
+        const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
+
         TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule.withRoutes([]),
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
-                    const functions = getFunctions(firebaseApp);
-                    connectFunctionsEmulator(functions, "localhost", 5001);
                     return firebaseApp;
                 }),
                 provideFirestore(() => {
@@ -52,14 +48,14 @@ describe('Listing Search Service', () => {
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
                 })
-            ]
+            ],
+            providers: [{ provide: Document, useValue: documentSpy }]
         });
-        router = TestBed.inject(Router);
 
-        listingDetails = new ListingDetailsService(firestore, storage, router);
-        listingSearch = new ListingSearchService(firestore, storage);
-        listingUpload = new ListingUploadService(firestore, storage);
-        listingEdit = new ListingEditService(firestore, storage);
+        listingDetails = new ListingDetailsService(firestore, storage);
+        listingSearch = new ListingSearchService(firestore, documentSpy);
+        listingUpload = new ListingUploadService(firestore, storage, auth);
+        listingEdit = new ListingEditService(firestore, storage, documentSpy);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
     });

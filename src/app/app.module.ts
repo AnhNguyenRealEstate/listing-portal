@@ -15,7 +15,6 @@ import { firebaseConfig } from './shared/globals';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage } from '@firebase/storage';
 import { connectStorageEmulator, provideStorage } from '@angular/fire/storage';
-import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
 import { environment } from 'src/environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -25,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -47,6 +47,7 @@ const maskConfig: Partial<IConfig> = {
     MatExpansionModule,
     MatMenuModule,
     MatSidenavModule,
+    MatMenuModule,
     ListingCardModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
@@ -82,14 +83,7 @@ const maskConfig: Partial<IConfig> = {
       }
       return auth;
     }),
-    provideAnalytics(() => getAnalytics(getApp())),
-    provideFunctions(() => {
-      const functions = getFunctions(getApp());
-      if (!environment.production) {
-        connectFunctionsEmulator(functions, "localhost", 5001);
-      }
-      return functions;
-    })
+    provideAnalytics(() => getAnalytics(getApp()))
   ],
   bootstrap: [AppComponent]
 })

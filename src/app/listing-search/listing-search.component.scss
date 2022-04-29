@@ -54,3 +54,7 @@
 .result-card-wrapper:hover {
   transform: translate3D(0, -1px, 0) scale(1.03);
 }
+
+.search-bar-wrapper {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}

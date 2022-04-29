@@ -3,11 +3,10 @@ import { collection, connectFirestoreEmulator, doc, Firestore, getDoc, getDocs, 
 import { connectStorageEmulator, FirebaseStorage, getStorage, provideStorage } from "@angular/fire/storage";
 import { ListingUploadService } from "./listing-upload.service"
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
-import { ListingEditService } from "../listing-edit/listing-edit.service";
+import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
-import { Listing, ListingImageFile } from "../../listing-search/listing-search.data";
-import { getFunctions, connectFunctionsEmulator } from "@angular/fire/functions";
+import { Listing, ListingImageFile } from "../listing-search/listing-search.data";
 
 
 describe('Listing Upload Service', () => {
@@ -20,12 +19,12 @@ describe('Listing Upload Service', () => {
     let listingEdit: ListingEditService;
 
     beforeEach(async () => {
+        const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
+        
         TestBed.configureTestingModule({
             imports: [
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
-                    const functions = getFunctions(firebaseApp);
-                    connectFunctionsEmulator(functions, "localhost", 5001);
                     return firebaseApp;
                 }),
                 provideFirestore(() => {
@@ -42,13 +41,14 @@ describe('Listing Upload Service', () => {
                     auth = getAuth();
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
-                })]
+                })],
+                providers: [{provide: Document, useValue: documentSpy}]
         });
 
-        listingUpload = new ListingUploadService(firestore, storage);
-        listingEdit = new ListingEditService(firestore, storage);
+        listingUpload = new ListingUploadService(firestore, storage, auth);
+        listingEdit = new ListingEditService(firestore, storage, documentSpy);
 
-        await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
+        await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!');
     });
 
     afterEach(async () => {

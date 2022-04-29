@@ -90,7 +90,8 @@
     },
     "listing_card": {
         "share_listing": "Copy link",
-        "link_copied": "Shareable link copied 🌟"
+        "link_copied": "Shareable link copied 🌟",
+        "edit": "Edit this listing"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {
@@ -173,7 +174,7 @@
         "upload_new": "Upload new listing",
         "contact_number": "Contact number",
         "media_to_upload": "Media attachments",
-        "cover_image": "Cover image",
+        "cover_image": "Cover image (landscape image)",
         "contact_person": "Name of contact",
         "edit_cover_img": "Edit cover image",
         "edit_media": "Edit attached images",

@@ -6,8 +6,7 @@ import { ListingEditService } from "./listing-edit.service";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile } from "../../listing-search/listing-search.data";
-import { ListingUploadService } from "../listing-upload/listing-upload.service";
-import { getFunctions, connectFunctionsEmulator } from "@angular/fire/functions";
+import { ListingUploadService } from "../../listing-upload/listing-upload.service";
 
 
 describe('Listing Upload Service', () => {
@@ -20,12 +19,12 @@ describe('Listing Upload Service', () => {
     let listingEdit: ListingEditService;
 
     beforeEach(async () => {
+        const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
+
         TestBed.configureTestingModule({
             imports: [
                 provideFirebaseApp(() => {
                     firebaseApp = initializeApp(firebaseConfig);
-                    const functions = getFunctions(firebaseApp);
-                    connectFunctionsEmulator(functions, "localhost", 5001);
                     return firebaseApp;
                 }),
                 provideFirestore(() => {
@@ -42,11 +41,12 @@ describe('Listing Upload Service', () => {
                     auth = getAuth();
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
-                })]
+                })],
+            providers: [{ provide: Document, useValue: documentSpy }]
         });
 
-        listingUpload = new ListingUploadService(firestore, storage);
-        listingEdit = new ListingEditService(firestore, storage);
+        listingUpload = new ListingUploadService(firestore, storage, auth);
+        listingEdit = new ListingEditService(firestore, storage, documentSpy);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
     });
