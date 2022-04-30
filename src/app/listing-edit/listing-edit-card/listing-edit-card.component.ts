@@ -45,6 +45,7 @@ export class ListingEditCardComponent implements OnInit {
 
         this.loadingSpinnerService.start();
         await this.listingEditService.archiveListing(id);
+        this.listing.archived = true;
         this.loadingSpinnerService.stop();
     }
 
@@ -53,6 +54,7 @@ export class ListingEditCardComponent implements OnInit {
 
         this.loadingSpinnerService.start();
         await this.listingEditService.unarchiveListing(id);
+        this.listing.archived = false;
         this.loadingSpinnerService.stop();
     }
 
@@ -61,6 +63,7 @@ export class ListingEditCardComponent implements OnInit {
 
         this.loadingSpinnerService.start();
         await this.listingEditService.featureListing(id);
+        this.listing.featured = true;
         this.loadingSpinnerService.stop();
     }
 
@@ -69,6 +72,7 @@ export class ListingEditCardComponent implements OnInit {
 
         this.loadingSpinnerService.start();
         await this.listingEditService.unfeatureListing(id);
+        this.listing.featured = false;
         this.loadingSpinnerService.stop();
     }
 

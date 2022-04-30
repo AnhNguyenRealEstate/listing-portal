@@ -58,7 +58,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
         if (this.data?.listing) {
-            this.listing = { ...this.data.listing };
+            this.listing = this.data.listing as Listing;
         }
 
         if (this.data?.isEditMode) {

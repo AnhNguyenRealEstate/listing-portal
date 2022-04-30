@@ -58,8 +58,8 @@ export class ListingUploadDialogComponent implements OnInit {
         private sanitizer: DomSanitizer,
         @Inject(MAT_DIALOG_DATA) private data: any
     ) {
-        this.listing = { ...this.data.listing }
-        this.dbReferenceId =  this.listing.id!;
+        this.listing = this.data.listing as Listing;
+        this.dbReferenceId = this.listing.id!;
         this.isEditMode = this.data.isEditMode;
     }
 
