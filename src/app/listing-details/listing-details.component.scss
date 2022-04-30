@@ -9,3 +9,33 @@
     min-height: 90vh;
     height: max-content;
 }
+
+.product-title-desktop {
+    padding-top: 1rem;
+    font-size: 30px;
+}
+
+.product-description-desktop {
+    font-size: 20px;
+    color: gray;
+}
+
+.contact-block-wrapper-desktop {
+    padding-top: 1em;
+    direction: rtl;
+    text-align: justify;
+}
+
+::ng-deep .next-icon:not(.disable),
+::ng-deep .prev-icon:not(.disable) {
+    color: red !important;
+}
+
+.product-title-mobile {
+    font-size: 25px;
+}
+
+.product-description-mobile {
+    font-size: 15px;
+    color: gray;
+}

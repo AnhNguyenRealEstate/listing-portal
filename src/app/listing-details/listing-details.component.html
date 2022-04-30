@@ -1,14 +1,60 @@
 <section class="pb-4 container d-none d-md-block listing-details-desktop">
     <div *ngIf="!listing.location" class="pt-4">
-        <mat-spinner></mat-spinner>
+        <div class="ph-row pb-4">
+            <div class="ph-col-4 big"></div>
+            <div class="ph-col-6 empty"></div>
+            <div class="ph-col-2"></div>
+
+            <div class="ph-col-2 big"></div>
+            <div class="ph-col-8 empty"></div>
+            <div class="ph-col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="ph-item">
+                    <div class="ph-picture" style="height: 50vh"></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="ph-row">
+                    <div class="ph-col-12 big"></div>
+                    <div class="ph-col-6 big"></div>
+                    <div class="ph-col-6 empty"></div>
+                    <div class="ph-col-4 big"></div>
+                    <div class="ph-col-8 empty"></div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div *ngIf="listing.location">
         <div class="row pb-4">
-            <h1 class="page-title">
-                {{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
-                <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
-                <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
-            </h1>
+            <div class="col-6">
+                <h1>
+                    <div class="product-title-desktop">{{listing.location}}</div>
+                    <div class="product-description-desktop">
+                        {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
+                        <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
+                        <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
+                    </div>
+                </h1>
+            </div>
+            <div class="col-6">
+                <div class="contact-block-wrapper-desktop">
+                    <label class="d-block pt-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
+
+                    <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+                    </span>
+                    <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
+                    <span class="ps-1 pe-1">-</span>
+                    <span *ngIf="listing.contactPerson">{{listing.contactPerson}}</span>
+
+                    <div *ngIf="listing.contactChannels?.length">{{ 'listing_details.available_on' | translate }}:
+                        {{listing.contactChannels!.join(',
+                        ') }}</div>
+                </div>
+            </div>
+
             <mat-divider></mat-divider>
         </div>
         <div class="row">
@@ -23,17 +69,20 @@
                                 </div>
                             </swiper>
                             <div class="row pt-4 d-flex">
-                                <div [class.col-10]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
+                                <div [class.col-9]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
                                     <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
                                         [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
                                         (imageClick)="cycleToSlide($event)">
                                     </ng-image-slider>
                                 </div>
-                                <button class="col-2" *ngIf="!allImagesLoaded" mat-button (click)="getAllImages()">
-                                    <mat-icon color="accent">photo_library</mat-icon> {{ 'listing_details.view_all' |
-                                    translate
-                                    }}
-                                </button>
+                                <div class="col-3 pt-1">
+                                    <button *ngIf="!allImagesLoaded" mat-raised-button (click)="getAllImages()">
+                                        <mat-icon color="accent">photo_library</mat-icon> {{ 'listing_details.view_all'
+                                        |
+                                        translate
+                                        }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div *ngIf="!(imageSources && imageSources!.length)">
@@ -92,17 +141,6 @@
                     <p *ngIf="listing.description" [innerHtml]="listing.description">
                     </p>
                 </div>
-
-                <div class="pb-4">
-                    <label class="pt-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
-                    <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
-                    </span>
-                    <p *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate }}</p>
-                    <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
-                    <div *ngIf="listing.contactChannels?.length">{{ 'listing_details.available_on' | translate }}:
-                        {{listing.contactChannels!.join(',
-                        ') }}</div>
-                </div>
             </div>
         </div>
     </div>
@@ -115,12 +153,15 @@
 
     <div *ngIf="listing.location">
         <div class="d-flex justify-content-between" style="vertical-align: middle;">
-            <h1 class="h3 pt-4">{{listing.location}} | {{listing.price | currency: listing.currency : 'symbol' :
-                '1.0-0'}} |
-                <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}
-                </ng-container>
-                <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}
-                </ng-container>
+            <h1 class="pt-3">
+                <div class="product-title-mobile">{{listing.location}}</div>
+                <div class="product-description-mobile">
+                    {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
+                    <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}
+                    </ng-container>
+                </div>
             </h1>
         </div>
         <mat-divider></mat-divider>
@@ -197,8 +238,8 @@
 
         <div class="pb-4">
             <div class="pb-2">
-                <a mat-mini-fab color="accent" [href]="contactNumberUrl">
-                    <mat-icon>phone_in_talk</mat-icon>
+                <a mat-raised-button [href]="contactNumberUrl" style="border-radius: 35px">
+                    <mat-icon color="accent">phone_in_talk</mat-icon>
                 </a>
                 <span class="ps-2"></span>
                 <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
