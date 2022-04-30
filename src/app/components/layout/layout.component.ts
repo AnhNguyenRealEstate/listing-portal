@@ -15,7 +15,6 @@ import { LoginService } from '../login/login.service';
 
 export class LayoutComponent implements OnInit, OnDestroy {
     loggedIn: boolean = false;
-    isMenuOpen: boolean = false;
     defaultLang = 'vn';
     lang: string = this.defaultLang;
     sub = new Subscription();

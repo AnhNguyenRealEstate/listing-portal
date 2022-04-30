@@ -40,12 +40,12 @@
         </a>
     </div>
     <button mat-button class="menu-button d-md-none" (click)="sidenav.toggle()">
-        <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
+        <mat-icon>menu</mat-icon>
     </button>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
+    <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" class="sidenav"
         (click)="sidenav.toggle()">
         <div class="ps-4 language-toggle-mobile">
             <mat-icon>language</mat-icon>
