@@ -201,8 +201,10 @@ export class ListingDetailsComponent implements OnInit {
             reader.onloadend = async () => {
                 imgAsBase64 = reader.result as string;
 
-                //Apply watermark to Firebase image
-                const watermarkedImgBase64 = await mergeImages([imgAsBase64, this.watermarkImg]);
+                //Apply watermark to Firebase image, temporarily disabled
+                //const watermarkedImgBase64 = await mergeImages([imgAsBase64, this.watermarkImg]);
+
+                const watermarkedImgBase64 = imgAsBase64 ; //await mergeImages([imgAsBase64, this.watermarkImg]);
                 tempImageSrcs[index] = watermarkedImgBase64;
 
                 //Create thumbnails

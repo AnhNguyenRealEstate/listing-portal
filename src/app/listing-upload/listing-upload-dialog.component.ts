@@ -278,9 +278,16 @@ export class ListingUploadDialogComponent implements OnInit {
 
     updateOptions() {
         // Filter for location as user types, return all if left blank
-        this.filteredLocations$$.next(this.locations.filter(loc =>
-            !this.listing.location || loc.toLowerCase().includes(this.listing.location.toLowerCase())
-        ));
+        this.filteredLocations$$.next(this.locations.filter(loc => {
+            if (!this.listing.location) {
+                return true;
+            }
+
+            const locDeburred = loc.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+            const userInputDeburred = this.listing.location.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
+            return locDeburred.includes(userInputDeburred);
+        }));
     }
 
     checkValidityForUpload(listing: Listing): boolean {
