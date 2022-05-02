@@ -11,7 +11,8 @@ export const FirebaseStorageConsts = Object.freeze({
 });
 
 export const FirestoreDocs = Object.freeze({
-    listingMetadata: 'listing-data'
+    listingMetadata: 'listing-data',
+    categoryCounter: 'category-counter'
 });
 
 export const firebaseConfig = Object.freeze({

@@ -28,18 +28,23 @@ exports.postProcessInquiryCreation = functions.region('asia-southeast1').firesto
  */
 exports.postProcessListingCreation = functions.region('asia-southeast1').firestore
   .document('listings/{documentId}')
-  .onCreate((snap, context) => {
+  .onCreate(async (snap, context) => {
+
     const id = context.params.documentId;
     const creationDate = admin.firestore.Timestamp.fromDate(new Date());
 
     const location = snap.data()['location'] as string;
     updateLocationsMetadata(location);
 
+    const category = snap.data()['category'] as string;
+    const newTagID = await incrementCategoryCounter(category);
+
     return snap.ref.update(
       {
         'id': id,
         'creationDate': creationDate,
-        'featured': false
+        'featured': false,
+        'tagID': newTagID
       });
   });
 
@@ -181,4 +186,58 @@ async function updateLocationsMetadata(location: string) {
       })
     }
   }
+}
+
+/**
+ * 
+ * @param category the category of the new listing
+ * @returns the tagID to be assigned to the new listing
+ */
+async function incrementCategoryCounter(category: string): Promise<string> {
+  const categoryCounterSnap = await admin.firestore().doc('app-data/category-counter').get();
+  const categoryCounter = categoryCounterSnap.data();
+
+  if (!categoryCounter) {
+    return '';
+  }
+
+  let tagID: string = '';
+  switch (category) {
+    case 'Apartment':
+      const aptCount = categoryCounter['apartment'];
+      const newAptCount = aptCount + 1;
+      tagID = `APT-${newAptCount}`;
+      categoryCounterSnap.ref.update({
+        'apartment': newAptCount
+      })
+      break;
+    case 'Villa':
+      const villaCount = categoryCounter['villa'];
+      const newVillaCount = villaCount + 1;
+      tagID = `VIL-${newVillaCount}`;
+      categoryCounterSnap.ref.update({
+        'villa': newVillaCount
+      })
+      break;
+    case 'Townhouse':
+      const thCount = categoryCounter['townhouse'];
+      const newThCount = thCount + 1;
+      tagID = `TH-${newThCount}`;
+      categoryCounterSnap.ref.update({
+        'townhouse': newThCount
+      })
+      break;
+    case 'Commercial':
+      const commercialCount = categoryCounter['commercial'];
+      const newCommCount = commercialCount + 1;
+      tagID = `COM-${newCommCount}`;
+      categoryCounterSnap.ref.update({
+        'commercial': newCommCount
+      })
+      break;
+    default:
+      break;
+  }
+
+  return tagID;
 }

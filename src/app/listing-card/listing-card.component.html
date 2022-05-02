@@ -41,6 +41,9 @@
                 <div class="row">
                     <span *ngIf="listing.address" class="col-10 result-card-address">{{listing.address}}</span>
                 </div>
+                <div *ngIf="listing.tagID" class="result-tag-id">
+                    #{{listing.tagID}}
+                </div>
                 <button mat-icon-button (click)="getShareableLink($event)" class="share-link-btn"
                     [matTooltip]="'listing_card.share_listing' | translate">
                     <mat-icon>link</mat-icon>

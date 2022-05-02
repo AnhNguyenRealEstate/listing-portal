@@ -23,7 +23,8 @@ export interface Listing {
     featured?: boolean,
     creationDate?: Timestamp,
     createdBy?: string,
-    tiktokUrl?: string
+    tiktokUrl?: string,
+    tagID?: string
 }
 
 export interface ListingImageFile {
