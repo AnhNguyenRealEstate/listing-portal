@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
+import { Component, Inject, OnInit, SecurityContext, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -19,6 +20,8 @@ import { ListingUploadService } from './listing-upload.service';
 })
 
 export class ListingUploadDialogComponent implements OnInit {
+    @ViewChild('uploadDialog') uploadForm!: NgForm;
+
     listing: Listing = {};
     dbReferenceId: string = '';
 
@@ -82,6 +85,8 @@ export class ListingUploadDialogComponent implements OnInit {
     }
 
     async onEditCoverImage() {
+        this.uploadForm.form.markAsDirty();
+
         this.gettingCoverImage = true;
 
         const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
@@ -98,6 +103,8 @@ export class ListingUploadDialogComponent implements OnInit {
     }
 
     async onEditMedia() {
+        this.uploadForm.form.markAsDirty();
+
         this.gettingMedia = true;
         await this.listingUploadService.getListingImages(
             this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
@@ -291,27 +298,15 @@ export class ListingUploadDialogComponent implements OnInit {
     }
 
     checkValidityForUpload(listing: Listing): boolean {
-        const requiredFieldsAreFilled = listing.purpose?.length
-            && listing.category?.length
-            && listing.location?.length
-            && !isNaN(Number(listing.bedrooms))
+        const requiredFieldsAreFilled =
+            !isNaN(Number(listing.bedrooms))
             && !isNaN(Number(listing.bathrooms))
-            && !isNaN(Number(listing.price))
-            && listing.currency?.length
-            && listing.description?.length;
+            && !isNaN(Number(listing.price));
 
-        if (requiredFieldsAreFilled && this.isEditMode) {
-            return true;
+        if (!requiredFieldsAreFilled) {
+            return false;
         }
 
-        if (requiredFieldsAreFilled && !this.isEditMode) {
-            const imagesUploaded = this.imageFiles.length && this.coverImageFile;
-            if (imagesUploaded) {
-                return true;
-            }
-        }
-
-
-        return false;
+        return true;
     }
 }

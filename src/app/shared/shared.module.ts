@@ -38,13 +38,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         NgxTrimDirectiveModule,
         MatTooltipModule
     ],
-    providers: [CurrencyPipe,
+    providers: [
+        CurrencyPipe,
         {
             provide: MAT_SELECT_CONFIG,
             useValue: {
                 disableOptionCentering: true
             } as MatSelectConfig
-        }
+        },
     ]
 })
 export class SharedModule { }

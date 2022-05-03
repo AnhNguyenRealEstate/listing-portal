@@ -64,6 +64,7 @@ export class ListingEditComponent implements OnInit {
         const config = {
             height: '90%',
             width: '100%',
+            autoFocus: false,
             data: {
                 listing: listing,
                 dbReferenceId: this.listingToShow.id!,
@@ -77,6 +78,7 @@ export class ListingEditComponent implements OnInit {
         const config = {
             height: '90%',
             width: '100%',
+            autoFocus: false,
             data: {
                 listing: undefined
             }
@@ -88,6 +90,7 @@ export class ListingEditComponent implements OnInit {
         const config = {
             height: '90%',
             width: '100%',
+            autoFocus: false,
             data: {
                 listing: {} as Listing,
                 dbReferenceId: '',
@@ -101,6 +104,7 @@ export class ListingEditComponent implements OnInit {
         const config = {
             height: '90%',
             width: '100%',
+            autoFocus: false,
             data: {
                 listing: listingToClone
             }
@@ -112,6 +116,7 @@ export class ListingEditComponent implements OnInit {
         const config = {
             height: '90%',
             width: '100%',
+            autoFocus: false,
             data: {
                 listing: listingToClone,
                 dbReferenceId: '',

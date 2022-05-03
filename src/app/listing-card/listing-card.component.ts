@@ -77,6 +77,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
         const config = {
             height: '90%',
             width: '100%',
+            autoFocus: false,
             data: {
                 listing: this.listing,
                 isEditMode: true
@@ -96,6 +97,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
         const config = {
             height: '90%',
             width: '100%',
+            autoFocus: false,
             data: {
                 listing: this.listing,
                 isEditMode: true

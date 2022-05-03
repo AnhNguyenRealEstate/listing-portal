@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext, ViewChild } from '@angular/core';
 import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
@@ -11,6 +11,7 @@ import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AvailableContactChannels } from './listing-upload.data';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'listing-upload',
@@ -20,6 +21,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class ListingUploadComponent implements OnInit, OnDestroy {
     @Input() listing: Listing = {} as Listing;
     @Input() isEditMode = false;
+
+    @ViewChild('uploadForm') uploadForm!: NgForm;
 
     modalTitle: string = '';
 
@@ -85,6 +88,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     }
 
     async onEditCoverImage() {
+        this.uploadForm.form.markAsDirty();
+
         this.gettingCoverImage = true;
 
         const coverImagePath = `${this.listing.fireStoragePath}/${FirebaseStorageConsts.coverImage}`;
@@ -101,6 +106,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     }
 
     async onEditMedia() {
+        this.uploadForm.form.markAsDirty();
+
         this.gettingMedia = true;
         await this.listingUploadService.getListingImages(
             this.listing.fireStoragePath!, this.imageSrcs, this.imageFiles
@@ -296,26 +303,15 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     }
 
     checkValidityForUpload(listing: Listing): boolean {
-        const requiredFieldsAreFilled = listing.purpose?.length
-            && listing.category?.length
-            && listing.location?.length
-            && !isNaN(Number(listing.bedrooms))
+        const requiredFieldsAreFilled =
+            !isNaN(Number(listing.bedrooms))
             && !isNaN(Number(listing.bathrooms))
-            && !isNaN(Number(listing.price))
-            && listing.currency?.length
-            && listing.description?.length;
+            && !isNaN(Number(listing.price));
 
-        if (requiredFieldsAreFilled && this.isEditMode) {
-            return true;
+        if (!requiredFieldsAreFilled) {
+            return false;
         }
 
-        if (requiredFieldsAreFilled && !this.isEditMode) {
-            const imagesUploaded = this.imageFiles.length && this.coverImageFile;
-            if (imagesUploaded) {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 }

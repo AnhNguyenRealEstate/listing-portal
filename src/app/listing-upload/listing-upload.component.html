@@ -1,4 +1,4 @@
-<section #desktopUploadView class="container pt-2 d-none d-lg-block">
+<section class="container pt-2 d-none d-lg-block">
     <app-spinner></app-spinner>
     <div class="row">
         <div class="col-12">
@@ -7,175 +7,182 @@
             </h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
-                <mat-select [(ngModel)]="listing.purpose" required (selectionChange)="onPurposeSelect($event)">
-                    <mat-option value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
-                    <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.category' | translate }}</mat-label>
-                <mat-select id="category" [(ngModel)]="listing.category" required [disabled]="isEditMode">
-                    <mat-option value="Apartment">{{ 'listing_upload.apartment' | translate }}</mat-option>
-                    <mat-option value="Villa">{{ 'listing_upload.villa' | translate }}</mat-option>
-                    <mat-option value="Townhouse">{{ 'listing_upload.townhouse' | translate }}</mat-option>
-                    <mat-option value="Commercial">{{ 'listing_upload.commercial' | translate }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-6">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
-                <input id="locations" matInput trim="blur" type="text" [matAutocomplete]="locationsAuto"
-                    [(ngModel)]="listing.location" (ngModelChange)="updateOptions()" required>
-                <mat-autocomplete #locationsAuto="matAutocomplete">
-                    <mat-option *ngFor="let location of filteredLocations$ | async" value="{{location}}">{{location}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-        </div>
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.bedrooms' | translate }}</mat-label>
-                <input matInput trim="blur" id="bedrooms" type="text" [(ngModel)]="listing.bedrooms" class="d-inline"
-                    placeholder="# of bedrooms..." required>
-            </mat-form-field>
-        </div>
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
-                <input matInput trim="blur" id="bathrooms" type="text" [(ngModel)]="listing.bathrooms" class="d-inline"
-                    placeholder="# of bathrooms..." required>
-            </mat-form-field>
-        </div>
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
-                <input matInput trim="blur" type="text" [(ngModel)]="listing.propertySize" class="d-inline"
-                    id="propertySize" placeholder="100, 200..." required>
-            </mat-form-field>
-        </div>
-        <div class="col-3">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.view' | translate }}</mat-label>
-                <input matInput trim="blur" type="text" [(ngModel)]="listing.view" class="d-inline" id="propertyView"
-                    placeholder="Sông, nội khu...">
-            </mat-form-field>
-        </div>
-        <div class="col-6">
-            <div class="price-input-group">
+    <form #uploadForm="ngForm">
+        <div class="row">
+            <div class="col-3">
                 <mat-form-field color="accent">
-                    <mat-label>{{ 'listing_upload.price' | translate }}</mat-label>
-                    <input matInput trim="blur" type="text" [(ngModel)]="listing.price" id="price" placeholder="0"
-                        required mask="separator" thousandSeparator=",">
-                    <mat-select [(ngModel)]="listing.currency" required>
-                        <mat-option value='USD'>US$</mat-option>
-                        <mat-option value='VND'>đ</mat-option>
+                    <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
+                    <mat-select name="purpose" [(ngModel)]="listing.purpose" required
+                        (selectionChange)="onPurposeSelect($event)">
+                        <mat-option value='For Rent'>{{ 'listing_upload.for_rent' | translate }}</mat-option>
+                        <mat-option value='For Sale'>{{ 'listing_upload.for_sale' | translate }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.category' | translate }}</mat-label>
+                    <mat-select name="category" [(ngModel)]="listing.category" required [disabled]="isEditMode">
+                        <mat-option value="Apartment">{{ 'listing_upload.apartment' | translate }}</mat-option>
+                        <mat-option value="Villa">{{ 'listing_upload.villa' | translate }}</mat-option>
+                        <mat-option value="Townhouse">{{ 'listing_upload.townhouse' | translate }}</mat-option>
+                        <mat-option value="Commercial">{{ 'listing_upload.commercial' | translate }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
+                    <input name="locations" matInput trim="blur" type="text" [matAutocomplete]="locationsAuto"
+                        [(ngModel)]="listing.location" (ngModelChange)="updateOptions()" required>
+                    <mat-autocomplete #locationsAuto="matAutocomplete">
+                        <mat-option *ngFor="let location of filteredLocations$ | async" value="{{location}}">
+                            {{location}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.bedrooms' | translate }}</mat-label>
+                    <input matInput trim="blur" name="bedrooms" type="text" [(ngModel)]="listing.bedrooms"
+                        class="d-inline" placeholder="# of bedrooms..." required>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
+                    <input matInput trim="blur" name="bathrooms" type="text" [(ngModel)]="listing.bathrooms"
+                        class="d-inline" placeholder="# of bathrooms..." required>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
+                    <input matInput trim="blur" type="text" [(ngModel)]="listing.propertySize" class="d-inline"
+                        name="propertySize" placeholder="100, 200..." required>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.view' | translate }}</mat-label>
+                    <input matInput trim="blur" type="text" [(ngModel)]="listing.view" class="d-inline"
+                        name="propertyView" placeholder="Sông, nội khu...">
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <div class="price-input-group">
+                    <mat-form-field color="accent">
+                        <mat-label>{{ 'listing_upload.price' | translate }}</mat-label>
+                        <input matInput trim="blur" type="text" [(ngModel)]="listing.price" name="price" placeholder="0"
+                            required mask="separator" thousandSeparator=",">
+                        <mat-select name="currency" [(ngModel)]="listing.currency" required>
+                            <mat-option value='USD'>US$</mat-option>
+                            <mat-option value='VND'>đ</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.address' | translate }}</mat-label>
+                    <input matInput trim="blur" name="address" type="text" [(ngModel)]="listing.address" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row pb-1">
+            <div class="col">
+                <mat-label>{{ 'listing_upload.description' | translate }}</mat-label>
+                <div class="pt-2 mat-form-field-wrapper">
+                    <app-editor [text]="listing.description!" (textChange)="listing.description = $event"></app-editor>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <mat-form-field color="accent" style="width: 50%">
+                    <mat-label>{{ 'listing_upload.contact_number' | translate }}</mat-label>
+                    <input matInput trim="blur" name="contactNumber" type="text" [(ngModel)]="listing.contactNumber"
+                        class="d-inline" mask="000 000 0000">
+                </mat-form-field>
+                <mat-form-field color="accent" style="width: 50%">
+                    <mat-label>{{ 'listing_upload.contact_person' | translate }}</mat-label>
+                    <input matInput trim="blur" name="contactPerson" type="text" [(ngModel)]="listing.contactPerson"
+                        class="d-inline" placeholder="Mr. Tim...">
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field color="accent" [floatLabel]="'always'">
+                    <mat-label>{{ 'listing_upload.available_on' | translate }}</mat-label>
+                    <mat-select name="contactChannels" [(ngModel)]="listing.contactChannels" multiple>
+                        <mat-option *ngFor="let channel of AvailableContactChannels" [value]="channel">{{channel}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.address' | translate }}</mat-label>
-                <input matInput trim="blur" id="address" type="text" [(ngModel)]="listing.address" required>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="row pb-1">
-        <div class="col">
-            <mat-label>{{ 'listing_upload.description' | translate }}</mat-label>
-            <div class="pt-2 mat-form-field-wrapper">
-                <app-editor [text]="listing.description!" (textChange)="listing.description = $event"></app-editor>
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.tiktok_link' | translate }}</mat-label>
+                    <input matInput trim="blur" name="tiktokUrl" type="text" [(ngModel)]="listing.tiktokUrl">
+                </mat-form-field>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <mat-form-field color="accent" style="width: 50%">
-                <mat-label>{{ 'listing_upload.contact_number' | translate }}</mat-label>
-                <input matInput trim="blur" id="contactNumber" type="text" [(ngModel)]="listing.contactNumber"
-                    class="d-inline" mask="000 000 0000">
-            </mat-form-field>
-            <mat-form-field color="accent" style="width: 50%">
-                <mat-label>{{ 'listing_upload.contact_person' | translate }}</mat-label>
-                <input matInput trim="blur" id="contactPerson" type="text" [(ngModel)]="listing.contactPerson"
-                    class="d-inline" placeholder="Mr. Tim...">
-            </mat-form-field>
-        </div>
-        <div class="col-4">
-            <mat-form-field color="accent" [floatLabel]="'always'">
-                <mat-label>{{ 'listing_upload.available_on' | translate }}</mat-label>
-                <mat-select [(ngModel)]="listing.contactChannels" multiple>
-                    <mat-option *ngFor="let channel of AvailableContactChannels" [value]="channel">{{channel}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <mat-form-field color="accent">
-                <mat-label>{{ 'listing_upload.tiktok_link' | translate }}</mat-label>
-                <input matInput trim="blur" id="tiktokUrl" type="text" [(ngModel)]="listing.tiktokUrl">
-            </mat-form-field>
-        </div>
-    </div>
 
-    <hr>
-    <ng-container *ngIf="isEditMode">
-        <div>
-            <ng-container *ngIf="!coverImageEditRequested; else coverImageUpload">
-                <button mat-button (click)="onEditCoverImage()" [disabled]="gettingCoverImage">
-                    <span>{{ 'listing_upload.edit_cover_img' | translate }}</span>
-                    <mat-spinner *ngIf="gettingCoverImage"></mat-spinner>
+        <hr>
+        <ng-container *ngIf="isEditMode">
+            <div>
+                <ng-container *ngIf="!coverImageEditRequested; else coverImageUpload">
+                    <button mat-button (click)="onEditCoverImage()" [disabled]="gettingCoverImage">
+                        <span>{{ 'listing_upload.edit_cover_img' | translate }}</span>
+                        <mat-spinner *ngIf="gettingCoverImage"></mat-spinner>
+                    </button>
+                </ng-container>
+            </div>
+
+            <div class="pt-4 image-container">
+                <ng-container *ngIf="!mediaEditRequested; else mediaUpload">
+                    <button mat-button (click)="onEditMedia()" [disabled]="gettingMedia">
+                        <span>{{ 'listing_upload.edit_media' | translate }}</span>
+                        <mat-spinner *ngIf="gettingMedia"></mat-spinner>
+                    </button>
+                </ng-container>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!isEditMode">
+            <div>
+                <ng-container *ngTemplateOutlet="coverImageUpload"></ng-container>
+            </div>
+
+            <div class="pt-4 image-container">
+                <ng-container *ngTemplateOutlet="mediaUpload"></ng-container>
+            </div>
+        </ng-container>
+
+        <div class="row pb-2">
+            <div class="col-12 d-flex justify-content-end">
+                <button *ngIf="!isEditMode" mat-fab color="default" (click)="publishListing()" [disabled]="!(uploadForm.valid && coverImageFile && imageFiles?.length) 
+                    || (listingUploadService.inProgress() | async)">
+                    <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
+                    </mat-spinner>
+                    <mat-icon color="accent" *ngIf="!(listingUploadService.inProgress() | async)">publish</mat-icon>
                 </button>
-            </ng-container>
-        </div>
-
-        <div class="pt-4 image-container">
-            <ng-container *ngIf="!mediaEditRequested; else mediaUpload">
-                <button mat-button (click)="onEditMedia()" [disabled]="gettingMedia">
-                    <span>{{ 'listing_upload.edit_media' | translate }}</span>
-                    <mat-spinner *ngIf="gettingMedia"></mat-spinner>
+                <button *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()" 
+                    [disabled]="uploadForm.pristine || !uploadForm.valid
+                    || (imageFilesModified && !imageFiles.length)
+                    || (coverImageModified && !coverImageFile?.size)
+                    || (listingUploadService.inProgress() | async)">
+                    <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
+                    </mat-spinner>
+                    <mat-icon color="accent" *ngIf="!(listingUploadService.inProgress() | async)">save</mat-icon>
                 </button>
-            </ng-container>
+            </div>
         </div>
-    </ng-container>
-
-    <ng-container *ngIf="!isEditMode">
-        <div>
-            <ng-container *ngTemplateOutlet="coverImageUpload"></ng-container>
-        </div>
-
-        <div class="pt-4 image-container">
-            <ng-container *ngTemplateOutlet="mediaUpload"></ng-container>
-        </div>
-    </ng-container>
-
-    <div class="row pb-2">
-        <div class="col-12 d-flex justify-content-end">
-            <button *ngIf="!isEditMode" mat-fab color="default" (click)="publishListing()"
-                [disabled]="listingUploadService.inProgress() | async">
-                <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
-                </mat-spinner>
-                <mat-icon color="accent" *ngIf="!(listingUploadService.inProgress() | async)">publish</mat-icon>
-            </button>
-            <button *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()"
-                [disabled]="listingUploadService.inProgress() | async">
-                <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
-                </mat-spinner>
-                <mat-icon color="accent" *ngIf="!(listingUploadService.inProgress() | async)">save</mat-icon>
-            </button>
-        </div>
-    </div>
+    </form>
 </section>
 
 <ng-template #coverImageUpload>
@@ -207,9 +214,11 @@
     <div class="pt-2" cdkDropList (cdkDropListDropped)="uploadedMediaDrop($event)">
         <div *ngFor="let imgSrc of imageSrcs; let i = index;" cdkDrag class="pb-2">
             <mat-card class="uploaded-media-draggable">
-                <mat-card-content>
-                    <img [src]="imgSrc" class="listing-image">
-                    <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
+                <mat-card-content class="d-flex justify-content-between">
+                    <div class="d-inline">
+                        <img [src]="imgSrc" class="listing-image">
+                        <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
+                    </div>
                     <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
                         [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
                         <mat-icon>delete</mat-icon>
