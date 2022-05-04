@@ -3,7 +3,7 @@ import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { FirestoreCollections, FirestoreDocs } from '../shared/globals';
 import { Inquiry } from './about-us.data';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class AboutUsService {
     constructor(
         private firestore: Firestore

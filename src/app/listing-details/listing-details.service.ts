@@ -4,7 +4,7 @@ import { getDownloadURL, listAll, ref, Storage } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Listing } from '../listing-search/listing-search.data';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class ListingDetailsService {
 
     private initialImageLoadLimit = 6;
