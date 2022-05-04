@@ -9,11 +9,6 @@ import { getMetadata } from '@firebase/storage';
 import { Auth } from '@angular/fire/auth';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
 
-
-/**
- * TODO: transfer the upload logic to cloud functions
- * to ensure atomic writing
- */
 @Injectable({ providedIn: 'root' })
 export class ListingUploadService {
 

@@ -24,8 +24,6 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
 
     @ViewChild('uploadForm') uploadForm!: NgForm;
 
-    modalTitle: string = '';
-
     locations: string[] = [];
     filteredLocations$$ = new BehaviorSubject<string[]>([]);
     filteredLocations$: Observable<string[]> = this.filteredLocations$$.asObservable();

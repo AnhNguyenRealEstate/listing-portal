@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, createNgModuleRef, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         public auth: Auth,
         private loginService: LoginService,
         private dialog: MatDialog,
+        private injector: Injector,
         public translate: TranslateService) {
         this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn));
     }
@@ -45,6 +46,37 @@ export class LayoutComponent implements OnInit, OnDestroy {
             width: '90%'
         } as MatDialogConfig;
         this.dialog.open(LoginComponent, config);
+    }
+
+    async uploadNewListing() {
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false
+        } as MatDialogConfig;
+
+        const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
+        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const listingUploadComponent = moduleRef.instance.getListingUploadComponent();
+
+        this.dialog.open(listingUploadComponent, config);
+    }
+
+    async uploadNewListingMobile() {
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            data: {
+                listing: {}
+            }
+        } as MatDialogConfig;
+
+        const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
+        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const listingUploadDialogComponent = moduleRef.instance.getListingUploadDialogComponent();
+
+        this.dialog.open(listingUploadDialogComponent, config);
     }
 
     useLanguage(event: any) {

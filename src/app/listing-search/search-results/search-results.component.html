@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div *ngFor="let result of searchResults" class="col-4 pb-3 result-card-wrapper">
-                    <listing-card [listing]="result">
+                    <listing-card [listing]="result" (delete)="removeListing(result)">
                     </listing-card>
                 </div>
                 <div class="col-12 d-flex justify-content-center" *ngIf="!noMoreToLoad">

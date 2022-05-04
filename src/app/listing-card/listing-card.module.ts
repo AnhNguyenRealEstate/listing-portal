@@ -10,6 +10,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_AUTOCOMPLETE_SCROLL_STRATEGY } from '@angular/material/autocomplete';
 import { NoopScrollStrategy } from '@angular/cdk/overlay/scroll';
 import { Overlay } from '@angular/cdk/overlay';
+import { MatMenuModule, MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [ListingCardComponent],
@@ -22,10 +24,15 @@ import { Overlay } from '@angular/cdk/overlay';
       extend: true
     }),
     ClipboardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule,
+    MatDialogModule
   ],
   exports: [ListingCardComponent],
-  providers: [{ provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY, useFactory: scrollFactory, deps: [Overlay] }]
+  providers: [
+    { provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY, useFactory: scrollFactory, deps: [Overlay] },
+    { provide: MAT_MENU_SCROLL_STRATEGY, useFactory: scrollFactory, deps: [Overlay] }
+  ]
 })
 export class ListingCardModule { }
 

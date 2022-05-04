@@ -1,10 +1,12 @@
 <section class="container pt-2 d-none d-lg-block">
     <app-spinner></app-spinner>
-    <div class="row">
+    <div class="row pb-4">
         <div class="col-12">
             <h1 class="h3">
-                {{modalTitle}}
+                <span *ngIf="isEditMode">{{ 'listing_upload.edit_listing' | translate }}</span>
+                <span *ngIf="!isEditMode">{{ 'listing_upload.upload_new' | translate }}</span>
             </h1>
+            <mat-divider></mat-divider>
         </div>
     </div>
     <form #uploadForm="ngForm">

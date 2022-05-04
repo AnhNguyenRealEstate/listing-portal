@@ -1,15 +1,8 @@
 <mat-card class="mt-1 result-card" (click)="showListing()">
     <div *ngIf="!coverImageUrl" class="ph-picture"></div>
     <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
-    <ng-container *ngIf="showEditBtn">
-        <button mat-icon-button class="d-none d-lg-block edit-btn" (click)="editListing($event)"
-            [matTooltip]="'listing_card.edit' | translate">
-            <mat-icon color="accent">edit</mat-icon>
-        </button>
-        <button mat-icon-button class="d-lg-none edit-btn" (click)="editListingMobile($event)"
-            [matTooltip]="'listing_card.edit' | translate">
-            <mat-icon color="accent">edit</mat-icon>
-        </button>
+    <ng-container *ngIf="showControls">
+        <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     </ng-container>
     <mat-card-content>
         <div class="row">
@@ -85,4 +78,62 @@
         lowercase }}
         {{listing.view | lowercase }}
     </span>
+</ng-template>
+
+<ng-template #cardControls>
+    <button mat-icon-button class="edit-btn" [matMenuTriggerFor]="controlsMenu"
+        [matTooltip]="'listing_card.edit' | translate" (click)="$event.stopPropagation()">
+        <mat-icon color="accent">more_horiz</mat-icon>
+    </button>
+
+    <mat-menu #controlsMenu="matMenu">
+        <button mat-menu-item *ngIf="!listing.featured"
+            (click)="$event.stopPropagation(); listing.featured = true; listingCard.featureListing(listing.id!)">
+            <mat-icon color="accent">star_outline</mat-icon>
+            <span>{{ 'listing_card.feature' | translate }}</span>
+        </button>
+        <button mat-menu-item *ngIf="listing.featured"
+            (click)="$event.stopPropagation(); listing.featured = false; listingCard.unfeatureListing(listing.id!)">
+            <mat-icon color="accent">star</mat-icon>
+            <span>{{ 'listing_card.unfeature' | translate }}</span>
+        </button>
+
+        <button mat-menu-item class="d-none d-lg-block" (click)="editListing($event)">
+            <mat-icon color="accent">edit</mat-icon>
+            <span>{{'listing_card.edit' | translate}}</span>
+        </button>
+        <button mat-menu-item class="d-none d-lg-block" (click)="cloneListing($event)">
+            <mat-icon color="accent">add_box</mat-icon>
+            <span>{{ 'listing_card.clone' | translate }}</span>
+        </button>
+        <button mat-menu-item class="d-none d-lg-block" (click)="deleteListing($event)">
+            <mat-icon color="accent">delete</mat-icon>
+            <span>{{ 'listing_card.delete' | translate }}</span>
+        </button>
+
+        <button mat-menu-item class="d-lg-none" (click)="editListingMobile($event)">
+            <mat-icon color="accent">edit</mat-icon>
+            <span>{{'listing_card.edit' | translate}}</span>
+        </button>
+        <button mat-menu-item class="d-lg-none" (click)="cloneListingMobile($event)">
+            <mat-icon color="accent">add_box</mat-icon>
+            <span>{{ 'listing_card.clone' | translate }}</span>
+        </button>
+        <button mat-menu-item class="d-lg-none" (click)="deleteListing($event)">
+            <mat-icon color="accent">delete</mat-icon>
+            <span>{{ 'listing_card.delete' | translate }}</span>
+        </button>
+    </mat-menu>
+</ng-template>
+
+<ng-template #confirmationDialog>
+    <section class="container-flex justify-content-between">
+        <p class="pb-2">{{ 'listing_edit.confirmation_msg' | translate }}</p>
+        <div class="d-flex justify-content-end">
+            <button mat-button color="accent" [mat-dialog-close]="true">
+                {{ 'listing_edit.yes_msg' | translate }}
+            </button>
+            <button mat-button [mat-dialog-close]="false">{{ 'listing_edit.no_msg' | translate }}</button>
+        </div>
+    </section>
 </ng-template>

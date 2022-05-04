@@ -14,14 +14,6 @@ const routes: Routes = [
     data: { title: 'layout.listings' }
   },
   {
-    path: 'listing-edit',
-    loadChildren: () => import('./listing-edit/listing-edit.module').then(mod => mod.ListingEditModule),
-    canActivate: [
-      AuthGuard
-    ],
-    data: { authGuardPipe: () => redirectUnauthorizedTo(['/']), title: 'layout.edit_listings' }
-  },
-  {
     path: 'about-us',
     loadChildren: () => import('./about-us/about-us.module').then(mod => mod.AboutUsModule),
     data: { title: 'layout.about_us' }

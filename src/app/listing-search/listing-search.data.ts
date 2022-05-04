@@ -15,7 +15,6 @@ export interface Listing {
     bedrooms?: number
     bathrooms?: number
     purpose?: 'For Rent' | 'For Sale'
-    archived?: boolean
     contactNumber?: string
     contactPerson?: string,
     contactChannels?: string[],

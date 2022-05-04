@@ -3,7 +3,6 @@ import { collection, connectFirestoreEmulator, doc, Firestore, getDoc, getDocs, 
 import { connectStorageEmulator, FirebaseStorage, getStorage, provideStorage } from "@angular/fire/storage";
 import { ListingUploadService } from "./listing-upload.service"
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
-import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile } from "../listing-search/listing-search.data";
@@ -16,10 +15,8 @@ describe('Listing Upload Service', () => {
     let auth: Auth;
 
     let listingUpload: ListingUploadService;
-    let listingEdit: ListingEditService;
 
     beforeEach(async () => {
-        const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
         
         TestBed.configureTestingModule({
             imports: [
@@ -41,12 +38,10 @@ describe('Listing Upload Service', () => {
                     auth = getAuth();
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
-                })],
-                providers: [{provide: Document, useValue: documentSpy}]
+                })]
         });
 
         listingUpload = new ListingUploadService(firestore, storage, auth);
-        listingEdit = new ListingEditService(firestore, storage, documentSpy);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!');
     });
@@ -76,7 +71,6 @@ describe('Listing Upload Service', () => {
                 bathrooms: Math.floor(Math.random() * 100),
                 address: 'This is a` test',
                 description: 'This is a test',
-                archived: true,
                 purpose: 'For Rent',
                 price: 1200,
                 currency: 'USD'
@@ -114,13 +108,12 @@ describe('Listing Upload Service', () => {
         expect(listing.bedrooms).toBe(listingFromServer.bedrooms);
         expect(listing.address).toBe(listingFromServer.address);
         expect(listing.description).toBe(listingFromServer.description);
-        expect(listing.archived).toBe(listingFromServer.archived);
         expect(listing.price).toBe(listingFromServer.price);
         expect(listing.currency).toBe(listingFromServer.currency);
 
         // Delete the listing
         const id = response.id;
-        await listingEdit.deleteListing(listingFromServer, id);
+        //await listingEdit.deleteListing(listingFromServer, id);
 
 
         const docStillExistsOnServer = !!(await getDocs(collection(firestore, FirestoreCollections.listings))).docs.filter(doc => doc.id === id).length;

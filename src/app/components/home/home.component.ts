@@ -74,4 +74,8 @@ export class HomeComponent implements OnInit {
         );
         window.open(url, '_blank');
     }
+
+    removeListing(listing: Listing) {
+        this.featuredListings = this.featuredListings.filter(featured => featured.id !== listing.id);
+    }
 }

@@ -24,10 +24,9 @@
                 <mat-icon>account_circle</mat-icon>
             </a>
             <mat-menu #menu="matMenu" class="employee-actions-menu">
-                <a mat-menu-item [routerLink]="['/listing-edit']">
-                    <mat-icon>edit</mat-icon>
-                    {{ 'layout.edit_listings' | translate
-                    }}
+                <a mat-menu-item (click)="uploadNewListing()">
+                    <mat-icon>add</mat-icon>
+                    {{ 'layout.upload_new' | translate }}
                 </a>
                 <a mat-menu-item (click)="logout()">
                     <mat-icon>logout</mat-icon> {{ 'layout.sign_out' | translate }}
@@ -45,8 +44,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" class="sidenav"
-        (click)="sidenav.toggle()">
+    <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" class="sidenav" (click)="sidenav.toggle()">
         <div class="ps-4 language-toggle-mobile">
             <mat-icon>language</mat-icon>
             <mat-form-field class="ps-3" color="accent" (click)="$event.stopPropagation()">
@@ -75,9 +73,9 @@
             <span class="ps-3"> {{ 'layout.sign_in' | translate }}</span>
         </a>
 
-        <a *ngIf="loggedIn" mat-button [routerLink]="['/listing-edit']">
-            <mat-icon>edit</mat-icon>
-            <span class="ps-3">{{ 'layout.edit_listings' | translate }}</span>
+        <a *ngIf="loggedIn" mat-button (click)="uploadNewListingMobile()">
+            <mat-icon>add</mat-icon>
+            <span class="ps-3">{{ 'layout.upload_new' | translate }}</span>
         </a>
 
         <a *ngIf="loggedIn" mat-button (click)="logout()">

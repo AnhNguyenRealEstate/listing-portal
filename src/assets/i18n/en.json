@@ -42,7 +42,7 @@
     },
     "layout": {
         "listings": "Listings",
-        "edit_listings": "Edit listings",
+        "upload_new": "Upload listing",
         "about_us": "About us",
         "sign_in": "Sign in",
         "sign_out": "Sign out",
@@ -50,30 +50,11 @@
         "vietnamese": "Vietnamese 🇻🇳"
     },
     "listing_edit": {
-        "new_Listing": "New listing",
-        "select_a_listing": "Select a listing",
-        "for_rent": "For rent",
-        "for_sale": "For sale",
-        "archived": "Archived",
-        "active": "Active",
         "delete_msg": "Listing deleted 🗑",
         "dismiss_msg": "Dismiss",
-        "apartment": "Apartment",
-        "villa": "Villa",
-        "townhouse": "Townhouse",
-        "commercial": "Commercial",
         "confirmation_msg": "Are you sure you want to delete this listing?",
         "yes_msg": "Delete",
-        "no_msg": "Cancel",
-        "tooltip": {
-            "feature": "Feature this listing",
-            "unfeature": "Unfeature this listing",
-            "clone": "Create new from this listing",
-            "archive": "Archive this listing",
-            "unarchive": "Unarchive this listing",
-            "delete": "Delete this listing"
-        },
-        "view_more": "View more"
+        "no_msg": "Cancel"
     },
     "search_results": {
         "no_results": "No result matches your criteria",
@@ -89,7 +70,11 @@
     "listing_card": {
         "share_listing": "Copy link",
         "link_copied": "Shareable link copied 🌟",
-        "edit": "Edit this listing"
+        "edit": "Edit this listing",
+        "feature": "Feature listing",
+        "unfeature": "Unfeature listing",
+        "clone": "Create new from this listing",
+        "delete": "Delete listing"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {

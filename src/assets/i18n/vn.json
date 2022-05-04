@@ -42,7 +42,7 @@
     },
     "layout": {
         "listings": "Sản phẩm",
-        "edit_listings": "Đăng/Sửa sản phẩm",
+        "upload_new": "Đăng sản phẩm",
         "about_us": "Giới thiệu",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
@@ -50,30 +50,11 @@
         "vietnamese": "Tiếng Việt 🇻🇳"
     },
     "listing_edit": {
-        "new_Listing": "Đăng mới",
-        "select_a_listing": "Chọn sản phẩm để xem chi tiết",
-        "for_rent": "Cho thuê",
-        "for_sale": "Rao bán",
-        "archived": "Chưa đăng",
-        "active": "Đã đăng",
         "delete_msg": "Đã xoá sản phẩm 🗑",
         "dismiss_msg": "Tắt",
-        "apartment": "Căn hộ",
-        "villa": "Biệt thự",
-        "townhouse": "Song lập",
-        "commercial": "Shop thương mại",
         "confirmation_msg": "Bạn chắc chắn muốn xoá sản phẩm này?",
         "yes_msg": "Xoá",
-        "no_msg": "Huỷ",
-        "tooltip": {
-            "feature": "Ưu tiên lên trang chủ",
-            "unfeature": "Tháo ưu tiên trên trang chủ",
-            "clone": "Tạo mới từ sản phẩm này",
-            "archive": "Gỡ bài đăng",
-            "unarchive": "Đăng lại",
-            "delete": "Xoá sản phẩm"
-        },
-        "view_more": "Xem thêm"
+        "no_msg": "Huỷ"
     },
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
@@ -88,7 +69,11 @@
     "listing_card": {
         "share_listing": "Lấy link sản phẩm",
         "link_copied": "Đã lấy link sản phẩm 🌟",
-        "edit": "Chỉnh sửa sản phẩm"
+        "edit": "Chỉnh sửa sản phẩm",
+        "feature": "Ưu tiên lên trang chủ",
+        "unfeature": "Tháo ưu tiên trên trang chủ",
+        "clone": "Đăng mới từ sản phẩm",
+        "delete": "Xoá sản phẩm"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {

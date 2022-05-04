@@ -49,4 +49,8 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
         this.isLoadingMore = false;
     }
+
+    removeListing(listing: Listing) {
+        this.searchResults = this.searchResults.filter(results => results.id !== listing.id);
+    }
 }

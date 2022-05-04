@@ -6,7 +6,6 @@ import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { Listing, ListingImageFile, SearchCriteria } from "../listing-search/listing-search.data";
-import { ListingEditService } from "../listing-edit/listing-edit/listing-edit.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ListingDetailsService } from "../listing-details/listing-details.service";
 import { ListingUploadService } from "../listing-upload/listing-upload.service";
@@ -21,7 +20,6 @@ describe('Listing Search Service', () => {
     let listingDetails: ListingDetailsService;
     let listingUpload: ListingUploadService;
     let listingSearch: ListingSearchService;
-    let listingEdit: ListingEditService;
 
     beforeEach(async () => {
         const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
@@ -55,7 +53,6 @@ describe('Listing Search Service', () => {
         listingDetails = new ListingDetailsService(firestore, storage);
         listingSearch = new ListingSearchService(firestore, documentSpy);
         listingUpload = new ListingUploadService(firestore, storage, auth);
-        listingEdit = new ListingEditService(firestore, storage, documentSpy);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
     });
@@ -82,7 +79,6 @@ describe('Listing Search Service', () => {
                 bathrooms: Math.floor(Math.random() * 3 + 1),
                 address: 'This is a test ' + index,
                 description: 'This is a test' + index,
-                archived: true,
                 purpose: 'For Rent',
                 price: Math.floor(Math.random() * 100) + 1000
             }
@@ -156,9 +152,9 @@ describe('Listing Search Service', () => {
         }
 
         // Delete the listings once we're done
-        await Promise.all(dbRefIDsOfListings.map((id, index) => {
-            return listingEdit.deleteListing(listings[index], id);
-        }));
+        // await Promise.all(dbRefIDsOfListings.map((id, index) => {
+        //     return listingEdit.deleteListing(listings[index], id);
+        // }));
         const docsAfterDeletingMockListings = (await getDocs(collection(firestore, FirestoreCollections.listings))).docs;
         docsAfterDeletingMockListings.forEach(doc => {
             const ifDbStillHasAnyMockItem = dbRefIDsOfListings.includes(doc.id);
