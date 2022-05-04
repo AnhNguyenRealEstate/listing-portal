@@ -14,7 +14,7 @@ import { getAnalytics, logEvent } from '@angular/fire/analytics';
  * TODO: transfer the upload logic to cloud functions
  * to ensure atomic writing
  */
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class ListingUploadService {
 
     private inProgress$$ = new BehaviorSubject<boolean>(false);

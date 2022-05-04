@@ -7,7 +7,7 @@ import { getDocs, QuerySnapshot } from '@firebase/firestore';
 import { DOCUMENT } from '@angular/common';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class ListingSearchService {
     private searchResults$$ = new BehaviorSubject<Listing[]>([]);
     private searchResults$ = this.searchResults$$.asObservable();
