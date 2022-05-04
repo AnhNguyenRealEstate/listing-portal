@@ -103,7 +103,8 @@
             "view_others": "Click here to view our other listings"
         },
         "photos": "Photos",
-        "video": "Video tour"
+        "video": "Video tour",
+        "room": "room"
     },
     "search_bar": {
         "filters": "Filters",
