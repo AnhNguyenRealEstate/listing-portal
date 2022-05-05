@@ -130,7 +130,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             width: '100%',
             autoFocus: false,
             data: {
-                listing: this.listing,
+                listing: { ...this.listing },
                 isEditMode: false
             }
         } as MatDialogConfig;
@@ -150,7 +150,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             width: '100%',
             autoFocus: false,
             data: {
-                listing: this.listing,
+                listing: { ...this.listing },
                 isEditMode: false
             }
         } as MatDialogConfig;
