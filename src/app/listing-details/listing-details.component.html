@@ -141,8 +141,7 @@
                             <mat-icon style="font-size: 36px" color="accent">panorama_horizontal_icon</mat-icon>
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
-                            <span>{{ 'listing_details.view' | translate }}:</span>
-                            {{listing.view}}
+                            <span>{{ 'listing_details.view' | translate }} {{listing.view | lowercase}}</span>
                         </div>
                     </div>
                 </div>
