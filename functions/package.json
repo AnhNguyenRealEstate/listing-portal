@@ -15,7 +15,7 @@
   "dependencies": {
     "currency.js": "^2.0.4",
     "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.20.1"
+    "firebase-functions": "^3.21.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0",
