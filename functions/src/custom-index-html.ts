@@ -4,7 +4,6 @@ import * as currency from 'currency.js';
 import * as fs from 'fs';
 
 exports.customIndexHtml = functions.region('us-central1').https.onRequest(async (req, res) => {
-    const isListingDetailsPage = req.url.indexOf('listings/details') !== -1;
     let indexHTML = fs.readFileSync('src/hosting/index.html', "utf-8").toString();
 
     const defaultDesc = 'Real estate services in District 7, Ho Chi Minh City';
@@ -12,6 +11,7 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
     const defaultLogo = 'https://anhnguyenre.com/assets/images/logo.png';
     const defaultUrl = 'https://anhnguyenre.com';
 
+    let listing;
     const getOpenGraph = async (isListingDetailsPage: boolean) => {
         const defaultOg = `<meta property="og:title" content="${companyName}" />
                         <meta property="og:description" content="${defaultDesc}" />
@@ -31,7 +31,7 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
             return defaultOg;
         }
 
-        const listing = doc.data() as any;
+        listing = doc.data() as any;
 
         const VND = (value: number) => currency(value, { symbol: "đ", separator: ",", precision: 0 });
         const USD = (value: number) => currency(value, { symbol: "$", separator: ",", precision: 0 });
@@ -64,8 +64,17 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
     };
 
     const ogPlaceholder = '<meta name="functions-insert-dynamic-og">';
-    const ogReplacement = await getOpenGraph(isListingDetailsPage);
+    const ogReplacement = await getOpenGraph(true);
     indexHTML = indexHTML.replace(ogPlaceholder, ogReplacement);
+
+    const replaceKeywords = (htmlTemplate: string, listing: any): string => {
+        const patternToReplace = `name="keywords" content="`;
+        const replacement = `name="keywords" content="${listing['category']}, ${listing['location']}, `;
+        return htmlTemplate.replace(patternToReplace, replacement);
+    }
+    if(listing){
+        indexHTML = replaceKeywords(indexHTML, listing);
+    }
 
     res.status(200).send(indexHTML);
 });
