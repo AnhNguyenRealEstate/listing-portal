@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { RolesService } from 'src/app/shared/roles.service';
 import { LoginComponent } from '../login/login-dialog.component';
 import { LoginService } from '../login/login.service';
 
@@ -23,6 +24,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private router: Router,
         public auth: Auth,
         private loginService: LoginService,
+        public roles: RolesService,
         private dialog: MatDialog,
         private injector: Injector,
         public translate: TranslateService) {

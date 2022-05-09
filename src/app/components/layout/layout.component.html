@@ -24,9 +24,14 @@
                 <mat-icon>account_circle</mat-icon>
             </a>
             <mat-menu #menu="matMenu" class="employee-actions-menu">
-                <a mat-menu-item (click)="uploadNewListing()">
+                <a *ngIf="(roles.roles$ | async)?.includes('sales')" mat-menu-item (click)="uploadNewListing()">
                     <mat-icon>add</mat-icon>
                     {{ 'layout.upload_new' | translate }}
+                </a>
+                <a *ngIf="(roles.roles$ | async)?.includes('owner')" mat-menu-item
+                    [routerLink]="['/property-management']">
+                    <mat-icon>other_houses</mat-icon>
+                    {{ 'layout.property_management' | translate }}
                 </a>
                 <a mat-menu-item (click)="logout()">
                     <mat-icon>logout</mat-icon> {{ 'layout.sign_out' | translate }}
@@ -73,15 +78,22 @@
             <span class="ps-3"> {{ 'layout.sign_in' | translate }}</span>
         </a>
 
-        <a *ngIf="loggedIn" mat-button (click)="uploadNewListingMobile()">
-            <mat-icon>add</mat-icon>
-            <span class="ps-3">{{ 'layout.upload_new' | translate }}</span>
-        </a>
+        <ng-container *ngIf="loggedIn">
+            <a *ngIf="(roles.roles$ | async)?.includes('sales')" mat-button (click)="uploadNewListingMobile()">
+                <mat-icon>add</mat-icon>
+                <span class="ps-3">{{ 'layout.upload_new' | translate }}</span>
+            </a>
 
-        <a *ngIf="loggedIn" mat-button (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span class="ps-3">{{ 'layout.sign_out' | translate }}</span>
-        </a>
+            <a *ngIf="(roles.roles$ | async)?.includes('owner')" mat-button [routerLink]="['/property-management']">
+                <mat-icon>other_houses</mat-icon>
+                <span class="ps-3">{{ 'layout.property_management' | translate }}</span>
+            </a>
+
+            <a mat-button (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span class="ps-3">{{ 'layout.sign_out' | translate }}</span>
+            </a>
+        </ng-container>
     </mat-sidenav>
 
     <mat-sidenav-content>

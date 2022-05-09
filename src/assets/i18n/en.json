@@ -43,6 +43,7 @@
     "layout": {
         "listings": "Listings",
         "upload_new": "Upload listing",
+        "property_management": "Manage properties",
         "about_us": "About us",
         "sign_in": "Sign in",
         "sign_out": "Sign out",

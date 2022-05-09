@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const routes: Routes = [
   {
@@ -13,6 +12,11 @@ const routes: Routes = [
     loadChildren: () => import('./listing-search/listing-search.module').then(mod => mod.ListingSearchModule),
     data: { title: 'layout.listings' }
   },
+  {
+    path: 'property-management',
+    loadChildren: () => import('./property-management/property-management.module').then(mod => mod.PropertyManagementModule),
+    data: { title: 'layout.property_management' }
+},
   {
     path: 'about-us',
     loadChildren: () => import('./about-us/about-us.module').then(mod => mod.AboutUsModule),
