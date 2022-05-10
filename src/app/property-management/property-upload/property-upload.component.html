@@ -1,0 +1,53 @@
+<section>
+    <h1 class="page-title">Upload new property</h1>
+    <form [formGroup]="uploadForm">
+        <div class="row">
+            <mat-form-field class="col-6" color="accent">
+                <mat-label>Property Name</mat-label>
+                <input matInput type="text" formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="col-6" color="accent">
+                <mat-label>Category</mat-label>
+                <mat-select name="category" [disabled]="isEditMode">
+                    <mat-option value="Apartment">{{ 'property_upload.apartment' | translate }}</mat-option>
+                    <mat-option value="Villa">{{ 'property_upload.villa' | translate }}</mat-option>
+                    <mat-option value="Townhouse">{{ 'property_upload.townhouse' | translate }}</mat-option>
+                    <mat-option value="Commercial">{{ 'property_upload.commercial' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-6" color="accent">
+                <mat-label>Start Date</mat-label>
+                <input matInput type="text" formControlName="managementStartDate" [matDatepicker]="startDatePicker">
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-6" color="accent">
+                <mat-label>End Date</mat-label>
+                <input matInput type="text" formControlName="managementEndDate" [matDatepicker]="endDatePicker">
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-12" color="accent">
+                <mat-label>Address</mat-label>
+                <input matInput type="text" formControlName="address">
+            </mat-form-field>
+            <div class="col-12">
+                <label class="pt-1 pb-1">{{ 'property_upload.description' | translate }}</label>
+                <div class="mat-form-field-wrapper">
+                    <app-editor [text]="property.description!" (textChange)="property.description = $event">
+                    </app-editor>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-end">
+            <button *ngIf="!isEditMode" class="col-2" mat-button (click)="upload()">
+                <mat-icon color="accent">publish</mat-icon> Upload
+            </button>
+            <button *ngIf="isEditMode" class="col-2" mat-button (click)="edit()">
+                <mat-icon color="accent">edit</mat-icon> Edit
+            </button>
+        </div>
+    </form>
+</section>

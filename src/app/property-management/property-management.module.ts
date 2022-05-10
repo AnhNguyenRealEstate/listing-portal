@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { PropertyManagementComponent } from './property-management.component';
 import { PropertyManagementRoutingModule } from './property-management-routing';
 import { SharedModule } from '../shared/shared.module';
-import { PropertyDetailsComponent } from './details/details.component';
+import { PropertyDetailsComponent } from './property-details/property-details.component';
 import { MatTableModule } from '@angular/material/table';
+import { TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -15,7 +19,14 @@ import { MatTableModule } from '@angular/material/table';
     CommonModule,
     PropertyManagementRoutingModule,
     SharedModule,
-    MatTableModule
+    MatTableModule,
+    TranslateModule.forChild(
+      { extend: true }
+    ),
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
-export class PropertyManagementModule { }
+export class PropertyManagementModule {
+}

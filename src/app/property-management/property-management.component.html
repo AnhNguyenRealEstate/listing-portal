@@ -1,0 +1,22 @@
+<section class="container-flex pt-2 ms-4 me-4">
+    <h1 class="page-title">Dashboard</h1>
+    <div class="row pb-5">
+        <div class="col-3">
+            <button mat-button (click)="addProperty()"><mat-icon>add</mat-icon>New property</button>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let listing of numberOfMockProps; let i = index;" class="col-4">
+            <mat-card (click)="showDetails()">
+                <div>
+                    Căn hộ {{i}}
+                </div>
+                <mat-card-content>
+                    <div class="pt-10 pb-10">
+                        Thông tin căn hộ
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</section>
