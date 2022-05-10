@@ -1,6 +1,13 @@
 {
     "app_title": "BĐS Anh Nguyễn",
     "generics.any": "Bất kỳ",
+    "property_category": {
+        "apartment": "Căn hộ",
+        "duplex": "Duplex",
+        "villa": "Biệt thự",
+        "townhouse": "Song lập",
+        "commercial": "Shop thương mại"
+    },
     "about_us": {
         "about_us": "Bất Động Sản Anh Nguyễn",
         "company_intro_1_title": "Hơn {{tenure}} Năm Hành Nghề",
@@ -59,10 +66,6 @@
     "search_results": {
         "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
         "details": "Chi tiết",
-        "apartment": "Căn hộ",
-        "villa": "Biệt thự",
-        "townhouse": "Song lập",
-        "commercial": "Shop thương mại",
         "view": "View",
         "view_more": "Xem thêm"
     },
@@ -84,10 +87,6 @@
         "category": "Phân loại",
         "bedrooms": "Phòng ngủ",
         "bathrooms": "Phòng tắm",
-        "apartment": "Căn hộ",
-        "villa": "Biệt thự",
-        "townhouse": "Song lập",
-        "commercial": "Shop thương mại",
         "propertySize": "Diện tích",
         "location": "Vị trí",
         "address": "Địa chỉ",
@@ -108,10 +107,6 @@
     "search_bar": {
         "filters": "Sàng lọc chi tiết",
         "category": "Phân loại",
-        "apartment": "Căn hộ",
-        "villa": "Biệt thự",
-        "townhouse": "Song lập",
-        "commercial": "Shop thương mại",
         "location": "Vị trí",
         "property_sizes": "Diện tích",
         "bedrooms": "Phòng ngủ",
@@ -134,11 +129,7 @@
     },
     "listing_upload": {
         "category": "Phân loại",
-        "apartment": "Căn hộ",
-        "villa": "Biệt thự",
-        "townhouse": "Song lập",
-        "commercial": "Shop thương mại",
-        "location": "Vị trí (viết tiếng Việt có dấu)",
+        "location": "Vị trí (viết tiếng Việt có dấu, ví dụ: Hưng Thái 1)",
         "property_sizes": "Diện tích",
         "bedrooms": "Phòng ngủ",
         "bathrooms": "Phòng tắm",

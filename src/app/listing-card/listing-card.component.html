@@ -50,25 +50,29 @@
     <span *ngIf="listing.propertySize" class="pe-1">{{listing.propertySize}}m<sup>2</sup></span>
     <span *ngIf="listing.location" class="text-bold pe-1">{{listing.location}}</span>
     <div class="d-inline pe-1" *ngIf="listing.category">
-        <span *ngIf="listing.category === 'Apartment'">{{'search_results.apartment' | translate |
+        <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate |
             lowercase}}</span>
-        <span *ngIf="listing.category === 'Villa'">{{'search_results.villa' | translate |
+        <span *ngIf="listing.category === 'Duplex'">{{ 'property_category.duplex' | translate |
             lowercase}}</span>
-        <span *ngIf="listing.category === 'Townhouse'">{{'search_results.townhouse' | translate |
+        <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate |
             lowercase}}</span>
-        <span *ngIf="listing.category === 'Commercial'">{{'search_results.commercial' | translate |
+        <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate |
+            lowercase}}</span>
+        <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' | translate |
             lowercase}}</span>
     </div>
 </ng-template>
 
 <ng-template #vietnameseDescription>
     <div class="d-inline pe-1" *ngIf="listing.category">
-        <span *ngIf="listing.category === 'Apartment'">{{ 'search_results.apartment' | translate
+        <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
             }}</span>
-        <span *ngIf="listing.category === 'Villa'">{{'search_results.villa' | translate}}</span>
-        <span *ngIf="listing.category === 'Townhouse'">{{ 'search_results.townhouse' | translate
+        <span *ngIf="listing.category === 'Duplex'">{{ 'property_category.duplex' | translate
             }}</span>
-        <span *ngIf="listing.category === 'Commercial'">{{ 'search_results.commercial' | translate
+        <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate}}</span>
+        <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+            }}</span>
+        <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' | translate
             }}</span>
     </div>
     <span *ngIf="listing.location" class="text-bold pe-1">{{listing.location}}</span>

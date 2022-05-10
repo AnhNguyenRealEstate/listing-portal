@@ -22,10 +22,11 @@
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.category' | translate }}</mat-label>
                     <mat-select name="category" [(ngModel)]="listing.category" required [disabled]="isEditMode">
-                        <mat-option value="Apartment">{{ 'listing_upload.apartment' | translate }}</mat-option>
-                        <mat-option value="Villa">{{ 'listing_upload.villa' | translate }}</mat-option>
-                        <mat-option value="Townhouse">{{ 'listing_upload.townhouse' | translate }}</mat-option>
-                        <mat-option value="Commercial">{{ 'listing_upload.commercial' | translate }}</mat-option>
+                        <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}</mat-option>
+                        <mat-option value="Duplex">{{ 'property_category.duplex' | translate }}</mat-option>
+                        <mat-option value="Villa">{{ 'property_category.villa' | translate }}</mat-option>
+                        <mat-option value="Townhouse">{{ 'property_category.townhouse' | translate }}</mat-option>
+                        <mat-option value="Commercial">{{ 'property_category.commercial' | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

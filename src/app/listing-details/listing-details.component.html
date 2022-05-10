@@ -96,15 +96,19 @@
                 <div class="row pb-2">
                     <div class="col-3" style="border: 1px solid rgb(223, 223, 223);">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon style="font-size: 36px" color="accent">home</mat-icon>
+                            <mat-icon style="font-size: 36px" color="accent">gite</mat-icon>
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
-                            <span *ngIf="listing.category === 'Apartment'">{{ 'listing_details.apartment' | translate
+                            <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
                                 }}</span>
-                            <span *ngIf="listing.category === 'Villa'">{{ 'listing_details.villa' | translate }}</span>
-                            <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_details.townhouse' | translate
+                            <span *ngIf="listing.category === 'Duplex'">{{ 'property_category.duplex' | translate
                                 }}</span>
-                            <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' | translate
+                            <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate
+                                }}</span>
+                            <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+                                }}</span>
+                            <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' |
+                                translate
                                 }}</span>
                         </div>
                     </div>
@@ -124,7 +128,7 @@
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
                             <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
-                                *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
+                                    *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
                             </span>
                         </div>
                     </div>
@@ -205,14 +209,16 @@
 
         <div class="row pb-2">
             <div class="col-6">
-                <mat-icon color="accent">home</mat-icon>
+                <mat-icon color="accent">gite</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.category' | translate }}:</span>
-                <span *ngIf="listing.category === 'Apartment'">{{ 'listing_details.apartment' | translate
+                <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
                     }}</span>
-                <span *ngIf="listing.category === 'Villa'">{{ 'listing_details.villa' | translate }}</span>
-                <span *ngIf="listing.category === 'Townhouse'">{{ 'listing_details.townhouse' | translate
+                <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.duplex' | translate
                     }}</span>
-                <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' | translate
+                <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate }}</span>
+                <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+                    }}</span>
+                <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' | translate
                     }}</span>
             </div>
             <div class="col-6">
