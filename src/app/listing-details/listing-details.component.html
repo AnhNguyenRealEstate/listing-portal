@@ -31,7 +31,17 @@
         <div class="row pb-4">
             <div class="col-6">
                 <h1>
-                    <div class="product-title-desktop">{{listing.location}}</div>
+                    <div class="product-title-desktop">
+                        <ng-container *ngIf="translate.currentLang === 'vn'">
+                            <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                            </ng-container>
+                        </ng-container>
+                        {{listing.location}}
+                        <ng-container *ngIf="translate.currentLang === 'en'">
+                            <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                            </ng-container>
+                        </ng-container>
+                    </div>
                     <div class="product-description-desktop">
                         {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
                         <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
@@ -94,27 +104,18 @@
             </div>
             <div class="col-6 listing-information">
                 <div class="row pb-2">
-                    <div class="col-3" style="border: 1px solid rgb(223, 223, 223);">
+                    <div class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon style="font-size: 36px" color="accent">gite</mat-icon>
+                            <mat-icon color="accent">gite</mat-icon>
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
-                            <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
-                                }}</span>
-                            <span *ngIf="listing.category === 'Duplex'">{{ 'property_category.duplex' | translate
-                                }}</span>
-                            <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate
-                                }}</span>
-                            <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
-                                }}</span>
-                            <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' |
-                                translate
-                                }}</span>
+                            <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                            </ng-container>
                         </div>
                     </div>
-                    <div class="col-3" style="border: 1px solid rgb(223, 223, 223);">
+                    <div class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon style="font-size: 36px" color="accent">bed</mat-icon>
+                            <mat-icon color="accent">bed</mat-icon>
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
                             <span>{{listing.bedrooms}} {{ 'listing_details.room' | translate }}<ng-container
@@ -122,9 +123,9 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-3" style="border: 1px solid rgb(223, 223, 223);">
+                    <div class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon style="font-size: 36px" color="accent">bathtub</mat-icon>
+                            <mat-icon color="accent">bathtub</mat-icon>
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
                             <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
@@ -132,17 +133,17 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-3" style="border: 1px solid rgb(223, 223, 223);">
+                    <div class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon style="font-size: 36px" color="accent">aspect_ratio</mat-icon>
+                            <mat-icon color="accent">aspect_ratio</mat-icon>
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
                             <span>{{listing.propertySize}} (m<sup>2</sup>)</span>
                         </div>
                     </div>
-                    <div *ngIf="listing.view" class="col-3" style="border: 1px solid rgb(223, 223, 223);">
+                    <div *ngIf="listing.view" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon style="font-size: 36px" color="accent">panorama_horizontal_icon</mat-icon>
+                            <mat-icon color="accent">panorama_horizontal_icon</mat-icon>
                         </div>
                         <div class="ps-1 pb-2" style="font-size: 24px;">
                             <span>{{ 'listing_details.view' | translate }} {{listing.view | lowercase}}</span>
@@ -173,7 +174,17 @@
     <div *ngIf="listing.location">
         <div class="d-flex justify-content-between" style="vertical-align: middle;">
             <h1 class="pt-3">
-                <div class="product-title-mobile">{{listing.location}}</div>
+                <div class="product-title-mobile">
+                    <ng-container *ngIf="translate.currentLang === 'vn'">
+                        <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                        </ng-container>
+                    </ng-container>
+                    {{listing.location}}
+                    <ng-container *ngIf="translate.currentLang === 'en'">
+                        <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                        </ng-container>
+                    </ng-container>
+                </div>
                 <div class="product-description-mobile">
                     {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
                     <ng-container *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}
@@ -211,15 +222,8 @@
             <div class="col-6">
                 <mat-icon color="accent">gite</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.category' | translate }}:</span>
-                <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
-                    }}</span>
-                <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.duplex' | translate
-                    }}</span>
-                <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate }}</span>
-                <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
-                    }}</span>
-                <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' | translate
-                    }}</span>
+                <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                </ng-container>
             </div>
             <div class="col-6">
                 <mat-icon color="accent">aspect_ratio</mat-icon>
@@ -275,3 +279,17 @@
 </section>
 
 <app-footer *ngIf="showFooter"></app-footer>
+
+<ng-template #category let-listing="listing">
+    <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
+        }}</span>
+    <span *ngIf="listing.category === 'Duplex'">{{ 'property_category.duplex' | translate
+        }}</span>
+    <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate
+        }}</span>
+    <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+        }}</span>
+    <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' |
+        translate
+        }}</span>
+</ng-template>

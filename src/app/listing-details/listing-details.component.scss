@@ -38,3 +38,10 @@
     font-size: 15px;
     color: gray;
 }
+
+.important-information {
+    border: 1px solid rgb(223, 223, 223);
+    mat-icon {
+        font-size: 36px !important;
+    }
+}
