@@ -41,6 +41,7 @@
                             <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
                             </ng-container>
                         </ng-container>
+                        <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
                     </div>
                     <div class="product-description-desktop">
                         {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
@@ -108,16 +109,20 @@
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">gite</mat-icon>
                         </div>
-                        <div class="ps-1 pb-2" style="font-size: 24px;">
-                            <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
-                            </ng-container>
+                        <div class="ps-1 pb-2 important-info-text">
+                            <div>
+                                <ng-container [ngTemplateOutlet]="category"
+                                    [ngTemplateOutletContext]="{listing: listing}">
+                                </ng-container>
+                            </div>
+                            <span *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
                         </div>
                     </div>
                     <div class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">bed</mat-icon>
                         </div>
-                        <div class="ps-1 pb-2" style="font-size: 24px;">
+                        <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.bedrooms}} {{ 'listing_details.room' | translate }}<ng-container
                                     *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
                             </span>
@@ -127,7 +132,7 @@
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">bathtub</mat-icon>
                         </div>
-                        <div class="ps-1 pb-2" style="font-size: 24px;">
+                        <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
                                     *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
                             </span>
@@ -137,7 +142,7 @@
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">aspect_ratio</mat-icon>
                         </div>
-                        <div class="ps-1 pb-2" style="font-size: 24px;">
+                        <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.propertySize}} (m<sup>2</sup>)</span>
                         </div>
                     </div>
@@ -145,7 +150,7 @@
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">panorama_horizontal_icon</mat-icon>
                         </div>
-                        <div class="ps-1 pb-2" style="font-size: 24px;">
+                        <div class="ps-1 pb-2 important-info-text">
                             <span>{{ 'listing_details.view' | translate }} {{listing.view | lowercase}}</span>
                         </div>
                     </div>
@@ -184,6 +189,7 @@
                         <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
                         </ng-container>
                     </ng-container>
+                    <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
                 </div>
                 <div class="product-description-mobile">
                     {{listing.price | currency: listing.currency : 'symbol' : '1.0-0'}} |
@@ -219,11 +225,12 @@
         </mat-tab-group>
 
         <div class="row pb-2">
-            <div class="col-6">
-                <mat-icon color="accent">gite</mat-icon>
+            <div class="col-6" style="overflow-wrap: anywhere">
+                <mat-icon color="accent" class="d-inline">gite</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.category' | translate }}:</span>
                 <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
                 </ng-container>
+                <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
             </div>
             <div class="col-6">
                 <mat-icon color="accent">aspect_ratio</mat-icon>
@@ -282,8 +289,6 @@
 
 <ng-template #category let-listing="listing">
     <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
-        }}</span>
-    <span *ngIf="listing.category === 'Duplex'">{{ 'property_category.duplex' | translate
         }}</span>
     <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate
         }}</span>

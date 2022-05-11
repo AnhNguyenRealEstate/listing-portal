@@ -7,6 +7,7 @@ export interface Listing {
     coverImagePath?: string
     fireStoragePath?: string
     category?: Category
+    subcategory?: string
     location?: string
     address?: string
     price?: number
@@ -31,7 +32,7 @@ export interface ListingImageFile {
     description?: string
 }
 
-export type Category = 'Apartment' | 'Duplex' | 'Villa' | 'Townhouse' | 'Commercial' | undefined;
+export type Category = 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial' | undefined;
 
 export interface SearchCriteria {
     category: string

@@ -114,14 +114,6 @@ async function incrementCategoryCounter(category: string): Promise<string> {
                 'apartment': newAptCount
             })
             break;
-        case 'Duplex':
-            const duplexCount = categoryCounter['duplex'];
-            const newDuplexCount = duplexCount + 1;
-            tagID = `DP-${newDuplexCount}`;
-            categoryCounterSnap.ref.update({
-                'duplex': newDuplexCount
-            })
-            break;
         case 'Villa':
             const villaCount = categoryCounter['villa'];
             const newVillaCount = villaCount + 1;

@@ -3,7 +3,6 @@
     "generics.any": "Any",
     "property_category": {
         "apartment": "Apartment",
-        "duplex": "Duplex",
         "villa": "Villa",
         "townhouse": "Townhouse",
         "commercial": "Commercial"
@@ -130,6 +129,7 @@
     },
     "listing_upload": {
         "category": "Category",
+        "subcategory": "Sub-category",
         "location": "Location (in Vietnamese characters, example: Hưng Thái 1)",
         "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",

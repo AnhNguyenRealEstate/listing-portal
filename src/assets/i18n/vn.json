@@ -3,7 +3,6 @@
     "generics.any": "Bất kỳ",
     "property_category": {
         "apartment": "Căn hộ",
-        "duplex": "Duplex",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
         "commercial": "Shop thương mại"
@@ -129,6 +128,7 @@
     },
     "listing_upload": {
         "category": "Phân loại",
+        "subcategory": "Phân loại phụ",
         "location": "Vị trí (viết tiếng Việt có dấu, ví dụ: Hưng Thái 1)",
         "property_sizes": "Diện tích",
         "bedrooms": "Phòng ngủ",

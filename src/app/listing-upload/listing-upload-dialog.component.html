@@ -23,7 +23,6 @@
                     <mat-label>{{ 'listing_upload.category' | translate }}</mat-label>
                     <mat-select name="category" [(ngModel)]="listing.category" required [disabled]="isEditMode">
                         <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}</mat-option>
-                        <mat-option value="Duplex">{{ 'property_category.duplex' | translate }}</mat-option>
                         <mat-option value="Villa">{{ 'property_category.villa' | translate }}</mat-option>
                         <mat-option value="Townhouse">{{ 'property_category.townhouse' | translate }}</mat-option>
                         <mat-option value="Commercial">{{ 'property_category.commercial' | translate }}</mat-option>
@@ -32,10 +31,17 @@
             </div>
             <div class="col-12">
                 <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.subcategory' | translate }}</mat-label>
+                    <input matInput trim="blur" name="subcategory" type="text" [(ngModel)]="listing.subcategory"
+                    class="d-inline">
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
                     <input name="locations" matInput trim="blur" type="text" aria-label="Location"
                         [matAutocomplete]="locationsAuto" [(ngModel)]="listing.location"
-                        (ngModelChange)="updateOptions()" required>
+                        (ngModelChange)="updateOptions()" placeholder="Hưng Thái 1" required>
                     <mat-autocomplete #locationsAuto="matAutocomplete">
                         <mat-option *ngFor="let location of filteredLocations$ | async" value="{{location}}">
                             {{location}}
