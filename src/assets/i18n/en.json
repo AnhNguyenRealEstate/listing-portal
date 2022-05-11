@@ -1,6 +1,12 @@
 {
     "app_title": "Anh Nguyen Real Estate",
     "generics.any": "Any",
+    "property_category": {
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "Townhouse",
+        "commercial": "Commercial"
+    },
     "about_us": {
         "about_us": "Contact Us",
         "company_intro_1_title": "{{tenure}}+ Years",
@@ -61,10 +67,6 @@
         "no_results": "No result matches your criteria",
         "details": "Details",
         "category": "Category",
-        "apartment": "Apartment",
-        "villa": "Villa",
-        "townhouse": "Townhouse",
-        "commercial": "Commercial",
         "view": "View",
         "view_more": "View more"
     },
@@ -86,10 +88,6 @@
         "category": "Category",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
-        "apartment": "Apartment",
-        "villa": "Villa",
-        "townhouse": "Townhouse",
-        "commercial": "Commercial",
         "propertySize": "Size",
         "location": "Location",
         "address": "Address",
@@ -110,10 +108,6 @@
     "search_bar": {
         "filters": "Filters",
         "category": "Category",
-        "apartment": "Apartment",
-        "villa": "Villa",
-        "townhouse": "Townhouse",
-        "commercial": "Commercial",
         "location": "Location",
         "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",
@@ -136,11 +130,8 @@
     },
     "listing_upload": {
         "category": "Category",
-        "apartment": "Apartment",
-        "villa": "Villa",
-        "townhouse": "Townhouse",
-        "commercial": "Commercial",
-        "location": "Location (in Vietnamese characters)",
+        "subcategory": "Sub-category",
+        "location": "Location (in Vietnamese characters, example: Hưng Thái 1)",
         "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
