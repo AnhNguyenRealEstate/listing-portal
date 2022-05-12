@@ -165,8 +165,6 @@ export class ListingCardComponent implements OnInit, OnDestroy {
     async deleteListing(event: Event) {
         event.stopPropagation();
 
-        event.stopPropagation();
-
         this.dialog.open(this.confirmationDialogTemplate, {
             height: '20%',
             width: '100%'
