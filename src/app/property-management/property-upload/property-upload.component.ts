@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
-import { Document, Property } from '../property-management.data';
+import { Property, UploadedFile } from '../property-management.data';
 import { PropertyUploadService } from './property-upload.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class PropertyUploadComponent implements OnInit {
     isEditMode: boolean = false;
 
     uploadedFiles: File[] = [];
-    deletedFiles: Document[] = [];
+    deletedFiles: UploadedFile[] = [];
 
     uploadForm!: FormGroup;
 
@@ -56,7 +56,8 @@ export class PropertyUploadComponent implements OnInit {
     }
 
     onFileRemove(index: number) {
-        this.uploadedFiles.splice(index, 1);
+        const deletedFile = this.property.documents!.splice(index, 1);
+        this.deletedFiles.push(deletedFile[0]);
     }
 
     async upload() {

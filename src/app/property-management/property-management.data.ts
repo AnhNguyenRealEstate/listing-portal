@@ -9,7 +9,8 @@ export interface Property {
     managementStartDate?: Timestamp
     managementEndDate?: Timestamp
     activities?: Activity[]
-    documents?: Document[]
+    fileStoragePath?: string
+    documents?: UploadedFile[]
 }
 
 export interface Activity {
@@ -17,7 +18,7 @@ export interface Activity {
     description?: string
 }
 
-export interface Document {
-    storagePath?: string
-    name?: string
+export interface UploadedFile {
+    dbHashedName?: string
+    displayName?: string
 }

@@ -12,7 +12,6 @@ export class PropertyManagementService {
     ) { }
 
 
-    async getProperties(): Promise<Property[]>;
     async getProperties(owner?: string): Promise<Property[]> {
         let q = query(collection(this.firestore, FirestoreCollections.underManagement), limit(this.quotaPerQuery));
 

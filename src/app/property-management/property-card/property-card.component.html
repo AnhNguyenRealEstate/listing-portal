@@ -5,3 +5,15 @@
         Some quick info about the listing (latest changes?)
     </mat-card-content>
 </mat-card>
+
+<ng-template #confirmationDialog>
+    <section class="container-flex justify-content-between">
+        <p class="pb-2">{{ 'listing_edit.confirmation_msg' | translate }}</p>
+        <div class="d-flex justify-content-end">
+            <button mat-button color="accent" [mat-dialog-close]="true">
+                {{ 'listing_edit.yes_msg' | translate }}
+            </button>
+            <button mat-button [mat-dialog-close]="false">{{ 'listing_edit.no_msg' | translate }}</button>
+        </div>
+    </section>
+</ng-template>
