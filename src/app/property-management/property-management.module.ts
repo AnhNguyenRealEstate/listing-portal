@@ -9,12 +9,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PropertyCardComponent } from './property-card/property-card.component';
 
 
 @NgModule({
   declarations: [
     PropertyManagementComponent,
-    PropertyDetailsComponent],
+    PropertyDetailsComponent,
+    PropertyCardComponent],
   imports: [
     CommonModule,
     PropertyManagementRoutingModule,
