@@ -48,6 +48,7 @@
                         <span *ngIf="listing.purpose === 'For Rent'">{{ 'listing_details.for_rent' | translate }}</span>
                         <span *ngIf="listing.purpose === 'For Sale'">{{ 'listing_details.for_sale' | translate }}</span>
                     </div>
+                    <div class="product-tag-id">#{{listing.tagID}}</div>
                 </h1>
             </div>
             <div class="col-6">
