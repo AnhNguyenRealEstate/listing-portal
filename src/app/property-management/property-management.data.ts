@@ -6,11 +6,13 @@ export interface Property {
     address?: string
     description?: string
     category?: string
-    managementStartDate?: Timestamp
-    managementEndDate?: Timestamp
+    subcategory?: string
+    managementStartDate?: Date
+    managementEndDate?: Date
     activities?: Activity[]
     fileStoragePath?: string
     documents?: UploadedFile[]
+    creationDate?: Timestamp
 }
 
 export interface Activity {

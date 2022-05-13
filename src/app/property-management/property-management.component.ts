@@ -1,4 +1,4 @@
-import { Component, createNgModuleRef, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { RolesService } from '../shared/roles.service';
 import { PropertyDetailsComponent } from './property-details/property-details.component';
 import { Property } from './property-management.data';
 import { PropertyManagementService } from './property-management.service';
+import { PropertyUploadComponent } from './property-upload/property-upload.component';
 
 @Component({
     selector: 'property-management',
@@ -19,7 +20,6 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
 
     constructor(
         private dialog: MatDialog,
-        private injector: Injector,
         private roles: RolesService,
         private propertyManagement: PropertyManagementService,
         private auth: Auth
@@ -59,11 +59,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
             }
         } as MatDialogConfig;
 
-        const { PropertyUploadModule } = await import("src/app/property-management/property-upload/property-upload.module");
-        const moduleRef = createNgModuleRef(PropertyUploadModule, this.injector);
-        const listingUploadComponent = moduleRef.instance.getPropertyUploadModule();
-
-        this.dialog.open(listingUploadComponent, config);
+        this.dialog.open(PropertyUploadComponent, config);
     }
 
     propertyRemoved(index: number) {

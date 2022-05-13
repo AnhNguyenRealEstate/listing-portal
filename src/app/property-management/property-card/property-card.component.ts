@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Property } from '../property-management.data';
+import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { PropertyCardService } from './property-card.service';
 
 @Component({
@@ -21,8 +22,7 @@ export class PropertyCardComponent implements OnInit {
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
         private translate: TranslateService,
-        private propertyCard: PropertyCardService,
-        private injector: Injector
+        private propertyCard: PropertyCardService
     ) { }
 
     ngOnInit() {
@@ -40,11 +40,7 @@ export class PropertyCardComponent implements OnInit {
             }
         } as MatDialogConfig;
 
-        const { PropertyUploadModule } = await import("src/app/property-management/property-upload/property-upload.module");
-        const moduleRef = createNgModuleRef(PropertyUploadModule, this.injector);
-        const listingUploadComponent = moduleRef.instance.getPropertyUploadModule();
-
-        this.dialog.open(listingUploadComponent, config);
+        this.dialog.open(PropertyUploadComponent, config);
     }
     
     async deleteListing(event: Event) {

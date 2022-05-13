@@ -1,5 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,10 +21,7 @@ export class PropertyUploadComponent implements OnInit {
     uploadedFiles: File[] = [];
     deletedFiles: UploadedFile[] = [];
 
-    uploadForm!: FormGroup;
-
     constructor(
-        private fb: FormBuilder,
         private translate: TranslateService,
         private snackbar: MatSnackBar,
         private propertyUpload: PropertyUploadService,
@@ -34,13 +32,6 @@ export class PropertyUploadComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.uploadForm = this.fb.group({
-            name: ['', Validators.required],
-            address: ['', Validators.required],
-            category: ['', Validators.required],
-            managementStartDate: ['', Validators.required],
-            managementEndDate: ['', Validators.required]
-        });
     }
 
     onFileUpload(event: any) {
@@ -49,10 +40,30 @@ export class PropertyUploadComponent implements OnInit {
             return;
         }
 
+        const newFiles: File[] = [];
         for (let i = 0; i < files.length; i++) {
             const file = files.item(i)!;
-            this.uploadedFiles.push(file);
+
+            if (this.property.documents?.length
+                && this.property.documents.find(doc => doc.displayName === file.name)) {
+                continue;
+            }
+
+            newFiles.unshift(file);
+            this.uploadedFiles.unshift(file);
         }
+
+        if (!this.property.documents?.length) {
+            this.property.documents = [];
+        }
+
+        this.property.documents.unshift(...newFiles.map(file => {
+            return {
+                displayName: file.name,
+                dbHashedName: this.generateHash(file.name)
+            } as UploadedFile
+        }))
+
     }
 
     onFileRemove(index: number) {
@@ -78,5 +89,25 @@ export class PropertyUploadComponent implements OnInit {
             undefined,
             { duration: 1500 }
         );
+    }
+
+    uploadedFileDrop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.property.documents!, event.previousIndex, event.currentIndex);
+    }
+
+    private generateHash(str: string, seed?: number) {
+        //https://www.codegrepper.com/code-examples/javascript/hash+a+string+angular
+        /*jshint bitwise:false */
+        let i, l, hval = (seed === undefined) ? 0x811c9dc5 : seed;
+        for (i = 0, l = str.length; i < l; i++) {
+            hval ^= str.charCodeAt(i);
+            hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
+        }
+        // Convert to 8 digit hex string
+        return ("0000000" + (hval >>> 0).toString(16)).substring(-8);
+    }
+
+    doesFileNameAlreadyExist(name: string) {
+        return !!this.property.documents?.find(doc => doc.displayName === name);
     }
 }

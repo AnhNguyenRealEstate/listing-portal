@@ -6,10 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { PropertyDetailsComponent } from './property-details/property-details.component';
 import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { PropertyCardComponent } from './property-card/property-card.component';
+import { PropertyUploadModule } from './property-upload/property-upload.module';
 
 
 @NgModule({
@@ -25,9 +23,7 @@ import { PropertyCardComponent } from './property-card/property-card.component';
     TranslateModule.forChild(
       { extend: true }
     ),
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    PropertyUploadModule
   ]
 })
 export class PropertyManagementModule {
