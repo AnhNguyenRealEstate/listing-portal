@@ -29,7 +29,7 @@
                     <mat-icon>add</mat-icon>
                     {{ 'layout.upload_new' | translate }}
                 </a>
-                <a *ngIf="(roles.roles$ | async)?.includes('owner')" mat-menu-item
+                <a *ngIf="(roles.roles$ | async)?.includes('owner') || (roles.roles$ | async)?.includes('customer-service')" mat-menu-item
                     [routerLink]="['/property-management']">
                     <mat-icon>other_houses</mat-icon>
                     {{ 'layout.property_management' | translate }}
@@ -85,7 +85,7 @@
                 <span class="ps-3">{{ 'layout.upload_new' | translate }}</span>
             </a>
 
-            <a *ngIf="(roles.roles$ | async)?.includes('owner')" mat-button [routerLink]="['/property-management']">
+            <a *ngIf="(roles.roles$ | async)?.includes('owner') || (roles.roles$ | async)?.includes('customer-service')" mat-button [routerLink]="['/property-management']">
                 <mat-icon>other_houses</mat-icon>
                 <span class="ps-3">{{ 'layout.property_management' | translate }}</span>
             </a>

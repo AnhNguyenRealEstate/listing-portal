@@ -27,7 +27,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.subs.add(this.roles.roles$.subscribe(async roles => {
-            if (roles.includes('sales')) {
+            if (roles.includes('customer-service')) {
                 this.properties = await this.propertyManagement.getProperties();
             } else if (roles.includes('owner') && this.auth.currentUser?.email) {
                 this.properties = await this.propertyManagement.getProperties(this.auth.currentUser.email);

@@ -8,7 +8,7 @@ import { FirestoreCollections } from './globals';
 @Injectable({ providedIn: 'root' })
 export class RolesService {
 
-    private roles$$ = new BehaviorSubject<Roles[]>([]);
+    private roles$$ = new BehaviorSubject<Role[]>([]);
     roles$ = this.roles$$.asObservable();
 
     constructor(
@@ -23,7 +23,7 @@ export class RolesService {
         });
     }
 
-    private async getRoles(userId: string): Promise<Roles[]> {
+    private async getRoles(userId: string): Promise<Role[]> {
         if (!userId) {
             return [];
         }
@@ -35,7 +35,7 @@ export class RolesService {
 }
 
 export interface UserProfile {
-    roles: Roles[]
+    roles: Role[]
 }
 
-export type Roles = 'sales' | 'owner';
+export type Role = 'sales' | 'owner' | 'customer-service';
