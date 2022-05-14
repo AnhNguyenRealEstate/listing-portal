@@ -23,6 +23,8 @@
 .contact-block-wrapper-desktop {
     padding-top: 1em;
     text-align: end;
+    line-height: 1.5rem;
+    font-size: 15px;
 }
 
 ::ng-deep .next-icon:not(.disable),
@@ -37,6 +39,12 @@
 .product-description-mobile {
     font-size: 15px;
     color: gray;
+}
+
+.product-tag-id {
+    font-size: 15px;
+    color: gray;
+    line-height: 1rem;
 }
 
 .important-information {

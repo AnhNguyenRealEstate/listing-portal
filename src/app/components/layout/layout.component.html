@@ -11,6 +11,7 @@
 
         <div class="language-toggle ms-2 me-4">
             <mat-icon>language</mat-icon>
+            <span class="pe-1"></span>
             <mat-form-field color="accent">
                 <mat-select [(ngModel)]="lang" (selectionChange)="useLanguage($event)">
                     <mat-option value='en'>{{ 'layout.english' | translate }}</mat-option>
