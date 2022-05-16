@@ -42,8 +42,17 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
         } else if (listing.currency === 'USD') {
             priceText = USD(listing['price']).format();
         }
-        const ogTitle = `${listing['purpose']}: ${listing['location']} ${priceText}`;
 
+        let ogTitle = `${listing['purpose']}: `;
+        const category = listing['category'];
+        if (category !== 'Commercial') {
+            ogTitle += `${listing['location']} ${category} - ${priceText}`;
+        } else if (category !== 'Commercial') {
+            ogTitle += `${listing['location']} commercial property - ${priceText}`;
+        } else {
+            ogTitle += `${listing['location']} - ${priceText}`;
+        }
+       
         const ogDesc = `${listing['contactNumber']} - ${listing['contactPerson']} - ${companyName} `;
         const ogUrl = defaultUrl + req.url;
 
@@ -72,7 +81,7 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
         const replacement = `name="keywords" content="${listing['category']}, ${listing['location']}, `;
         return htmlTemplate.replace(patternToReplace, replacement);
     }
-    if(listing){
+    if (listing) {
         indexHTML = replaceKeywords(indexHTML, listing);
     }
 

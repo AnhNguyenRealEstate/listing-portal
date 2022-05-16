@@ -22,8 +22,8 @@
         "commitment": "Commitment",
         "main_office": "Main office",
         "hours": "Hours",
-        "weekdays_hours": "Weekdays: 9:00 AM to 5:30 PM",
-        "weekends_hours": "Weekends: 10:00 AM to 4:30 PM",
+        "weekdays_hours": "Mon - Fri: 8:00 AM to 6:00 PM",
+        "weekends_hours": "Weekends: 10:00 AM to 5:00 PM",
         "msg_us": "Send us a message",
         "inquiry_label": "What's your inquiry?",
         "contact_method": " How should we contact you?",
@@ -76,7 +76,8 @@
         "feature": "Feature listing",
         "unfeature": "Unfeature listing",
         "clone": "Create new from this listing",
-        "delete": "Delete listing"
+        "delete": "Delete listing",
+        "commercial": "Commercial property"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {
@@ -102,7 +103,8 @@
         },
         "photos": "Photos",
         "video": "Video tour",
-        "room": "room"
+        "room": "room",
+        "commercial": "Commercial property"
     },
     "search_bar": {
         "filters": "Filters",

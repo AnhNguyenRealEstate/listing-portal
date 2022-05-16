@@ -5,7 +5,7 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Shop thương mại"
+        "commercial": "Mặt bằng kinh doanh"
     },
     "about_us": {
         "about_us": "Bất Động Sản Anh Nguyễn",
@@ -22,8 +22,8 @@
         "commitment": "Ân cần",
         "main_office": "Văn phòng chính",
         "hours": "Giờ hành chính",
-        "weekdays_hours": "Ngày thường: 9:00 sáng đến 5:30 chiều",
-        "weekends_hours": "Cuối tuần: 10:00 sáng đến 4:30 chiều",
+        "weekdays_hours": "Ngày thường: 8:00 sáng đến 6:00 chiều",
+        "weekends_hours": "Cuối tuần: 10:00 sáng đến 5:00 chiều",
         "msg_us": "Liên hệ qua lời nhắn",
         "inquiry_label": "Chủ đề",
         "contact_method": "Cách chúng tôi liên lạc bạn",
@@ -75,7 +75,8 @@
         "feature": "Ưu tiên lên trang chủ",
         "unfeature": "Tháo ưu tiên trên trang chủ",
         "clone": "Đăng mới từ sản phẩm",
-        "delete": "Xoá sản phẩm"
+        "delete": "Xoá sản phẩm",
+        "commercial": "Mặt bằng"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
@@ -101,7 +102,8 @@
         },
         "photos": "Hình ảnh",
         "video": "Video",
-        "room": "phòng"
+        "room": "phòng",
+        "commercial": "Mặt bằng kinh doanh"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",

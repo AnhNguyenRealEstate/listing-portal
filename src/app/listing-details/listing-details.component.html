@@ -38,7 +38,7 @@
                         </ng-container>
                         {{listing.location}}
                         <ng-container *ngIf="translate.currentLang === 'en'">
-                            <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                            <ng-container [ngTemplateOutlet]="category_lowercase" [ngTemplateOutletContext]="{listing: listing}">
                             </ng-container>
                         </ng-container>
                         <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
@@ -119,7 +119,7 @@
                             <span *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
                         </div>
                     </div>
-                    <div class="col-3 important-information">
+                    <div *ngIf="listing.bedrooms" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">bed</mat-icon>
                         </div>
@@ -129,13 +129,13 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-3 important-information">
+                    <div *ngIf="listing.bathrooms" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">bathtub</mat-icon>
                         </div>
                         <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
-                                    *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
+                                    *ngIf="listing.bathrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
                             </span>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                     </ng-container>
                     {{listing.location}}
                     <ng-container *ngIf="translate.currentLang === 'en'">
-                        <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                        <ng-container [ngTemplateOutlet]="category_lowercase" [ngTemplateOutletContext]="{listing: listing}">
                         </ng-container>
                     </ng-container>
                     <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
@@ -311,7 +311,19 @@
         }}</span>
     <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
         }}</span>
-    <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' |
+    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' |
         translate
         }}</span>
+</ng-template>
+
+<ng-template #category_lowercase let-listing="listing">
+    <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
+        | lowercase }}</span>
+    <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate
+        | lowercase }}</span>
+    <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+        | lowercase }}</span>
+    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' |
+        translate
+        | lowercase }}</span>
 </ng-template>
