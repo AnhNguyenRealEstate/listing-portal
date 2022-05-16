@@ -49,7 +49,7 @@
                     <listing-card [listing]="result">
                     </listing-card>
                 </div>
-                <div class="col-12 d-flex justify-content-center" *ngIf="!noMoreToLoad">
+                <div class="col-12 d-flex justify-content-center" *ngIf="searchResults.length && !noMoreToLoad">
                     <button mat-button (click)="loadMore()">
                         <span>{{ 'search_results.view_more' | translate }}</span>
                         <mat-icon *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>

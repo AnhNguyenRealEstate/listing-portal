@@ -11,6 +11,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Listing } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
+import { SwiperOptions } from 'swiper';
 
 @Component({
     selector: 'listing-details',
@@ -33,6 +34,18 @@ export class ListingDetailsComponent implements OnInit {
     contactNumberUrl: SafeUrl = '';
 
     @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
+    config: SwiperOptions = {
+        pagination: { el: '.swiper-pagination', clickable: false },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        spaceBetween: 30,
+        effect: "coverflow",
+        autoHeight: true,
+        zoom: true
+    };
+    
     highlightedThumbnailRef: any;
 
     showFooter: boolean = false;

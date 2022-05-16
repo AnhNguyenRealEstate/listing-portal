@@ -33,8 +33,9 @@ Go to Firestore, add `app-data` as a new collection, add `listing-data` as a new
 
 #### 4. Run ng serve at project root and begin devving.
 
-#### 5. Debug from other devices
-Add `"host" : "0.0.0.0"` to firebase.json's emulator's Hosting config
+#### 5. Local testing from other devices
+Add `"host" : "0.0.0.0"` to firebase.json's emulator's Hosting config (for all relevant emulators)
+In `app.module.ts`, connect emulators to local IP address
 Browse `http://[local-IP-address]:5050` from your phone or other devices
 
 ## Running unit tests
@@ -59,7 +60,7 @@ If you only modified cloud functions, you can deploy it separately using `npm ru
 Home background: https://www.pexels.com/photo/four-brown-wooden-chairs-2635038
 Home background mobile: https://www.pexels.com/photo/white-and-brown-table-lamp-on-brown-wooden-round-table-7363341
 
-## Allowing other devices to connect to local development site
+## Allowing other devices from other networks to connect to local development site
 1. Download ngrok
 2. Use the following command:
 `ngrok http --host-header="localhost:4200" 4200`

@@ -42,9 +42,9 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
         } else if (listing.currency === 'USD') {
             priceText = USD(listing['price']).format();
         }
-        const ogTitle = `${listing['purpose']}: ${listing['location']} ${priceText} - ${companyName}`;
+        const ogTitle = `${listing['purpose']}: ${listing['location']} ${priceText}`;
 
-        const ogDesc = `${listing['contactNumber']} - ${listing['contactPerson']} `;
+        const ogDesc = `${listing['contactNumber']} - ${listing['contactPerson']} - ${companyName} `;
         const ogUrl = defaultUrl + req.url;
 
         await admin.storage().bucket().file(listing['coverImagePath']).makePublic();

@@ -208,9 +208,25 @@
                 <div class="pt-2 pb-2" *ngIf="!images.length">
                     <mat-spinner></mat-spinner>
                 </div>
-                <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
-                    <ng-image-slider class="col-12" [images]="images" [animationSpeed]="0.1"></ng-image-slider>
-                    <div class="col-6">
+                <div class="row pt-2 pb-2 listing-images"
+                    *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
+                    <div class="col-12">
+                        <swiper #usefulSwiper [config]="config">
+                            <div class="swiper-wrapper">
+                                <div *ngFor="let src of imageSources" class="swiper-slide">
+                                    <div class="swiper-zoom-container">
+                                        <img [src]="src">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </swiper>
+                    </div>
+                    <div class="col-6 pt-2">
                         <button *ngIf="!allImagesLoaded" [disabled]="gettingAllImages" mat-raised-button color="default"
                             (click)="getAllImages(true);">
                             <mat-icon color="accent">photo_library</mat-icon>
