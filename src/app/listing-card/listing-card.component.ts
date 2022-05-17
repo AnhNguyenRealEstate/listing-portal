@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { LoginService } from '../components/login/login.service';
 import { Listing } from '../listing-search/listing-search.data';
 import { ListingCardService } from './listing-card.service';
@@ -28,8 +28,6 @@ export class ListingCardComponent implements OnInit, OnDestroy {
     showControls: boolean = false;
     subs: Subscription = new Subscription();
 
-    snackbarMsgs!: any;
-
     constructor(
         private storage: Storage,
         private clipboard: Clipboard,
@@ -49,10 +47,6 @@ export class ListingCardComponent implements OnInit, OnDestroy {
         this.subs.add(this.login.loggedIn$.subscribe(isLoggedIn => {
             this.showControls = isLoggedIn;
         }));
-
-        this.snackbarMsgs = await lastValueFrom(this.translate.get(
-            ['listing_edit.delete_msg', 'listing_edit.dismiss_msg']
-        ));
     }
 
     ngOnDestroy(): void {
@@ -66,9 +60,9 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.clipboard.copy(`${window.location.host}/listings/details/${this.listing.id}`);
+        this.clipboard.copy(`${window.location.origin}/listings/details/${this.listing.id}`);
         this.snackbar.open(
-            await lastValueFrom(this.translate.get('listing_card.link_copied')),
+            this.translate.instant('listing_card.link_copied'),
             undefined,
             {
                 duration: 1000
@@ -174,8 +168,8 @@ export class ListingCardComponent implements OnInit, OnDestroy {
                 this.delete.emit();
 
                 this.snackbar.open(
-                    this.snackbarMsgs['listing_edit.delete_msg'],
-                    this.snackbarMsgs['listing_edit.dismiss_msg'],
+                    this.translate.instant('listing_edit.delete_msg'),
+                    this.translate.instant('listing_edit.dismiss_msg'),
                     {
                         duration: 3000
                     }

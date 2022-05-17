@@ -6,7 +6,8 @@ import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    data: { title: 'app_title' }
   },
   {
     path: 'listings',

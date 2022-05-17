@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext,
 import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
-import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
@@ -73,12 +73,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
             this.updateOptions();
         }));
 
-        this.snackbarMsgs = await lastValueFrom(this.translate.get(
+        this.snackbarMsgs = this.translate.instant(
             ['listing_upload.invalid_upload_msg',
                 'listing_upload.listing_published_msg',
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
-        ));
+        );
     }
 
     ngOnDestroy(): void {
