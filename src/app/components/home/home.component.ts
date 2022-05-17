@@ -5,6 +5,7 @@ import { HomeService } from './home.service';
 import { PropertySizes } from 'src/app/listing-search/listing-search.data';
 import { DOCUMENT } from '@angular/common';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
+import { SwiperOptions } from 'swiper';
 
 @Component({
     selector: 'app-home',
@@ -14,12 +15,32 @@ import { getAnalytics, logEvent } from '@angular/fire/analytics';
 export class HomeComponent implements OnInit {
     numberOfMockListings = Array(3).fill(0);
     featuredListings!: Listing[];
+    latestListings!: Listing[];
 
     searchCriteria: SearchCriteria = {
         purpose: 'For Rent'
     } as SearchCriteria;
 
     propertySizes = PropertySizes;
+
+    config: SwiperOptions = {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        spaceBetween: 30,
+        effect: "slide",
+        slidesPerView: 3,
+        autoplay: {
+            pauseOnMouseEnter: true,
+            delay: 3000
+        },
+        pagination: {
+            dynamicBullets: true,
+            el: '.swiper-pagination', 
+            clickable: false
+        }
+    };
 
     constructor(
         private router: Router,
@@ -36,6 +57,10 @@ export class HomeComponent implements OnInit {
             this.homeService.getFeaturedListings().then(listings => {
                 this.featuredListings = listings;
             });
+
+            this.homeService.getLatestListings().then(listings => {
+                this.latestListings = listings;
+            })
         }
 
         logEvent(getAnalytics(), 'home_page_view', {

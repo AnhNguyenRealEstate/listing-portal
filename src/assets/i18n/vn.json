@@ -44,7 +44,8 @@
         "buy": "MUA",
         "find": "Tìm sản phẩm",
         "view_all": "Xem toàn bộ",
-        "featured": "Sản phẩm tiêu biểu"
+        "featured": "Sản Phẩm Nổi Bật",
+        "latest_listings": "Sản Phẩm Mới Nhất"
     },
     "layout": {
         "listings": "Sản phẩm",

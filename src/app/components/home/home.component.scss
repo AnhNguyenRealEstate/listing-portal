@@ -43,6 +43,7 @@
     margin-right: 10vw;
 }
 
+.latest-listings,
 .featured-listings {
     margin-left: 10vw;
     margin-right: 10vw;
@@ -81,4 +82,9 @@
         border-bottom: 10px solid #000;
         padding-bottom: 3px;
     }
+}
+
+::ng-deep .swiper-button-prev,
+::ng-deep .swiper-button-next {
+    color: colors.$accent-300;
 }
