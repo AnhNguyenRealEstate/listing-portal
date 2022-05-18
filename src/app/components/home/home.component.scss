@@ -88,3 +88,7 @@
 ::ng-deep .swiper-button-next {
     color: colors.$accent-300;
 }
+
+::ng-deep .swiper-pagination-bullet-active {
+    background-color: colors.$accent-300;
+}
