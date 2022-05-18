@@ -38,7 +38,8 @@
                         </ng-container>
                         {{listing.location}}
                         <ng-container *ngIf="translate.currentLang === 'en'">
-                            <ng-container [ngTemplateOutlet]="category_lowercase" [ngTemplateOutletContext]="{listing: listing}">
+                            <ng-container [ngTemplateOutlet]="category_titlecase"
+                                [ngTemplateOutletContext]="{listing: listing}">
                             </ng-container>
                         </ng-container>
                         <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
@@ -187,7 +188,8 @@
                     </ng-container>
                     {{listing.location}}
                     <ng-container *ngIf="translate.currentLang === 'en'">
-                        <ng-container [ngTemplateOutlet]="category_lowercase" [ngTemplateOutletContext]="{listing: listing}">
+                        <ng-container [ngTemplateOutlet]="category_titlecase"
+                            [ngTemplateOutletContext]="{listing: listing}">
                         </ng-container>
                     </ng-container>
                     <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
@@ -316,14 +318,14 @@
         }}</span>
 </ng-template>
 
-<ng-template #category_lowercase let-listing="listing">
+<ng-template #category_titlecase let-listing="listing">
     <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
-        | lowercase }}</span>
+        | titlecase }}</span>
     <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate
-        | lowercase }}</span>
+        | titlecase }}</span>
     <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
-        | lowercase }}</span>
+        | titlecase }}</span>
     <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' |
         translate
-        | lowercase }}</span>
+        | titlecase }}</span>
 </ng-template>
