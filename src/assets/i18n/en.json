@@ -44,13 +44,14 @@
         "buy": "BUY",
         "find": "Find listings",
         "view_all": "All listings",
-        "featured": "Featured Listings",
-        "latest_listings": "Latest Listings"
+        "featured": "Featured Listings"
     },
     "layout": {
         "listings": "Listings",
         "upload_new": "Upload listing",
         "about_us": "About us",
+        "view_all": "All listings",
+        "by_category": "By categories",
         "sign_in": "Sign in",
         "sign_out": "Sign out",
         "english": "English 🇬🇧",

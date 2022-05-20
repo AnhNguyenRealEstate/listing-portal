@@ -5,7 +5,7 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Mặt bằng kinh doanh"
+        "commercial": "Mặt bằng"
     },
     "about_us": {
         "about_us": "Bất Động Sản Anh Nguyễn",
@@ -45,12 +45,13 @@
         "find": "Tìm sản phẩm",
         "view_all": "Xem toàn bộ",
         "featured": "Sản Phẩm Nổi Bật",
-        "latest_listings": "Sản Phẩm Mới Nhất"
     },
     "layout": {
         "listings": "Sản phẩm",
         "upload_new": "Đăng sản phẩm",
         "about_us": "Giới thiệu",
+        "view_all": "Xem toàn bộ",
+        "by_category": "Phân loại",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "english": "Tiếng Anh 🇬🇧",
@@ -64,7 +65,7 @@
         "no_msg": "Huỷ"
     },
     "search_results": {
-        "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
+        "no_results": "Công ty chưa có sản phẩm phù hợp với tiêu chí",
         "details": "Chi tiết",
         "view": "View",
         "view_more": "Xem thêm"

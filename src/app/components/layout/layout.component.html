@@ -6,7 +6,34 @@
     </a>
 
     <div class="d-none d-md-flex">
-        <a mat-button [routerLink]="['/listings']">{{ 'layout.listings' | translate }}</a>
+        <a mat-button [matMenuTriggerFor]="listingsMenu">{{ 'layout.listings' | translate }}</a>
+        <mat-menu #listingsMenu>
+            <ng-template matMenuContent>
+                <div class="listings-menu">
+                    <div class="row">
+                        <a class="col-12 ms-2" style="text-align: left;" mat-button [routerLink]="['/listings']">
+                            {{ 'layout.view_all' | translate}}
+                        </a>
+                    </div>
+                    <mat-divider class="ms-3 me-3"></mat-divider>
+                    <div class="row">
+                        <div class="col-12 ms-3 pt-2 menu-heading">{{ 'layout.by_category' | translate }}</div>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
+                            class="col-6">{{ 'property_category.apartment' | translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}" class="col-6">{{
+                            'property_category.villa' |
+                            translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Townhouse'}"
+                            class="col-6">{{ 'property_category.townhouse' |
+                            translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Commercial'}"
+                            class="col-6">{{ 'property_category.commercial' |
+                            translate }}</a>
+                    </div>
+                </div>
+            </ng-template>
+        </mat-menu>
+
         <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
 
         <div class="language-toggle ms-2 me-4">

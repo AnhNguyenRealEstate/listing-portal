@@ -15,7 +15,6 @@ import { SwiperOptions } from 'swiper';
 export class HomeComponent implements OnInit {
     numberOfMockListings = Array(3).fill(0);
     featuredListings!: Listing[];
-    latestListings!: Listing[];
 
     searchCriteria: SearchCriteria = {
         purpose: 'For Rent'
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit {
         },
         pagination: {
             dynamicBullets: true,
-            el: '.swiper-pagination', 
+            el: '.swiper-pagination',
             clickable: false
         }
     };
@@ -57,10 +56,6 @@ export class HomeComponent implements OnInit {
             this.homeService.getFeaturedListings().then(listings => {
                 this.featuredListings = listings;
             });
-
-            this.homeService.getLatestListings().then(listings => {
-                this.latestListings = listings;
-            })
         }
 
         logEvent(getAnalytics(), 'home_page_view', {
@@ -69,7 +64,7 @@ export class HomeComponent implements OnInit {
     }
 
     getListings() {
-        this.router.navigate(['/listings', this.searchCriteria]);
+        this.router.navigate(['/listings'], { queryParams: this.searchCriteria });
     }
 
     findListingsForRent() {
