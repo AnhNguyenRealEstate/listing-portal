@@ -23,7 +23,6 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
-import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -46,7 +45,6 @@ const maskConfig: Partial<IConfig> = {
     MatSidenavModule,
     MatMenuModule,
     ListingCardModule,
-    NgxUsefulSwiperModule,
     NgIdleKeepaliveModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

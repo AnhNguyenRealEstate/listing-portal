@@ -11,13 +11,13 @@
             <ng-template matMenuContent>
                 <div class="listings-menu">
                     <div class="row">
-                        <a class="col-12 ms-2" style="text-align: left;" mat-button [routerLink]="['/listings']">
-                            {{ 'layout.view_all' | translate}}
+                        <a class="col-12" style="text-align: center;" mat-button [routerLink]="['/listings']">
+                            {{ 'layout.view_all' | translate }}
                         </a>
                     </div>
                     <mat-divider class="ms-3 me-3"></mat-divider>
                     <div class="row">
-                        <div class="col-12 ms-3 pt-2 menu-heading">{{ 'layout.by_category' | translate }}</div>
+                        <div class="col-12 pt-2 menu-heading">{{ 'layout.by_category' | translate }}</div>
                         <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
                             class="col-6">{{ 'property_category.apartment' | translate }}</a>
                         <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}" class="col-6">{{
