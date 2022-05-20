@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
 import { Inquiry } from './about-us.data';
 import { AboutUsService } from './about-us.service';
 
@@ -53,7 +52,7 @@ export class AboutUsComponent implements OnInit {
 
         await this.aboutUs.submitInquiry(this.inquiry);
 
-        const inquirySubmittedMsg = await lastValueFrom(this.translate.get("about_us.inquiry_submitted"));
+        const inquirySubmittedMsg = this.translate.instant("about_us.inquiry_submitted");
         this.snackbar.open(inquirySubmittedMsg, undefined, { duration: 1500 });
 
         this.inquiry = {};
@@ -66,10 +65,10 @@ export class AboutUsComponent implements OnInit {
         if (!this.email) {
             return;
         }
-        
+
         this.email = '';
 
-        const emailSubmitted = await lastValueFrom(this.translate.get("about_us.email_submitted"));
+        const emailSubmitted = this.translate.instant("about_us.email_submitted");
         this.snackbar.open(emailSubmitted, undefined, { duration: 2000 });
     }
 

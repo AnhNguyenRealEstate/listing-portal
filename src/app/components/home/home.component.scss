@@ -72,7 +72,7 @@
 .divider-mobile,
 .action-btn-text-mobile {
     font-size: x-large;
-    color: gray;
+    color: rgb(62, 61, 61);
 }
 
 .btn-active {
@@ -81,4 +81,25 @@
         border-bottom: 10px solid #000;
         padding-bottom: 3px;
     }
+}
+
+::ng-deep .swiper-button-prev,
+::ng-deep .swiper-button-next {
+    color: colors.$accent-300;
+}
+
+::ng-deep .swiper-pagination-bullet-active {
+    background-color: colors.$accent-300;
+}
+
+.featured-listings-header {
+    font-size: 1rem;
+    font-weight: 450;
+    color: colors.$accent-300;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.mat-divider {
+    border-top-color: colors.$accent-100;
 }

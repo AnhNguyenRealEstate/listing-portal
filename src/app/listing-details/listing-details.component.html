@@ -38,7 +38,8 @@
                         </ng-container>
                         {{listing.location}}
                         <ng-container *ngIf="translate.currentLang === 'en'">
-                            <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                            <ng-container [ngTemplateOutlet]="category_titlecase"
+                                [ngTemplateOutletContext]="{listing: listing}">
                             </ng-container>
                         </ng-container>
                         <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
@@ -119,7 +120,7 @@
                             <span *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
                         </div>
                     </div>
-                    <div class="col-3 important-information">
+                    <div *ngIf="listing.bedrooms" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">bed</mat-icon>
                         </div>
@@ -129,13 +130,13 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-3 important-information">
+                    <div *ngIf="listing.bathrooms" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent">bathtub</mat-icon>
                         </div>
                         <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
-                                    *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
+                                    *ngIf="listing.bathrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
                             </span>
                         </div>
                     </div>
@@ -187,7 +188,8 @@
                     </ng-container>
                     {{listing.location}}
                     <ng-container *ngIf="translate.currentLang === 'en'">
-                        <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                        <ng-container [ngTemplateOutlet]="category_titlecase"
+                            [ngTemplateOutletContext]="{listing: listing}">
                         </ng-container>
                     </ng-container>
                     <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
@@ -208,9 +210,25 @@
                 <div class="pt-2 pb-2" *ngIf="!images.length">
                     <mat-spinner></mat-spinner>
                 </div>
-                <div class="row pt-2 pb-2 listing-images" *ngIf="images.length && images[images.length - 1]">
-                    <ng-image-slider class="col-12" [images]="images" [animationSpeed]="0.1"></ng-image-slider>
-                    <div class="col-6">
+                <div class="row pt-2 pb-2 listing-images"
+                    *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
+                    <div class="col-12">
+                        <swiper #usefulSwiper [config]="config">
+                            <div class="swiper-wrapper">
+                                <div *ngFor="let src of imageSources" class="swiper-slide">
+                                    <div class="swiper-zoom-container">
+                                        <img [src]="src">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </swiper>
+                    </div>
+                    <div class="col-6 pt-2">
                         <button *ngIf="!allImagesLoaded" [disabled]="gettingAllImages" mat-raised-button color="default"
                             (click)="getAllImages(true);">
                             <mat-icon color="accent">photo_library</mat-icon>
@@ -295,7 +313,19 @@
         }}</span>
     <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
         }}</span>
-    <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' |
+    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' |
         translate
         }}</span>
+</ng-template>
+
+<ng-template #category_titlecase let-listing="listing">
+    <span *ngIf="listing.category === 'Apartment'">{{ 'property_category.apartment' | translate
+        | titlecase }}</span>
+    <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate
+        | titlecase }}</span>
+    <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
+        | titlecase }}</span>
+    <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' |
+        translate
+        | titlecase }}</span>
 </ng-template>

@@ -5,12 +5,12 @@ import { ListingDetailsService } from './listing-details.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
-import { lastValueFrom } from 'rxjs';
 import mergeImages from 'merge-images';
 import { CurrencyPipe } from '@angular/common';
 import { Listing } from '../listing-search/listing-search.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
+import { SwiperOptions } from 'swiper';
 
 @Component({
     selector: 'listing-details',
@@ -33,6 +33,18 @@ export class ListingDetailsComponent implements OnInit {
     contactNumberUrl: SafeUrl = '';
 
     @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
+    config: SwiperOptions = {
+        pagination: { el: '.swiper-pagination', clickable: false },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        spaceBetween: 30,
+        effect: "coverflow",
+        autoHeight: true,
+        zoom: true
+    };
+
     highlightedThumbnailRef: any;
 
     showFooter: boolean = false;
@@ -78,7 +90,7 @@ export class ListingDetailsComponent implements OnInit {
             );
         } else {
             this.contactNumberUrl = this.sanitizer.bypassSecurityTrustUrl(
-                `tel:${await lastValueFrom(this.translate.get('listing_details.default_contact_number'))}`
+                `tel:${this.translate.instant('listing_details.default_contact_number')}`
             );
         }
 
@@ -116,7 +128,7 @@ export class ListingDetailsComponent implements OnInit {
 
     async showAllImgsLoadedMsg() {
         this.snackbar.open(
-            await lastValueFrom(this.translate.get("listing_details.all_imgs_loaded")),
+            this.translate.instant("listing_details.all_imgs_loaded"),
             undefined,
             { duration: 1000 }
         );
@@ -204,7 +216,7 @@ export class ListingDetailsComponent implements OnInit {
                 //Apply watermark to Firebase image, temporarily disabled
                 //const watermarkedImgBase64 = await mergeImages([imgAsBase64, this.watermarkImg]);
 
-                const watermarkedImgBase64 = imgAsBase64 ; //await mergeImages([imgAsBase64, this.watermarkImg]);
+                const watermarkedImgBase64 = imgAsBase64; //await mergeImages([imgAsBase64, this.watermarkImg]);
                 tempImageSrcs[index] = watermarkedImgBase64;
 
                 //Create thumbnails
@@ -225,14 +237,10 @@ export class ListingDetailsComponent implements OnInit {
     }
 
     async setBrowserTitle() {
-        const appTitle = await lastValueFrom(this.translate.get(
-            "app_title"
-        ));
-        const purpose: string = this.listing.purpose === 'For Rent' ? await lastValueFrom(this.translate.get(
-            "listing_details.for_rent"
-        )) : await lastValueFrom(this.translate.get(
-            "listing_details.for_sale"
-        ));
+        const appTitle = this.translate.instant("app_title");
+        const purpose: string = this.listing.purpose === 'For Rent'
+            ? this.translate.instant("listing_details.for_rent")
+            : this.translate.instant("listing_details.for_sale");
 
         this.title.setTitle(`${appTitle} | ${this.listing.location} 
                             ${this.currency.transform(this.listing.price, this.listing.currency, 'symbol', '1.0-0')} 

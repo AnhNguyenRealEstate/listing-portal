@@ -1,3 +1,5 @@
+@use "src/app/styles/colors" as colors;
+
 .swiper-image {
     object-fit: contain;
     width: 100%;
@@ -23,13 +25,15 @@
 .contact-block-wrapper-desktop {
     padding-top: 1em;
     text-align: end;
-    line-height: 1.5rem;
-    font-size: 15px;
 }
 
-::ng-deep .next-icon:not(.disable),
-::ng-deep .prev-icon:not(.disable) {
-    color: red !important;
+::ng-deep .swiper-button-prev,
+::ng-deep .swiper-button-next {
+    color: colors.$accent-300;
+}
+
+::ng-deep .swiper-pagination-bullet-active {
+    background-color: colors.$accent-300;
 }
 
 .product-title-mobile {

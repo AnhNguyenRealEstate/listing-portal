@@ -56,7 +56,7 @@
             lowercase}}</span>
         <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate |
             lowercase}}</span>
-        <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' | translate |
+        <span *ngIf="listing.category === 'Commercial'">{{ 'listing_card.commercial' | translate |
             lowercase}}</span>
     </div>
     <span *ngIf="listing.subcategory" class="pe-1">({{listing.subcategory | lowercase}})</span>
@@ -69,7 +69,7 @@
         <span *ngIf="listing.category === 'Villa'">{{ 'property_category.villa' | translate}}</span>
         <span *ngIf="listing.category === 'Townhouse'">{{ 'property_category.townhouse' | translate
             }}</span>
-        <span *ngIf="listing.category === 'Commercial'">{{ 'property_category.commercial' | translate
+        <span *ngIf="listing.category === 'Commercial'">{{ 'listing_card.commercial' | translate
             }}</span>
     </div>
     <span *ngIf="listing.subcategory" class="pe-1">{{listing.subcategory | lowercase}}</span>

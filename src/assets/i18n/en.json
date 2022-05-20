@@ -22,8 +22,8 @@
         "commitment": "Commitment",
         "main_office": "Main office",
         "hours": "Hours",
-        "weekdays_hours": "Weekdays: 9:00 AM to 5:30 PM",
-        "weekends_hours": "Weekends: 10:00 AM to 4:30 PM",
+        "weekdays_hours": "Mon - Fri: 8:00 AM to 6:00 PM",
+        "weekends_hours": "Weekends: 10:00 AM to 5:00 PM",
         "msg_us": "Send us a message",
         "inquiry_label": "What's your inquiry?",
         "contact_method": " How should we contact you?",
@@ -44,13 +44,15 @@
         "buy": "BUY",
         "find": "Find listings",
         "view_all": "All listings",
-        "featured": "Featured listings"
+        "featured": "Featured Listings"
     },
     "layout": {
         "listings": "Listings",
         "upload_new": "Upload listing",
         "property_management": "Manage properties",
         "about_us": "About us",
+        "view_all": "All listings",
+        "by_category": "By categories",
         "sign_in": "Sign in",
         "sign_out": "Sign out",
         "english": "English 🇬🇧",
@@ -77,7 +79,8 @@
         "feature": "Feature listing",
         "unfeature": "Unfeature listing",
         "clone": "Create new from this listing",
-        "delete": "Delete listing"
+        "delete": "Delete listing",
+        "commercial": "Commercial property"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {
@@ -103,7 +106,8 @@
         },
         "photos": "Photos",
         "video": "Video tour",
-        "room": "room"
+        "room": "room",
+        "commercial": "Commercial property"
     },
     "search_bar": {
         "filters": "Filters",

@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
-import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
@@ -72,12 +72,12 @@ export class ListingUploadDialogComponent implements OnInit {
             this.updateOptions();
         }));
 
-        this.snackbarMsgs = await lastValueFrom(this.translate.get(
+        this.snackbarMsgs = this.translate.instant(
             ['listing_upload.invalid_upload_msg',
                 'listing_upload.listing_published_msg',
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
-        ));
+        );
     }
 
     ngOnDestroy(): void {

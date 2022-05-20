@@ -5,7 +5,7 @@
         "apartment": "Căn hộ",
         "villa": "Biệt thự",
         "townhouse": "Song lập",
-        "commercial": "Shop thương mại"
+        "commercial": "Mặt bằng"
     },
     "about_us": {
         "about_us": "Bất Động Sản Anh Nguyễn",
@@ -22,8 +22,8 @@
         "commitment": "Ân cần",
         "main_office": "Văn phòng chính",
         "hours": "Giờ hành chính",
-        "weekdays_hours": "Ngày thường: 9:00 sáng đến 5:30 chiều",
-        "weekends_hours": "Cuối tuần: 10:00 sáng đến 4:30 chiều",
+        "weekdays_hours": "Ngày thường: 8:00 sáng đến 6:00 chiều",
+        "weekends_hours": "Cuối tuần: 10:00 sáng đến 5:00 chiều",
         "msg_us": "Liên hệ qua lời nhắn",
         "inquiry_label": "Chủ đề",
         "contact_method": "Cách chúng tôi liên lạc bạn",
@@ -44,13 +44,15 @@
         "buy": "MUA",
         "find": "Tìm sản phẩm",
         "view_all": "Xem toàn bộ",
-        "featured": "Sản phẩm tiêu biểu"
+        "featured": "Sản Phẩm Nổi Bật"
     },
     "layout": {
         "listings": "Sản phẩm",
         "upload_new": "Đăng sản phẩm",
         "property_management": "Quản lý nhà",
         "about_us": "Giới thiệu",
+        "view_all": "Xem toàn bộ",
+        "by_category": "Phân loại",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "english": "Tiếng Anh 🇬🇧",
@@ -64,7 +66,7 @@
         "no_msg": "Huỷ"
     },
     "search_results": {
-        "no_results": "Không sản phẩm nào phù hợp với tiêu chí",
+        "no_results": "Công ty chưa có sản phẩm phù hợp với tiêu chí",
         "details": "Chi tiết",
         "view": "View",
         "view_more": "Xem thêm"
@@ -76,7 +78,8 @@
         "feature": "Ưu tiên lên trang chủ",
         "unfeature": "Tháo ưu tiên trên trang chủ",
         "clone": "Đăng mới từ sản phẩm",
-        "delete": "Xoá sản phẩm"
+        "delete": "Xoá sản phẩm",
+        "commercial": "Mặt bằng"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
@@ -102,7 +105,8 @@
         },
         "photos": "Hình ảnh",
         "video": "Video",
-        "room": "phòng"
+        "room": "phòng",
+        "commercial": "Mặt bằng kinh doanh"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",

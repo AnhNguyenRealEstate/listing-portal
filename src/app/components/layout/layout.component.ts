@@ -16,8 +16,7 @@ import { LoginService } from '../login/login.service';
 
 export class LayoutComponent implements OnInit, OnDestroy {
     loggedIn: boolean = false;
-    defaultLang = 'vn';
-    lang: string = this.defaultLang;
+    lang!: string;
     sub = new Subscription();
 
     constructor(
@@ -33,9 +32,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         const sessionLang = localStorage.getItem('lang');
-        this.lang = sessionLang || this.defaultLang;
-        this.translate.setDefaultLang(this.lang);
-        this.translate.use(this.lang);
+        this.lang = sessionLang || this.translate.getDefaultLang();
     }
 
     ngOnDestroy(): void {
@@ -82,7 +79,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
 
     useLanguage(event: any) {
-        this.lang = event.value;
         this.translate.use(this.lang);
         localStorage.setItem('lang', this.lang);
     }
