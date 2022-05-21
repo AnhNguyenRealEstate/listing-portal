@@ -66,10 +66,4 @@ mat-sidenav-content {
     .mat-button-wrapper {
         font-weight: 400 !important;
     }
-
-    .mat-button:hover {
-        transform: translate3D(0, -1px, 0) scale(1.03);
-        text-decoration: underline;
-        text-underline-offset: 2px;
-    }
 }

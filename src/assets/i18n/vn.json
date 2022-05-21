@@ -14,7 +14,7 @@
         "company_intro_2_title": "1000+ Khách Mỗi Năm",
         "company_intro_2": "Sự hài lòng của khách hàng là thành công của chúng tôi. Trong suốt quá trình phục vụ, chúng tôi luôn tận tâm xử lý các khúc mắc của khách hàng.",
         "contact_us": "Liên hệ",
-        "office_address": "168 Hà Huy Tập, Phường Tân Phong, Quận 7, TP.HCM",
+        "office_address": "Địa chỉ: 168 Hà Huy Tập, Phường Tân Phong, Quận 7, TP.HCM",
         "first_contact": "Tel: 84-28-54170823",
         "our_mission": "Mục đích",
         "mission_statement": "Giúp khách hàng mua bán bất động sản một cách dễ dàng, nhanh chóng",
@@ -44,14 +44,14 @@
         "buy": "MUA",
         "find": "Tìm sản phẩm",
         "view_all": "Xem toàn bộ",
-        "featured": "Sản Phẩm Nổi Bật"
+        "featured": "Sản phẩm nổi bật"
     },
     "layout": {
         "listings": "Sản phẩm",
         "upload_new": "Đăng sản phẩm",
         "about_us": "Giới thiệu",
         "view_all": "Xem toàn bộ",
-        "by_category": "Phân Loại",
+        "by_category": "Phân loại",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "english": "Tiếng Anh 🇬🇧",
@@ -128,7 +128,8 @@
         "most_recent": "Mới nhất",
         "least_recent": "Cũ nhất",
         "most_affordable": "Rẻ nhất",
-        "least_affordable": "Đắt nhất"
+        "least_affordable": "Đắt nhất",
+        "clear": "Xoá sàng lọc"
     },
     "listing_upload": {
         "category": "Phân loại",

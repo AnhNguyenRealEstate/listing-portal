@@ -8,13 +8,13 @@
         "commercial": "Commercial"
     },
     "about_us": {
-        "about_us": "Contact Us",
+        "about_us": "Contact us",
         "company_intro_1_title": "{{tenure}}+ Years",
         "company_intro_1": "Founded in 2008, we are proud to be one of the longest-serving real-estate brokerages in District 7, Ho Chi Minh City",
         "company_intro_2_title": "1000+ Customers Annually",
         "company_intro_2": "We have served over ten thousand clients, with unwavering commitment to customer satisfactions",
-        "contact_us": "Contact Us",
-        "office_address": "168 Ha Huy Tap, Tan Phong Ward, District 7, Ho Chi Minh City",
+        "contact_us": "Contact us",
+        "office_address": "Address: 168 Ha Huy Tap, Tan Phong Ward, District 7, Ho Chi Minh City",
         "first_contact": "Tel: 84-28-54170823",
         "our_mission": "Our mission",
         "mission_statement": "To make the home-finding experience a breeze",
@@ -44,14 +44,14 @@
         "buy": "BUY",
         "find": "Find listings",
         "view_all": "All listings",
-        "featured": "Featured Listings"
+        "featured": "Featured listings"
     },
     "layout": {
         "listings": "Listings",
         "upload_new": "Upload listing",
         "about_us": "About us",
         "view_all": "All listings",
-        "by_category": "By Categories",
+        "by_category": "By categories",
         "sign_in": "Sign in",
         "sign_out": "Sign out",
         "english": "English 🇬🇧",
@@ -129,7 +129,8 @@
         "most_recent": "Most recent",
         "least_recent": "Least recent",
         "most_affordable": "Most affordable",
-        "least_affordable": "Most expensive"
+        "least_affordable": "Most expensive",
+        "clear": "Clear"
     },
     "listing_upload": {
         "category": "Category",

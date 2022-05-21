@@ -21,7 +21,7 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row">
-                    <mat-form-field color="accent" class="col-6">
+                    <mat-form-field color="accent" class="col-12">
                         <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
                         <mat-select id="category" [(ngModel)]="searchCriteria.category">
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
@@ -32,7 +32,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field color="accent" class="col-6">
+                    <mat-form-field color="accent" class="col-12">
                         <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
                         <mat-select id="locations" [(ngModel)]="searchCriteria.location">
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
@@ -40,7 +40,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field color="accent" class="col-6">
+                    <mat-form-field color="accent" class="col-12">
                         <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
                         <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
                             <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
@@ -49,7 +49,6 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <div class="col-6"></div>
                     <mat-form-field color="accent" class="col-6">
                         <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
                         <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
@@ -95,6 +94,8 @@
                         <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
                             id="maxPrice">
                     </mat-form-field>
+                    <button mat-button class="col-12" (click)="clearFilter()">{{ 'search_bar.clear' | translate
+                        }}</button>
                 </div>
             </mat-expansion-panel>
         </div>
@@ -228,6 +229,8 @@
                         <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
                             id="maxPrice">
                     </mat-form-field>
+                    <button mat-button class="col-12" (click)="clearFilter()">{{ 'search_bar.clear' | translate
+                        }}</button>
                 </div>
             </mat-expansion-panel>
         </div>
