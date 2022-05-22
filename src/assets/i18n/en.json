@@ -51,11 +51,14 @@
         "upload_new": "Upload listing",
         "about_us": "About us",
         "view_all": "All listings",
-        "by_category": "By categories",
+        "by_category": "Categories",
         "sign_in": "Sign in",
         "sign_out": "Sign out",
         "english": "English 🇬🇧",
-        "vietnamese": "Vietnamese 🇻🇳"
+        "vietnamese": "Vietnamese 🇻🇳",
+        "purpose": "Purpose",
+        "for_rent": "For rent",
+        "for_sale": "For sale"
     },
     "listing_edit": {
         "delete_msg": "Listing deleted 🗑",

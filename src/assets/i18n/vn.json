@@ -55,7 +55,10 @@
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "english": "Tiếng Anh 🇬🇧",
-        "vietnamese": "Tiếng Việt 🇻🇳"
+        "vietnamese": "Tiếng Việt 🇻🇳",
+        "purpose": "Mục đích",
+        "for_rent": "Thuê",
+        "for_sale": "Mua"
     },
     "listing_edit": {
         "delete_msg": "Đã xoá sản phẩm 🗑",

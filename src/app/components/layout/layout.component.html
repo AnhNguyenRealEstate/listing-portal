@@ -7,12 +7,21 @@
 
     <div class="d-none d-md-flex">
         <a mat-button [matMenuTriggerFor]="listingsMenu">{{ 'layout.listings' | translate }}</a>
-        <mat-menu #listingsMenu>
+        <mat-menu #listingsMenu [xPosition]="'before'">
             <ng-template matMenuContent>
                 <div class="listings-menu">
                     <div class="row">
                         <a class="col-12" style="text-align: center;" mat-button [routerLink]="['/listings']">
                             {{ 'layout.view_all' | translate }}
+                        </a>
+                    </div>
+                    <mat-divider class="ms-3 me-3"></mat-divider>
+                    <div class="row">
+                        <div class="col-12 pt-2 menu-heading">{{ 'layout.purpose' | translate }}</div>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Rent'}"
+                            class="col-6">{{ 'layout.for_rent' | translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}" class="col-6">
+                            {{ 'layout.for_sale' | translate }}
                         </a>
                     </div>
                     <mat-divider class="ms-3 me-3"></mat-divider>
