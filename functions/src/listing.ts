@@ -73,6 +73,32 @@ exports.postProcessDelete = functions.region('asia-southeast1').firestore
         });
     });
 
+exports.listingLocationsPruning = functions.region('asia-southeast1')
+    .pubsub.schedule('every monday 02:00').timeZone('Asia/Ho_Chi_Minh').onRun(async () => {
+        const listingDataDocRef = admin.firestore().doc('app-data/listing-data');
+        const listingDataSnap = await listingDataDocRef.get();
+        const listingData = listingDataSnap.data();
+        if (!listingData) {
+            return;
+        }
+
+        const locationsToKeep: string[] = [];
+        const locationsToRemove: string[] = [];
+        const locations = listingData['locations'] as string[];
+        const listings = admin.firestore().collection('listings');
+        for (const location in locations) {
+            const listingsWithThisLocation = await listings.where('location', '==', location).get();
+            if (listingsWithThisLocation.size) {
+                locationsToKeep.push(location);
+            } else {
+                locationsToRemove.push(location);
+            }
+        }
+
+        listingDataDocRef.update({ locations: locationsToKeep });
+        functions.logger.log('The following locations have been pruned: ', locationsToRemove);
+    });
+
 async function updateLocationsMetadata(location: string) {
     const listingMetadataSnap = await admin.firestore().doc('app-data/listing-data').get();
     const listingMetadata = listingMetadataSnap.data();
