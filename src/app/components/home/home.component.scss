@@ -95,11 +95,39 @@
 .featured-listings-header {
     font-size: 1rem;
     font-weight: 450;
-    color: colors.$accent-300;
-    background-clip: text;
-    -webkit-background-clip: text;
+    line-height: 1.5rem;
 }
 
 .mat-divider {
     border-top-color: colors.$accent-100;
+}
+
+.ribbon {
+    position: relative;
+
+    $default-right: 0px;
+    $default-top: -25px;
+    $default-color: colors.$accent-300;
+
+    right: var(--right, $default-right);
+    top: var(--top, $default-top);
+
+    filter: drop-shadow(0px 3px 3px rgba(black, 0.5));
+
+    > .content {
+        color: white;
+        font-size: 1.25rem;
+        text-align: center;
+        font-weight: 400;
+        background: var(--color, $default-color) linear-gradient(45deg, rgba(black, 0) 0%, rgba(white, 0.25) 100%);
+        padding: 8px 8px;
+        border-radius: 0px 0px 5px 5px;
+
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%, 0 100%);
+
+        width: fit-content;
+        min-height: 2rem;
+
+        transition: clip-path 1s, padding 1s, background 1s;
+    }
 }

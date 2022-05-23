@@ -5,7 +5,8 @@ import { ListingSearchService } from "./listing-search.service"
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
-import { Listing, ListingImageFile, SearchCriteria } from "../listing-search/listing-search.data";
+import { ListingImageFile, SearchCriteria } from "../listing-search/listing-search.data";
+import { Listing } from "../listing-card/listing-card.data";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ListingDetailsService } from "../listing-details/listing-details.service";
 import { ListingUploadService } from "../listing-upload/listing-upload.service";

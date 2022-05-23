@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { getDownloadURL, listAll, ref, Storage } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing } from "../listing-card/listing-card.data";
 
 @Injectable({ providedIn: 'root' })
 export class ListingDetailsService {

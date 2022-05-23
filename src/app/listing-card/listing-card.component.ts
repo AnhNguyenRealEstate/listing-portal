@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../components/login/login.service';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing } from "./listing-card.data";
 import { ListingCardService } from './listing-card.service';
 
 @Component({

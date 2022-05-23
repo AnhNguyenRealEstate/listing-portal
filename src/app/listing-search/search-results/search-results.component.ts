@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Listing } from '../listing-search.data';
+import { Listing } from "../../listing-card/listing-card.data";
 import { ListingSearchService } from '../listing-search.service';
 
 @Component({

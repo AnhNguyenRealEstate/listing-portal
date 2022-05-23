@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Listing, SearchCriteria } from 'src/app/listing-search/listing-search.data';
+import { SearchCriteria } from 'src/app/listing-search/listing-search.data';
+import { Listing } from "src/app/listing-card/listing-card.data";
 import { HomeService } from './home.service';
 import { PropertySizes } from 'src/app/listing-search/listing-search.data';
 import { DOCUMENT } from '@angular/common';

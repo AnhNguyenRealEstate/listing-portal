@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, updateDoc, doc } from '@angular/fire/firestore';
 import { Storage, ref, listAll, deleteObject, getDownloadURL, uploadBytes } from '@angular/fire/storage';
-import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
+import { ListingImageFile } from '../listing-search/listing-search.data';
+import { Listing } from "../listing-card/listing-card.data";
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';

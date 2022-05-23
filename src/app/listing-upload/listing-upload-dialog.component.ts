@@ -9,7 +9,8 @@ import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { MetadataService } from 'src/app/shared/metadata.service';
-import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
+import { ListingImageFile } from '../listing-search/listing-search.data';
+import { Listing } from "../listing-card/listing-card.data";
 import { AvailableContactChannels } from './listing-upload.data';
 import { ListingUploadService } from './listing-upload.service';
 
