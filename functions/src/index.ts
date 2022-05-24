@@ -9,6 +9,3 @@ exports.inquiry = inquiry;
 
 const customIndexHtml = require('./custom-index-html');
 exports.customIndexHtml = customIndexHtml.customIndexHtml;
-
-
-

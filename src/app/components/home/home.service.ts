@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { collection, Firestore, getDocs, limit, orderBy, query, where } from '@angular/fire/firestore';
-import { Listing } from 'src/app/listing-search/listing-search.data';
+import { Listing } from "src/app/listing-card/listing-card.data";
 import { FirestoreCollections } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })

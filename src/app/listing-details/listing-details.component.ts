@@ -7,7 +7,7 @@ import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
 import mergeImages from 'merge-images';
 import { CurrencyPipe } from '@angular/common';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing } from "../listing-card/listing-card.data";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
 import { SwiperOptions } from 'swiper';

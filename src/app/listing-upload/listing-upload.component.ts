@@ -1,5 +1,6 @@
 import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext, ViewChild } from '@angular/core';
-import { Listing, ListingImageFile } from '../listing-search/listing-search.data';
+import { ListingImageFile } from '../listing-search/listing-search.data';
+import { Listing } from "../listing-card/listing-card.data";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';

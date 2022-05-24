@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collection, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { listAll, ref, deleteObject, Storage } from '@angular/fire/storage';
-import { Listing } from '../listing-search/listing-search.data';
+import { Listing } from "./listing-card.data";
 import { FirebaseStorageConsts, FirestoreCollections } from '../shared/globals';
 
 @Injectable({ providedIn: 'root' })

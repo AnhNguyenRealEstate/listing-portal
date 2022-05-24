@@ -5,7 +5,8 @@ import { ListingUploadService } from "./listing-upload.service"
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { Auth, connectAuthEmulator, getAuth, provideAuth, signInWithEmailAndPassword } from "@angular/fire/auth";
-import { Listing, ListingImageFile } from "../listing-search/listing-search.data";
+import { ListingImageFile } from "../listing-search/listing-search.data";
+import { Listing } from "../listing-card/listing-card.data";
 
 
 describe('Listing Upload Service', () => {

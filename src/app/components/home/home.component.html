@@ -69,7 +69,9 @@
         <div *ngIf="featuredListings?.length">
             <div class="featured-listings">
                 <div class="row pt-4 pb-4 ps-4 pe-4">
-                    <div class="col-12 pb-1 featured-listings-header">{{ 'home.featured' | translate }}</div>
+                    <div class="col-12 featured-listings-header ribbon">
+                        <div class="content">{{ 'home.featured' | translate | titlecase}}</div>
+                    </div>
                     <mat-divider class="pb-2"></mat-divider>
                     <div *ngFor="let listing of featuredListings" class="col-4 result-card-wrapper pb-2">
                         <listing-card [listing]="listing" (delete)="removeListing(listing)"></listing-card>

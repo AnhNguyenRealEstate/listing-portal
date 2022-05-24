@@ -63,7 +63,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
             this.getListings(this.searchCriteria);
         }));
-
     }
 
     ngOnDestroy(): void {
@@ -77,6 +76,21 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
         if (this.mode === 'mobile') {
             this.panelOpenState = false;
+        }
+    }
+
+    clearFilter() {
+        this.searchCriteria = {
+            ...this.searchCriteria,
+            ...{
+                category: '',
+                propertySize: '',
+                location: '',
+                minPrice: 0,
+                maxPrice: undefined,
+                bedrooms: '',
+                bathrooms: ''
+            }
         }
     }
 }

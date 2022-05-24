@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { Listing, SearchCriteria } from './listing-search.data';
+import { SearchCriteria } from './listing-search.data';
+import { Listing } from "../listing-card/listing-card.data";
 import { Firestore, CollectionReference, DocumentData, Query, query, where, collection, orderBy, DocumentSnapshot, limit, startAfter, limitToLast } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { FirestoreCollections } from 'src/app/shared/globals';
