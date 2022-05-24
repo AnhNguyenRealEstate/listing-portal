@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/storage';
-import { reauthenticateWithCredential } from '@firebase/auth';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Property, UploadedFile } from '../property-management.data';
 

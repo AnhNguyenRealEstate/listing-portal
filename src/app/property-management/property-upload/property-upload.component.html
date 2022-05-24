@@ -3,9 +3,15 @@
     <form #uploadForm="ngForm">
         <div class="row">
             <mat-form-field class="col-6" color="accent">
+                <mat-label>Owner</mat-label>
+                <input matInput type="text" name="owner" [(ngModel)]="property.owner">
+            </mat-form-field>
+            <mat-form-field class="col-6" color="accent">
                 <mat-label>Property Name</mat-label>
                 <input matInput type="text" name="name" [(ngModel)]="property.name">
             </mat-form-field>
+        </div>
+        <div class="row">
             <mat-form-field class="col-3" color="accent">
                 <mat-label>Category</mat-label>
                 <mat-select name="category" [(ngModel)]="property.category" [disabled]="isEditMode">
@@ -19,18 +25,16 @@
                 <mat-label>Subcategory</mat-label>
                 <input matInput type="text" name="subcategory" [(ngModel)]="property.subcategory">
             </mat-form-field>
-        </div>
-        <div class="row">
             <mat-form-field class="col-3" color="accent">
                 <mat-label>Start Date</mat-label>
-                <input matInput disabled type="date" name="managementStartDate"
-                    [(ngModel)]="property.managementStartDate" [matDatepicker]="startDatePicker">
+                <input matInput disabled name="managementStartDate" [(ngModel)]="property.managementStartDate"
+                    [matDatepicker]="startDatePicker">
                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="col-3" color="accent">
                 <mat-label>End Date</mat-label>
-                <input matInput disabled type="date" name="managementEndDate" [(ngModel)]="property.managementEndDate"
+                <input matInput disabled name="managementEndDate" [(ngModel)]="property.managementEndDate"
                     [matDatepicker]="endDatePicker">
                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>

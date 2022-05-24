@@ -12,7 +12,8 @@ export interface Property {
     activities?: Activity[]
     fileStoragePath?: string
     documents?: UploadedFile[]
-    creationDate?: Timestamp
+    creationDate?: Timestamp,
+    owner?: string
 }
 
 export interface Activity {
