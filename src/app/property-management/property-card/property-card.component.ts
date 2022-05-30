@@ -1,4 +1,4 @@
-import { Component, createNgModuleRef, EventEmitter, Injector, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,25 +25,28 @@ export class PropertyCardComponent implements OnInit {
         private propertyCard: PropertyCardService
     ) { }
 
-    ngOnInit() {
-
+    ngOnInit(): void {
+        this.property.managementStartDate = new Date((this.property.managementStartDate! as any).seconds * 1000);
+        this.property.managementEndDate = new Date((this.property.managementEndDate! as any).seconds * 1000);
     }
 
-    async editProperty(property: Property) {
+    async editProperty(event: Event) {
+        event.stopPropagation();
+
         const config = {
             height: '90%',
             width: '100%',
             autoFocus: false,
             data: {
-                property: property,
+                property: this.property,
                 isEditMode: true
             }
         } as MatDialogConfig;
 
         this.dialog.open(PropertyUploadComponent, config);
     }
-    
-    async deleteListing(event: Event) {
+
+    async deleteProperty(event: Event) {
         event.stopPropagation();
 
         this.dialog.open(this.confirmationDialogTemplate, {
@@ -64,5 +67,4 @@ export class PropertyCardComponent implements OnInit {
             }
         });
     }
-
 }

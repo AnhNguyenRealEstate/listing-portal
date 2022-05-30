@@ -2,17 +2,17 @@
     <h1>Register a new property</h1>
     <form #uploadForm="ngForm">
         <div class="row">
-            <mat-form-field class="col-6" color="accent">
+            <mat-form-field class="col-12 col-sm-6" color="accent">
                 <mat-label>Owner</mat-label>
                 <input matInput type="text" name="owner" [(ngModel)]="property.owner">
             </mat-form-field>
-            <mat-form-field class="col-6" color="accent">
+            <mat-form-field class="col-12 col-sm-6" color="accent">
                 <mat-label>Property Name</mat-label>
                 <input matInput type="text" name="name" [(ngModel)]="property.name">
             </mat-form-field>
         </div>
         <div class="row">
-            <mat-form-field class="col-3" color="accent">
+            <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>Category</mat-label>
                 <mat-select name="category" [(ngModel)]="property.category" [disabled]="isEditMode">
                     <mat-option value="Apartment">{{ 'property_upload.apartment' | translate }}</mat-option>
@@ -21,18 +21,18 @@
                     <mat-option value="Commercial">{{ 'property_upload.commercial' | translate }}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field class="col-3" color="accent">
+            <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>Subcategory</mat-label>
                 <input matInput type="text" name="subcategory" [(ngModel)]="property.subcategory">
             </mat-form-field>
-            <mat-form-field class="col-3" color="accent">
+            <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>Start Date</mat-label>
                 <input matInput disabled name="managementStartDate" [(ngModel)]="property.managementStartDate"
                     [matDatepicker]="startDatePicker">
                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
-            <mat-form-field class="col-3" color="accent">
+            <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>End Date</mat-label>
                 <input matInput disabled name="managementEndDate" [(ngModel)]="property.managementEndDate"
                     [matDatepicker]="endDatePicker">
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="row pt-2">
+        <div class="row pt-2 pb-4">
             <div class="col-12">
                 <mat-divider></mat-divider>
                 <input #filesInput multiple hidden="true" type="file" onclick="this.value=null"
@@ -61,25 +61,57 @@
                 <button mat-button (click)="filesInput.click()">Upload files
                     <mat-icon color="accent">upload_file</mat-icon>
                 </button>
-                <div class="uploaded-files" style="width: 50%" cdkDropList
-                    (cdkDropListDropped)="uploadedFileDrop($event)">
+                <div class="uploaded-files" cdkDropList
+                    (cdkDropListDropped)="uploadedFileDrop($event); uploadForm.form.markAsTouched();">
                     <mat-card *ngFor="let doc of property.documents; let i = index;" cdkDrag>
                         <mat-card-content>
-                            <div class="d-flex justify-content-between">
+                            <div class="d-xs-block d-sm-none row">
+                                <div class="col-8">
+                                    <span #displayMobile>{{doc.displayName}}</span>
+                                    <input #editMobile trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
+                                        (ngModelChange)="checkBtnMobile.disabled = doesFileNameAlreadyExist($event)"
+                                        [ngModelOptions]="{standalone: true}" style="height: 2rem">
+                                    <div>
+                                        <button #checkBtnMobile mat-button
+                                            [style.display]="!editMobile.hidden? '': 'none'" (click)="displayMobile.hidden = false;
+                                             editMobile.hidden = true;
+                                             doc.displayName = editMobile.value;
+                                             uploadForm.form.markAsTouched();">
+                                            <mat-icon color="accent">check</mat-icon>
+                                        </button>
+                                        <button #editBtnMobile mat-button
+                                            [style.display]="editMobile.hidden ? '': 'none'"
+                                            (click)="displayMobile.hidden = true; editMobile.hidden = false;">
+                                            <mat-icon color="accent">edit</mat-icon>
+                                        </button>
+                                        <button mat-button (click)="onFileRemove(i); uploadForm.form.markAsTouched();">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <button mat-button cdkDragHandle>
+                                        <mat-icon>drag_handle</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="d-none d-sm-flex justify-content-between">
                                 <span #display>{{doc.displayName}}</span>
                                 <input #edit trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
                                     (ngModelChange)="checkBtn.disabled = doesFileNameAlreadyExist($event)"
                                     [ngModelOptions]="{standalone: true}">
-                                <div class="d-inline">
-                                    <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'"
-                                        (click)="display.hidden = false; edit.hidden = true; doc.displayName = edit.value;">
+                                <div>
+                                    <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
+                                        edit.hidden = true;
+                                        doc.displayName = edit.value;
+                                        uploadForm.form.markAsTouched();">
                                         <mat-icon color="accent">check</mat-icon>
                                     </button>
                                     <button #editBtn mat-button [style.display]="edit.hidden ? '': 'none'"
                                         (click)="display.hidden = true; edit.hidden = false;">
                                         <mat-icon color="accent">edit</mat-icon>
                                     </button>
-                                    <button mat-button (click)="onFileRemove(i)">
+                                    <button mat-button (click)="onFileRemove(i); uploadForm.form.markAsTouched();">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                     <button mat-button cdkDragHandle>
@@ -93,13 +125,13 @@
             </div>
         </div>
         <div class="row d-flex justify-content-end">
-            <button *ngIf="!isEditMode" class="col-2" mat-button (click)="upload()"
+            <button *ngIf="!isEditMode" class="col-4 col-sm-2" mat-button (click)="upload()"
                 [disabled]="uploadForm.untouched || !uploadForm.valid">
                 <mat-icon color="accent">publish</mat-icon> Upload
             </button>
-            <button *ngIf="isEditMode" class="col-2" mat-button (click)="edit()"
+            <button *ngIf="isEditMode" class="col-4 col-sm-2" mat-button (click)="edit()"
                 [disabled]="uploadForm.untouched || !uploadForm.valid">
-                <mat-icon color="accent">edit</mat-icon> Edit
+                <mat-icon color="accent">save</mat-icon> Save
             </button>
         </div>
     </form>

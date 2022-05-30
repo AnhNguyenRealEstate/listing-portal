@@ -1,16 +1,16 @@
-<section class="container-flex pt-2 ms-4 me-4">
+<section class="container-flex pt-2 ms-4 me-4" style="height: 90vh;">
     <h1 class="page-title">Dashboard</h1>
     <mat-divider></mat-divider>
-    <div class="row pt-5 pb-5">
+    <div *ngIf="(roles.roles$ | async )?.includes('customer-service')" class="row pt-5 pb-5">
         <div class="col-3">
-            <button mat-button (click)="addProperty()"><mat-icon>add</mat-icon>Register property</button>
+            <button mat-button (click)="addProperty()">
+                <mat-icon>add</mat-icon>Register property
+            </button>
         </div>
     </div>
     <div class="row">
-        <div *ngFor="let listing of numberOfMockProps; let i = index;" class="col-4">
-            <div (click)="showDetails()">
-                <property-card (delete)="propertyRemoved(i)"></property-card>
-            </div>
+        <div *ngFor="let prop of properties; let i = index;" class="col-12 col-sm-4">
+            <property-card (click)="showDetails()" [property]="prop" (delete)="propertyRemoved(i)"></property-card>
         </div>
     </div>
 </section>

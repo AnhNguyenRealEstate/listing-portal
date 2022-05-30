@@ -1,10 +1,37 @@
 <mat-card>
-    <div>Title of the property</div>
-    <div>Image should go here</div>
+    <ng-container *ngTemplateOutlet="cardControls"></ng-container>
     <mat-card-content>
-        Some quick info about the listing (latest changes?)
+        <div *ngIf="property.name">{{property.name}}</div>
+        <div *ngIf="property.address">{{property.address}}</div>
+        <div *ngIf="property.category">{{property.category}} <ng-container *ngIf="property.subcategory">
+                {{property.subcategory}}</ng-container>
+        </div>
+        <div *ngIf="property.managementStartDate && property.managementEndDate">
+            {{property.managementStartDate | date }} - {{property.managementEndDate | date }}
+        </div>
+        <div *ngIf="property.activities?.length">
+            Most recent activity: {{property.activities![0]}}
+        </div>
     </mat-card-content>
 </mat-card>
+
+<ng-template #cardControls>
+    <button mat-icon-button class="controls-btn" [matMenuTriggerFor]="controlsMenu"
+        [matTooltip]="'listing_card.edit' | translate" (click)="$event.stopPropagation()">
+        <mat-icon color="accent">more_horiz</mat-icon>
+    </button>
+
+    <mat-menu #controlsMenu="matMenu">
+        <button mat-menu-item class="d-block" (click)="editProperty($event)">
+            <mat-icon color="accent">edit</mat-icon>
+            <span>Edit information</span>
+        </button>
+        <button mat-menu-item class="d-block" (click)="deleteProperty($event)">
+            <mat-icon color="accent">delete</mat-icon>
+            <span>Remove from system</span>
+        </button>
+    </mat-menu>
+</ng-template>
 
 <ng-template #confirmationDialog>
     <section class="container-flex justify-content-between">

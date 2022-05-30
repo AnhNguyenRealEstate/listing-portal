@@ -20,7 +20,7 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
 
     constructor(
         private dialog: MatDialog,
-        private roles: RolesService,
+        public roles: RolesService,
         private propertyManagement: PropertyManagementService,
         private auth: Auth
     ) { }
@@ -63,6 +63,6 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
     }
 
     propertyRemoved(index: number) {
-        this.properties.slice(index, 1);
+        this.properties.splice(index, 1);
     }
 }

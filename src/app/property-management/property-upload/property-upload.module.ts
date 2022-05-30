@@ -7,7 +7,7 @@ import { RTEditorModule } from 'src/app/rich-text-editor/rich-text-editor.module
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PropertyUploadComponent } from './property-upload.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
     declarations: [PropertyUploadComponent],
@@ -23,7 +23,8 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatDatepickerModule,
         MatNativeDateModule
     ],
-    exports: [PropertyUploadComponent]
+    exports: [PropertyUploadComponent],
+    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB'}]
 })
 export class PropertyUploadModule {
 }

@@ -8,13 +8,15 @@ import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { PropertyCardComponent } from './property-card/property-card.component';
 import { PropertyUploadModule } from './property-upload/property-upload.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
   declarations: [
     PropertyManagementComponent,
     PropertyDetailsComponent,
-    PropertyCardComponent],
+    PropertyCardComponent
+  ],
   imports: [
     CommonModule,
     PropertyManagementRoutingModule,
@@ -23,7 +25,8 @@ import { PropertyUploadModule } from './property-upload/property-upload.module';
     TranslateModule.forChild(
       { extend: true }
     ),
-    PropertyUploadModule
+    PropertyUploadModule,
+    MatMenuModule
   ]
 })
 export class PropertyManagementModule {
