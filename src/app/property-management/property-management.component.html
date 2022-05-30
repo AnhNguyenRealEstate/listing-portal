@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div *ngFor="let prop of properties; let i = index;" class="col-12 col-sm-4">
-            <property-card (click)="showDetails()" [property]="prop" (delete)="propertyRemoved(i)"></property-card>
+            <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(i)"></property-card>
         </div>
     </div>
 </section>

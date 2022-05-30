@@ -39,11 +39,14 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         this.subs.unsubscribe();
     }
 
-    showDetails() {
+    showDetails(property: Property) {
         const config = {
             height: '90%',
             width: '100%',
-            autoFocus: false
+            autoFocus: false,
+            data: {
+                property: property
+            }
         } as MatDialogConfig;
         this.dialog.open(PropertyDetailsComponent, config);
     }

@@ -1,18 +1,13 @@
-<section>
-    <h1>Property Name</h1>
-    <div class="pt-10 pb-10">
-        Condition of the property...
+<section *ngIf="property">
+    <h1>{{property.name}}</h1>
+    <mat-divider></mat-divider>
+    <div class="pt-10 pb-10" [innerHtml]="property.description">
     </div>
-    <div class="documents">
-        <div>Danh sách giấy tờ</div>
-        <div>
-            <a href="#">Hop dong A</a>
-        </div>
-        <div>
-            <a href="#">Hop dong B</a>
-        </div>
-        <div>
-            <a href="#">Hop dong C</a>
-        </div>
+    <div>
+        <div class="h4">Giấy tờ liên quan</div>
+        <mat-divider class="pb-2"></mat-divider>
+        <a class="d-block" href="javascript:void(0)" (click)="getDoc(doc)" *ngFor="let doc of property.documents">
+            {{doc.displayName}}
+        </a>
     </div>
 </section>
