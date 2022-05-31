@@ -1,16 +1,18 @@
 <mat-card>
-    <ng-container *ngTemplateOutlet="cardControls"></ng-container>
+    <ng-container *ngIf="(roles.roles$ | async)?.includes('customer-service')">
+        <ng-container *ngTemplateOutlet="cardControls"></ng-container>
+    </ng-container>
     <mat-card-content>
-        <div *ngIf="property.name">{{property.name}}</div>
-        <div *ngIf="property.address">{{property.address}}</div>
-        <div *ngIf="property.category">{{property.category}} <ng-container *ngIf="property.subcategory">
-                {{property.subcategory}}</ng-container>
+        <div class="pb-2 card-title">
+            <div class="pb-2" *ngIf="property.name">{{property.name}}</div>
+            <div class="card-subtitle" *ngIf="property.rentalPrice">${{property.rentalPrice}}/month</div>
         </div>
+        <div *ngIf="property.address">{{property.address}}</div>
         <div *ngIf="property.managementStartDate && property.managementEndDate">
-            {{property.managementStartDate | date }} - {{property.managementEndDate | date }}
+            Management period: {{property.managementStartDate | date }} - {{property.managementEndDate | date }}
         </div>
         <div *ngIf="property.activities?.length">
-            Most recent activity: {{property.activities![0]}}
+            Most recent activity: {{property.activities![0].description}}
         </div>
     </mat-card-content>
 </mat-card>
@@ -22,6 +24,14 @@
     </button>
 
     <mat-menu #controlsMenu="matMenu">
+        <button mat-menu-item class="d-block" [matMenuTriggerFor]="newActivityMenu">
+            <mat-icon color="accent">add_box</mat-icon>
+            <span>New activity</span>
+        </button>
+        <mat-menu #newActivityMenu="matMenu" [hasBackdrop]="true">
+            <activity-upload (activityAdded)="addActivity($event)"></activity-upload>
+        </mat-menu>
+
         <button mat-menu-item class="d-block" (click)="editProperty($event)">
             <mat-icon color="accent">edit</mat-icon>
             <span>Edit information</span>
@@ -35,7 +45,7 @@
 
 <ng-template #confirmationDialog>
     <section class="container-flex justify-content-between">
-        <p class="pb-2">{{ 'listing_edit.confirmation_msg' | translate }}</p>
+        <p class="pb-2">Are you sure you want to delete this property from the system?</p>
         <div class="d-flex justify-content-end">
             <button mat-button color="accent" [mat-dialog-close]="true">
                 {{ 'listing_edit.yes_msg' | translate }}

@@ -1,20 +1,24 @@
 <section>
-    <h1>Register a new property</h1>
+    <h1 class="h1">Register a new property</h1>
     <form #uploadForm="ngForm">
         <div class="row">
+            <div class="col-12 pb-1">
+                <div class="text-bold pb-2">Property information</div>
+                <mat-divider></mat-divider>
+            </div>
             <mat-form-field class="col-12 col-sm-6" color="accent">
                 <mat-label>Owner</mat-label>
-                <input matInput type="text" name="owner" [(ngModel)]="property.owner">
+                <input matInput trim="blur" required type="text" name="owner" [(ngModel)]="property.owner">
             </mat-form-field>
             <mat-form-field class="col-12 col-sm-6" color="accent">
-                <mat-label>Property Name</mat-label>
-                <input matInput type="text" name="name" [(ngModel)]="property.name">
+                <mat-label>Property name</mat-label>
+                <input matInput trim="blur" required type="text" name="name" [(ngModel)]="property.name">
             </mat-form-field>
         </div>
         <div class="row">
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>Category</mat-label>
-                <mat-select name="category" [(ngModel)]="property.category" [disabled]="isEditMode">
+                <mat-select required name="category" [(ngModel)]="property.category" [disabled]="isEditMode">
                     <mat-option value="Apartment">{{ 'property_upload.apartment' | translate }}</mat-option>
                     <mat-option value="Villa">{{ 'property_upload.villa' | translate }}</mat-option>
                     <mat-option value="Townhouse">{{ 'property_upload.townhouse' | translate }}</mat-option>
@@ -23,43 +27,55 @@
             </mat-form-field>
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>Subcategory</mat-label>
-                <input matInput type="text" name="subcategory" [(ngModel)]="property.subcategory">
+                <input matInput trim="blur" type="text" name="subcategory" [(ngModel)]="property.subcategory">
             </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6" color="accent">
+                <mat-label>Address</mat-label>
+                <input matInput trim="blur" required type="text" name="address" [(ngModel)]="property.address">
+            </mat-form-field>
+        </div>
+        <div class="row pt-4">
+            <div class="col-12 pb-1">
+                <div class="text-bold pb-2">Management information</div>
+                <mat-divider></mat-divider>
+            </div>
             <mat-form-field class="col-6 col-sm-3" color="accent">
-                <mat-label>Start Date</mat-label>
-                <input matInput disabled name="managementStartDate" [(ngModel)]="property.managementStartDate"
+                <mat-label>Start date</mat-label>
+                <input matInput required name="managementStartDate" [(ngModel)]="property.managementStartDate"
                     [matDatepicker]="startDatePicker">
                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="col-6 col-sm-3" color="accent">
-                <mat-label>End Date</mat-label>
-                <input matInput disabled name="managementEndDate" [(ngModel)]="property.managementEndDate"
+                <mat-label>End date</mat-label>
+                <input matInput required name="managementEndDate" [(ngModel)]="property.managementEndDate"
                     [matDatepicker]="endDatePicker">
                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
+            <mat-form-field class="col- col-sm-6" color="accent">
+                <mat-label>Rental price (USD)</mat-label>
+                <input matInput trim="blur" required type="text" name="rentalPrice" [(ngModel)]="property.rentalPrice"
+                    mask="separator" thousandSeparator=",">
+            </mat-form-field>
         </div>
         <div class="row">
-            <mat-form-field class="col-12" color="accent">
-                <mat-label>Address</mat-label>
-                <input matInput type="text" name="address" [(ngModel)]="property.address">
-            </mat-form-field>
             <div class="col-12">
                 <label class="pt-1 pb-1">{{ 'property_upload.description' | translate }}</label>
                 <div class="mat-form-field-wrapper">
-                    <app-editor [text]="property.description!" (textChange)="property.description = $event">
+                    <app-editor [text]="property.description!"
+                        (textChange)="property.description = $event; uploadForm.form.markAsTouched()">
                     </app-editor>
                 </div>
             </div>
         </div>
-        <div class="row pt-2 pb-4">
+        <div class="row pt-4 pb-4">
             <div class="col-12">
                 <mat-divider></mat-divider>
                 <input #filesInput multiple hidden="true" type="file" onclick="this.value=null"
                     (change)="onFileUpload($event)" />
-                <button mat-button (click)="filesInput.click()">Upload files
-                    <mat-icon color="accent">upload_file</mat-icon>
+                <button mat-button (click)="filesInput.click()">
+                    <mat-icon color="accent">upload_file</mat-icon> Upload files
                 </button>
                 <div class="uploaded-files" cdkDropList
                     (cdkDropListDropped)="uploadedFileDrop($event); uploadForm.form.markAsTouched();">

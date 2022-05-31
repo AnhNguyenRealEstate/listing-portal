@@ -4,7 +4,7 @@
     <div class="pt-10 pb-10" [innerHtml]="property.description">
     </div>
     <div>
-        <div class="h4">Giấy tờ liên quan</div>
+        <div class="h5">Giấy tờ</div>
         <mat-divider class="pb-2"></mat-divider>
         <a class="d-block" href="javascript:void(0)" (click)="getDoc(doc)" *ngFor="let doc of property.documents">
             {{doc.displayName}}

@@ -14,11 +14,13 @@ export interface Property {
     documents?: UploadedFile[]
     creationDate?: Timestamp,
     owner?: string
+    rentalPrice?: number
 }
 
 export interface Activity {
-    date?: Timestamp
+    date?: Date
     description?: string
+    documents?: UploadedFile[]
 }
 
 export interface UploadedFile {

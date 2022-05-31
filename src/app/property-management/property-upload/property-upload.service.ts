@@ -59,15 +59,14 @@ export class PropertyUploadService {
             }
 
             const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
-            await Promise.all([
-                uploadBytes(
-                    ref(
-                        this.storage,
-                        `${fileStoragePath}`
-                    ),
-                    file
-                ).catch()
-            ]);
+            await uploadBytes(
+                ref(
+                    this.storage,
+                    `${fileStoragePath}`
+                ),
+                file
+            ).catch();
+
             uploadedFiles[index] = {
                 dbHashedName: hashedName,
                 displayName: file.name

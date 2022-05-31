@@ -1,8 +1,11 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Property } from '../property-management.data';
+import { RolesService } from 'src/app/shared/roles.service';
+import { Activity, Property, UploadedFile } from '../property-management.data';
 import { PropertyUploadComponent } from '../property-upload/property-upload.component';
 import { PropertyCardService } from './property-card.service';
 
@@ -22,7 +25,8 @@ export class PropertyCardComponent implements OnInit {
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
         private translate: TranslateService,
-        private propertyCard: PropertyCardService
+        private propertyCard: PropertyCardService,
+        public roles: RolesService
     ) { }
 
     ngOnInit(): void {
@@ -66,5 +70,20 @@ export class PropertyCardComponent implements OnInit {
                 );
             }
         });
+    }
+
+    async addActivity(activityAddedEvent: any) {
+        const activity: Activity = activityAddedEvent.activity;
+        const newFiles: File[] = activityAddedEvent.newFiles;
+
+        await this.propertyCard.addActivity(this.property, activity, newFiles);
+
+        this.snackbar.open(
+            'Activity added 🎉',
+            this.translate.instant('property_card.dismiss_msg'),
+            {
+                duration: 3000
+            }
+        )
     }
 }

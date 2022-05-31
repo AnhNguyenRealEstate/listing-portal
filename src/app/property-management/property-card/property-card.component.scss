@@ -1,7 +1,23 @@
+@use "src/app/styles/colors" as colors;
+
 .controls-btn {
     position: absolute;
     top: 0px;
     right: 0px;
     backdrop-filter: blur(10px);
     border-radius: 6px;
+}
+
+.new-activity-panel-class {
+    width: fit-content;
+}
+
+.card-title {
+    color: colors.$accent;
+    font-size: 24px;
+
+    .card-subtitle {
+        color: black;
+        font-size: 16px;
+    }
 }

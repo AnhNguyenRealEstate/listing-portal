@@ -10,7 +10,8 @@ import { PropertyUploadComponent } from './property-upload/property-upload.compo
 
 @Component({
     selector: 'property-management',
-    templateUrl: 'property-management.component.html'
+    templateUrl: 'property-management.component.html',
+    styleUrls: ['./property-management.component.scss']
 })
 
 export class PropertyManagementComponent implements OnInit, OnDestroy {

@@ -1,15 +1,15 @@
 <section class="container-flex pt-2 ms-4 me-4" style="height: 90vh;">
     <h1 class="page-title">Dashboard</h1>
     <mat-divider></mat-divider>
-    <div *ngIf="(roles.roles$ | async )?.includes('customer-service')" class="row pt-5 pb-5">
+    <div *ngIf="(roles.roles$ | async )?.includes('customer-service')" class="row pt-5">
         <div class="col-3">
-            <button mat-button (click)="addProperty()">
-                <mat-icon>add</mat-icon>Register property
+            <button mat-raised-button (click)="addProperty()">
+                <mat-icon color="accent">add_business</mat-icon>Register property
             </button>
         </div>
     </div>
-    <div class="row">
-        <div *ngFor="let prop of properties; let i = index;" class="col-12 col-sm-4">
+    <div class="row pt-5">
+        <div *ngFor="let prop of properties; let i = index;" class="property-card-wrapper col-12 col-sm-4 pb-2">
             <property-card (click)="showDetails(prop)" [property]="prop" (delete)="propertyRemoved(i)"></property-card>
         </div>
     </div>

@@ -9,13 +9,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PropertyCardComponent } from './property-card/property-card.component';
 import { PropertyUploadModule } from './property-upload/property-upload.module';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ActivityUploadComponent } from './activity-upload/activity-upload.component';
 
 
 @NgModule({
   declarations: [
     PropertyManagementComponent,
     PropertyDetailsComponent,
-    PropertyCardComponent
+    PropertyCardComponent,
+    ActivityUploadComponent
   ],
   imports: [
     CommonModule,
@@ -26,8 +31,12 @@ import { MatMenuModule } from '@angular/material/menu';
       { extend: true }
     ),
     PropertyUploadModule,
-    MatMenuModule
-  ]
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    DragDropModule
+  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class PropertyManagementModule {
 }
