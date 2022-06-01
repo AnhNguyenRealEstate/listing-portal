@@ -11,9 +11,12 @@
         <div *ngIf="property.managementStartDate && property.managementEndDate">
             Management period: {{property.managementStartDate | date }} - {{property.managementEndDate | date }}
         </div>
-        <div *ngIf="property.activities?.length">
+        <div *ngIf="property.activities?.length; else noRecentActivity">
             Most recent activity: {{property.activities![0].description}}
         </div>
+        <ng-template #noRecentActivity>
+            <div>No recent activity</div>
+        </ng-template>
     </mat-card-content>
 </mat-card>
 
