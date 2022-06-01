@@ -36,7 +36,9 @@ import { ActivityUploadComponent } from './activity-upload/activity-upload.compo
     MatNativeDateModule,
     DragDropModule
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ]
 })
 export class PropertyManagementModule {
 }

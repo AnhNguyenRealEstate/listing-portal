@@ -7,16 +7,34 @@
             <div class="pb-2" *ngIf="property.name">{{property.name}}</div>
             <div class="card-subtitle" *ngIf="property.rentalPrice">${{property.rentalPrice}}/month</div>
         </div>
-        <div *ngIf="property.address">{{property.address}}</div>
-        <div *ngIf="property.managementStartDate && property.managementEndDate">
-            Management period: {{property.managementStartDate | date }} - {{property.managementEndDate | date }}
+
+        <div class="pb-2">
+            <div class="content-label">Address</div>
+            <div *ngIf="property.address">{{property.address}}</div>
         </div>
-        <div *ngIf="property.activities?.length; else noRecentActivity">
-            Most recent activity: {{property.activities![0].description}}
+
+        <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-2">
+            <div class="col-6">
+                <div class="content-label">Start date</div>
+                <div>{{property.managementStartDate | date:'MMM dd, yyyy' }}</div>
+            </div>
+            <div class="col-6">
+                <div class="content-label">End date</div>
+                <div>{{property.managementEndDate | date:'MMM dd, yyyy' }}</div>
+            </div>
         </div>
-        <ng-template #noRecentActivity>
-            <div>No recent activity</div>
-        </ng-template>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div class="pt-2">
+            <div class="content-label">Most recent activity</div>
+            <div *ngIf="property.activities?.length; else noRecentActivity">
+                {{property.activities![0].description}} - {{timestampToDate(property.activities![0].date) | date:'MMM dd, yyyy'}}
+            </div>
+            <ng-template #noRecentActivity>
+                <div>No recent activity</div>
+            </ng-template>
+        </div>
     </mat-card-content>
 </mat-card>
 

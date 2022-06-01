@@ -86,4 +86,8 @@ export class PropertyCardComponent implements OnInit {
             }
         )
     }
+
+    timestampToDate(stamp: any): Date {
+        return new Date((stamp as any).seconds * 1000);
+    }
 }
