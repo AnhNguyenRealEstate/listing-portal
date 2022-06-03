@@ -1,5 +1,9 @@
 <section>
-    <h1 class="h1">Register a new property</h1>
+    <h1 class="h1">
+        <div *ngIf="!isEditMode">Register a new property</div>
+        <div *ngIf="isEditMode">Edit property information</div>
+    </h1>
+
     <form #uploadForm="ngForm">
         <div class="row">
             <div class="col-12 pb-1">
@@ -15,6 +19,7 @@
                 <input matInput trim="blur" required type="text" name="name" [(ngModel)]="property.name">
             </mat-form-field>
         </div>
+
         <div class="row">
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>Category</mat-label>
@@ -34,6 +39,7 @@
                 <input matInput trim="blur" required type="text" name="address" [(ngModel)]="property.address">
             </mat-form-field>
         </div>
+
         <div class="row pt-4">
             <div class="col-12 pb-1">
                 <div class="text-bold pb-2">Management information</div>
@@ -41,14 +47,16 @@
             </div>
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>Start date</mat-label>
-                <input matInput required name="managementStartDate" [(ngModel)]="property.managementStartDate"
+                <input matInput required name="managementStartDate" [(ngModel)]="managementStartDate"
+                    (ngModelChange)="property.managementStartDate = dateToTimestamp($event)"
                     [matDatepicker]="startDatePicker">
                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="col-6 col-sm-3" color="accent">
                 <mat-label>End date</mat-label>
-                <input matInput required name="managementEndDate" [(ngModel)]="property.managementEndDate"
+                <input matInput required name="managementEndDate" [(ngModel)]="managementEndDate"
+                    (ngModelChange)="property.managementEndDate = dateToTimestamp($event)"
                     [matDatepicker]="endDatePicker">
                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
@@ -69,6 +77,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="row pt-4">
+            <div class="col-12 pb-1">
+                <div class="text-bold pb-2">Activities</div>
+                <mat-divider></mat-divider>
+            </div>
+            <div class="row">
+                <div class="col-12 ms-4" *ngFor="let activity of property.activities">
+                    {{activity.date?.toDate() | date:'dd MMM, yyyy' }} - {{activity.description}}
+                </div>
+            </div>
+        </div>
+
         <div class="row pt-4 pb-4">
             <div class="col-12">
                 <mat-divider></mat-divider>

@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +21,9 @@ export class PropertyUploadComponent implements OnInit {
     uploadedFiles: File[] = [];
     deletedFiles: UploadedFile[] = [];
 
+    managementStartDate!: Date | undefined;
+    managementEndDate!: Date | undefined;
+
     constructor(
         private translate: TranslateService,
         private snackbar: MatSnackBar,
@@ -31,6 +35,8 @@ export class PropertyUploadComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.managementStartDate = this.property.managementStartDate?.toDate();
+        this.managementEndDate = this.property.managementEndDate?.toDate();
     }
 
     onFileUpload(event: any) {
@@ -108,5 +114,9 @@ export class PropertyUploadComponent implements OnInit {
 
     doesFileNameAlreadyExist(name: string) {
         return !!this.property.documents?.find(doc => doc.displayName === name);
+    }
+
+    dateToTimestamp(date: Date): Timestamp {
+        return Timestamp.fromDate(date);
     }
 }

@@ -30,8 +30,6 @@ export class PropertyCardComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.property.managementStartDate = new Date((this.property.managementStartDate! as any).seconds * 1000);
-        this.property.managementEndDate = new Date((this.property.managementEndDate! as any).seconds * 1000);
     }
 
     async editProperty(event: Event) {

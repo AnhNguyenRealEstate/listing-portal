@@ -32,7 +32,7 @@ export class PropertyCardService {
         // Highly unlikely to happen
 
         if (property.activities?.length) {
-            property.activities.push(activity);
+            property.activities.unshift(activity);
         } else {
             property.activities = [];
             property.activities.unshift(activity);

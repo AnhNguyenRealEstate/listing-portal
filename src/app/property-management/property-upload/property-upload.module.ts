@@ -24,7 +24,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
         MatNativeDateModule
     ],
     exports: [PropertyUploadComponent],
-    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB'}]
+    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class PropertyUploadModule {
 }

@@ -16,11 +16,11 @@
         <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-2">
             <div class="col-6">
                 <div class="content-label">Start date</div>
-                <div>{{property.managementStartDate | date:'MMM dd, yyyy' }}</div>
+                <div>{{property.managementStartDate.toDate() | date:'MMM dd, yyyy' }}</div>
             </div>
             <div class="col-6">
                 <div class="content-label">End date</div>
-                <div>{{property.managementEndDate | date:'MMM dd, yyyy' }}</div>
+                <div>{{property.managementEndDate.toDate() | date:'MMM dd, yyyy' }}</div>
             </div>
         </div>
 
