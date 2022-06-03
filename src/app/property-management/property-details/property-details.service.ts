@@ -11,7 +11,7 @@ export class PropertyDetailsService {
         private storage: Storage
     ) { }
 
-    async getDoc(docPath: string): Promise<Blob> {
+    async downloadDoc(docPath: string): Promise<Blob> {
         return await getBlob(ref(this.storage, `${docPath}`));
     }
 

@@ -38,27 +38,23 @@ export class PropertyCardService {
             property.activities.unshift(activity);
         }
 
-        await Promise.all(
-            [
-                updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), { ...property }),
-                () => {
-                    return newFiles.map(async file => {
-                        const hashedName = activity.documents!.find(document => document.displayName === file.name)?.dbHashedName;
-                        if (!hashedName) {
-                            return;
-                        }
 
-                        const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
-                        await uploadBytes(
-                            ref(
-                                this.storage,
-                                `${fileStoragePath}`
-                            ),
-                            file
-                        ).catch()
-                    });
-                }
-            ]
-        );
+        await updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), { ...property });
+
+        await Promise.all(newFiles.map(async file => {
+            const hashedName = activity.documents!.find(document => document.displayName === file.name)?.dbHashedName;
+            if (!hashedName) {
+                return;
+            }
+
+            const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
+            await uploadBytes(
+                ref(
+                    this.storage,
+                    `${fileStoragePath}`
+                ),
+                file
+            ).catch()
+        }));
     }
 }

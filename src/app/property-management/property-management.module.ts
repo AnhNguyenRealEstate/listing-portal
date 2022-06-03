@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ActivityUploadComponent } from './activity-upload/activity-upload.component';
+import { ActivitiesTreeviewModule } from './activities-tree-view/activities-tree-view.module';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ActivityUploadComponent } from './activity-upload/activity-upload.compo
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    DragDropModule
+    DragDropModule,
+    ActivitiesTreeviewModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

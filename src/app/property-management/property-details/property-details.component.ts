@@ -24,8 +24,8 @@ export class PropertyDetailsComponent implements OnInit {
 
     ngOnInit() { }
 
-    async getDoc(doc: UploadedFile) {
-        const file = await this.propertyDetails.getDoc(`${this.property.fileStoragePath}/${doc.dbHashedName}`);
+    async downloadDoc(doc: UploadedFile) {
+        const file = await this.propertyDetails.downloadDoc(`${this.property.fileStoragePath}/${doc.dbHashedName}`);
         const url = window.URL.createObjectURL(file);
         window.open(url);
     }

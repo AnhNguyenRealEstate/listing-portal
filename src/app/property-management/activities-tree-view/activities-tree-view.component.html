@@ -1,17 +1,21 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <!-- This is the tree node template for leaf nodes -->
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <!-- use a disabled button to provide padding for tree leaf -->
-        <button mat-icon-button disabled></button>
-        {{node.name}}
-    </mat-tree-node>
+<mat-expansion-panel *ngFor="let activity of activities" hideToggle>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <div>{{activity.date?.toDate() | date}} </div>
+        </mat-panel-title>
+        <mat-panel-description>
+            <div>{{activity.description}}</div>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
 
-    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
-        </button>
-        {{node.name}}
-    </mat-tree-node>
-</mat-tree>
+    <ng-template matExpansionPanelContent>
+        <div *ngIf="!activity.documents?.length">No documents to display</div>
+        <div *ngIf="activity.documents?.length" class="row">
+            <div class="col-12 col-sm-3" *ngFor="let doc of activity.documents">
+                <button mat-raised-button (click)="$event.stopPropagation(); downloadFile(doc)">
+                    <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</mat-expansion-panel>

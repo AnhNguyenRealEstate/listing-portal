@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTreeModule } from '@angular/material/tree';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { ActivitiesTreeviewComponent } from './activities-tree-view.component';
 
@@ -10,7 +10,7 @@ import { ActivitiesTreeviewComponent } from './activities-tree-view.component';
     imports: [
         CommonModule,
         SharedModule,
-        MatTreeModule
+        MatExpansionModule
     ],
     exports: [ActivitiesTreeviewComponent]
 })

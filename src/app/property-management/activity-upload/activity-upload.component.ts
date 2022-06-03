@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { Activity, UploadedFile } from '../property-management.data';
 
@@ -85,10 +86,10 @@ export class ActivityUploadComponent implements OnInit {
     addActivity(form: NgForm) {
         this.activityAdded.emit({
             activity: {
-                date: this.date,
+                date: Timestamp.fromDate(this.date),
                 description: this.description,
                 documents: this.newActivityAttachments
-            },
+            } as Activity,
             newFiles: this.newFiles
         });
 

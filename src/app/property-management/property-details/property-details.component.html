@@ -9,16 +9,13 @@
     <div class="pt-5">
         <div class="h5">Hoạt động</div>
         <mat-divider class="pb-2"></mat-divider>
-        <div *ngFor="let activity of property.activities" class="row">
-            <span class="col-2 d-flex justify-content-center activity-date">{{activity.date?.toDate() | date:'MMM dd, yyyy'}}</span>
-            <span class="col-6">{{activity.description}}</span>
-        </div>
+        <activities-tree-view [activities]="property.activities!" (download)="downloadDoc($event)"></activities-tree-view>
     </div>
 
     <div class="pt-5">
         <div class="h5">Giấy tờ liên quan</div>
         <mat-divider class="pb-2"></mat-divider>
-        <button mat-button class="d-block pb-2" (click)="getDoc(doc)" *ngFor="let doc of property.documents">
+        <button mat-button class="d-block pb-2" (click)="downloadDoc(doc)" *ngFor="let doc of property.documents">
             <div class="d-inline">
                 <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
             </div>
