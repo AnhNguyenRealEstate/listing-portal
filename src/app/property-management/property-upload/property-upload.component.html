@@ -84,8 +84,8 @@
                 <mat-divider></mat-divider>
             </div>
             <div class="row">
-                <div class="col-12 ms-4" *ngFor="let activity of property.activities">
-                    {{activity.date?.toDate() | date:'dd MMM, yyyy' }} - {{activity.description}}
+                <div class="col-12 ms-4" *ngIf="property.activities">
+                    <activities-tree-view [activities]="property.activities!"></activities-tree-view>
                 </div>
             </div>
         </div>

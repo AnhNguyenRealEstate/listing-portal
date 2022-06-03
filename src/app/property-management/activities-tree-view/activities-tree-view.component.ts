@@ -1,4 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Activity, UploadedFile } from '../property-management.data';
@@ -23,7 +24,7 @@ export class ActivitiesTreeviewComponent implements OnInit {
     private _transformer = (node: Activity, level: number) => {
         return {
             expandable: !!node.documents && node.documents.length > 0,
-            name: `${node.date} - ${node.description}`,
+            name: `${node.date?.toDate()} - ${node.description}`,
             level: level
         };
     };
@@ -48,4 +49,6 @@ export class ActivitiesTreeviewComponent implements OnInit {
     ngOnInit() {
         this.dataSource.data = this.activities;
     }
+
+    hasChild = (_: number, node: FlatNode) => node.expandable;
 }
