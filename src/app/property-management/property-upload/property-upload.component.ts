@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
-import { Property, UploadedFile } from '../property-management.data';
+import { Activity, Property, UploadedFile } from '../property-management.data';
 import { PropertyUploadService } from './property-upload.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class PropertyUploadComponent implements OnInit {
 
     uploadedFiles: File[] = [];
     deletedFiles: UploadedFile[] = [];
+    deletedActivities: Activity[] = [];
 
     managementStartDate!: Date | undefined;
     managementEndDate!: Date | undefined;
@@ -87,7 +88,7 @@ export class PropertyUploadComponent implements OnInit {
     }
 
     async edit() {
-        await this.propertyUpload.editProperty(this.property, this.uploadedFiles, this.deletedFiles);
+        await this.propertyUpload.editProperty(this.property, this.uploadedFiles, this.deletedFiles, this.deletedActivities);
 
         this.snackbar.open(
             await lastValueFrom(this.translate.get('property_upload.edit_successful')),
@@ -118,5 +119,14 @@ export class PropertyUploadComponent implements OnInit {
 
     dateToTimestamp(date: Date): Timestamp {
         return Timestamp.fromDate(date);
+    }
+
+    onActivityRemove(index: number) {
+        if (!this.property.activities?.length) {
+            return;
+        }
+
+        const removed = this.property.activities!.splice(index, 1);
+        this.deletedActivities.push(...removed);
     }
 }

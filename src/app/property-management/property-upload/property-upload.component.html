@@ -85,7 +85,8 @@
             </div>
             <div class="row">
                 <div class="col-12" *ngIf="property.activities">
-                    <activities-tree-view [activities]="property.activities!"></activities-tree-view>
+                    <activities-tree-view [activities]="property.activities!" [canDeleteActivities]="true"
+                        (activityRemoved)="onActivityRemove($event); uploadForm.form.markAsTouched()"></activities-tree-view>
                 </div>
             </div>
         </div>

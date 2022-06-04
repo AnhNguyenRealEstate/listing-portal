@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { Activity, UploadedFile } from '../property-management.data';
 
 @Component({
@@ -7,18 +7,30 @@ import { Activity, UploadedFile } from '../property-management.data';
     styleUrls: ['./activities-tree-view.component.scss']
 })
 
-export class ActivitiesTreeviewComponent implements OnInit {
+export class ActivitiesTreeviewComponent {
+    @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
     @Output() download: EventEmitter<UploadedFile> = new EventEmitter();
+    @Output() activityRemoved: EventEmitter<number> = new EventEmitter();
 
-    constructor() {
+    constructor(
+        private renderer: Renderer2
+    ) {
     }
 
-    ngOnInit() {
-
-    }
-
-    downloadFile(doc: UploadedFile){
+    downloadFile(doc: UploadedFile) {
         this.download.emit(doc);
+    }
+
+    showDeleteBtn(deleteBtn: HTMLDivElement) {
+        this.renderer.removeStyle(deleteBtn, 'display');
+    }
+
+    hideDeleteBtn(deleteBtn: HTMLDivElement) {
+        this.renderer.setStyle(deleteBtn, 'display', 'none');
+    }
+
+    removeActivity(index: number) {
+        this.activityRemoved.emit(index);
     }
 }

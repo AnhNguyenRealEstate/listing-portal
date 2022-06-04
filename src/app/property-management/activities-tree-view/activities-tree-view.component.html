@@ -1,4 +1,5 @@
-<mat-expansion-panel *ngFor="let activity of activities" hideToggle>
+<mat-expansion-panel *ngFor="let activity of activities; let i = index;" hideToggle
+    (mouseenter)="showDeleteBtn(deleteBtn)" (mouseleave)="hideDeleteBtn(deleteBtn)">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <div>{{activity.date?.toDate() | date}} </div>
@@ -6,6 +7,11 @@
         <mat-panel-description>
             <div>{{activity.description}}</div>
         </mat-panel-description>
+        <div style="display: none" #deleteBtn>
+            <button *ngIf="canDeleteActivities" mat-button (click)="$event.stopPropagation(); removeActivity(i)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>

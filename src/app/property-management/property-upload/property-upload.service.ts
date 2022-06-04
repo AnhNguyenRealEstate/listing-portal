@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore, updateDoc } from '@angular/fire/firestore';
-import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
-import { Property, UploadedFile } from '../property-management.data';
+import { Activity, Property, UploadedFile } from '../property-management.data';
 
 @Injectable({ providedIn: 'root' })
 export class PropertyUploadService {
@@ -26,15 +26,23 @@ export class PropertyUploadService {
         return docRef.id;
     }
 
-    async editProperty(property: Property, newFiles: File[], deletedFiles: UploadedFile[]) {
+    async editProperty(property: Property, newFiles: File[], deletedFiles: UploadedFile[], deletedActivities: Activity[]) {
         if (deletedFiles.length) {
-            const fileStorageFolderRef = ref(this.storage, property.fileStoragePath!);
-            const filesOnStorage = (await listAll(fileStorageFolderRef)).items;
-            await Promise.all(filesOnStorage.map(async (fileOnStorage) => {
-                if (deletedFiles.filter(fileToDelete => fileToDelete.dbHashedName === fileOnStorage.name).length) {
-                    await deleteObject(ref(fileOnStorage));
+            deletedFiles.map((fileToDelete) => {
+                deleteObject(ref(this.storage, `${property.fileStoragePath}/${fileToDelete.dbHashedName}`));
+            });
+        }
+
+        if (deletedActivities.length) {
+            deletedActivities.map(activity => {
+                if (!activity.documents?.length) {
+                    return;
                 }
-            }));
+
+                activity.documents?.map(doc => {
+                    deleteObject(ref(this.storage, `${property.fileStoragePath}/${doc.dbHashedName}`));
+                });
+            });
         }
 
         if (property.documents?.length) {
