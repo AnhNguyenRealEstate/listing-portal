@@ -109,7 +109,7 @@
                 <div class="row pb-2">
                     <div class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent">gite</mat-icon>
+                            <mat-icon color="accent" inline="true">gite</mat-icon>
                         </div>
                         <div class="ps-1 pb-2 important-info-text">
                             <div>
@@ -122,7 +122,7 @@
                     </div>
                     <div *ngIf="listing.bedrooms" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent">bed</mat-icon>
+                            <mat-icon color="accent" inline="true">bed</mat-icon>
                         </div>
                         <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.bedrooms}} {{ 'listing_details.room' | translate }}<ng-container
@@ -132,7 +132,7 @@
                     </div>
                     <div *ngIf="listing.bathrooms" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent">bathtub</mat-icon>
+                            <mat-icon color="accent" inline="true">bathtub</mat-icon>
                         </div>
                         <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
@@ -142,7 +142,7 @@
                     </div>
                     <div class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent">aspect_ratio</mat-icon>
+                            <mat-icon color="accent" inline="true">aspect_ratio</mat-icon>
                         </div>
                         <div class="ps-1 pb-2 important-info-text">
                             <span>{{listing.propertySize}} (m<sup>2</sup>)</span>
@@ -150,7 +150,7 @@
                     </div>
                     <div *ngIf="listing.view" class="col-3 important-information">
                         <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent">panorama_horizontal_icon</mat-icon>
+                            <mat-icon color="accent" inline="true">panorama_horizontal_icon</mat-icon>
                         </div>
                         <div class="ps-1 pb-2 important-info-text">
                             <span>{{ 'listing_details.view' | translate }} {{listing.view | lowercase}}</span>
