@@ -135,5 +135,7 @@
       }
     }
   },
-  "defaultProject": "listing-portal"
+  "cli": {
+    "analytics": "a3f9e250-0d6f-4a55-8675-3e57a7a2505c"
+  }
 }

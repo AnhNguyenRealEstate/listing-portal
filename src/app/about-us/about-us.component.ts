@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Inquiry } from './about-us.data';
@@ -17,13 +17,13 @@ export class AboutUsComponent implements OnInit {
     tenure = this.thisYear - this.startYear;
 
     inquiry: Inquiry = {};
-    inquiryForm!: FormGroup;
+    inquiryForm!: UntypedFormGroup;
     submitInProgress: boolean = false;
 
     email!: string;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private aboutUs: AboutUsService,
         private translate: TranslateService,
         private snackbar: MatSnackBar
