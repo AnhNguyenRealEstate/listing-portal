@@ -4,8 +4,11 @@
     </ng-container>
     <mat-card-content>
         <div class="pb-2 card-title">
-            <div class="pb-2" *ngIf="property.name">{{property.name}}</div>
-            <div class="card-subtitle" *ngIf="property.rentalPrice">${{property.rentalPrice}}/month</div>
+            <div class="pb-3" *ngIf="property.name">
+                {{property.name}}
+            </div>
+            <div class="card-subtitle pb-1" *ngIf="property.rentalPrice">${{property.rentalPrice}}/month</div>
+            <div class="card-subtitle" *ngIf="property.owner">{{property.owner}}</div>
         </div>
 
         <div class="pb-2">
@@ -24,7 +27,7 @@
             </div>
         </div>
 
-        <mat-divider [inset]="true"></mat-divider>
+        <mat-divider></mat-divider>
 
         <div class="pt-2">
             <div class="content-label">Most recent activity</div>
@@ -49,7 +52,7 @@
             <mat-icon color="accent">add_box</mat-icon>
             <span>New activity</span>
         </button>
-        <mat-menu #newActivityMenu="matMenu" [hasBackdrop]="true">
+        <mat-menu #newActivityMenu="matMenu">
             <activity-upload (activityAdded)="addActivity($event)"></activity-upload>
         </mat-menu>
 

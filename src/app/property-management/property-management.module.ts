@@ -14,6 +14,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ActivityUploadComponent } from './activity-upload/activity-upload.component';
 import { ActivitiesTreeviewModule } from './activities-tree-view/activities-tree-view.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ActivitiesTreeviewModule } from './activities-tree-view/activities-tree
     MatDatepickerModule,
     MatNativeDateModule,
     DragDropModule,
-    ActivitiesTreeviewModule
+    ActivitiesTreeviewModule,
+    MatTabsModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

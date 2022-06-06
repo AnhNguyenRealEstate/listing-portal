@@ -11,7 +11,12 @@ export class PropertyCardService {
         private storage: Storage
     ) { }
 
-    deleteProperty(property: Property) {
+    /**
+     * Remove the property and all files related to it
+     * @param property The property to remove
+     * @returns 
+     */
+    async deleteProperty(property: Property) {
         if (!property.id) {
             return;
         }
@@ -37,7 +42,6 @@ export class PropertyCardService {
             property.activities = [];
             property.activities.unshift(activity);
         }
-
 
         await updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), { ...property });
 

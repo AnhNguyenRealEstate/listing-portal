@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { Activity, UploadedFile } from '../property-management.data';
 
 @Component({
@@ -7,7 +8,7 @@ import { Activity, UploadedFile } from '../property-management.data';
     styleUrls: ['./activities-tree-view.component.scss']
 })
 
-export class ActivitiesTreeviewComponent {
+export class ActivitiesTreeviewComponent implements OnInit {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
     @Output() download: EventEmitter<UploadedFile> = new EventEmitter();
@@ -16,6 +17,18 @@ export class ActivitiesTreeviewComponent {
     constructor(
         private renderer: Renderer2
     ) {
+    }
+
+    ngOnInit(): void {
+        // this.activities.sort((a, b) => {
+        //     if ((a.date?.seconds || 0) > (b.date?.seconds || 0)) {
+        //         return -1;
+        //     } else if ((a.date?.seconds || 0) < (b.date?.seconds || 0)) {
+        //         return 1;
+        //     }
+
+        //     return 0;
+        // });
     }
 
     downloadFile(doc: UploadedFile) {

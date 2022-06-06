@@ -1,5 +1,8 @@
 <section *ngIf="property">
-    <h1>{{property.name}}</h1>
+    <h1>
+        {{property.name}} - {{property.category}}
+        <ng-container *ngIf="property.subcategory">({{property.subcategory}})</ng-container>
+    </h1>
     <mat-divider></mat-divider>
 
     <div class="pt-2">
@@ -7,18 +10,27 @@
     </div>
 
     <div class="pt-5">
-        <div class="h5">Hoạt động</div>
-        <mat-divider class="pb-2"></mat-divider>
-        <activities-tree-view [activities]="property.activities!" (download)="downloadDoc($event)"></activities-tree-view>
-    </div>
+        <mat-tab-group color="accent">
+            <mat-tab label="Activities">
+                <ng-container *ngIf="property.activities?.length; else noActivity">
+                    <activities-tree-view [activities]="property.activities!" (download)="downloadDoc($event)">
+                    </activities-tree-view>
+                </ng-container>
+                <ng-template #noActivity>
+                    <span>No recent activity</span>
+                </ng-template>
+            </mat-tab>
 
-    <div class="pt-5">
-        <div class="h5">Giấy tờ liên quan</div>
-        <mat-divider class="pb-2"></mat-divider>
-        <button mat-button class="d-block pb-2" (click)="downloadDoc(doc)" *ngFor="let doc of property.documents">
-            <div class="d-inline">
-                <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
-            </div>
-        </button>
+            <mat-tab label="Related Documents">
+                <div class="pt-2">
+                    <button *ngFor="let doc of property.documents" mat-button class="d-block pb-2"
+                        (click)="downloadDoc(doc)">
+                        <div class="d-inline">
+                            <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
+                        </div>
+                    </button>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 </section>
