@@ -9,7 +9,6 @@ export interface Property {
     subcategory?: string
     managementStartDate?: Timestamp
     managementEndDate?: Timestamp
-    activities?: Activity[]
     fileStoragePath?: string
     documents?: UploadedFile[]
     creationDate?: Timestamp,
@@ -21,6 +20,7 @@ export interface Activity {
     date?: Timestamp
     description?: string
     documents?: UploadedFile[]
+    name?: string
 }
 
 export interface UploadedFile {

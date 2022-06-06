@@ -84,8 +84,8 @@
                 <mat-divider></mat-divider>
             </div>
             <div class="row">
-                <div class="col-12" *ngIf="property.activities">
-                    <activities-tree-view [activities]="property.activities!" [canDeleteActivities]="true"
+                <div class="col-12" *ngIf="activities?.length">
+                    <activities-tree-view [activities]="activities!" [canDeleteActivities]="true"
                         (activityRemoved)="onActivityRemove($event); uploadForm.form.markAsTouched()"></activities-tree-view>
                 </div>
             </div>

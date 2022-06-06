@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { updateDoc, doc, Firestore } from '@angular/fire/firestore';
+import { updateDoc, doc, Firestore, deleteDoc, collection, DocumentSnapshot, getDocs, limit, query, startAfter } from '@angular/fire/firestore';
 import { deleteObject, getBlob, ref, Storage } from '@angular/fire/storage';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Property, Activity } from '../property-management.data';
 
 @Injectable({ providedIn: 'root' })
 export class PropertyDetailsService {
+    private initialNumOfActivities = 10;
+
     constructor(
         private firestore: Firestore,
         private storage: Storage
@@ -15,27 +17,31 @@ export class PropertyDetailsService {
         return await getBlob(ref(this.storage, `${docPath}`));
     }
 
-    async removeActivity(property: Property, activityToRemove: Activity) {
-        //TODO: create a subcollection of activities with their own ids
-        property.activities = property.activities!.filter(
-            activity => (activity.date as any).seconds !== (activityToRemove as any).seconds
+    async getActivities(property: Property) {
+        const snapshot = await getDocs(
+            query(
+                collection(
+                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
+                    'activities'
+                ),
+                limit(this.initialNumOfActivities)
+            )
+        );
+        return snapshot;
+    }
+
+    async getMoreActivities(property: Property, lastResult: DocumentSnapshot) {
+        const snapshot = await getDocs(
+            query(
+                collection(
+                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
+                    'activities'
+                ),
+                startAfter(lastResult),
+                limit(this.initialNumOfActivities)
+            )
         );
 
-        await Promise.all(
-            [
-                updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), { ...property }),
-                () => {
-                    return activityToRemove.documents?.map(async docToRemove => {
-                        const fileStoragePath = `${property.fileStoragePath}/${docToRemove.dbHashedName}`;
-                        await deleteObject(
-                            ref(
-                                this.storage,
-                                `${fileStoragePath}`
-                            )
-                        ).catch()
-                    });
-                }
-            ]
-        );
+        return snapshot;
     }
 }

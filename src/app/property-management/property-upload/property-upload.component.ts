@@ -21,6 +21,7 @@ export class PropertyUploadComponent implements OnInit {
     uploadedFiles: File[] = [];
     deletedFiles: UploadedFile[] = [];
     deletedActivities: Activity[] = [];
+    activities: Activity[] = [];
 
     managementStartDate!: Date | undefined;
     managementEndDate!: Date | undefined;
@@ -122,11 +123,11 @@ export class PropertyUploadComponent implements OnInit {
     }
 
     onActivityRemove(index: number) {
-        if (!this.property.activities?.length) {
+        if (!this.activities?.length) {
             return;
         }
 
-        const removed = this.property.activities!.splice(index, 1);
+        const removed = this.activities!.splice(index, 1);
         this.deletedActivities.push(...removed);
     }
 }

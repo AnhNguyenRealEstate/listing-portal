@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,6 +18,8 @@ export class PropertyCardComponent implements OnInit {
     @Input() property!: Property;
     @Output() delete = new EventEmitter();
 
+    mostRecentActivity: Activity | undefined;
+
     @ViewChild('confirmationDialog') confirmationDialogTemplate!: TemplateRef<string>;
 
     constructor(
@@ -27,7 +30,8 @@ export class PropertyCardComponent implements OnInit {
         public roles: RolesService
     ) { }
 
-    ngOnInit(): void {
+    async ngOnInit() {
+        this.mostRecentActivity = await this.propertyCard.getMostRecentActivity(this.property);
     }
 
     async editProperty(event: Event) {
@@ -81,6 +85,10 @@ export class PropertyCardComponent implements OnInit {
                 duration: 3000
             }
         )
+
+        if (this.mostRecentActivity?.date?.toDate()! < activity.date?.toDate()!) {
+            this.mostRecentActivity = activity;
+        }
     }
 
     timestampToDate(stamp: any): Date {

@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RolesService } from 'src/app/shared/roles.service';
-import { Property, UploadedFile } from '../property-management.data';
+import { Activity, Property, UploadedFile } from '../property-management.data';
 import { PropertyDetailsService } from './property-details.service';
 
 @Component({
@@ -12,6 +13,8 @@ import { PropertyDetailsService } from './property-details.service';
 
 export class PropertyDetailsComponent implements OnInit {
     property!: Property;
+    activities: Activity[] = [];
+    lastActivity!: DocumentSnapshot;
 
     constructor(
         private propertyDetails: PropertyDetailsService,
@@ -21,7 +24,17 @@ export class PropertyDetailsComponent implements OnInit {
         this.property = this.data.property;
     }
 
-    ngOnInit() { }
+    async ngOnInit() {
+        const activitiesSnap = await this.propertyDetails.getActivities(this.property);
+        this.activities = activitiesSnap.docs.map(doc => doc.data() as Activity);
+        this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
+    }
+
+    async getMoreActivities() {
+        const activitiesSnap = await this.propertyDetails.getMoreActivities(this.property, this.lastActivity);
+        this.activities.push(...activitiesSnap.docs.map(doc => doc.data() as Activity));
+        this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
+    }
 
     async downloadDoc(doc: UploadedFile) {
         const file = await this.propertyDetails.downloadDoc(`${this.property.fileStoragePath}/${doc.dbHashedName}`);

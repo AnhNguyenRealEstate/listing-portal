@@ -31,8 +31,8 @@
 
         <div class="pt-2">
             <div class="content-label">Most recent activity</div>
-            <div *ngIf="property.activities?.length; else noRecentActivity">
-                {{property.activities![0].description}} - {{timestampToDate(property.activities![0].date) | date:'MMM dd, yyyy'}}
+            <div *ngIf="mostRecentActivity; else noRecentActivity">
+                {{mostRecentActivity.description}} - {{timestampToDate(mostRecentActivity.date) | date:'MMM dd, yyyy'}}
             </div>
             <ng-template #noRecentActivity>
                 <div>No recent activity</div>

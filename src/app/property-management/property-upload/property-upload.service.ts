@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, doc, Firestore, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity, Property, UploadedFile } from '../property-management.data';
@@ -39,9 +39,7 @@ export class PropertyUploadService {
                     return;
                 }
 
-                activity.documents?.map(doc => {
-                    deleteObject(ref(this.storage, `${property.fileStoragePath}/${doc.dbHashedName}`));
-                });
+                this.removeActivity(property, activity);
             });
         }
 
@@ -82,5 +80,31 @@ export class PropertyUploadService {
         }));
 
         return uploadedFiles;
+    }
+
+    async removeActivity(property: Property, activityToRemove: Activity) {
+        if (!activityToRemove.documents?.length) {
+            return;
+        }
+
+        await Promise.all(activityToRemove.documents?.map(async docToRemove => {
+            const fileStoragePath = `${property.fileStoragePath}/${docToRemove.dbHashedName}`;
+            await deleteObject(
+                ref(
+                    this.storage,
+                    `${fileStoragePath}`
+                )
+            ).catch();
+        }));
+
+        await deleteDoc(
+            doc(
+                collection(
+                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
+                    'activities'
+                ),
+                activityToRemove.name
+            )
+        );
     }
 }
