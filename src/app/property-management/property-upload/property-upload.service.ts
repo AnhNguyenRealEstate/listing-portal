@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDocs, limit, query, startAfter, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDocs, limit, orderBy, query, startAfter, updateDoc } from '@angular/fire/firestore';
 import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity, Property, UploadedFile } from '../property-management.data';
@@ -91,6 +91,7 @@ export class PropertyUploadService {
                     doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
                     'activities'
                 ),
+                orderBy('date', 'desc'),
                 limit(this.initialNumOfActivities)
             )
         );
@@ -104,6 +105,7 @@ export class PropertyUploadService {
                     doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
                     'activities'
                 ),
+                orderBy('date', 'desc'),
                 startAfter(lastResult),
                 limit(this.initialNumOfActivities)
             )

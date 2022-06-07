@@ -184,5 +184,9 @@
         "townhouse": "Townhouse",
         "commercial": "Commercial",
         "description": "Description"
+    },
+    "property_card": {
+        "delete_msg": "Property removed from system 🗑",
+        "dismiss_msg": "Dismiss"
     }
 }

@@ -9,3 +9,6 @@ exports.inquiry = inquiry;
 
 const customIndexHtml = require('./custom-index-html');
 exports.customIndexHtml = customIndexHtml.customIndexHtml;
+
+const activities = require('./activities');
+exports.activities = activities;

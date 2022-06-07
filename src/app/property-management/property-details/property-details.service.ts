@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { updateDoc, doc, Firestore, deleteDoc, collection, DocumentSnapshot, getDocs, limit, query, startAfter } from '@angular/fire/firestore';
+import { updateDoc, doc, Firestore, deleteDoc, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy } from '@angular/fire/firestore';
 import { deleteObject, getBlob, ref, Storage } from '@angular/fire/storage';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Property, Activity } from '../property-management.data';
@@ -24,6 +24,7 @@ export class PropertyDetailsService {
                     doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
                     'activities'
                 ),
+                orderBy('date', 'desc'),
                 limit(this.initialNumOfActivities)
             )
         );
@@ -37,6 +38,7 @@ export class PropertyDetailsService {
                     doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
                     'activities'
                 ),
+                orderBy('date', 'desc'),
                 startAfter(lastResult),
                 limit(this.initialNumOfActivities)
             )

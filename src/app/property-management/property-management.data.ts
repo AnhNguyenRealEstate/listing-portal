@@ -20,7 +20,7 @@ export interface Activity {
     date?: Timestamp
     description?: string
     documents?: UploadedFile[]
-    id?: string
+    id?: string //Firebase auto generated
 }
 
 export interface UploadedFile {

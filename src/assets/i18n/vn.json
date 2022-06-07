@@ -183,5 +183,9 @@
         "townhouse": "Song lập",
         "commercial": "Shop thương mại",
         "description": "Ghi chú"
+    },
+    "property_card": {
+        "delete_msg": "Đã xoá tài sản khỏi hệ thống 🗑",
+        "dismiss_msg": "Tắt"
     }
 }

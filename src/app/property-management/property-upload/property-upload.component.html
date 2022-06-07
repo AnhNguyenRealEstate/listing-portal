@@ -78,15 +78,16 @@
             </div>
         </div>
 
-        <div class="row pt-4">
+        <div *ngIf="activities?.length" class="row pt-4">
             <div class="col-12 pb-1">
                 <div class="text-bold pb-2">Activities</div>
                 <mat-divider></mat-divider>
             </div>
             <div class="row">
-                <div class="col-12" *ngIf="activities?.length">
+                <div class="col-12">
                     <activities-tree-view [activities]="activities!" [canDeleteActivities]="true"
-                        (activityRemoved)="onActivityRemove($event); uploadForm.form.markAsTouched()"></activities-tree-view>
+                        (activityRemoved)="onActivityRemove($event); uploadForm.form.markAsTouched()">
+                    </activities-tree-view>
                 </div>
             </div>
         </div>
