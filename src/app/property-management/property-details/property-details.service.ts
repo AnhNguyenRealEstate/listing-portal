@@ -6,7 +6,7 @@ import { Property, Activity } from '../property-management.data';
 
 @Injectable({ providedIn: 'root' })
 export class PropertyDetailsService {
-    private initialNumOfActivities = 10;
+    public initialNumOfActivities = 10;
 
     constructor(
         private firestore: Firestore,

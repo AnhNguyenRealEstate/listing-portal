@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
-import { Timestamp } from '@angular/fire/firestore';
+import { DocumentSnapshot, Timestamp } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,8 +20,12 @@ export class PropertyUploadComponent implements OnInit {
 
     uploadedFiles: File[] = [];
     deletedFiles: UploadedFile[] = [];
+
     deletedActivities: Activity[] = [];
     activities: Activity[] = [];
+    lastActivity!: DocumentSnapshot;
+
+    showViewMore: boolean = false;
 
     managementStartDate!: Date | undefined;
     managementEndDate!: Date | undefined;
@@ -36,9 +40,21 @@ export class PropertyUploadComponent implements OnInit {
         this.isEditMode = this.data.isEditMode;
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.managementStartDate = this.property.managementStartDate?.toDate();
         this.managementEndDate = this.property.managementEndDate?.toDate();
+
+        const activitiesSnap = await this.propertyUpload.getActivities(this.property);
+        this.activities = activitiesSnap.docs.map(doc => doc.data() as Activity);
+        this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
+        this.showViewMore = this.activities.length === this.propertyUpload.initialNumOfActivities;
+    }
+
+    async getMoreActivities() {
+        const activitiesSnap = await this.propertyUpload.getMoreActivities(this.property, this.lastActivity);
+        this.activities.push(...activitiesSnap.docs.map(doc => doc.data() as Activity));
+        this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
+        this.showViewMore = activitiesSnap.size === this.propertyUpload.initialNumOfActivities;
     }
 
     onFileUpload(event: any) {

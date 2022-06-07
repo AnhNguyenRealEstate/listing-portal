@@ -13,8 +13,11 @@ import { PropertyDetailsService } from './property-details.service';
 
 export class PropertyDetailsComponent implements OnInit {
     property!: Property;
+    
     activities: Activity[] = [];
     lastActivity!: DocumentSnapshot;
+
+    showViewMore: boolean = false;
 
     constructor(
         private propertyDetails: PropertyDetailsService,
@@ -28,12 +31,14 @@ export class PropertyDetailsComponent implements OnInit {
         const activitiesSnap = await this.propertyDetails.getActivities(this.property);
         this.activities = activitiesSnap.docs.map(doc => doc.data() as Activity);
         this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
+        this.showViewMore = this.activities.length === this.propertyDetails.initialNumOfActivities;
     }
 
     async getMoreActivities() {
         const activitiesSnap = await this.propertyDetails.getMoreActivities(this.property, this.lastActivity);
         this.activities.push(...activitiesSnap.docs.map(doc => doc.data() as Activity));
         this.lastActivity = activitiesSnap.docs[activitiesSnap.docs.length - 1];
+        this.showViewMore = activitiesSnap.size === this.propertyDetails.initialNumOfActivities;
     }
 
     async downloadDoc(doc: UploadedFile) {

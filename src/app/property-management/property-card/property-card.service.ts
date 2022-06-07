@@ -52,7 +52,7 @@ export class PropertyCardService {
     }
 
     async addActivity(property: Property, activity: Activity, newFiles: File[]) {
-        // Only under extreme usage that there could be hash collision
+        // Only under extreme usage that there could be hash collision on file names
         // Highly unlikely to happen
 
         await addDoc(

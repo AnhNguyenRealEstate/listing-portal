@@ -20,7 +20,7 @@ export interface Activity {
     date?: Timestamp
     description?: string
     documents?: UploadedFile[]
-    name?: string
+    id?: string
 }
 
 export interface UploadedFile {
