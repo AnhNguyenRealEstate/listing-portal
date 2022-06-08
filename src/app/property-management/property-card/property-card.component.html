@@ -13,7 +13,7 @@
 
         <div class="pb-2">
             <div class="content-label">Address</div>
-            <div *ngIf="property.address">{{property.address}}</div>
+            <div class="property-address" *ngIf="property.address">{{property.address}}</div>
         </div>
 
         <div *ngIf="property.managementStartDate && property.managementEndDate" class="row pb-2">

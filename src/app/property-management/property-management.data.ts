@@ -26,4 +26,5 @@ export interface Activity {
 export interface UploadedFile {
     dbHashedName?: string
     displayName?: string
+    date?: Timestamp
 }

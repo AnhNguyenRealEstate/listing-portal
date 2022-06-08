@@ -27,22 +27,22 @@
                     <mat-card *ngFor="let doc of newActivityAttachments; let i = index;" cdkDrag>
                         <mat-card-content>
                             <div class="row">
-                                <div class="col-8">
-                                    <span #displayMobile>{{doc.displayName}}</span>
-                                    <input #editMobile trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
-                                        (ngModelChange)="checkBtnMobile.disabled = doesFileNameAlreadyExist($event)"
+                                <div class="col-8 activty-file-upload-main">
+                                    <div #display class="activity-file-name">{{doc.displayName}}</div>
+                                    <input #edit trim="blur" hidden="true" type="text" [ngModel]="doc.displayName"
+                                        (ngModelChange)="checkBtn.disabled = doesFileNameAlreadyExist($event)"
                                         [ngModelOptions]="{standalone: true}" style="height: 2rem">
                                     <div>
-                                        <button #checkBtnMobile mat-button
-                                            [style.display]="!editMobile.hidden? '': 'none'" (click)="displayMobile.hidden = false;
-                                     editMobile.hidden = true;
-                                     doc.displayName = editMobile.value;
+                                        <button #checkBtn mat-button
+                                            [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
+                                     edit.hidden = true;
+                                     doc.displayName = edit.value;
                                      activityForm.form.markAsTouched();">
                                             <mat-icon color="accent">check</mat-icon>
                                         </button>
-                                        <button #editBtnMobile mat-button
-                                            [style.display]="editMobile.hidden ? '': 'none'"
-                                            (click)="displayMobile.hidden = true; editMobile.hidden = false;">
+                                        <button #editBtn mat-button
+                                            [style.display]="edit.hidden ? '': 'none'"
+                                            (click)="display.hidden = true; edit.hidden = false;">
                                             <mat-icon color="accent">edit</mat-icon>
                                         </button>
                                         <button mat-button

@@ -19,6 +19,8 @@ export class RolesService {
         this.login.loggedIn$.subscribe(async (loggedIn) => {
             if (loggedIn) {
                 this.roles$$.next(await this.getRoles(this.auth.currentUser?.email || ''));
+            } else {
+                this.roles$$.next([]);
             }
         });
     }

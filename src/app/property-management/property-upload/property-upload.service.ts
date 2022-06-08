@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDocs, limit, orderBy, query, startAfter, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, DocumentSnapshot, Firestore, getDocs, limit, orderBy, query, startAfter, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { deleteObject, ref, Storage, uploadBytes } from '@angular/fire/storage';
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity, Property, UploadedFile } from '../property-management.data';
@@ -77,7 +77,8 @@ export class PropertyUploadService {
 
             uploadedFiles[index] = {
                 dbHashedName: hashedName,
-                displayName: file.name
+                displayName: file.name,
+                date: Timestamp.now()
             }
         }));
 

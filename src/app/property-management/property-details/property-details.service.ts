@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { updateDoc, doc, Firestore, deleteDoc, collection, DocumentSnapshot, getDocs, limit, query, startAfter, orderBy } from '@angular/fire/firestore';
 import { deleteObject, getBlob, ref, Storage } from '@angular/fire/storage';
+import { lastValueFrom } from 'rxjs';
+import { LoginService } from 'src/app/components/login/login.service';
 import { FirestoreCollections } from 'src/app/shared/globals';
 import { Property, Activity } from '../property-management.data';
 
@@ -10,10 +13,16 @@ export class PropertyDetailsService {
 
     constructor(
         private firestore: Firestore,
-        private storage: Storage
+        private storage: Storage,
+        private login: LoginService
     ) { }
 
     async downloadDoc(docPath: string): Promise<Blob> {
+        const loggedIn = lastValueFrom(this.login.loggedIn$);
+        if (!loggedIn) {
+            return new Blob();
+        }
+
         return await getBlob(ref(this.storage, `${docPath}`));
     }
 

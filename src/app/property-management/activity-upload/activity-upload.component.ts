@@ -6,7 +6,8 @@ import { Activity, UploadedFile } from '../property-management.data';
 
 @Component({
     selector: 'activity-upload',
-    templateUrl: 'activity-upload.component.html'
+    templateUrl: 'activity-upload.component.html',
+    styleUrls: ['./activity-upload.component.scss']
 })
 
 export class ActivityUploadComponent implements OnInit {

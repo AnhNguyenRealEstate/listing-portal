@@ -28,13 +28,16 @@
             </mat-tab>
 
             <mat-tab label="Related Documents">
-                <div class="pt-2">
-                    <button *ngFor="let doc of property.documents" mat-button class="d-block pb-2"
-                        (click)="downloadDoc(doc)">
+                <div class="row pt-2" *ngFor="let doc of property.documents">
+                    <button mat-button class="col-12 d-flex justify-content-start" (click)="downloadDoc(doc)">
+                        <span class="related-document-date">{{doc.date?.toDate() | date:'MMM dd, yyyy'}}</span>
                         <div class="d-inline">
-                            <mat-icon color="accent">download</mat-icon> {{doc.displayName}}
+                            {{doc.displayName}} <mat-icon color="accent">download</mat-icon>
                         </div>
                     </button>
+                </div>
+                <div class="pt-2" *ngIf="!property.documents?.length">
+                    No documents to display
                 </div>
             </mat-tab>
         </mat-tab-group>
