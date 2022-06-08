@@ -85,5 +85,6 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
         indexHTML = replaceKeywords(indexHTML, listing);
     }
 
+    res.set('Cache-Control', 'public, max-age=43200, s-maxage=86400');
     res.status(200).send(indexHTML);
 });
