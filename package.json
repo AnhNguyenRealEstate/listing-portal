@@ -10,7 +10,7 @@
     "bundle-report": "webpack-bundle-analyzer dist/listing-portal/stats.json",
     "build": "ng build --stats-json && gulp copy-index-html-to-cloud-functions",
     "build-functions": "npm run --prefix functions build",
-    "build-all-prod": "ng build --stats-json --configuration production --aot --outputHashing=all && gulp copy-index-html-to-cloud-functions && npm run build-functions",
+    "build-all-prod": "ng build --stats-json --configuration production --aot --output-hashing=all && gulp copy-index-html-to-cloud-functions && npm run build-functions",
     "preview-live": "npm run build-all-prod && firebase hosting:channel:deploy listing-portal-uat && npm run deploy-functions",
     "deploy-functions": "npm run --prefix functions deploy",
     "deploy-hosting": "npm run build-all-prod && firebase deploy --only hosting",
