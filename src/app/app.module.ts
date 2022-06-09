@@ -8,7 +8,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login-dialog.component';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics } from "@angular/fire/analytics";
-import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { connectFirestoreEmulator, enableIndexedDbPersistence, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { TimeoutComponent } from './components/session-timeout/session-timeout.component';
 import { firebaseConfig } from './shared/globals';
@@ -63,6 +63,7 @@ const maskConfig: Partial<IConfig> = {
       if (!environment.production) {
         connectFirestoreEmulator(firestore, 'localhost', 8080);
       }
+      enableIndexedDbPersistence(firestore);
       return firestore;
     }),
     provideStorage(() => {

@@ -5,7 +5,10 @@
             <div>{{activity.date?.toDate() | date}} </div>
         </mat-panel-title>
         <mat-panel-description>
-            <div>{{activity.description}}</div>
+            <div>
+                <span class="pe-1" *ngIf="activity.propertyName">{{activity.propertyName}}:</span>
+                <span>{{activity.description}}</span>
+            </div>
         </mat-panel-description>
         <div style="display: none" #deleteBtn>
             <button *ngIf="canDeleteActivities" mat-button (click)="$event.stopPropagation(); removeActivity(i)">

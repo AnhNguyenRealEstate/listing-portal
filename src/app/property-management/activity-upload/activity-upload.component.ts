@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { Activity, UploadedFile } from '../property-management.data';
@@ -19,6 +20,7 @@ export class ActivityUploadComponent implements OnInit {
     newFiles: File[] = [];
 
     constructor(
+        private auth: Auth
     ) { }
 
     ngOnInit() { }
@@ -85,11 +87,16 @@ export class ActivityUploadComponent implements OnInit {
     }
 
     addActivity(form: NgForm) {
+        if(!this.auth.currentUser?.email){
+            return;
+        }
+        
         this.activityAdded.emit({
             activity: {
                 date: Timestamp.fromDate(this.date),
                 description: this.description,
-                documents: this.newActivityAttachments
+                documents: this.newActivityAttachments,
+                owner: this.auth.currentUser?.email || ''
             } as Activity,
             newFiles: this.newFiles
         });

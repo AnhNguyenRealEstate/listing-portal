@@ -20,15 +20,6 @@ export class ActivitiesTreeviewComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.activities.sort((a, b) => {
-        //     if ((a.date?.seconds || 0) > (b.date?.seconds || 0)) {
-        //         return -1;
-        //     } else if ((a.date?.seconds || 0) < (b.date?.seconds || 0)) {
-        //         return 1;
-        //     }
-
-        //     return 0;
-        // });
     }
 
     downloadFile(doc: UploadedFile) {

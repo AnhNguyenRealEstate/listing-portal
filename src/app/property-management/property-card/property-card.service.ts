@@ -4,7 +4,7 @@ import { deleteObject, listAll, ref, Storage, uploadBytes } from '@angular/fire/
 import { FirebaseStorageConsts, FirestoreCollections } from 'src/app/shared/globals';
 import { Activity, Property } from '../property-management.data';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'any' })
 export class PropertyCardService {
     constructor(
         private firestore: Firestore,
@@ -52,8 +52,7 @@ export class PropertyCardService {
     }
 
     async addActivity(property: Property, activity: Activity, newFiles: File[]) {
-        // Only under extreme usage that there could be hash collision on file names
-        // Highly unlikely to happen
+        activity.propertyName = property.name;
 
         await addDoc(
             collection(
@@ -63,6 +62,8 @@ export class PropertyCardService {
             activity
         );
 
+        // Only under extreme usage that there could be hash collision on file names
+        // Highly unlikely to happen
         await Promise.all(newFiles.map(async file => {
             const hashedName = activity.documents!.find(document => document.displayName === file.name)?.dbHashedName;
             if (!hashedName) {

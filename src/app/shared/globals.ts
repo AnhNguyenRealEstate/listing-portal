@@ -3,14 +3,15 @@ export const FirestoreCollections = Object.freeze({
     listings: 'listings',
     inquiries: 'inquiries',
     underManagement: 'under-management',
-    users: 'users'
+    users: 'users',
+    activities: 'activities'
 });
 
 export const FirebaseStorageConsts = Object.freeze({
     listings: 'listings',
     listingImgsVideos: 'images-videos',
     coverImage: 'cover-image',
-    underManagement:  'under-management'
+    underManagement: 'under-management'
 });
 
 export const FirestoreDocs = Object.freeze({

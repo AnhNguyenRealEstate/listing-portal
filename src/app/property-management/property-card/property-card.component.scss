@@ -6,6 +6,7 @@
     right: 0px;
     backdrop-filter: blur(10px);
     border-radius: 6px;
+    z-index: 1;
 }
 
 .new-activity-panel-class {
@@ -27,7 +28,7 @@
     color: gray;
 }
 
-.property-address {
+.overrun-wrap {
     white-space: nowrap;
     mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
 }

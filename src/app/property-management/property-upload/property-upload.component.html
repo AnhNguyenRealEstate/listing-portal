@@ -62,7 +62,7 @@
                 <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="col- col-sm-6" color="accent">
-                <mat-label>Rental price (USD)</mat-label>
+                <mat-label>Monthly rental price (USD)</mat-label>
                 <input matInput trim="blur" required type="text" name="rentalPrice" [(ngModel)]="property.rentalPrice"
                     mask="separator" thousandSeparator=",">
             </mat-form-field>
@@ -164,11 +164,11 @@
             </div>
         </div>
         <div class="row d-flex justify-content-end">
-            <button *ngIf="!isEditMode" class="col-4 col-sm-2" mat-button (click)="upload()"
+            <button *ngIf="!isEditMode" class="col-4 col-sm-2" mat-button (click)="upload(); uploadForm.form.markAsUntouched()"
                 [disabled]="uploadForm.untouched || !uploadForm.valid">
                 <mat-icon color="accent">publish</mat-icon> Upload
             </button>
-            <button *ngIf="isEditMode" class="col-4 col-sm-2" mat-button (click)="edit()"
+            <button *ngIf="isEditMode" class="col-4 col-sm-2" mat-button (click)="edit(); uploadForm.form.markAsUntouched()"
                 [disabled]="uploadForm.untouched || !uploadForm.valid">
                 <mat-icon color="accent">save</mat-icon> Save
             </button>

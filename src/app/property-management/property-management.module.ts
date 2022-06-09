@@ -15,6 +15,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ActivityUploadComponent } from './activity-upload/activity-upload.component';
 import { ActivitiesTreeviewModule } from './activities-tree-view/activities-tree-view.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { PropertiesViewComponent } from './properties-view/properties-view.component';
+import { ActivitiesComponent } from './activities/activities.component';
 
 
 @NgModule({
@@ -22,7 +25,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     PropertyManagementComponent,
     PropertyDetailsComponent,
     PropertyCardComponent,
-    ActivityUploadComponent
+    ActivityUploadComponent,
+    PropertiesViewComponent,
+    ActivitiesComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +43,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     DragDropModule,
     ActivitiesTreeviewModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSidenavModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

@@ -10,5 +10,8 @@ exports.inquiry = inquiry;
 const customIndexHtml = require('./custom-index-html');
 exports.customIndexHtml = customIndexHtml.customIndexHtml;
 
+const propertyManagement = require('./property-management');
+exports.propertyManagement = propertyManagement;
+
 const activities = require('./activities');
 exports.activities = activities;

@@ -7,7 +7,7 @@ import { Activity, Property, UploadedFile } from '../property-management.data';
 @Injectable({ providedIn: 'root' })
 export class PropertyUploadService {
     public initialNumOfActivities = 10;
-    
+
     constructor(
         private firestore: Firestore,
         private storage: Storage
@@ -37,10 +37,6 @@ export class PropertyUploadService {
 
         if (deletedActivities.length) {
             deletedActivities.map(activity => {
-                if (!activity.documents?.length) {
-                    return;
-                }
-
                 this.removeActivity(property, activity);
             });
         }
@@ -116,19 +112,18 @@ export class PropertyUploadService {
     }
 
     async removeActivity(property: Property, activityToRemove: Activity) {
-        if (!activityToRemove.documents?.length) {
-            return;
-        }
 
-        await Promise.all(activityToRemove.documents?.map(async docToRemove => {
-            const fileStoragePath = `${property.fileStoragePath}/${docToRemove.dbHashedName}`;
-            await deleteObject(
-                ref(
-                    this.storage,
-                    `${fileStoragePath}`
-                )
-            ).catch();
-        }));
+        if (activityToRemove.documents?.length) {
+            await Promise.all(activityToRemove.documents?.map(async docToRemove => {
+                const fileStoragePath = `${property.fileStoragePath}/${docToRemove.dbHashedName}`;
+                await deleteObject(
+                    ref(
+                        this.storage,
+                        `${fileStoragePath}`
+                    )
+                ).catch();
+            }));
+        }
 
         await deleteDoc(
             doc(

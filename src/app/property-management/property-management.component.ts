@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RolesService } from '../shared/roles.service';
 import { PropertyDetailsComponent } from './property-details/property-details.component';
 import { Property } from './property-management.data';
 import { PropertyManagementService } from './property-management.service';
 import { PropertyUploadComponent } from './property-upload/property-upload.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'property-management',
@@ -14,42 +16,23 @@ import { PropertyUploadComponent } from './property-upload/property-upload.compo
     styleUrls: ['./property-management.component.scss']
 })
 
-export class PropertyManagementComponent implements OnInit, OnDestroy {
-    numberOfMockProps = Array(3).fill(0);
-    properties: Property[] = [];
-    subs: Subscription = new Subscription();
-
+export class PropertyManagementComponent implements OnInit {
     constructor(
         private dialog: MatDialog,
         public roles: RolesService,
-        private propertyManagement: PropertyManagementService,
-        private auth: Auth
-    ) { }
-
-    async ngOnInit() {
-        this.subs.add(this.roles.roles$.subscribe(async roles => {
-            if (roles.includes('customer-service')) {
-                this.properties = await this.propertyManagement.getProperties();
-            } else if (roles.includes('owner') && this.auth.currentUser?.email) {
-                this.properties = await this.propertyManagement.getProperties(this.auth.currentUser.email);
-            }
-        }));
+        private router: Router) {
     }
 
-    ngOnDestroy() {
-        this.subs.unsubscribe();
+    ngOnInit(): void {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
     }
 
-    showDetails(property: Property) {
-        const config = {
-            height: '90%',
-            width: '100%',
-            autoFocus: false,
-            data: {
-                property: property
-            }
-        } as MatDialogConfig;
-        this.dialog.open(PropertyDetailsComponent, config);
+    viewProperties() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
+    }
+
+    viewActivities() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:activities)');
     }
 
     async addProperty() {
@@ -64,9 +47,5 @@ export class PropertyManagementComponent implements OnInit, OnDestroy {
         } as MatDialogConfig;
 
         this.dialog.open(PropertyUploadComponent, config);
-    }
-
-    propertyRemoved(index: number) {
-        this.properties.splice(index, 1);
     }
 }

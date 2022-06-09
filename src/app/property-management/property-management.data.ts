@@ -21,6 +21,8 @@ export interface Activity {
     description?: string
     documents?: UploadedFile[]
     id?: string //Firebase auto generated
+    owner?: string
+    propertyName?: string
 }
 
 export interface UploadedFile {
