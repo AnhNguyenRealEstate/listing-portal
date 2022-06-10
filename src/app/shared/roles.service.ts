@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginService } from '../components/login/login.service';
 import { FirestoreCollections } from './globals';
