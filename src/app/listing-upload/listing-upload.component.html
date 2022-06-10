@@ -36,7 +36,7 @@
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.subcategory' | translate }}</mat-label>
                     <input matInput trim="blur" name="subcategory" type="text" [(ngModel)]="listing.subcategory"
-                    class="d-inline" placeholder="Duplex">
+                        class="d-inline" placeholder="Duplex">
                 </mat-form-field>
             </div>
             <div class="col-6">
@@ -180,8 +180,7 @@
                     </mat-spinner>
                     <mat-icon color="accent" *ngIf="!(listingUploadService.inProgress() | async)">publish</mat-icon>
                 </button>
-                <button *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()" 
-                    [disabled]="uploadForm.pristine || !uploadForm.valid
+                <button *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()" [disabled]="uploadForm.pristine || !uploadForm.valid
                     || (imageFilesModified && !imageFiles.length)
                     || (coverImageModified && !coverImageFile?.size)
                     || (listingUploadService.inProgress() | async)">
@@ -203,7 +202,7 @@
     </button>
     <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
         <img height="90px" width="150px" [src]="coverImageSrc">
-        <button mat-icon-button color="accent" (click)="removeCoverImage()">
+        <button mat-icon-button (click)="removeCoverImage()">
             <mat-icon>delete</mat-icon>
         </button>
     </div>
@@ -228,8 +227,7 @@
                         <img [src]="imgSrc" class="listing-image">
                         <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
                     </div>
-                    <button mat-icon-button [color]="compressionInProgress? 'default' : 'accent'"
-                        [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
+                    <button mat-icon-button [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-card-content>
