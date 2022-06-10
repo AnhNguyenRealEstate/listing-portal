@@ -18,6 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
 import { ActivitiesComponent } from './activities/activities.component';
+import { FooterModule } from '../footer/footer.module';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ActivitiesComponent } from './activities/activities.component';
     DragDropModule,
     ActivitiesTreeviewModule,
     MatTabsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    FooterModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

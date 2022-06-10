@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { RolesService as RolesGuard } from './shared/roles.service';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
   {
     path: 'property-management',
     loadChildren: () => import('./property-management/property-management.module').then(mod => mod.PropertyManagementModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RolesGuard],
     data: {
       title: 'layout.property_management',
       authGuardPipe: () => redirectUnauthorizedTo(['/']) }

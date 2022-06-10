@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginService } from '../components/login/login.service';
 import { FirestoreCollections } from './globals';
 
 @Injectable({ providedIn: 'root' })
-export class RolesService {
+export class RolesService implements CanActivate {
 
     private roles$$ = new BehaviorSubject<Role[]>([]);
     roles$ = this.roles$$.asObservable();
 
     constructor(
+        private router: Router,
         private login: LoginService,
         private auth: Auth,
         private firestore: Firestore
@@ -33,6 +35,24 @@ export class RolesService {
         const userProfileDoc = await getDoc(doc(collection(this.firestore, FirestoreCollections.users), userId));
         const profile = userProfileDoc.data() as UserProfile;
         return profile.roles;
+    }
+
+    canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        if (!route.routeConfig?.path) {
+            return false;
+        }
+
+        if (route.routeConfig?.path.includes('property-management')) {
+            const roles = this.roles$$.getValue();
+            const canAccessPropMgmt = roles.includes('customer-service') || roles.includes('owner');
+            if (!canAccessPropMgmt) {
+                this.router.navigate(['/']);
+            }
+            
+            return canAccessPropMgmt;
+        }
+
+        return false;
     }
 }
 

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../components/login/login.service';
+import { RolesService } from '../shared/roles.service';
 import { Listing } from "./listing-card.data";
 import { ListingCardService } from './listing-card.service';
 
@@ -34,7 +35,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
         private router: Router,
         private snackbar: MatSnackBar,
         private dialog: MatDialog,
-        private login: LoginService,
+        private roles: RolesService,
         private injector: Injector,
         public listingCard: ListingCardService,
         public translate: TranslateService) { }
@@ -44,8 +45,8 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             this.coverImageUrl = url;
         });
 
-        this.subs.add(this.login.loggedIn$.subscribe(isLoggedIn => {
-            this.showControls = isLoggedIn;
+        this.subs.add(this.roles.roles$.subscribe(roles => {
+            this.showControls = roles.includes('sales');
         }));
     }
 
