@@ -208,6 +208,10 @@
         "description": "Ghi chú"
     },
     "property_card": {
+        "activity_added": "Đã thêm hoạt động 🎉",
+        "delete_confirmation_msg": "Bạn chắc chắn muốn xoá tài sản này?",
+        "yes_msg": "Xoá",
+        "no_msg": "Huỷ",
         "delete_msg": "Đã xoá tài sản khỏi hệ thống 🗑",
         "dismiss_msg": "Tắt"
     },

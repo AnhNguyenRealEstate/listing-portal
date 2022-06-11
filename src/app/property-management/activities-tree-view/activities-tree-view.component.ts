@@ -27,6 +27,22 @@ export class ActivitiesTreeviewComponent implements OnChanges {
     }
 
     ngOnChanges(): void {
+        this.categorizeActivitiesByDates();
+    }
+
+    downloadFile(doc: UploadedFile) {
+        this.download.emit(doc);
+    }
+
+    showDeleteBtn(deleteBtn: HTMLDivElement) {
+        this.renderer.removeStyle(deleteBtn, 'display');
+    }
+
+    hideDeleteBtn(deleteBtn: HTMLDivElement) {
+        this.renderer.setStyle(deleteBtn, 'display', 'none');
+    }
+
+    categorizeActivitiesByDates() {
         this.activitiesByDates = [];
 
         let currentDate: Date | undefined = undefined;
@@ -55,18 +71,6 @@ export class ActivitiesTreeviewComponent implements OnChanges {
         }
     }
 
-    downloadFile(doc: UploadedFile) {
-        this.download.emit(doc);
-    }
-
-    showDeleteBtn(deleteBtn: HTMLDivElement) {
-        this.renderer.removeStyle(deleteBtn, 'display');
-    }
-
-    hideDeleteBtn(deleteBtn: HTMLDivElement) {
-        this.renderer.setStyle(deleteBtn, 'display', 'none');
-    }
-
     removeActivity(activityToRemove: Activity) {
         this.activityRemoved.emit(activityToRemove);
         const activities = this.activitiesByDates.find(day => day.date?.getDate() == activityToRemove.date?.toDate().getDate())?.activities;
@@ -77,4 +81,5 @@ export class ActivitiesTreeviewComponent implements OnChanges {
         const index = activities?.findIndex(activities => activities.id === activityToRemove.id);
         activities.splice(index, 1);
     }
+
 }

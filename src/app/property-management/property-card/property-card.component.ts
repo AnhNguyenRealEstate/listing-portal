@@ -79,7 +79,7 @@ export class PropertyCardComponent implements OnInit {
         await this.propertyCard.addActivity(this.property, activity, newFiles);
 
         this.snackbar.open(
-            'Activity added 🎉',
+            this.translate.instant('property_card.activity_added'),
             this.translate.instant('property_card.dismiss_msg'),
             {
                 duration: 3000
