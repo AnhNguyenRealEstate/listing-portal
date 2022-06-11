@@ -1,6 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2 } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { Activity, UploadedFile } from '../property-management.data';
+
+export interface DayActivities {
+    date?: Date,
+    activities: Activity[]
+}
 
 @Component({
     selector: 'activities-tree-view',
@@ -8,18 +13,46 @@ import { Activity, UploadedFile } from '../property-management.data';
     styleUrls: ['./activities-tree-view.component.scss']
 })
 
-export class ActivitiesTreeviewComponent implements OnInit {
+export class ActivitiesTreeviewComponent implements OnChanges {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
     @Output() download: EventEmitter<UploadedFile> = new EventEmitter();
-    @Output() activityRemoved: EventEmitter<number> = new EventEmitter();
+    @Output() activityRemoved: EventEmitter<Activity> = new EventEmitter();
+
+    activitiesByDates: DayActivities[] = [];
 
     constructor(
         private renderer: Renderer2
     ) {
     }
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
+        this.activitiesByDates = [];
+
+        let currentDate: Date | undefined = undefined;
+        let activitiesByDate = {
+            activities: []
+        } as DayActivities;
+
+        for (let i = 0; i < this.activities.length; i++) {
+            const activity = this.activities[i];
+            if (!currentDate) {
+                currentDate = activity.date?.toDate()!;
+                activitiesByDate.date = currentDate;
+                this.activitiesByDates.push(activitiesByDate);
+
+            } else if (activity.date?.toDate().getDate() != currentDate!.getDate()) {
+                currentDate = activity.date?.toDate();
+
+                activitiesByDate = {} as DayActivities;
+                activitiesByDate.date = currentDate;
+                activitiesByDate.activities = [];
+
+                this.activitiesByDates.push(activitiesByDate);
+            }
+
+            activitiesByDate.activities!.push(activity);
+        }
     }
 
     downloadFile(doc: UploadedFile) {
@@ -34,7 +67,14 @@ export class ActivitiesTreeviewComponent implements OnInit {
         this.renderer.setStyle(deleteBtn, 'display', 'none');
     }
 
-    removeActivity(index: number) {
-        this.activityRemoved.emit(index);
+    removeActivity(activityToRemove: Activity) {
+        this.activityRemoved.emit(activityToRemove);
+        const activities = this.activitiesByDates.find(day => day.date?.getDate() == activityToRemove.date?.toDate().getDate())?.activities;
+        if (!activities?.length) {
+            return;
+        }
+
+        const index = activities?.findIndex(activities => activities.id === activityToRemove.id);
+        activities.splice(index, 1);
     }
 }

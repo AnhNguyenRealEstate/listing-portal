@@ -210,5 +210,11 @@
     "property_card": {
         "delete_msg": "Đã xoá tài sản khỏi hệ thống 🗑",
         "dismiss_msg": "Tắt"
+    },
+    "activities_tree_view": {
+        "no_doc": "Không có tài liệu đính kèm",
+        "no_activity": "Không có hoạt động",
+        "activity": "hoạt động",
+        "activities": "hoạt động"
     }
 }

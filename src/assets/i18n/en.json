@@ -211,5 +211,11 @@
     "property_card": {
         "delete_msg": "Property removed from system 🗑",
         "dismiss_msg": "Dismiss"
+    },
+    "activities_tree_view": {
+        "no_doc": "No documents to display",
+        "no_activity": "No activity",
+        "activity": "activity",
+        "activities": "activities"
     }
 }

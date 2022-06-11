@@ -1,0 +1,9 @@
+@use "src/app/styles/colors" as colors;
+
+.title-date {
+    color: colors.$accent-300;
+}
+
+.property-name {
+    color: colors.$primary-dark;
+}

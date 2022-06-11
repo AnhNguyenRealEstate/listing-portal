@@ -85,7 +85,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <activities-tree-view [activities]="activities!" [canDeleteActivities]="true"
+                    <activities-tree-view [activities]="activities" [canDeleteActivities]="true"
                         (activityRemoved)="onActivityRemove($event); uploadForm.form.markAsTouched()">
                     </activities-tree-view>
                 </div>

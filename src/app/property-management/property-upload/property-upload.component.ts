@@ -138,12 +138,13 @@ export class PropertyUploadComponent implements OnInit {
         return Timestamp.fromDate(date);
     }
 
-    onActivityRemove(index: number) {
+    onActivityRemove(activityToRemove: Activity) {
         if (!this.activities?.length) {
             return;
         }
 
-        const removed = this.activities!.splice(index, 1);
+        const index = this.activities.findIndex(activity => activity.id === activityToRemove.id);
+        const removed = this.activities.splice(index, 1);
         this.deletedActivities.push(...removed);
     }
 }
