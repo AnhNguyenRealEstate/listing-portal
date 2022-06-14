@@ -107,10 +107,10 @@
                     </button>
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <div class="col-8">
+                    <div class="col-12">
                         <mat-form-field color="accent">
                             <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
-                            <mat-select id="category" [(ngModel)]="searchCriteria.category">
+                            <mat-select id="category" [(ngModel)]="searchCriteria.category" (ngModelChange)="getListings()">
                                 <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                                 <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}
                                 </mat-option>
@@ -122,9 +122,6 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <button class="col-2 backdrop-mobile" mat-button type="submit" (click)="getListings()">
-                        <mat-icon>search</mat-icon>
-                    </button>
                 </div>
             </mat-card-content>
         </mat-card>
