@@ -1,30 +1,6 @@
 <section class="pb-4 container d-none d-md-block listing-details-desktop">
     <div *ngIf="!listing.location" class="pt-4">
-        <div class="ph-row pb-4">
-            <div class="ph-col-4 big"></div>
-            <div class="ph-col-6 empty"></div>
-            <div class="ph-col-2"></div>
-
-            <div class="ph-col-2 big"></div>
-            <div class="ph-col-8 empty"></div>
-            <div class="ph-col-2"></div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <div class="ph-item">
-                    <div class="ph-picture" style="height: 50vh"></div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="ph-row">
-                    <div class="ph-col-12 big"></div>
-                    <div class="ph-col-6 big"></div>
-                    <div class="ph-col-6 empty"></div>
-                    <div class="ph-col-4 big"></div>
-                    <div class="ph-col-8 empty"></div>
-                </div>
-            </div>
-        </div>
+        <ng-container *ngTemplateOutlet="desktopLoadingPlaceholder"></ng-container>
     </div>
 
     <div *ngIf="listing.location">
@@ -96,7 +72,11 @@
                             </div>
                         </div>
                         <div *ngIf="!(imageSources && imageSources!.length)">
-                            <mat-spinner></mat-spinner>
+                            <div class="ph-item">
+                                <div class="ph-col-12">
+                                    <div class="ph-picture" style="height: 50vh"></div>
+                                </div>
+                            </div>
                         </div>
                     </mat-tab>
                     <mat-tab [label]="'listing_details.video' | translate" *ngIf="showVideo">
@@ -175,7 +155,7 @@
 
 <section class="container d-md-none listing-details-mobile">
     <div class="pt-4" *ngIf="!listing.location">
-        <mat-spinner></mat-spinner>
+        <ng-container *ngTemplateOutlet="mobileLoadingPlaceholder"></ng-container>
     </div>
 
     <div *ngIf="listing.location">
@@ -208,7 +188,11 @@
         <mat-tab-group mat-stretch-tabs color="accent" dynamicHeight>
             <mat-tab [label]="'listing_details.photos' | translate">
                 <div class="pt-2 pb-2" *ngIf="!images.length">
-                    <mat-spinner></mat-spinner>
+                    <div class="ph-item">
+                        <div class="ph-col-3">
+                            <div class="ph-picture"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row pt-2 pb-2 listing-images"
                     *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
@@ -328,4 +312,77 @@
     <span *ngIf="listing.category === 'Commercial'">{{ 'listing_details.commercial' |
         translate
         | titlecase }}</span>
+</ng-template>
+
+<ng-template #desktopLoadingPlaceholder>
+    <div class="ph-row pb-4">
+        <div class="ph-col-4 big"></div>
+        <div class="ph-col-6 empty"></div>
+        <div class="ph-col-2"></div>
+
+        <div class="ph-col-2 big"></div>
+        <div class="ph-col-8 empty"></div>
+        <div class="ph-col-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="ph-item">
+                <div class="ph-picture" style="height: 50vh"></div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="ph-row">
+                <div class="ph-col-12 big"></div>
+                <div class="ph-col-6 big"></div>
+                <div class="ph-col-6 empty"></div>
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-8 empty"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #mobileLoadingPlaceholder>
+    <div class="ph-row pb-2">
+        <div class="ph-col-6 big"></div>
+        <div class="ph-col-6 big empty"></div>
+        <div class="ph-col-2 small"></div>
+    </div>
+    <div class="ph-item">
+        <div class="ph-col-3">
+            <div class="ph-picture"></div>
+            <div class="ph-row">
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-4 empty big"></div>
+                <div class="ph-col-4 big"></div>
+
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-4 empty big"></div>
+                <div class="ph-col-4 big"></div>
+
+                <div class="ph-col-12 empty big"></div>
+
+                <div class="ph-col-6 big"></div>
+                <div class="ph-col-6 empty big"></div>
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-8 empty big"></div>
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-8 empty big"></div>
+
+                <div class="ph-col-12 empty big"></div>
+
+                <div class="ph-col-6 big"></div>
+                <div class="ph-col-6 empty big"></div>
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-8 empty big"></div>
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-8 empty big"></div>
+
+                <div class="ph-col-12 empty big"></div>
+
+                <div class="ph-col-4 big"></div>
+                <div class="ph-col-8 big"></div>
+            </div>
+        </div>
+    </div>
 </ng-template>

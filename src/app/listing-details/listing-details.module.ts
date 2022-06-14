@@ -6,7 +6,6 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { ListingDetailsRoutingModule } from './listing-details-routing.module';
 import { ListingDetailsComponent } from './listing-details.component';
 import { NgImageSliderModule } from 'ng-image-slider';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterModule } from '../footer/footer.module';
 import { MatDividerModule } from '@angular/material/divider';
@@ -26,7 +25,6 @@ import { MatTabsModule } from '@angular/material/tabs';
         NgxUsefulSwiperModule,
         NgxMaskModule.forChild(),
         FooterModule,
-        MatProgressSpinnerModule,
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
