@@ -145,7 +145,7 @@
         <ng-container *ngIf="isEditMode">
             <div>
                 <ng-container *ngIf="!coverImageEditRequested; else coverImageUpload">
-                    <button mat-button (click)="onEditCoverImage()" [disabled]="gettingCoverImage">
+                    <button type="button" mat-button (click)="onEditCoverImage()" [disabled]="gettingCoverImage">
                         <span>{{ 'listing_upload.edit_cover_img' | translate }}</span>
                         <mat-spinner *ngIf="gettingCoverImage"></mat-spinner>
                     </button>
@@ -154,7 +154,7 @@
 
             <div class="pt-4 image-container">
                 <ng-container *ngIf="!mediaEditRequested; else mediaUpload">
-                    <button mat-button (click)="onEditMedia()" [disabled]="gettingMedia">
+                    <button type="button" mat-button (click)="onEditMedia()" [disabled]="gettingMedia">
                         <span>{{ 'listing_upload.edit_media' | translate }}</span>
                         <mat-spinner *ngIf="gettingMedia"></mat-spinner>
                     </button>
@@ -174,13 +174,13 @@
 
         <div class="row pb-2">
             <div class="col-12 d-flex justify-content-end">
-                <button *ngIf="!isEditMode" mat-fab color="default" (click)="publishListing()" [disabled]="!(uploadForm.valid && coverImageFile && imageFiles?.length) 
+                <button type="submit" *ngIf="!isEditMode" mat-fab color="default" (click)="publishListing()" [disabled]="!(uploadForm.valid && coverImageFile && imageFiles?.length) 
                     || (listingUploadService.inProgress() | async)">
                     <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
                     </mat-spinner>
                     <mat-icon color="accent" *ngIf="!(listingUploadService.inProgress() | async)">publish</mat-icon>
                 </button>
-                <button *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()" [disabled]="uploadForm.pristine || !uploadForm.valid
+                <button type="submit" *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()" [disabled]="uploadForm.pristine || !uploadForm.valid
                     || (imageFilesModified && !imageFiles.length)
                     || (coverImageModified && !coverImageFile?.size)
                     || (listingUploadService.inProgress() | async)">
@@ -197,12 +197,12 @@
     <mat-label class="pe-2">{{ 'listing_upload.cover_image' | translate }}</mat-label>
     <input #coverImageInput hidden="true" type="file" accept="image/*" onclick="this.value=null"
         (change)="onCoverImageUpload($event)" />
-    <button *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
+    <button type="button" *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
         <mat-icon>upload</mat-icon>
     </button>
     <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
         <img height="90px" width="150px" [src]="coverImageSrc">
-        <button mat-icon-button (click)="removeCoverImage()">
+        <button type="button" mat-icon-button (click)="removeCoverImage()">
             <mat-icon>delete</mat-icon>
         </button>
     </div>
@@ -213,7 +213,7 @@
 
     <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
         (change)="onMediaUpload($event)" />
-    <button mat-button color="accent" [matBadge]="imageFiles.length" matBadgeColor="primary"
+    <button type="button" mat-button color="accent" [matBadge]="imageFiles.length" matBadgeColor="primary"
         (click)="imageInput.click()">
         <mat-icon *ngIf="!compressionInProgress">image</mat-icon>
         <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
@@ -227,7 +227,7 @@
                         <img [src]="imgSrc" class="listing-image">
                         <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
                     </div>
-                    <button mat-icon-button [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
+                    <button type="button" mat-icon-button [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-card-content>
