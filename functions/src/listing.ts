@@ -37,7 +37,7 @@ exports.postProcessUpdate = functions.region('asia-southeast1').firestore
         const newListingData = change.after.data();
         const newListingLocation = newListingData['location'];
 
-        if (oldListingLocation !== newListingData) {
+        if (oldListingLocation !== newListingLocation) {
             updateLocationsMetadata(newListingLocation);
         }
     });
@@ -71,6 +71,34 @@ exports.postProcessDelete = functions.region('asia-southeast1').firestore
         listingMetadataSnap.ref.update({
             "locations": newLocMetadata
         });
+    });
+
+exports.shuffleFeaturedListings = functions.region('asia-southeast1')
+    .pubsub.schedule('every wednesday 05:00').timeZone('Asia/Ho_Chi_Minh')
+    .onRun(async () => {
+        const numOfRecentlyUploadedToGet = 20;
+        const recentUnfeaturedListings = (await admin.firestore().collection('listings')
+            .orderBy('creationDate', 'desc')
+            .where('featured', '==', false)
+            .limit(numOfRecentlyUploadedToGet).get()
+        ).docs;
+
+        const currentlyFeaturedListings = (await admin.firestore().collection('listings')
+            .where('featured', '==', true).get()
+        ).docs;
+
+        const numOfFeaturedListings = 6;
+        const shuffled = recentUnfeaturedListings.sort(() => 0.5 - Math.random());
+        const newListingsToFeature = shuffled.slice(0, numOfFeaturedListings);
+
+        for (let i = 0; i < currentlyFeaturedListings.length; i++) {
+            await currentlyFeaturedListings[i].ref.update('featured', false);
+        }
+
+        for (let i = 0; i < newListingsToFeature.length; i++) {
+            await newListingsToFeature[i].ref.update('featured', true);
+        }
+
     });
 
 async function updateLocationsMetadata(location: string) {
