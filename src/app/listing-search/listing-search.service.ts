@@ -19,8 +19,8 @@ export class ListingSearchService {
     private resultCount$$ = new BehaviorSubject<number>(0);
     private resultCount$ = this.resultCount$$.asObservable();
 
-    private desktopPaginationLimit = 12;
-    private mobilePaginationLimit = 9;
+    private desktopPaginationLimit = 30;
+    private mobilePaginationLimit = 21;
     private paginationLimit: number = this.desktopPaginationLimit;
     private lastResultOfCurrentPagination!: DocumentSnapshot;
 
@@ -69,7 +69,7 @@ export class ListingSearchService {
             const doc = docs[i];
             const listing = doc.data() as Listing;
 
-            if (i == docs.length - 1) {
+            if (i === (docs.length - 1)) {
                 this.lastResultOfCurrentPagination = doc;
             }
 
