@@ -62,6 +62,25 @@ export class ActivityUploadComponent implements OnInit {
         this.newActivityAttachments.splice(index, 1);
     }
 
+    onFileNameChange(oldDisplayName: string, newDisplayName: string, file: UploadedFile) {
+        if (this.newActivityAttachments.find(file => file.displayName === newDisplayName)) {
+            return;
+        }
+
+        const fileToAmend = this.newFiles.find(file => file.name === oldDisplayName);
+        if (!fileToAmend) {
+            return;
+        }
+
+        Object.defineProperty(fileToAmend, 'name', {
+            writable: true,
+            value: newDisplayName
+        });
+
+        file.displayName = newDisplayName;
+        file.dbHashedName = this.generateHash(newDisplayName);
+    }
+
     uploadedFileDrop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.newActivityAttachments!, event.previousIndex, event.currentIndex);
     }
@@ -87,10 +106,10 @@ export class ActivityUploadComponent implements OnInit {
     }
 
     addActivity(form: NgForm) {
-        if(!this.auth.currentUser?.email){
+        if (!this.auth.currentUser?.email) {
             return;
         }
-        
+
         this.activityAdded.emit({
             activity: {
                 date: Timestamp.fromDate(this.date),

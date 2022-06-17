@@ -22,7 +22,7 @@ export class PropertyUploadService {
         }
 
         property.fileStoragePath = createFileStoragePath(property);
-        property.documents = await this.storeFiles(uploadedFiles, property);
+        await this.storeFiles(uploadedFiles, property);
 
         const docRef = await addDoc(collection(this.firestore, FirestoreCollections.underManagement), property);
         return docRef.id;
@@ -41,23 +41,17 @@ export class PropertyUploadService {
             });
         }
 
-        if (property.documents?.length) {
-            property.documents!.push(...await this.storeFiles(newFiles, property));
-        } else {
-            property.documents = [];
-            property.documents.push(...await this.storeFiles(newFiles, property));
-        }
+        await this.storeFiles(newFiles, property);
 
         await updateDoc(doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`), { ...property });
     }
 
-    private async storeFiles(files: File[], property: Property): Promise<UploadedFile[]> {
-        if (!files.length) return [];
+    private async storeFiles(files: File[], property: Property) {
+        if (!files.length) return;
 
-        const uploadedFiles: UploadedFile[] = new Array(files.length);
-
-        await Promise.all(files.map(async (file, index) => {
-            const hashedName = property.documents!.find(document => document.displayName === file.name)?.dbHashedName;
+        await Promise.all(files.map(async (file) => {
+            const docToUpload = property.documents!.find(document => document.displayName === file.name);
+            const hashedName = docToUpload?.dbHashedName;
             if (!hashedName) {
                 return;
             }
@@ -66,19 +60,13 @@ export class PropertyUploadService {
             await uploadBytes(
                 ref(
                     this.storage,
-                    `${fileStoragePath}`
+                    fileStoragePath
                 ),
                 file
-            ).catch();
+            );
 
-            uploadedFiles[index] = {
-                dbHashedName: hashedName,
-                displayName: file.name,
-                date: Timestamp.now()
-            }
+            docToUpload.date = Timestamp.now();
         }));
-
-        return uploadedFiles;
     }
 
     async getActivities(property: Property) {
@@ -112,27 +100,28 @@ export class PropertyUploadService {
     }
 
     async removeActivity(property: Property, activityToRemove: Activity) {
-
-        if (activityToRemove.documents?.length) {
-            await Promise.all(activityToRemove.documents?.map(async docToRemove => {
-                const fileStoragePath = `${property.fileStoragePath}/${docToRemove.dbHashedName}`;
-                await deleteObject(
-                    ref(
-                        this.storage,
-                        `${fileStoragePath}`
-                    )
-                ).catch();
-            }));
+        try {
+            if (activityToRemove.documents?.length) {
+                await Promise.all(activityToRemove.documents?.map(async docToRemove => {
+                    const fileStoragePath = `${property.fileStoragePath}/${docToRemove.dbHashedName}`;
+                    await deleteObject(
+                        ref(
+                            this.storage,
+                            `${fileStoragePath}`
+                        )
+                    ).catch();
+                }));
+            }
+        } finally {
+            await deleteDoc(
+                doc(
+                    collection(
+                        doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
+                        'activities'
+                    ),
+                    activityToRemove.id
+                )
+            );
         }
-
-        await deleteDoc(
-            doc(
-                collection(
-                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
-                    'activities'
-                ),
-                activityToRemove.id
-            )
-        );
     }
 }

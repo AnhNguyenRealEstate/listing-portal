@@ -36,7 +36,7 @@
                                         <button #checkBtn mat-button
                                             [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
                                      edit.hidden = true;
-                                     doc.displayName = edit.value;
+                                     onFileNameChange(doc.displayName!, edit.value, doc);
                                      activityForm.form.markAsTouched();">
                                             <mat-icon color="accent">check</mat-icon>
                                         </button>

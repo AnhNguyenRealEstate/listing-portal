@@ -52,32 +52,32 @@ export class PropertyCardService {
     }
 
     async addActivity(property: Property, activity: Activity, newFiles: File[]) {
-        activity.propertyName = property.name;
+        try {
+            // Only under extreme usage that there could be hash collision on file names
+            // Highly unlikely to happen
+            await Promise.all(newFiles.map(async file => {
+                const hashedName = activity.documents!.find(document => document.displayName === file.name)?.dbHashedName;
+                if (!hashedName) {
+                    return;
+                }
 
-        await addDoc(
-            collection(
-                doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
-                'activities'
-            ),
-            activity
-        );
-
-        // Only under extreme usage that there could be hash collision on file names
-        // Highly unlikely to happen
-        await Promise.all(newFiles.map(async file => {
-            const hashedName = activity.documents!.find(document => document.displayName === file.name)?.dbHashedName;
-            if (!hashedName) {
-                return;
-            }
-
-            const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
-            await uploadBytes(
-                ref(
-                    this.storage,
-                    `${fileStoragePath}`
+                const fileStoragePath = `${property.fileStoragePath}/${hashedName}`;
+                await uploadBytes(
+                    ref(
+                        this.storage,
+                        fileStoragePath
+                    ),
+                    file
+                )
+            }));
+        } finally {
+            await addDoc(
+                collection(
+                    doc(this.firestore, `${FirestoreCollections.underManagement}/${property.id}`),
+                    'activities'
                 ),
-                file
-            ).catch()
-        }));
+                activity
+            );
+        }
     }
 }

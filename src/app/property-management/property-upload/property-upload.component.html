@@ -114,7 +114,7 @@
                                         <button #checkBtnMobile mat-button
                                             [style.display]="!editMobile.hidden? '': 'none'" (click)="displayMobile.hidden = false;
                                              editMobile.hidden = true;
-                                             doc.displayName = editMobile.value;
+                                             onFileNameChange(doc.displayName!, edit.value, doc);
                                              uploadForm.form.markAsTouched();">
                                             <mat-icon color="accent">check</mat-icon>
                                         </button>
@@ -142,7 +142,7 @@
                                 <div>
                                     <button #checkBtn mat-button [style.display]="!edit.hidden? '': 'none'" (click)="display.hidden = false;
                                         edit.hidden = true;
-                                        doc.displayName = edit.value;
+                                        onFileNameChange(doc.displayName!, edit.value, doc);
                                         uploadForm.form.markAsTouched();">
                                         <mat-icon color="accent">check</mat-icon>
                                     </button>

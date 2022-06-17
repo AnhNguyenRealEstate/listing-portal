@@ -91,7 +91,28 @@ export class PropertyUploadComponent implements OnInit {
 
     onFileRemove(index: number) {
         const deletedFile = this.property.documents!.splice(index, 1);
-        this.deletedFiles.push(deletedFile[0]);
+        if (this.isEditMode) {
+            this.deletedFiles.push(deletedFile[0]);
+        }
+    }
+
+    onFileNameChange(oldDisplayName: string, newDisplayName: string, file: UploadedFile) {
+        if (this.uploadedFiles.find(file => file.name === newDisplayName)) {
+            return;
+        }
+
+        const fileToAmend = this.uploadedFiles.find(file => file.name === oldDisplayName);
+        if (!fileToAmend) {
+            return;
+        }
+
+        Object.defineProperty(fileToAmend, 'name', {
+            writable: true,
+            value: newDisplayName
+        });
+
+        file.displayName = newDisplayName;
+        file.dbHashedName = this.generateHash(newDisplayName);
     }
 
     async upload() {

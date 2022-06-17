@@ -76,6 +76,9 @@ export class PropertyCardComponent implements OnInit {
         const activity: Activity = activityAddedEvent.activity;
         const newFiles: File[] = activityAddedEvent.newFiles;
 
+        activity.propertyName = this.property.name;
+        activity.propertyId = this.property.id;
+
         await this.propertyCard.addActivity(this.property, activity, newFiles);
 
         this.snackbar.open(

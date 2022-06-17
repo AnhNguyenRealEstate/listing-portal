@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from '../property-management.data';
 import { ActivitiesService } from './activities.service';
@@ -36,5 +36,4 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.subs.unsubscribe();
     }
-
 }
