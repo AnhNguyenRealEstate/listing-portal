@@ -105,7 +105,7 @@
             <div class="col">
                 <mat-label>{{ 'listing_upload.description' | translate }}</mat-label>
                 <div class="pt-2 mat-form-field-wrapper">
-                    <app-editor [text]="listing.description!" (textChange)="listing.description = $event"></app-editor>
+                    <app-editor [text]="listing.description!" (textChange)="listing.description = $event; uploadForm.form.markAsDirty()"></app-editor>
                 </div>
             </div>
         </div>
