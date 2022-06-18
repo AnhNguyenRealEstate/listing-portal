@@ -13,11 +13,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ActivityUploadComponent } from './activity-upload/activity-upload.component';
-import { ActivitiesTreeviewModule } from './activities-tree-view/activities-tree-view.module';
+import { ActivityListModule } from './activity-list/activity-list.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
-import { ActivitiesComponent } from './activities/activities.component';
+import { ActivitiesViewComponent } from './activities-view/activities.component';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { ActivitiesComponent } from './activities/activities.component';
     PropertyCardComponent,
     ActivityUploadComponent,
     PropertiesViewComponent,
-    ActivitiesComponent
+    ActivitiesViewComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +42,7 @@ import { ActivitiesComponent } from './activities/activities.component';
     MatDatepickerModule,
     MatNativeDateModule,
     DragDropModule,
-    ActivitiesTreeviewModule,
+    ActivityListModule,
     MatTabsModule,
     MatSidenavModule
   ],

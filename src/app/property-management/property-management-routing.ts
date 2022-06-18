@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivitiesComponent } from './activities/activities.component';
+import { ActivitiesViewComponent } from './activities-view/activities.component';
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
 import { PropertyManagementComponent } from './property-management.component';
 
@@ -16,7 +16,7 @@ const routes: Routes = [
             },
             {
                 path: 'activities',
-                component: ActivitiesComponent,
+                component: ActivitiesViewComponent,
                 outlet: 'property-management-outlet'
             }
         ]

@@ -3,19 +3,19 @@ import { Auth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { RolesService } from 'src/app/shared/roles.service';
 import { Activity } from '../property-management.data';
-import { ActivitiesService } from './activities.service';
+import { ActivitiesViewService } from './activities-view.service';
 
 @Component({
-    selector: 'activities',
-    templateUrl: 'activities.component.html'
+    selector: 'activities-view',
+    templateUrl: 'activities-view.component.html'
 })
 
-export class ActivitiesComponent implements OnInit, OnDestroy {
+export class ActivitiesViewComponent implements OnInit, OnDestroy {
     activities: Activity[] = [];
     subs: Subscription = new Subscription();
 
     constructor(
-        private activitiesService: ActivitiesService,
+        private activitiesView: ActivitiesViewService,
         private auth: Auth,
         private roles: RolesService
     ) { }
@@ -24,10 +24,10 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
 
         this.subs.add(this.roles.roles$.subscribe(async roles => {
             if (roles.includes('customer-service')) {
-                const snapshot = await this.activitiesService.getActivities();
+                const snapshot = await this.activitiesView.getActivities();
                 this.activities = snapshot.docs.map(doc => doc.data() as Activity);
             } else if (roles.includes('owner') && this.auth.currentUser?.email) {
-                const snapshot = await this.activitiesService.getActivities(this.auth.currentUser.email);
+                const snapshot = await this.activitiesView.getActivities(this.auth.currentUser.email);
                 this.activities = snapshot.docs.map(doc => doc.data() as Activity);
             }
         }));

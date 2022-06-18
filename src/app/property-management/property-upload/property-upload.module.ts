@@ -8,7 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PropertyUploadComponent } from './property-upload.component';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { ActivitiesTreeviewModule } from '../activities-tree-view/activities-tree-view.module';
+import { ActivityListModule } from '../activity-list/activity-list.module';
 
 @NgModule({
     declarations: [PropertyUploadComponent],
@@ -23,7 +23,7 @@ import { ActivitiesTreeviewModule } from '../activities-tree-view/activities-tre
         DragDropModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        ActivitiesTreeviewModule
+        ActivityListModule
     ],
     exports: [PropertyUploadComponent],
     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]

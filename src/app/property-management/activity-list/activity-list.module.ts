@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-import { ActivitiesTreeviewComponent } from './activities-tree-view.component';
+import { ActivityListComponent } from './activity-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-    declarations: [ActivitiesTreeviewComponent],
+    declarations: [ActivityListComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -16,6 +16,6 @@ import { TranslateModule } from '@ngx-translate/core';
             { extend: true }
         )
     ],
-    exports: [ActivitiesTreeviewComponent]
+    exports: [ActivityListComponent]
 })
-export class ActivitiesTreeviewModule { }
+export class ActivityListModule { }

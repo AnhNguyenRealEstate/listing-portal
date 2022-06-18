@@ -8,12 +8,12 @@ export interface DayActivities {
 }
 
 @Component({
-    selector: 'activities-tree-view',
-    templateUrl: 'activities-tree-view.component.html',
-    styleUrls: ['./activities-tree-view.component.scss']
+    selector: 'activity-list',
+    templateUrl: 'activity-list.component.html',
+    styleUrls: ['./activity-list.component.scss']
 })
 
-export class ActivitiesTreeviewComponent implements OnChanges {
+export class ActivityListComponent implements OnChanges {
     @Input() canDeleteActivities: boolean = false;
     @Input() activities: Activity[] = [];
     @Output() download: EventEmitter<UploadedFile> = new EventEmitter();

@@ -3,7 +3,7 @@ import { collectionGroup, Firestore, getDocs, orderBy, query, where } from '@ang
 import { FirestoreCollections } from 'src/app/shared/globals';
 
 @Injectable({ providedIn: 'root' })
-export class ActivitiesService {
+export class ActivitiesViewService {
     constructor(
         private firestore: Firestore,
     ) { }
