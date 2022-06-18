@@ -21,3 +21,10 @@ body {
 mat-spinner {
     margin: 0 auto;
 }
+
+.cdk-global-scrollblock {
+    // https://github.com/angular/components/issues/7390#issuecomment-486947151
+    position: static !important;
+    width: initial !important;
+    overflow-y: inherit !important;
+}
