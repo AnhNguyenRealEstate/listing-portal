@@ -18,6 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
 import { ActivitiesViewComponent } from './activities-view/activities.component';
+import { SummaryViewComponent } from './summary-view/summary-view.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ActivitiesViewComponent } from './activities-view/activities.component'
     PropertyCardComponent,
     ActivityUploadComponent,
     PropertiesViewComponent,
-    ActivitiesViewComponent
+    ActivitiesViewComponent,
+    SummaryViewComponent
   ],
   imports: [
     CommonModule,

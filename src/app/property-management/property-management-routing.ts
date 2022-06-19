@@ -3,12 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { ActivitiesViewComponent } from './activities-view/activities.component';
 import { PropertiesViewComponent } from './properties-view/properties-view.component';
 import { PropertyManagementComponent } from './property-management.component';
+import { SummaryViewComponent } from './summary-view/summary-view.component';
 
 const routes: Routes = [
     {
         path: '',
         component: PropertyManagementComponent,
         children: [
+            {
+                path: 'summary-view',
+                component: SummaryViewComponent,
+                outlet: 'property-management-outlet'
+            },
             {
                 path: 'properties-view',
                 component: PropertiesViewComponent,

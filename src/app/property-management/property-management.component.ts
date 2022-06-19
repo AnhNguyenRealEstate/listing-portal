@@ -24,7 +24,11 @@ export class PropertyManagementComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.router.navigateByUrl('/property-management/(property-management-outlet:properties-view)');
+        this.router.navigateByUrl('/property-management/(property-management-outlet:summary-view)');
+    }
+
+    viewSummary() {
+        this.router.navigateByUrl('/property-management/(property-management-outlet:summary-view)');
     }
 
     viewProperties() {
