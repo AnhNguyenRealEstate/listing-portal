@@ -1,7 +1,7 @@
 <section class="d-none d-md-block">
     <section class="about-us-section">
         <div class="row d-flex justify-content-between ml-15 mr-15">
-            <div class="col-12 d-flex justify-content-center pt-10" style="padding-bottom: 10vh">
+            <div class="col-12 d-flex justify-content-center pt-10" style="padding-bottom: 5vh">
                 <div class="section-title">{{ 'about_us.our_mission' | translate | titlecase }}
                 </div>
             </div>
@@ -10,24 +10,19 @@
                 {{ 'about_us.mission_statement' | translate }}
             </div>
             <div class="col-5">
-                <mat-card style="height: 20vh">
-                    <mat-card-title class="d-flex justify-content-center">
-                        {{ 'about_us.experience' | translate }}
-                    </mat-card-title>
-                    <mat-card-content>
-                        <div class="pt-4">{{ 'about_us.company_intro_1' | translate }}</div>
-                    </mat-card-content>
-                </mat-card>
+                <div class="h4 d-flex justify-content-center">{{ 'about_us.experience' | translate }}</div>
+                <div class="pt-2" style="font-size: 1rem; line-height: 1.2; text-align: justify">
+                    {{ 'about_us.company_intro_1' | translate }}
+                </div>
+            </div>
+            <div class="col-1 d-flex justify-content-center">
+                <mat-divider vertical="true" style="height: 100%"></mat-divider>
             </div>
             <div class="col-5">
-                <mat-card style="height: 20vh">
-                    <mat-card-title class="d-flex justify-content-center">
-                        {{ 'about_us.commitment' | translate }}
-                    </mat-card-title>
-                    <mat-card-content>
-                        <div class="pt-4">{{ 'about_us.company_intro_2' | translate }}</div>
-                    </mat-card-content>
-                </mat-card>
+                <div class="h4 d-flex justify-content-center">{{ 'about_us.commitment' | translate }}</div>
+                <div class="pt-2" style="font-size: 1rem; line-height: 1.2; text-align: justify">
+                    {{ 'about_us.company_intro_2' | translate }}
+                </div>
             </div>
         </div>
     </section>
@@ -112,33 +107,29 @@
 
 <section class="d-md-none">
     <section class="about-us-section-mobile">
-        <div class="row d-flex justify-content-between me-2">
+        <div class="row d-flex justify-content-between ms-2 me-1">
             <div class="col-12 d-flex justify-content-center" style="padding-top: 5vh; padding-bottom: 5vh">
                 <div class="section-title">{{ 'about_us.our_mission' | translate | titlecase }}
                 </div>
             </div>
-            <div class="col-12 ms-2" style="font-size: 2rem; line-height: 1.5; padding-bottom: 5vh">
+            <div class="col-12" style="font-size: 2rem; line-height: 1.5; padding-bottom: 5vh">
                 {{ 'about_us.mission_statement' | translate }}
             </div>
-            <div class="col-12 pb-4 ms-2">
-                <mat-card>
-                    <mat-card-title class="d-flex justify-content-center">
-                        {{ 'about_us.experience' | translate }}
-                    </mat-card-title>
-                    <mat-card-content>
-                        <div class="pt-4 pb-4">{{ 'about_us.company_intro_1' | translate }}</div>
-                    </mat-card-content>
-                </mat-card>
+
+            <mat-divider></mat-divider>
+
+            <div class="col-12 pt-5 pb-5">
+                <div class="h4 d-flex justify-content-center">{{ 'about_us.experience' | translate }}</div>
+                <div class="pt-1" style="font-size: 1rem; line-height: 1.2; text-align: justify">
+                    {{ 'about_us.company_intro_1' | translate }}
+                </div>
             </div>
-            <div class="col-12 pb-2 ms-2">
-                <mat-card>
-                    <mat-card-title class="d-flex justify-content-center">
-                        {{ 'about_us.commitment' | translate }}
-                    </mat-card-title>
-                    <mat-card-content>
-                        <div class="pt-4 pb-4">{{ 'about_us.company_intro_2' | translate }}</div>
-                    </mat-card-content>
-                </mat-card>
+
+            <div class="col-12">
+                <div class="h4 d-flex justify-content-center">{{ 'about_us.commitment' | translate }}</div>
+                <div class="pt-1" style="font-size: 1rem; line-height: 1.2; text-align: justify">
+                    {{ 'about_us.company_intro_2' | translate }}
+                </div>
             </div>
         </div>
     </section>
