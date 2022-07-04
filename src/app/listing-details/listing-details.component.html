@@ -39,8 +39,8 @@
                     <span *ngIf="listing.contactPerson">{{listing.contactPerson}}</span>
 
                     <div *ngIf="listing.contactChannels?.length">{{ 'listing_details.available_on' | translate }}:
-                        {{listing.contactChannels!.join(',
-                        ') }}</div>
+                        {{listing.contactChannels!.join(',') }}
+                    </div>
                 </div>
             </div>
             <mat-divider></mat-divider>
@@ -212,8 +212,10 @@
                             <div class="swiper-button-prev"></div>
                         </swiper>
                     </div>
-                    <div class="col-6 pt-2">
-                        <button *ngIf="!allImagesLoaded" [disabled]="gettingAllImages" mat-raised-button color="default"
+                    <div class="col-12 pt-2">
+                        <button mat-raised-button color="default"
+                        style="width: 100%"
+                        *ngIf="!allImagesLoaded" [disabled]="gettingAllImages"
                             (click)="getAllImages(true);">
                             <mat-icon color="accent">photo_library</mat-icon>
                             <span class="ps-1">{{ 'listing_details.view_all' | translate }}</span>
@@ -227,50 +229,52 @@
             </mat-tab>
         </mat-tab-group>
 
-        <div class="row pb-2">
-            <div class="col-6" style="overflow-wrap: anywhere">
+        <div class="row pt-2 pb-2">
+            <div class="col-6 pb-1" style="overflow-wrap: anywhere">
                 <mat-icon color="accent" class="d-inline">gite</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.category' | translate }}:</span>
                 <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
                 </ng-container>
                 <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
             </div>
-            <div class="col-6">
+            <div class="col-6 pb-1">
                 <mat-icon color="accent">aspect_ratio</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.propertySize' | translate }}
                     (m<sup>2</sup>):</span>
                 {{listing.propertySize}}
             </div>
-            <div class="col-6">
+            <div class="col-6 pb-1">
                 <mat-icon color="accent">bed</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bedrooms' | translate }}:</span>
                 {{listing.bedrooms}}
             </div>
-            <div class="col-6">
+            <div class="col-6 pb-1">
                 <mat-icon color="accent">bathtub</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
                 {{listing.bathrooms}}
             </div>
-            <div class="col-6" *ngIf="listing.view">
+            <div class="col-6 pb-1" *ngIf="listing.view">
                 <mat-icon color="accent">panorama_horizontal_icon</mat-icon>
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.view' | translate }}:</span>
                 {{listing.view}}
             </div>
         </div>
 
+        <mat-divider></mat-divider>
         <div>
             <label class="pt-2 text-bold">{{ 'listing_details.address' | translate }}</label>
             <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
         </div>
 
+        <mat-divider></mat-divider>
         <div>
             <label class="pt-2 text-bold">{{ 'listing_details.description' | translate }}</label>
             <p *ngIf="listing.description" [innerHtml]="listing.description">
             </p>
         </div>
 
+        <mat-divider></mat-divider>
         <label class="pt-2 pb-2 text-bold d-block">{{ 'listing_details.contact' | translate }}</label>
-
         <div class="pb-4">
             <div class="pb-2">
                 <a mat-raised-button [href]="contactNumberUrl" style="border-radius: 35px">
