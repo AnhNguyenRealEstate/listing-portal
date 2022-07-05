@@ -1,16 +1,19 @@
 <section class="container pt-2 d-none d-lg-block">
     <app-spinner></app-spinner>
-    <div class="row pb-4">
+    <div class="row pb-2">
         <div class="col-12">
             <h1 class="h3">
-                <span *ngIf="isEditMode">{{ 'listing_upload.edit_listing' | translate }}</span>
-                <span *ngIf="!isEditMode">{{ 'listing_upload.upload_new' | translate }}</span>
+                <span *ngIf="isEditMode">{{ 'listing_upload.edit_listing' | translate | titlecase }}</span>
+                <span *ngIf="!isEditMode">{{ 'listing_upload.upload_new' | translate | titlecase }}</span>
             </h1>
             <mat-divider></mat-divider>
         </div>
     </div>
     <form #uploadForm="ngForm">
-        <div class="row">
+        <div class="row pt-2">
+            <div class="col-12 pb-2">
+                <div class="h5 text-bold">Thông tin cơ bản</div>
+            </div>
             <div class="col-3">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
@@ -39,30 +42,19 @@
                         class="d-inline" placeholder="Duplex">
                 </mat-form-field>
             </div>
-            <div class="col-6">
-                <mat-form-field color="accent">
-                    <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
-                    <input name="locations" matInput trim="blur" type="text" [matAutocomplete]="locationsAuto"
-                        [(ngModel)]="listing.location" (ngModelChange)="updateOptions()" required>
-                    <mat-autocomplete #locationsAuto="matAutocomplete">
-                        <mat-option *ngFor="let location of filteredLocations$ | async" value="{{location}}">
-                            {{location}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </div>
+            <div class="col-3"></div>
             <div class="col-3">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.bedrooms' | translate }}</mat-label>
                     <input matInput trim="blur" name="bedrooms" type="text" [(ngModel)]="listing.bedrooms"
-                        class="d-inline" placeholder="# of bedrooms..." required>
+                        class="d-inline"  [placeholder]="'listing_upload.bedrooms_placeholder' | translate" required>
                 </mat-form-field>
             </div>
             <div class="col-3">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
                     <input matInput trim="blur" name="bathrooms" type="text" [(ngModel)]="listing.bathrooms"
-                        class="d-inline" placeholder="# of bathrooms..." required>
+                        class="d-inline"  [placeholder]="'listing_upload.bathrooms_placeholder' | translate" required>
                 </mat-form-field>
             </div>
             <div class="col-3">
@@ -93,11 +85,55 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+
+        <div class="row pt-4">
+            <div class="col-12 pb-2">
+                <div class="h5 text-bold">Thông tin quan trọng</div>
+            </div>
             <div class="col">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.address' | translate }}</mat-label>
                     <input matInput trim="blur" name="address" type="text" [(ngModel)]="listing.address" required>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
+                    <input name="locations" matInput trim="blur" type="text" [matAutocomplete]="locationsAuto"
+                        [(ngModel)]="listing.location" (ngModelChange)="updateOptions()" required>
+                    <mat-autocomplete #locationsAuto="matAutocomplete">
+                        <mat-option *ngFor="let location of filteredLocations$ | async" value="{{location}}">
+                            {{location}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field color="accent">
+                    <mat-label>
+                        {{ 'listing_upload.amenities' | translate }}
+                    </mat-label>
+                    <mat-chip-list #amenitiesList>
+                        <mat-chip *ngFor="let amenity of amenities"
+                            (removed)="uploadForm.form.markAsDirty(); removeAmenity(amenity)">
+                            {{ amenity | translate }}
+                            <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                        <input [placeholder]="'listing_upload.select_amenities' | translate" #amenitiesInput
+                            [matChipInputFor]="amenitiesList" [matAutocomplete]="amenitiesAuto"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            (matChipInputTokenEnd)="uploadForm.form.markAsDirty(); addAmenity($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #amenitiesAuto="matAutocomplete"
+                        (optionSelected)="uploadForm.form.markAsDirty(); selectedAmenity($event)">
+                        <mat-option *ngFor="let amenity of allAmenities" [value]="amenity">
+                            {{ amenity | translate }}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
             </div>
         </div>
@@ -105,11 +141,16 @@
             <div class="col">
                 <mat-label>{{ 'listing_upload.description' | translate }}</mat-label>
                 <div class="pt-2 mat-form-field-wrapper">
-                    <app-editor [text]="listing.description!" (textChange)="listing.description = $event; uploadForm.form.markAsDirty()"></app-editor>
+                    <app-editor [text]="listing.description!"
+                        (textChange)="listing.description = $event; uploadForm.form.markAsDirty()"></app-editor>
                 </div>
             </div>
         </div>
-        <div class="row">
+
+        <div class="row pt-4">
+            <div class="col-12 pb-2">
+                <div class="h5 text-bold">Thông tin khác</div>
+            </div>
             <div class="col-8">
                 <mat-form-field color="accent" style="width: 50%">
                     <mat-label>{{ 'listing_upload.contact_number' | translate }}</mat-label>
@@ -227,7 +268,8 @@
                         <img [src]="imgSrc" class="listing-image">
                         <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
                     </div>
-                    <button type="button" mat-icon-button [disabled]="compressionInProgress" (click)="removeUploadedMedia(imgSrc)">
+                    <button type="button" mat-icon-button [disabled]="compressionInProgress"
+                        (click)="removeUploadedMedia(imgSrc)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-card-content>

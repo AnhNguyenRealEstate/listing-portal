@@ -9,7 +9,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from '../shared/shared.module';
-
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { SharedModule } from '../shared/shared.module';
     NgxMaskModule.forChild(),
     DragDropModule,
     MatBadgeModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatChipsModule
   ],
   exports: [
     ListingUploadComponent,

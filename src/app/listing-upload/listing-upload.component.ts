@@ -1,6 +1,6 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext, ViewChild } from '@angular/core';
 import { ListingImageFile } from '../listing-search/listing-search.data';
-import { Listing } from "../listing-card/listing-card.data";
+import { Listing, AMENITIES as ALL_AMENITIES } from "../listing-card/listing-card.data";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
@@ -13,6 +13,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AvailableContactChannels } from './listing-upload.data';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgForm } from '@angular/forms';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
     selector: 'listing-upload',
@@ -49,6 +52,12 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
 
     AvailableContactChannels = AvailableContactChannels;
 
+    amenities: string[] = [];
+    allAmenities: string[] = ALL_AMENITIES;
+
+    separatorKeysCodes: number[] = [ENTER, COMMA];
+    @ViewChild('amenitiesInput') amenitiesInput!: ElementRef<HTMLInputElement>;
+
     constructor(
         private snackbar: MatSnackBar,
         private metadata: MetadataService,
@@ -61,6 +70,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     ) {
         if (this.data?.listing) {
             this.listing = this.data.listing as Listing;
+            this.amenities = this.listing.amenities || [];
         }
 
         if (this.data?.isEditMode) {
@@ -219,6 +229,36 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         this.coverImageModified = true;
     }
 
+    removeAmenity(amenity: string) {
+        const index = this.amenities.indexOf(amenity);
+
+        if (index >= 0) {
+            this.amenities.splice(index, 1);
+        }
+    }
+
+    addAmenity(event: MatChipInputEvent) {
+        const value = (event.value || '').trim();
+
+        if (value && this.amenities.indexOf(value) === -1) {
+            this.amenities.push(value);
+        }
+
+        // Clear the input value
+        event.chipInput!.clear();
+    }
+
+    selectedAmenity(event: MatAutocompleteSelectedEvent): void {
+        const value = event.option.value;
+
+        if (this.amenities.indexOf(value) >= 0) {
+            return;
+        }
+
+        this.amenities.push(event.option.value);
+        this.amenitiesInput.nativeElement.value = '';
+    }
+
     async publishListing() {
         if (!this.checkValidityForUpload(this.listing)) {
             this.snackbar.open(
@@ -231,11 +271,14 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
             return;
         }
 
+        this.listing.amenities = this.amenities;
+
         await this.listingUploadService.publishListing(this.listing, this.imageFiles, this.coverImageFile!);
 
         this.listing = {} as Listing;
         this.imageFiles = [];
         this.imageSrcs = [];
+        this.amenities = [];
         this.coverImageFile = undefined;
         this.coverImageSrc = undefined;
 
@@ -263,6 +306,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
             );
             return;
         }
+
+        this.listing.amenities = this.amenities;
 
         await this.listingUploadService.saveEdit(
             this.listing,

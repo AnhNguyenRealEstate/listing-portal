@@ -68,7 +68,6 @@ export class ListingUploadService {
 
     /**  Save any changes made to the listing and its images
     */
-    //TODO: move to Cloud Functions for atomic publish
     async saveEdit(
         listing: Listing,
         dbReferenceId: string,

@@ -6,8 +6,10 @@
                     <span *ngIf="isEditMode">{{ 'listing_upload.edit_listing' | translate }}</span>
                     <span *ngIf="!isEditMode">{{ 'listing_upload.upload_new' | translate }}</span>
                 </h1>
+                <mat-divider></mat-divider>
             </div>
 
+            <div class="h5 col-12 pt-2">Thông tin cơ bản</div>
             <div class="col-12">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.purpose' | translate }}</mat-label>
@@ -36,19 +38,6 @@
                         class="d-inline">
                 </mat-form-field>
             </div>
-            <div class="col-12">
-                <mat-form-field color="accent">
-                    <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
-                    <input name="locations" matInput trim="blur" type="text" aria-label="Location"
-                        [matAutocomplete]="locationsAuto" [(ngModel)]="listing.location"
-                        (ngModelChange)="updateOptions()" placeholder="Hưng Thái 1" required>
-                    <mat-autocomplete #locationsAuto="matAutocomplete">
-                        <mat-option *ngFor="let location of filteredLocations$ | async" value="{{location}}">
-                            {{location}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </div>
             <div class="col-6">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
@@ -67,14 +56,14 @@
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.bedrooms' | translate }}</mat-label>
                     <input matInput trim="blur" name="bedrooms" type="text" [(ngModel)]="listing.bedrooms"
-                        class="d-inline" placeholder="# of bedrooms..." required>
+                        class="d-inline" [placeholder]="'listing_upload.bedrooms_placeholder' | translate" required>
                 </mat-form-field>
             </div>
             <div class="col-6">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
                     <input matInput trim="blur" name="bathrooms" type="text" [(ngModel)]="listing.bathrooms"
-                        class="d-inline" placeholder="# of bathrooms..." required>
+                        class="d-inline"  [placeholder]="'listing_upload.bathrooms_placeholder' | translate" required>
                 </mat-form-field>
             </div>
             <div class="col-12">
@@ -91,12 +80,53 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row pt-4">
+            <div class="h5 col-12">Thông tin quan trọng</div>
             <div class="col-12">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.address' | translate }}</mat-label>
                     <input matInput trim="blur" name="address" type="text" aria-label="Address"
                         [(ngModel)]="listing.address" required>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field color="accent">
+                    <mat-label>{{ 'listing_upload.location' | translate }}</mat-label>
+                    <input name="locations" matInput trim="blur" type="text" aria-label="Location"
+                        [matAutocomplete]="locationsAuto" [(ngModel)]="listing.location"
+                        (ngModelChange)="updateOptions()" placeholder="Hưng Thái 1" required>
+                    <mat-autocomplete #locationsAuto="matAutocomplete">
+                        <mat-option *ngFor="let location of filteredLocations$ | async" value="{{location}}">
+                            {{location}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <mat-form-field color="accent">
+                    <mat-label>
+                        {{ 'listing_upload.amenities' | translate }}
+                    </mat-label>
+                    <mat-chip-list #amenitiesList>
+                        <mat-chip *ngFor="let amenity of amenities"
+                            (removed)="uploadForm.form.markAsDirty(); removeAmenity(amenity)">
+                            {{ amenity | translate }}
+                            <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                        <input [placeholder]="'listing_upload.select_amenities' | translate" #amenitiesInput
+                            [matChipInputFor]="amenitiesList" [matAutocomplete]="amenitiesAuto"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            (matChipInputTokenEnd)="uploadForm.form.markAsDirty(); addAmenity($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #amenitiesAuto="matAutocomplete"
+                        (optionSelected)="uploadForm.form.markAsDirty(); selectedAmenity($event)">
+                        <mat-option *ngFor="let amenity of allAmenities" [value]="amenity">
+                            {{ amenity | translate }}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
             </div>
         </div>
@@ -110,7 +140,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row pt-4">
+            <div class="h5 col-12">Thông tin khác</div>
             <div class="col-12">
                 <div>
                     <mat-form-field color="accent" style="width: 50%">
@@ -175,7 +206,7 @@
                     </mat-spinner>
                     <mat-icon color="accent" *ngIf="!(listingUploadService.inProgress() | async)">publish</mat-icon>
                 </button>
-                <button type="submit" *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()" [disabled]="!uploadDialog.valid
+                <button type="submit" *ngIf="isEditMode" mat-fab color="default" (click)="saveEdit()" [disabled]="uploadDialog.pristine || !uploadDialog.valid
                         || (imageFilesModified && !imageFiles.length)
                         || (coverImageModified && !coverImageFile?.size)
                         || (listingUploadService.inProgress() | async)">

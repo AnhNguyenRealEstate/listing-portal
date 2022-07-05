@@ -39,7 +39,7 @@
                     <span *ngIf="listing.contactPerson">{{listing.contactPerson}}</span>
 
                     <div *ngIf="listing.contactChannels?.length">{{ 'listing_details.available_on' | translate }}:
-                        {{listing.contactChannels!.join(',') }}
+                        {{listing.contactChannels!.join(', ') }}
                     </div>
                 </div>
             </div>
@@ -139,6 +139,13 @@
                 </div>
 
                 <div>
+                    <label class="pt-2 text-bold">Notable amenities</label>
+                    <ul class="amenities-list-desktop">
+                        <li *ngFor="let amenity of listing.amenities">{{ amenity | translate }}</li>
+                    </ul>
+                </div>
+
+                <div>
                     <label class="pt-2 text-bold">{{ 'listing_details.address' | translate }}</label>
                     <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
                 </div>
@@ -213,10 +220,8 @@
                         </swiper>
                     </div>
                     <div class="col-12 pt-2">
-                        <button mat-raised-button color="default"
-                        style="width: 100%"
-                        *ngIf="!allImagesLoaded" [disabled]="gettingAllImages"
-                            (click)="getAllImages(true);">
+                        <button mat-raised-button color="default" style="width: 100%" *ngIf="!allImagesLoaded"
+                            [disabled]="gettingAllImages" (click)="getAllImages(true);">
                             <mat-icon color="accent">photo_library</mat-icon>
                             <span class="ps-1">{{ 'listing_details.view_all' | translate }}</span>
                         </button>
@@ -258,6 +263,14 @@
                 <span class="ps-1 pe-2 text-bold">{{ 'listing_details.view' | translate }}:</span>
                 {{listing.view}}
             </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div>
+            <label class="pt-2 text-bold">Notable amenities</label>
+            <ul class="amenities-list-mobile">
+                <li *ngFor="let amenity of listing.amenities">{{ amenity | translate }}</li>
+            </ul>
         </div>
 
         <mat-divider></mat-divider>

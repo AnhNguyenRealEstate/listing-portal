@@ -142,6 +142,8 @@
         "property_sizes": "Property sizes",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
+        "bedrooms_placeholder": "# of bedrooms...",
+        "bathrooms_placeholder": "# of bathrooms...",
         "purpose": "For rent or For sale",
         "price": "Price",
         "address": "Address",
@@ -162,7 +164,9 @@
         "edit_cover_img": "Edit cover image",
         "edit_media": "Edit attached images",
         "available_on": "Additional contact channels",
-        "tiktok_link": "TikTok link"
+        "tiktok_link": "TikTok link",
+        "amenities": "Notable amenities",
+        "select_amenities": "Select amenities..."
     },
     "login": {
         "page_title": "Login",
@@ -174,5 +178,17 @@
     "session_timeout": {
         "title": "Inactivity warning",
         "warning": "You have been inactive and will be signed out in 5 minutes"
+    },
+    "amenities": {
+        "pool": "Swimming pool",
+        "gym": "Gym",
+        "conve_stores": "Convenient stores",
+        "malls": "Shopping malls",
+        "groceries": "Groceries",
+        "schools": "Schools",
+        "hospitals": "Hospitals",
+        "parks": "Parks",
+        "transit": "Public transit",
+        "quiet": "Quiet"
     }
 }

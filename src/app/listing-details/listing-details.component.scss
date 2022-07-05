@@ -65,3 +65,22 @@
         line-height: 2rem;
     }
 }
+
+ul.amenities-list-desktop {
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    list-style: none;
+}
+
+ul.amenities-list-mobile {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    list-style: none;
+}
+
+ul.amenities-list-desktop li:before,
+ul.amenities-list-mobile li:before {
+    content: "✓ ";
+}

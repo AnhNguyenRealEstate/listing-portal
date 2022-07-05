@@ -141,6 +141,8 @@
         "property_sizes": "Diện tích",
         "bedrooms": "Phòng ngủ",
         "bathrooms": "Phòng tắm",
+        "bedrooms_placeholder": "Số phòng ngủ...",
+        "bathrooms_placeholder": "Số phòng tắm...",
         "purpose": "Cho thuê hay Rao bán",
         "price": "Giá",
         "address": "Địa chỉ",
@@ -161,7 +163,9 @@
         "edit_cover_img": "Sửa hình đại diện",
         "edit_media": "Sửa hình ảnh kèm",
         "available_on": "Liên hệ qua chat app khác",
-        "tiktok_link": "Link TikTok"
+        "tiktok_link": "Link TikTok",
+        "amenities": "Tiện ích nổi bật",
+        "select_amenities": "Chọn tiện ích..."
     },
     "login": {
         "page_title": "Đăng nhập",
@@ -173,5 +177,17 @@
     "session_timeout": {
         "title": "Thông báo đăng xuất",
         "warning": "Nếu không tiếp tục sử dụng, hệ thống sẽ tự động đăng xuất trong vòng 5 phút"
+    },
+    "amenities": {
+        "pool": "Hồ bơi",
+        "gym": "Gym",
+        "conve_stores": "Cửa hàng tiện lợi",
+        "malls": "Khu mua sắm",
+        "groceries": "Cửa hàng thực phẩm",
+        "schools": "Trường học",
+        "hospitals": "Bệnh viện",
+        "parks": "Công viên",
+        "transit": "Giao thông công cộng",
+        "quiet": "Yên tĩnh"
     }
 }
