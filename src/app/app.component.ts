@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { SessionTimeoutService } from './components/session-timeout/session-timeout.service';
 
 @Component({
@@ -30,8 +31,14 @@ export class AppComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.timeoutService.setTimeout();
+        if (environment.production) {
+            this.timeoutService.setTimeout();
+        }
 
+        await this.setTitle();
+    }
+
+    async setTitle() {
         this.appTitle = await lastValueFrom(this.translate.get('app_title'));
         this.titleService.setTitle(this.appTitle);
 
@@ -53,7 +60,7 @@ export class AppComponent implements OnInit {
                 if (title) {
                     this.appTitle = this.translate.instant('app_title');
                     let fullTitle = `${this.appTitle}`;
-                    if(title !== 'app_title'){
+                    if (title !== 'app_title') {
                         const translatedTitle = this.translate.instant(title);
                         fullTitle += ` | ${translatedTitle}`
                     }

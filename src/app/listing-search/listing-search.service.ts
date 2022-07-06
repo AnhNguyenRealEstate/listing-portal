@@ -93,7 +93,8 @@ export class ListingSearchService {
 
     private criteriaToQuery(
         listings: CollectionReference<DocumentData>,
-        criteria: SearchCriteria): Query<DocumentData> {
+        criteria: SearchCriteria
+    ): Query<DocumentData> {
         let q = query(listings, where('purpose', '==', criteria.purpose?.trim() || 'For Rent'));
 
         if (criteria.location) q = query(q, where('location', '==', criteria.location.trim()));
