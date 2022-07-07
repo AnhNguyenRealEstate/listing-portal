@@ -120,6 +120,8 @@
         "bathrooms": "Bathrooms",
         "min_price": "Min price",
         "max_price": "Max price",
+        "price_from": "from",
+        "price_to": "up to",
         "us_dollar": "USD",
         "vietnam_dong": "VND",
         "get_listings": "Find",
@@ -189,6 +191,7 @@
         "hospitals": "Hospitals",
         "parks": "Parks",
         "transit": "Public transit",
-        "quiet": "Quiet"
+        "quiet": "Quiet",
+        "parking": "Parking"
     }
 }

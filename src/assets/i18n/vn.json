@@ -119,6 +119,8 @@
         "bathrooms": "Phòng tắm",
         "min_price": "Giá thấp nhất",
         "max_price": "Giá cao nhất",
+        "price_from": "từ",
+        "price_to": "đến",
         "us_dollar": "USD",
         "vietnam_dong": "VND",
         "get_listings": "Tìm",
@@ -188,6 +190,7 @@
         "hospitals": "Bệnh viện",
         "parks": "Công viên",
         "transit": "Giao thông công cộng",
-        "quiet": "Yên tĩnh"
+        "quiet": "Yên tĩnh",
+        "parking": "Chỗ đậu xe"
     }
 }

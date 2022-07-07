@@ -42,5 +42,6 @@ export const AMENITIES = [
     'amenities.hospitals',
     'amenities.parks',
     'amenities.transit',
-    'amenities.quiet'
+    'amenities.quiet',
+    'amenities.parking'
 ]
