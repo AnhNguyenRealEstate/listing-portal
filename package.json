@@ -60,7 +60,7 @@
     "@angular/localize": "^14.0.0",
     "@types/jasmine": "~4.0.3",
     "@types/merge-images": "^1.2.1",
-    "@types/node": "^17.0.42",
+    "@types/node": "^18.0.3",
     "angular-cli-ghpages": "*",
     "codelyzer": "^6.0.0",
     "gulp": "^4.0.2",
