@@ -24,14 +24,14 @@
   "dependencies": {
     "@angular/animations": "^14.0.1",
     "@angular/cdk": "^14.0.1",
-    "@angular/common": "^14.0.1",
+    "@angular/common": "^14.0.5",
     "@angular/compiler": "^14.0.3",
     "@angular/core": "^14.0.0",
     "@angular/fire": "^7.4.1",
     "@angular/forms": "^14.0.0",
     "@angular/google-maps": "^14.0.1",
     "@angular/material": "^14.0.1",
-    "@angular/platform-browser": "^14.0.3",
+    "@angular/platform-browser": "^14.0.5",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.1",
     "@ng-idle/core": "*",
@@ -76,7 +76,7 @@
     "protractor": "~7.0.0",
     "ts-node": "^10.8.1",
     "tslint": "~6.1.0",
-    "typescript": "^4.7.3",
+    "typescript": "^4.7.4",
     "webpack-bundle-analyzer": "^4.5.0"
   }
 }
