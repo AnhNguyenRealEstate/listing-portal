@@ -24,7 +24,7 @@
   "dependencies": {
     "@angular/animations": "^14.0.1",
     "@angular/cdk": "^14.0.1",
-    "@angular/common": "^14.0.5",
+    "@angular/common": "^14.0.6",
     "@angular/compiler": "^14.0.3",
     "@angular/core": "^14.0.0",
     "@angular/fire": "^7.4.1",
@@ -32,7 +32,7 @@
     "@angular/google-maps": "^14.0.1",
     "@angular/material": "^14.0.1",
     "@angular/platform-browser": "^14.0.5",
-    "@angular/platform-browser-dynamic": "^14.0.0",
+    "@angular/platform-browser-dynamic": "^14.0.6",
     "@angular/router": "^14.0.1",
     "@ng-idle/core": "*",
     "@ng-idle/keepalive": "*",
@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.3",
-    "@angular/cli": "^14.0.4",
+    "@angular/cli": "^14.0.6",
     "@angular/compiler-cli": "^14.0.1",
     "@angular/localize": "^14.0.0",
     "@types/jasmine": "~4.0.3",
