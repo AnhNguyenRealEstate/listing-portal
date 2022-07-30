@@ -236,14 +236,31 @@ export class ListingDetailsComponent implements OnInit {
         this.images = tempImages;
     }
 
-    async setBrowserTitle() {
-        const appTitle = this.translate.instant("app_title");
+    setBrowserTitle() {
         const purpose: string = this.listing.purpose === 'For Rent'
             ? this.translate.instant("listing_details.for_rent")
             : this.translate.instant("listing_details.for_sale");
 
-        this.title.setTitle(`${appTitle} | ${this.listing.location} 
-                            ${this.currency.transform(this.listing.price, this.listing.currency, 'symbol', '1.0-0')} 
-                            ${purpose.toLowerCase()}`);
+        const category = this.translate.instant(
+            `property_category.${this.listing.category?.toLowerCase()}`
+        ).toLowerCase();
+
+        const numOfBeds = `${this.listing.bedrooms} ${this.translate.instant("listing_details.bedrooms").toLowerCase()}`;
+        const numOfBaths = `${this.listing.bathrooms} ${this.translate.instant("listing_details.bathrooms").toLowerCase()}`;
+
+        if (this.translate.currentLang === 'en') {
+            if (this.listing.category === 'Commercial') {
+                this.title.setTitle(`${this.listing.location} ${category} ${purpose.toLowerCase()}`);
+            } else {
+                this.title.setTitle(`${this.listing.location} ${category} ${numOfBeds} ${numOfBaths} ${purpose.toLowerCase()}`);
+            }
+        } else if (this.translate.currentLang === 'vn') {
+            if (this.listing.category === 'Commercial') {
+                this.title.setTitle(`${purpose} ${category} ${this.listing.location}`);
+
+            } else {
+                this.title.setTitle(`${purpose} ${category} ${this.listing.location} ${numOfBeds} ${numOfBaths}`);
+            }
+        }
     }
 }
