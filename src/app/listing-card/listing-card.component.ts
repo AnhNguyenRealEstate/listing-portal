@@ -22,6 +22,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
 
     @ViewChild('confirmationDialog') confirmationDialogTemplate!: TemplateRef<string>;
 
+    listingUrl = '';
     coverImageUrl: string = '';
     shareListingBtnTitle: string = '';
 
@@ -40,6 +41,8 @@ export class ListingCardComponent implements OnInit, OnDestroy {
         public translate: TranslateService) { }
 
     async ngOnInit() {
+        this.createListingUrl();
+
         getDownloadURL(ref(this.storage, this.listing.coverImagePath)).then(url => {
             this.coverImageUrl = url;
         });
@@ -54,6 +57,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
     }
 
     async getShareableLink(e: Event) {
+        e.preventDefault();
         e.stopPropagation();
 
         if (!this.listing) {
@@ -69,11 +73,10 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             })
     }
 
-    showListing() {
-        const url = this.router.serializeUrl(
+    createListingUrl() {
+        this.listingUrl = this.router.serializeUrl(
             this.router.createUrlTree([`listings/details/${this.listing.id}`])
         );
-        window.open(url, '_blank');
     }
 
     async editListing(event: Event) {

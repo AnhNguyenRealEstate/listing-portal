@@ -1,4 +1,4 @@
-<a (click)="showListing()">
+<a style="text-decoration: none" [href]="listingUrl" target="blank">
     <mat-card class="mt-1 result-card" >
         <div *ngIf="!coverImageUrl" class="ph-picture"></div>
         <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
