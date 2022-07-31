@@ -86,7 +86,7 @@
 
 <ng-template #cardControls>
     <button mat-icon-button class="edit-btn" [matMenuTriggerFor]="controlsMenu"
-        [matTooltip]="'listing_card.edit' | translate" (click)="$event.stopPropagation()">
+        [matTooltip]="'listing_card.edit' | translate" (click)="$event.preventDefault(); $event.stopPropagation()">
         <mat-icon color="accent">more_horiz</mat-icon>
     </button>
 
