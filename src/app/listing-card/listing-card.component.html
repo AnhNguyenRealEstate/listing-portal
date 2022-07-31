@@ -1,51 +1,53 @@
 <a style="text-decoration: none" [href]="listingUrl" target="blank">
-    <mat-card class="mt-1 result-card" >
-        <div *ngIf="!coverImageUrl" class="ph-picture"></div>
-        <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
-        <ng-container *ngIf="showControls">
-            <ng-container *ngTemplateOutlet="cardControls"></ng-container>
-        </ng-container>
-        <mat-card-content>
-            <div class="row">
-                <div class="col-12 pb-2 text-vertical-align">
-                    <span class="text-bold font-medium" *ngIf="listing.price">{{listing.price | currency:
-                        listing.currency : 'symbol' : '1.0-0'}}</span>
-                    <div class="d-inline text-small text-vertical-align" style="float: right;">
-                        <ng-container *ngIf="listing.bedrooms">
-                            <mat-icon class="property-desc-icons" color="accent">bed</mat-icon>
-                            <span class="ps-1 pe-3">{{listing.bedrooms}}</span>
-                        </ng-container>
-                        <ng-container *ngIf="listing.bathrooms">
-                            <mat-icon class="property-desc-icons" color="accent">bathtub</mat-icon>
-                            <span class="ps-1">{{listing.bathrooms}}</span>
-                        </ng-container>
+    <section data-nosnippet>
+        <mat-card class="mt-1 result-card">
+            <div *ngIf="!coverImageUrl" class="ph-picture"></div>
+            <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
+            <ng-container *ngIf="showControls">
+                <ng-container *ngTemplateOutlet="cardControls"></ng-container>
+            </ng-container>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-12 pb-2 text-vertical-align">
+                        <span class="text-bold font-medium" *ngIf="listing.price">{{listing.price | currency:
+                            listing.currency : 'symbol' : '1.0-0'}}</span>
+                        <div class="d-inline text-small text-vertical-align" style="float: right;">
+                            <ng-container *ngIf="listing.bedrooms">
+                                <mat-icon class="property-desc-icons" color="accent">bed</mat-icon>
+                                <span class="ps-1 pe-3">{{listing.bedrooms}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="listing.bathrooms">
+                                <mat-icon class="property-desc-icons" color="accent">bathtub</mat-icon>
+                                <span class="ps-1">{{listing.bathrooms}}</span>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="result-card-description">
+                            <ng-container *ngIf="translate.currentLang === 'en'">
+                                <ng-container *ngTemplateOutlet="englishDescription">
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="translate.currentLang === 'vn'">
+                                <ng-container *ngTemplateOutlet="vietnameseDescription">
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                        <div class="row">
+                            <span *ngIf="listing.address" class="col-10 result-card-address">{{listing.address}}</span>
+                        </div>
+                        <div *ngIf="listing.tagID" class="result-tag-id">
+                            #{{listing.tagID}}
+                        </div>
+                        <button mat-icon-button (click)="getShareableLink($event)" class="share-link-btn"
+                            [matTooltip]="'listing_card.share_listing' | translate">
+                            <mat-icon>link</mat-icon>
+                        </button>
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class="result-card-description">
-                        <ng-container *ngIf="translate.currentLang === 'en'">
-                            <ng-container *ngTemplateOutlet="englishDescription">
-                            </ng-container>
-                        </ng-container>
-                        <ng-container *ngIf="translate.currentLang === 'vn'">
-                            <ng-container *ngTemplateOutlet="vietnameseDescription">
-                            </ng-container>
-                        </ng-container>
-                    </div>
-                    <div class="row">
-                        <span *ngIf="listing.address" class="col-10 result-card-address">{{listing.address}}</span>
-                    </div>
-                    <div *ngIf="listing.tagID" class="result-tag-id">
-                        #{{listing.tagID}}
-                    </div>
-                    <button mat-icon-button (click)="getShareableLink($event)" class="share-link-btn"
-                        [matTooltip]="'listing_card.share_listing' | translate">
-                        <mat-icon>link</mat-icon>
-                    </button>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
+            </mat-card-content>
+        </mat-card>
+    </section>
 </a>
 
 <ng-template #englishDescription>
