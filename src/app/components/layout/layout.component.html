@@ -20,26 +20,26 @@
                     </div>
                     <mat-divider class="ms-3 me-3"></mat-divider>
                     <div class="row">
-                        <div class="col-12 pt-2 menu-heading">{{ 'layout.purpose' | translate }}</div>
+                        <div class="col-12 pt-2 ps-4 menu-heading">{{ 'layout.purpose' | translate }}</div>
                         <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Rent'}"
-                            class="col-6">{{ 'layout.for_rent' | translate }}</a>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}" class="col-6">
+                            class="col-12">{{ 'layout.for_rent' | translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}" class="col-12">
                             {{ 'layout.for_sale' | translate }}
                         </a>
                     </div>
                     <mat-divider class="ms-3 me-3"></mat-divider>
                     <div class="row">
-                        <div class="col-12 pt-2 menu-heading">{{ 'layout.by_category' | translate }}</div>
+                        <div class="col-12 pt-2 ps-4 menu-heading">{{ 'layout.by_category' | translate }}</div>
                         <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
-                            class="col-6">{{ 'property_category.apartment' | translate }}</a>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}" class="col-6">{{
+                            class="col-12">{{ 'property_category.apartment' | translate }}</a>
+                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}" class="col-12">{{
                             'property_category.villa' |
                             translate }}</a>
                         <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Townhouse'}"
-                            class="col-6">{{ 'property_category.townhouse' |
+                            class="col-12">{{ 'property_category.townhouse' |
                             translate }}</a>
                         <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Commercial'}"
-                            class="col-6">{{ 'property_category.commercial' |
+                            class="col-12">{{ 'property_category.commercial' |
                             translate }}</a>
                     </div>
                 </div>
