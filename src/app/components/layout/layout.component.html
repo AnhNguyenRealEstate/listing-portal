@@ -7,9 +7,11 @@
     </a>
 
     <div class="d-none d-md-flex">
-        <a mat-button [matMenuTriggerFor]="listingsMenu">{{ 'layout.listings' | translate }}</a>
+        <button mat-button [matMenuTriggerFor]="listingsMenu">
+            {{ 'layout.listings' | translate }}<mat-icon>arrow_drop_down_icon</mat-icon>
+        </button>
         <mat-menu #listingsMenu [xPosition]="'before'">
-            <ng-template matMenuContent>
+            <ng-container matMenuContent>
                 <div class="listings-menu">
                     <div class="row">
                         <a class="col-12" style="text-align: center;" mat-button [routerLink]="['/listings']">
@@ -41,10 +43,10 @@
                             translate }}</a>
                     </div>
                 </div>
-            </ng-template>
+            </ng-container>
         </mat-menu>
 
-        <a mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</a>
+        <button mat-button [routerLink]="['/about-us']">{{ 'layout.about_us' | translate }}</button>
 
         <div class="language-toggle ms-2 me-4">
             <mat-icon>language</mat-icon>
