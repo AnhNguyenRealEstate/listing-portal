@@ -1,3 +1,4 @@
+import { animate, query, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +9,30 @@ import { AboutUsService } from './about-us.service';
 @Component({
     selector: 'about-us',
     templateUrl: 'about-us.component.html',
-    styleUrls: ['./about-us.component.scss']
+    styleUrls: ['./about-us.component.scss'],
+    animations: [
+        trigger('aboutUsAnim',
+            [
+                transition(':enter', [
+                    query('.about-us-section, .about-us-section-mobile', style({ opacity: 0, transform: 'translateY(30vh)' })),
+                    query('.contact-us-section', style({ opacity: 0, transform: 'translateY(30vh)' })),
+                    query('.sign-up-for-newsletter', style({ opacity: 0, transform: 'translateY(30vh)' })),
+                    query('.about-us-section, .about-us-section-mobile', animate(
+                        '500ms ease-out',
+                        style({ opacity: 1, transform: 'translate(0)' })
+                    )),
+                    query('.contact-us-section', animate(
+                        '500ms 200ms ease-out',
+                        style({ opacity: 1, transform: 'translate(0)' })
+                    )),
+                    query('.sign-up-for-newsletter', animate(
+                        '500ms 400ms ease-out',
+                        style({ opacity: 1, transform: 'translate(0)' })
+                    ))
+                ])
+            ]
+        )
+    ]
 })
 
 export class AboutUsComponent implements OnInit {

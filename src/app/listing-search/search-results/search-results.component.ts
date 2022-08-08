@@ -1,3 +1,4 @@
+import { animate, animateChild, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Listing } from "../../listing-card/listing-card.data";
@@ -6,7 +7,18 @@ import { ListingSearchService } from '../listing-search.service';
 @Component({
     selector: 'search-results',
     templateUrl: 'search-results.component.html',
-    styleUrls: ['../listing-search.component.scss']
+    styleUrls: ['../listing-search.component.scss'],
+    animations: [
+        trigger('searchResultsAnim', [
+            transition('* => *', // whenever binding value changes
+                query(':enter', [
+                    style({ opacity: 0, transform: 'translateY(40px)' }),
+                    stagger(100, [
+                        animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' }))
+                    ])
+                ]))
+        ])
+    ]
 })
 
 export class SearchResultsComponent implements OnInit, OnDestroy {

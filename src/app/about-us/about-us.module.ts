@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [

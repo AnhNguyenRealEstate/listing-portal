@@ -1,6 +1,6 @@
 <section class="d-none d-md-block home">
     <div class="home-background">
-        <div class="row d-flex justify-content-center pt-10 pb-10">
+        <div @searchBarAnim class="row d-flex justify-content-center pt-10 pb-10">
             <mat-card class="col-8 backdrop">
                 <mat-card-content>
                     <div class="row d-flex justify-content-center">
@@ -48,49 +48,54 @@
             </mat-card>
         </div>
 
-        <div class="row d-flex pb-2 justify-content-center mock-listings" *ngIf="!featuredListings?.length">
-            <div class="ms-2 col-3 ph-item" *ngFor="let i of numberOfMockListings">
-                <div class="ph-col-3">
-                    <div class="ph-picture"></div>
-                    <div class="ph-row">
-                        <div class="ph-col-6 big"></div>
-                        <div class="ph-col-4 empty big"></div>
-                        <div class="ph-col-2 big"></div>
-                        <div class="ph-col-4"></div>
-                        <div class="ph-col-8 empty"></div>
-                        <div class="ph-col-6"></div>
-                        <div class="ph-col-6 empty"></div>
-                        <div class="ph-col-12"></div>
+        <section @featuredListingsAnim>
+            <div class="featured-listings-container">
+                <div class="row d-flex pb-2 justify-content-center mock-listings" *ngIf="!featuredListings?.length">
+                    <div class="ms-2 col-3 ph-item" *ngFor="let i of numberOfMockListings">
+                        <div class="ph-col-3">
+                            <div class="ph-picture"></div>
+                            <div class="ph-row">
+                                <div class="ph-col-6 big"></div>
+                                <div class="ph-col-4 empty big"></div>
+                                <div class="ph-col-2 big"></div>
+                                <div class="ph-col-4"></div>
+                                <div class="ph-col-8 empty"></div>
+                                <div class="ph-col-6"></div>
+                                <div class="ph-col-6 empty"></div>
+                                <div class="ph-col-12"></div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div *ngIf="featuredListings?.length">
+                    <div class="featured-listings">
+                        <div class="row pt-4 pb-4 ps-4 pe-4">
+                            <div class="col-12 featured-listings-header ribbon">
+                                <div class="content">{{ 'home.featured' | translate | titlecase}}</div>
+                            </div>
+                            <mat-divider class="pb-2"></mat-divider>
+                            <div *ngFor="let listing of featuredListings" class="col-4 result-card-wrapper pb-2">
+                                <listing-card [listing]="listing" (delete)="removeListing(listing)"></listing-card>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center pb-4">
+                            <a mat-raised-button color="accent" [routerLink]="['/listings']">{{ 'home.view_all' |
+                                translate
+                                }}</a>
+                        </div>
+                    </div>
+
+                    <app-footer></app-footer>
                 </div>
             </div>
-        </div>
-
-        <div *ngIf="featuredListings?.length">
-            <div class="featured-listings">
-                <div class="row pt-4 pb-4 ps-4 pe-4">
-                    <div class="col-12 featured-listings-header ribbon">
-                        <div class="content">{{ 'home.featured' | translate | titlecase}}</div>
-                    </div>
-                    <mat-divider class="pb-2"></mat-divider>
-                    <div *ngFor="let listing of featuredListings" class="col-4 result-card-wrapper pb-2">
-                        <listing-card [listing]="listing" (delete)="removeListing(listing)"></listing-card>
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-center pb-4">
-                    <a mat-raised-button color="accent" [routerLink]="['/listings']">{{ 'home.view_all' | translate
-                        }}</a>
-                </div>
-            </div>
-
-            <app-footer></app-footer>
-        </div>
+        </section>
     </div>
 </section>
 
 <section class="d-md-none home-background-mobile">
-    <div class="ms-2 me-2" style="padding-top: 20vh; min-height: 90vh">
+    <div @searchBarAnim class="ms-2 me-2" style="padding-top: 20vh; min-height: 90vh">
         <mat-card class="backdrop">
             <mat-card-content>
                 <div class="row d-flex justify-content-center pt-4 pb-2 rent-or-sale">
@@ -109,8 +114,9 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-12">
                         <mat-form-field color="accent">
-                            <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
-                            <mat-select id="category" [(ngModel)]="searchCriteria.category" (ngModelChange)="getListings()">
+                            <mat-label>{{ 'home.category' | translate }}</mat-label>
+                            <mat-select id="category" [(ngModel)]="searchCriteria.category"
+                                (ngModelChange)="getListings()">
                                 <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
                                 <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}
                                 </mat-option>

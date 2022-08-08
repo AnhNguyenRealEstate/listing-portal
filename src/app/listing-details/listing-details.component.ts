@@ -11,11 +11,42 @@ import { Listing } from "../listing-card/listing-card.data";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
 import { SwiperOptions } from 'swiper';
+import { animate, query, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'listing-details',
     templateUrl: 'listing-details.component.html',
-    styleUrls: ['./listing-details.component.scss']
+    styleUrls: ['./listing-details.component.scss'],
+    animations: [
+        trigger('listingAnim', [
+            transition(':enter', [
+                query('.listing-header', style({ opacity: 0.2, transform: 'translateY(40px)' })),
+                query('.listing-body', style({ opacity: 0.2, transform: 'translateY(40px)' })),
+                query('.listing-header', animate(
+                    '250ms 50ms ease-out',
+                    style({ opacity: 1, transform: 'translateY(0)' }))),
+                query('.listing-body', animate(
+                    '250ms 100ms ease-out',
+                    style({ opacity: 1, transform: 'translateY(0)' })))
+            ])
+        ]),
+        trigger('listingMobileAnim', [
+            transition(':enter', [
+                query('.listing-header', style({ opacity: 0.2, transform: 'translateY(40px)' })),
+                query('.listing-photos', style({ opacity: 0.2, transform: 'translateY(40px)' })),
+                query('.listing-body', style({ opacity: 0.2, transform: 'translateY(40px)' })),
+                query('.listing-header', animate(
+                    '250ms 50ms ease-out',
+                    style({ opacity: 1, transform: 'translateY(0)' }))),
+                query('.listing-photos', animate(
+                    '250ms 100ms ease-out',
+                    style({ opacity: 1, transform: 'translateY(0)' }))),
+                query('.listing-body', animate(
+                    '250ms 150ms ease-out',
+                    style({ opacity: 1, transform: 'translateY(0)' })))
+            ])
+        ])
+    ]
 })
 
 export class ListingDetailsComponent implements OnInit {

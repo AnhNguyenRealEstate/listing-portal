@@ -7,11 +7,36 @@ import { PropertySizes } from 'src/app/listing-search/listing-search.data';
 import { DOCUMENT } from '@angular/common';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
 import { SwiperOptions } from 'swiper';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'app-home',
     templateUrl: 'home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
+    animations: [
+        trigger('searchBarAnim',
+            [
+                transition(':enter', [
+                    query('mat-card', style({ opacity: 0, transform: 'translateY(30vh)' })),
+                    query('mat-card', animate(
+                        '500ms ease-out',
+                        style({ opacity: 1, transform: 'translateY(0)' })
+                    ))
+                ])
+            ]
+        ),
+        trigger('featuredListingsAnim',
+            [
+                transition(':enter', [
+                    query('.featured-listings-container', style({ opacity: 0, transform: 'translateY(30vh)' })),
+                    query('.featured-listings-container', animate(
+                        '500ms 200ms ease-out',
+                        style({ opacity: 1, transform: 'translateY(0)' })
+                    ))
+                ])
+            ]
+        )
+    ]
 })
 export class HomeComponent implements OnInit {
     numberOfMockListings = Array(3).fill(0);

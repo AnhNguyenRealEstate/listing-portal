@@ -44,7 +44,8 @@
         "buy": "MUA",
         "find": "Tìm sản phẩm",
         "view_all": "Xem toàn bộ",
-        "featured": "Sản phẩm nổi bật"
+        "featured": "Sản phẩm nổi bật",
+        "category": "Chọn phân loại"
     },
     "layout": {
         "listings": "Sản phẩm",
