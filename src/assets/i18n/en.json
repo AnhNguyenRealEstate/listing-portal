@@ -35,7 +35,17 @@
         "inquiry_submitted": "Your inquiry has been submitted",
         "email_submitted": "Your email has been used to subscribe to our newsletter, see you soon!"
     },
-    "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
+    "footer": {
+        "contact_us": "Contact us",
+        "address": "168 Ha Huy Tap, District 7, Ho Chi Minh City",
+        "customer_support": "Customer support",
+        "phone_number": "Tel: 84-28-54170823",
+        "other_services": "Our services",
+        "property_management": "Property management",
+        "design": "Interior design",
+        "copyright": "@ 2022 Anh Nguyen Real Estate",
+        "intro": "Founded in 2008, we are proud to be one of the longest-serving real estate agencies in District 7, Ho Chi Minh City. We specialize in the Phu My Hung area."
+    },
     "home": {
         "browse_listings": "Browse our listings",
         "anh_nguyen": "Anh Nguyen",

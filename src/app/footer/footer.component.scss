@@ -3,3 +3,19 @@
 .footer {
     background: colors.$alt-primary;
 }
+
+.footer-intro {
+    text-align: justify;
+}
+
+.footer-copyright {
+    color: gray;
+}
+
+.company-name {
+    font-size: 14px;
+}
+
+mat-icon {
+    font-size: 0.75rem;
+}

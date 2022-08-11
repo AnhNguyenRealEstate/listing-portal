@@ -1,3 +1,49 @@
-<footer class="d-flex justify-content-center pt-2 pb-4 footer">
-    <span class="pt-2">{{ 'footer' | translate }}</span>
+<footer class="row pt-2 pb-4 ps-3 pe-3 footer d-flex justify-content-center">
+    <div class="col-12 col-sm-3 pt-4">
+        <div>
+            <span class="home-icon-wrapper">
+                <img width="22rem" height="22rem" src="/assets/images/logo.png">
+            </span>
+            <span class="company-name ps-2 text-bold">Anh Nguyen Real Estate</span>
+        </div>
+        <div class="pt-2 footer-intro">{{ 'footer.intro' | translate }}</div>
+        <div class="pt-2 footer-copyright">{{ 'footer.copyright' | translate }}</div>
+    </div>
+
+    <div class="d-none d-sm-block col-1 pt-5">
+        <mat-divider vertical="true" style="height: 50%"></mat-divider>
+    </div>
+
+    <div class="col-12 col-sm-3 pt-4">
+        <div class="text-bold">{{ 'footer.other_services' | translate }}</div>
+        <div class="pt-2 ps-3">
+            <a style="text-decoration: none; color: black" href="https://properties.anhnguyenre.com" target="_blank">{{
+                'footer.property_management' | translate | titlecase }} -
+                <span style="color: gray; font-size: 0.8rem;">coming soon</span>
+                <mat-icon>open_in_new</mat-icon>
+            </a>
+        </div>
+        <div class="ps-3 pt-2">
+            <a style="text-decoration: none; color: black" href="https://decor.anhnguyenre.com" target="_blank">{{
+                'footer.design' | translate
+                | titlecase }} - <span style="color: gray; font-size: 0.8rem;">coming soon</span>
+                <mat-icon>open_in_new</mat-icon>
+            </a>
+        </div>
+    </div>
+
+    <div class="d-none d-sm-block col-1 pt-5">
+        <mat-divider vertical="true" style="height: 50%"></mat-divider>
+    </div>
+
+    <div class="col-12 col-sm-3 pt-4">
+        <div class="text-bold">{{ 'footer.contact_us' | translate }}</div>
+        <div class="pt-2">{{ 'footer.address' | translate }}</div>
+        <div>{{ 'footer.phone_number' | translate }}</div>
+        <div>
+            {{ 'footer.customer_support' | translate }}: <a
+                href="mailto:mydungrental4u@gmail.com">mydungrental4u@gmail.com</a>
+        </div>
+    </div>
+
 </footer>

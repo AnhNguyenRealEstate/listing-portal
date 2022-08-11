@@ -9,7 +9,7 @@ export class HomeService {
     public numberOfListingsToFeature = 6;
 
     constructor(
-        private firestore: Firestore,
+        private firestore: Firestore
     ) { }
 
     async getFeaturedListings() {

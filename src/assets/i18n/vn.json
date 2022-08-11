@@ -35,7 +35,17 @@
         "inquiry_submitted": "Chúng tôi đã nhận được lời nhắn của bạn",
         "email_submitted": "Bạn đã đăng ký nhận email quảng cáo từ công ty"
     },
-    "footer": "Copyright @ Anh Nguyen Real Estate. All Rights Reserved.",
+    "footer": {
+        "contact_us": "Liên hệ",
+        "address": "168 Hà Huy Tập, Quận 7, TP.HCM",
+        "customer_support": "Hỗ trợ khách hàng",
+        "phone_number": "Tel: 84-28-54170823",
+        "other_services": "Các dịch vụ khác",
+        "property_management": "Quản lý tài sản",
+        "design": "Thiết kế nội thất",
+        "copyright": "@ 2022 Anh Nguyen Real Estate",
+        "intro": "Được thành lập năm 2008, BĐS Anh Nguyễn tự hào là một công ty dịch vụ BĐS lâu đời ở Quận 7, TPHCM, chuyên khu vực Phú Mỹ Hưng."
+    },
     "home": {
         "browse_listings": "Xem sản phẩm",
         "anh_nguyen": "Bất Động Sản",
