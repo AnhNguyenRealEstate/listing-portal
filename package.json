@@ -40,7 +40,7 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "@tinymce/tinymce-angular": "^6.0.1",
     "autoprefixer": "10.4.8",
-    "bootstrap": "^5.2.0",
+    "bootstrap": "^5.2.1",
     "jquery": "^3.6.0",
     "merge-images": "^2.0.0",
     "ngx-image-compress": "^13.1.13",
@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.6",
-    "@angular/cli": "^14.0.6",
+    "@angular/cli": "^14.2.2",
     "@angular/compiler-cli": "^14.0.6",
     "@angular/localize": "^14.0.0",
     "@types/jasmine": "~4.0.3",
