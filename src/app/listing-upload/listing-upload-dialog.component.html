@@ -200,7 +200,7 @@
 
         <div class="row pb-2">
             <div class="col-12 d-flex justify-content-end">
-                <button type="submit" *ngIf="!isEditMode" mat-fab color="default" (click)="publishListing()" [disabled]="!(uploadDialog.valid && coverImageFile && imageFiles?.length) 
+                <button type="submit" *ngIf="!isEditMode" mat-fab color="default" (click)="publishListing()" [disabled]="!(uploadDialog.valid && coverImageFile && imageFiles.length) 
                         || (listingUploadService.inProgress() | async)">
                     <mat-spinner *ngIf="listingUploadService.inProgress() | async" [diameter]="35">
                     </mat-spinner>
