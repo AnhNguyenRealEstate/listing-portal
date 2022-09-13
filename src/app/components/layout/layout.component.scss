@@ -70,3 +70,8 @@ mat-sidenav-content {
         font-weight: 400 !important;
     }
 }
+
+.mat-toolbar {
+    position: relative;
+    z-index: 2;
+}
