@@ -39,7 +39,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@tinymce/tinymce-angular": "^6.0.1",
-    "autoprefixer": "10.4.8",
+    "autoprefixer": "10.4.9",
     "bootstrap": "^5.2.0",
     "jquery": "^3.6.0",
     "merge-images": "^2.0.0",
