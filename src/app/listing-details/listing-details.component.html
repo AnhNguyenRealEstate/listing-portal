@@ -56,7 +56,7 @@
                                     <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
                                 </div>
                             </swiper>
-                            <div class="row pt-4 d-flex">
+                            <div class="row pt-4 d-flex">   
                                 <div [class.col-9]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
                                     <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
                                         [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"

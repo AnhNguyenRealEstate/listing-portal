@@ -84,3 +84,9 @@ ul.amenities-list-desktop li:before,
 ul.amenities-list-mobile li:before {
     content: "✓ ";
 }
+
+::ng-deep .ng-image-slider,
+::ng-deep .ng-image-slider .ng-image-slider-container .main{
+    height: 50px !important;
+}
+
