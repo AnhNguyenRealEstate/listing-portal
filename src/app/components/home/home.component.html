@@ -95,7 +95,7 @@
 </section>
 
 <section class="d-md-none home-background-mobile">
-    <div @searchBarAnim class="ms-2 me-2" style="padding-top: 20vh; min-height: 90vh">
+    <div @searchBarAnim class="ms-2 me-2" style="padding-top: 20vh; min-height: 85vh">
         <mat-card class="backdrop">
             <mat-card-content>
                 <div class="row d-flex justify-content-center pt-4 pb-2 rent-or-sale">
@@ -131,6 +131,59 @@
                 </div>
             </mat-card-content>
         </mat-card>
+    </div>
+
+    <div @featuredListingsAnim>
+        <div class="featured-listings-container">
+            <div class="row d-flex pb-2 justify-content-center mock-listings" *ngIf="!featuredListings?.length">
+                <div class="ms-2 col-12 ph-item">
+                    <div class="ph-col-3">
+                        <div class="ph-picture"></div>
+                        <div class="ph-row">
+                            <div class="ph-col-6 big"></div>
+                            <div class="ph-col-4 empty big"></div>
+                            <div class="ph-col-2 big"></div>
+                            <div class="ph-col-4"></div>
+                            <div class="ph-col-8 empty"></div>
+                            <div class="ph-col-6"></div>
+                            <div class="ph-col-6 empty"></div>
+                            <div class="ph-col-12"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="featuredListings?.length">
+                <div class="featured-listings">
+                    <div class="row p-4">
+                        <div class="col-12 d-flex justify-content-center featured-listings-header-mobile">
+                            {{ 'home.featured' | translate | titlecase }}
+                        </div>
+
+                        <mat-divider class="pb-2"></mat-divider>
+
+                        <div class="col-12">
+                            <swiper #usefulSwiper [config]="config">
+                                <div class="swiper-wrapper">
+                                    <div *ngFor="let listing of featuredListings" class="swiper-slide">
+                                        <listing-card [listing]="listing" (delete)="removeListing(listing)">
+                                        </listing-card>
+                                    </div>
+                                </div>
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div>
+                            </swiper>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center pb-4">
+                        <a mat-raised-button color="accent" [routerLink]="['/listings']">{{ 'home.view_all' |
+                            translate
+                            }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <app-footer></app-footer>

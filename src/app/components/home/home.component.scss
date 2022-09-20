@@ -92,6 +92,13 @@
     line-height: 1.5rem;
 }
 
+.featured-listings-header-mobile {
+    font-size: 1.5rem;
+    font-weight: 450;
+    line-height: 2rem;
+    color: colors.$accent
+}
+
 .mat-divider {
     border-top-color: colors.$accent-100;
 }

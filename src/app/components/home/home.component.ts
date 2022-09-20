@@ -49,15 +49,11 @@ export class HomeComponent implements OnInit {
     propertySizes = PropertySizes;
 
     config: SwiperOptions = {
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-        },
-        spaceBetween: 30,
+        spaceBetween: 15,
         effect: "slide",
-        slidesPerView: 3,
+        slidesPerView: 1,
         autoplay: {
-            pauseOnMouseEnter: true,
+            pauseOnMouseEnter: false,
             delay: 3000
         },
         pagination: {
@@ -78,11 +74,11 @@ export class HomeComponent implements OnInit {
         const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
         const mobileDevicesWidth = 600;
         const isDesktop = width > mobileDevicesWidth;
-        if (isDesktop) {
+
             this.homeService.getFeaturedListings().then(listings => {
                 this.featuredListings = listings;
             });
-        }
+
 
         logEvent(getAnalytics(), 'home_page_view', {
             from_mobile: !isDesktop
