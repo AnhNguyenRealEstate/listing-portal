@@ -44,6 +44,13 @@
     border-radius: 10px;
 }
 
+.featured-listings-mobile {
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    background: white;
+    border-radius: 10px;
+}
+
 .rent-or-sale {
     margin-left: 20px;
     margin-right: 20px;
@@ -96,7 +103,7 @@
     font-size: 1.5rem;
     font-weight: 450;
     line-height: 2rem;
-    color: colors.$accent
+    color: colors.$accent;
 }
 
 .mat-divider {
