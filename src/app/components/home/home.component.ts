@@ -75,10 +75,9 @@ export class HomeComponent implements OnInit {
         const mobileDevicesWidth = 600;
         const isDesktop = width > mobileDevicesWidth;
 
-            this.homeService.getFeaturedListings().then(listings => {
-                this.featuredListings = listings;
-            });
-
+        this.homeService.getFeaturedListings().then(listings => {
+            this.featuredListings = listings;
+        });
 
         logEvent(getAnalytics(), 'home_page_view', {
             from_mobile: !isDesktop
