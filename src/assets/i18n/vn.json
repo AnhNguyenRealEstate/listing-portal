@@ -10,7 +10,7 @@
     "about_us": {
         "about_us": "Bất Động Sản Anh Nguyễn",
         "company_intro_1_title": "Hơn {{tenure}} Năm Hành Nghề",
-        "company_intro_1": "Thành lập năm 2008, BĐS Anh Nguyễn tự hào là một trong những công ty bất động sản lâu đời ở khu vực Phú Mỹ Hưng, Quận 7, TP.HCM. ",
+        "company_intro_1": "Thành lập năm 2008, BĐS Anh Nguyễn tự hào là một trong những công ty bất động sản lâu đời ở khu vực Phú Mỹ Hưng, Quận 7, Tp.HCM. ",
         "company_intro_2_title": "1000+ Khách Mỗi Năm",
         "company_intro_2": "Sự hài lòng của khách hàng là thành công của chúng tôi. Trong suốt quá trình phục vụ, chúng tôi luôn tận tâm xử lý các khúc mắc của khách hàng.",
         "contact_us": "Liên hệ",
@@ -37,15 +37,15 @@
     },
     "footer": {
         "contact_us": "Liên hệ",
-        "address": "168 Hà Huy Tập, Quận 7, TP.HCM",
+        "address": "168 Hà Huy Tập, P. Tân Phong, Quận 7, TP.HCM",
         "customer_support": "Hỗ trợ khách hàng",
         "phone_number": "Tel: 84-28-54170823",
         "other_services": "Dịch vụ",
         "property_management": "Quản lý tài sản",
-        "design": "Thiết kế nội thất",
-        "transactions": "Môi giới bất động sản",
-        "copyright": "@ 2022 Anh Nguyen Real Estate",
-        "intro": "Được thành lập năm 2008, BĐS Anh Nguyễn tự hào là một công ty dịch vụ BĐS lâu đời ở Quận 7, TPHCM, chuyên khu vực Phú Mỹ Hưng."
+        "design": "Tư vấn - thiết kế nội thất",
+        "transactions": "Tư vấn - môi giới bất động sản",
+        "copyright": "@ {{year}} Anh Nguyen Real Estate",
+        "intro": "Được thành lập năm 2008, BĐS Anh Nguyễn tự hào là một công ty dịch vụ bất động sản lâu đời ở Quận 7, Tp.HCM, chuyên khu vực Phú Mỹ Hưng."
     },
     "home": {
         "browse_listings": "Xem sản phẩm",
