@@ -3,6 +3,8 @@ import { collection, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/
 import { listAll, ref, deleteObject, Storage } from '@angular/fire/storage';
 import { Listing } from "./listing-card.data";
 import { FirebaseStorageConsts, FirestoreCollections } from '../shared/globals';
+import { I } from '@angular/cdk/keycodes';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ListingCardService {
@@ -29,6 +31,11 @@ export class ListingCardService {
 
     async deleteListing(listing: Listing) {
         if (!listing.id) {
+            return;
+        }
+
+        if (environment.test) {
+            await deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${listing.id}`));
             return;
         }
 

@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import { collection, connectFirestoreEmulator, Firestore, getDocs, getFirestore, provideFirestore } from "@angular/fire/firestore";
-import { connectStorageEmulator, FirebaseStorage, getStorage, provideStorage } from "@angular/fire/storage";
+import { connectStorageEmulator, getStorage, provideStorage, Storage } from "@angular/fire/storage";
 import { ListingSearchService } from "./listing-search.service"
 import { firebaseConfig, FirestoreCollections } from "src/app/shared/globals";
 import { FirebaseApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
@@ -10,17 +10,19 @@ import { Listing } from "../listing-card/listing-card.data";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ListingDetailsService } from "../listing-details/listing-details.service";
 import { ListingUploadService } from "../listing-upload/listing-upload.service";
+import { ListingCardService } from "../listing-card/listing-card.service";
 
 
 describe('Listing Search Service', () => {
     let firebaseApp: FirebaseApp;
     let firestore: Firestore;
-    let storage: FirebaseStorage;
+    let storage: Storage;
     let auth: Auth;
 
     let listingDetails: ListingDetailsService;
     let listingUpload: ListingUploadService;
     let listingSearch: ListingSearchService;
+    let listingCard: ListingCardService;
 
     beforeEach(async () => {
         const documentSpy = jasmine.createSpyObj(['Document', ['defaultView']])
@@ -33,17 +35,17 @@ describe('Listing Search Service', () => {
                     return firebaseApp;
                 }),
                 provideFirestore(() => {
-                    firestore = getFirestore();
+                    firestore = getFirestore(firebaseApp);
                     connectFirestoreEmulator(firestore, 'localhost', 8080);
                     return firestore;
                 }),
                 provideStorage(() => {
-                    storage = getStorage();
+                    storage = getStorage(firebaseApp);
                     connectStorageEmulator(storage, 'localhost', 9199);
                     return storage;
                 }),
                 provideAuth(() => {
-                    auth = getAuth();
+                    auth = getAuth(firebaseApp);
                     connectAuthEmulator(auth, 'http://localhost:9099');
                     return auth;
                 })
@@ -51,9 +53,15 @@ describe('Listing Search Service', () => {
             providers: [{ provide: Document, useValue: documentSpy }]
         });
 
+        firebaseApp = TestBed.inject(FirebaseApp);
+        firestore = TestBed.inject(Firestore);
+        storage = TestBed.inject(Storage);
+        auth = TestBed.inject(Auth);
+
         listingDetails = new ListingDetailsService(firestore, storage);
         listingSearch = new ListingSearchService(firestore, documentSpy);
         listingUpload = new ListingUploadService(firestore, storage, auth);
+        listingCard = new ListingCardService(firestore, storage);
 
         await signInWithEmailAndPassword(auth, 'test@test.test', 'test1234!')
     });
@@ -153,9 +161,11 @@ describe('Listing Search Service', () => {
         }
 
         // Delete the listings once we're done
-        // await Promise.all(dbRefIDsOfListings.map((id, index) => {
-        //     return listingEdit.deleteListing(listings[index], id);
-        // }));
+        await Promise.all(dbRefIDsOfListings.map((id, index) => {
+            listings[index].id = id;
+            return listingCard.deleteListing(listings[index]);
+        }));
+
         const docsAfterDeletingMockListings = (await getDocs(collection(firestore, FirestoreCollections.listings))).docs;
         docsAfterDeletingMockListings.forEach(doc => {
             const ifDbStillHasAnyMockItem = dbRefIDsOfListings.includes(doc.id);
