@@ -1,5 +1,5 @@
 import { Clipboard } from '@angular/cdk/clipboard';
-import { Component, createNgModuleRef, EventEmitter, Injector, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, createNgModule, EventEmitter, Injector, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -89,11 +89,12 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             data: {
                 listing: this.listing,
                 isEditMode: true
-            }
+            },
+            disableClose: true
         } as MatDialogConfig;
 
         const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
-        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const moduleRef = createNgModule(ListingUploadModule, this.injector);
         const listingUploadComponent = moduleRef.instance.getListingUploadComponent();
 
         this.dialog.open(listingUploadComponent, config);
@@ -109,11 +110,12 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             data: {
                 listing: this.listing,
                 isEditMode: true
-            }
+            },
+            disableClose: true
         } as MatDialogConfig;
 
         const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
-        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const moduleRef = createNgModule(ListingUploadModule, this.injector);
         const listingUploadDialogComponent = moduleRef.instance.getListingUploadDialogComponent();
 
         this.dialog.open(listingUploadDialogComponent, config);
@@ -129,11 +131,12 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             data: {
                 listing: { ...this.listing },
                 isEditMode: false
-            }
+            },
+            disableClose: true
         } as MatDialogConfig;
 
         const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
-        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const moduleRef = createNgModule(ListingUploadModule, this.injector);
         const listingUploadComponent = moduleRef.instance.getListingUploadComponent();
 
         this.dialog.open(listingUploadComponent, config);
@@ -149,11 +152,12 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             data: {
                 listing: { ...this.listing },
                 isEditMode: false
-            }
+            },
+            disableClose: true
         } as MatDialogConfig;
 
         const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
-        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const moduleRef = createNgModule(ListingUploadModule, this.injector);
         const listingUploadDialogComponent = moduleRef.instance.getListingUploadDialogComponent();
 
         this.dialog.open(listingUploadDialogComponent, config);

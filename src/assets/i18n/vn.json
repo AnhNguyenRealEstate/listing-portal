@@ -179,7 +179,8 @@
         "available_on": "Liên hệ qua chat app khác",
         "tiktok_link": "Link TikTok",
         "amenities": "Tiện ích nổi bật",
-        "select_amenities": "Chọn tiện ích..."
+        "select_amenities": "Chọn tiện ích...",
+        "upload_images": "Hình ảnh"
     },
     "login": {
         "page_title": "Đăng nhập",

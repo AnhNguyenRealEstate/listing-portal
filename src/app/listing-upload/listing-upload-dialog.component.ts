@@ -354,4 +354,8 @@ export class ListingUploadDialogComponent implements OnInit {
 
         return true;
     }
+
+    closeDialog(){
+        this.dialogRef.close();
+    }
 }

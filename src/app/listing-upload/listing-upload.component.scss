@@ -30,6 +30,12 @@
     width: 50%;
 }
 
-.uploaded-media-draggable:hover{
+.uploaded-media-draggable:hover {
     transform: translate3D(0, -1px, 0) scale(1.03);
+}
+
+.close-btn {
+    position: absolute;
+    top: 1vh;
+    right: 7.5vw;
 }

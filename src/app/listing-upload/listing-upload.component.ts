@@ -358,4 +358,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
 
         return true;
     }
+
+    closeDialog(){
+        this.dialogRef.close();
+    }
 }

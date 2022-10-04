@@ -180,7 +180,8 @@
         "available_on": "Additional contact channels",
         "tiktok_link": "TikTok link",
         "amenities": "Notable amenities",
-        "select_amenities": "Select amenities..."
+        "select_amenities": "Select amenities...",
+        "upload_images": "Upload images"
     },
     "login": {
         "page_title": "Login",

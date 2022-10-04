@@ -1,4 +1,4 @@
-import { Component, createNgModuleRef, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, createNgModule, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -49,11 +49,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
         const config = {
             height: '90%',
             width: '100%',
-            autoFocus: false
+            autoFocus: false,
+            disableClose: true
         } as MatDialogConfig;
 
         const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
-        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const moduleRef = createNgModule(ListingUploadModule, this.injector);
         const listingUploadComponent = moduleRef.instance.getListingUploadComponent();
 
         this.dialog.open(listingUploadComponent, config);
@@ -66,11 +67,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
             autoFocus: false,
             data: {
                 listing: {}
-            }
+            },
+            disableClose: true
         } as MatDialogConfig;
 
         const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
-        const moduleRef = createNgModuleRef(ListingUploadModule, this.injector);
+        const moduleRef = createNgModule(ListingUploadModule, this.injector);
         const listingUploadDialogComponent = moduleRef.instance.getListingUploadDialogComponent();
 
         this.dialog.open(listingUploadDialogComponent, config);

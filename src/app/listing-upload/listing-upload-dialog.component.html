@@ -1,4 +1,10 @@
 <section #mobileUploadView class="container pt-2 py-2 d-lg-none">
+    <div class="close-btn">
+        <button mat-mini-fab color="default" (click)="closeDialog()">
+            <mat-icon color="accent">close</mat-icon>
+        </button>
+    </div>
+
     <form #uploadDialog="ngForm">
         <div class="row">
             <div class="col-12">
@@ -173,6 +179,12 @@
             </div>
         </div>
         <hr>
+
+        <div class="row">
+            <div class="col-12 h5 text-bold">
+                {{ 'listing_upload.upload_images' | translate }}
+            </div>
+        </div>
 
         <ng-container *ngIf="isEditMode">
             <ng-container *ngIf="!coverImageEditRequested; else coverImageUpload">
