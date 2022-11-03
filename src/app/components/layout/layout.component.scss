@@ -61,9 +61,20 @@ mat-sidenav-content {
     }
 }
 
+::ng-deep.mat-menu-panel {
+    max-width: none !important;
+    width: 50vw;
+}
+
 ::ng-deep .listings-menu {
     .menu-heading {
-        color: colors.$accent;
+        color: gray;
+        font-weight: 400;
+        font-size: 1.25rem;
+    }
+
+    mat-icon {
+        color: crimson;
     }
 
     .mat-button-wrapper {

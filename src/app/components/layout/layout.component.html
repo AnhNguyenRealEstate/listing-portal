@@ -14,33 +14,53 @@
             <ng-container matMenuContent>
                 <div class="listings-menu">
                     <div class="row">
-                        <a class="col-12" style="text-align: center;" mat-button [routerLink]="['/listings']">
-                            {{ 'layout.view_all' | translate }}
-                        </a>
-                    </div>
-                    <mat-divider class="ms-3 me-3"></mat-divider>
-                    <div class="row">
-                        <div class="col-12 pt-2 ps-4 menu-heading">{{ 'layout.purpose' | translate }}</div>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Rent'}"
-                            class="col-12">{{ 'layout.for_rent' | translate }}</a>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}" class="col-12">
-                            {{ 'layout.for_sale' | translate }}
-                        </a>
-                    </div>
-                    <mat-divider class="ms-3 me-3"></mat-divider>
-                    <div class="row">
-                        <div class="col-12 pt-2 ps-4 menu-heading">{{ 'layout.by_category' | translate }}</div>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
-                            class="col-12">{{ 'property_category.apartment' | translate }}</a>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}" class="col-12">{{
-                            'property_category.villa' |
-                            translate }}</a>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Townhouse'}"
-                            class="col-12">{{ 'property_category.townhouse' |
-                            translate }}</a>
-                        <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Commercial'}"
-                            class="col-12">{{ 'property_category.commercial' |
-                            translate }}</a>
+                        <div class="col-4">
+                            <a class="d-flex justify-content-start p-2 menu-item" mat-button
+                                [routerLink]="['/listings']">
+                                <mat-icon>density_small</mat-icon>
+                                <span class="ps-3 text-bold">{{ 'layout.view_all' | translate }}</span>
+                            </a>
+                        </div>
+                        <div class="col-4" style="
+                        border-right:  1px solid rgb(222, 222, 222);
+                        border-left:   1px solid  rgb(222, 222, 222);">
+                            <div class="py-2 ps-4 menu-heading">{{ 'layout.purpose' | translate }}</div>
+                            <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Rent'}"
+                                class="d-flex justify-content-start p-2 menu-item">
+                                <mat-icon>description</mat-icon>
+                                <span class="ps-3 text-bold">{{ 'layout.for_rent' | translate }}</span>
+                            </a>
+                            <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}"
+                                class="d-flex justify-content-start p-2 menu-item">
+                                <mat-icon>price_check</mat-icon>
+                                <span class="ps-3 text-bold">
+                                    {{ 'layout.for_sale' | translate }}
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            <div class="py-2 ps-4 menu-heading">{{ 'layout.by_category' | translate }}</div>
+                            <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
+                                class="d-flex justify-content-start p-2 menu-item">
+                                <mat-icon>apartment</mat-icon>
+                                <span class="ps-3 text-bold">{{ 'property_category.apartment' | translate }}</span>
+                            </a>
+                            <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}"
+                                class="d-flex justify-content-start p-2 menu-item">
+                                <mat-icon>villa</mat-icon>
+                                <span class="ps-3 text-bold">{{ 'property_category.villa' |translate }}</span>
+                            </a>
+                            <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Townhouse'}"
+                                class="d-flex justify-content-start p-2 menu-item">
+                                <mat-icon>door_sliding</mat-icon>
+                                <span class="ps-3 text-bold">{{ 'property_category.townhouse' | translate }}</span>
+                            </a>
+                            <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Commercial'}"
+                                class="d-flex justify-content-start p-2 menu-item">
+                                <mat-icon>store_front</mat-icon>
+                                <span class="ps-3 text-bold">{{ 'property_category.commercial' | translate }}</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </ng-container>
