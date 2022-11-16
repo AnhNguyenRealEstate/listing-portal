@@ -232,7 +232,7 @@ async function createGooglePost(documentRef: admin.firestore.DocumentReference) 
                         sourceUrl: `${coverPhotoUrl}`,
                     }
                 ],
-                topicType: "OFFER"
+                topicType: "STANDARD"
             }),
             headers: {
                 'Content-Type': 'application/json',
