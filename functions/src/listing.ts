@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import fetch from 'node-fetch';
 import { OAuth2Client } from 'google-auth-library';
+import { Timestamp } from "firebase-admin/firestore";
+import * as axios from 'axios';
 
 /**
  * After a listing's creation
@@ -12,7 +13,7 @@ exports.postProcessCreation = functions.region('asia-southeast1').firestore
     .onCreate(async (snap, context) => {
 
         const id = context.params.documentId;
-        const creationDate = admin.firestore.Timestamp.fromDate(new Date());
+        const creationDate = Timestamp.fromDate(new Date());
 
         const category = snap.data()['category'] as string;
         const newTagID = await incrementCategoryCounter(category);
@@ -214,7 +215,7 @@ async function createGooglePost(documentRef: admin.firestore.DocumentReference) 
     }
 
 
-    const resp = await fetch(
+    await axios.default.post(
         `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/${locationId}/localPosts`,
         {
             method: 'POST',
@@ -240,8 +241,4 @@ async function createGooglePost(documentRef: admin.firestore.DocumentReference) 
             }
         }
     )
-
-    if (!resp.ok) {
-        throw new Error(`Posting to Google Business failed: ${resp.json()}`)
-    }
 }
