@@ -1,5 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import fetch from 'node-fetch';
+import { OAuth2Client } from 'google-auth-library';
 
 /**
  * After a listing's creation
@@ -15,13 +17,15 @@ exports.postProcessCreation = functions.region('asia-southeast1').firestore
         const category = snap.data()['category'] as string;
         const newTagID = await incrementCategoryCounter(category);
 
-        return snap.ref.update(
+        await snap.ref.update(
             {
                 'id': id,
                 'creationDate': creationDate,
                 'featured': false,
                 'tagID': newTagID
             });
+
+        createGooglePost(snap.ref)
     });
 
 /**
@@ -171,4 +175,73 @@ async function incrementCategoryCounter(category: string): Promise<string> {
     }
 
     return tagID;
+}
+
+async function createGooglePost(documentRef: admin.firestore.DocumentReference) {
+    if (process.env.FUNCTIONS_EMULATOR && process.env.FIRESTORE_EMULATOR_HOST) {
+        return
+    }
+
+    if (!(process.env.OAUTH_CLIENT_ID && process.env.OAUTH_CLIENT_SECRET
+        && process.env.GOOGLE_BUSINESS_API_KEY && process.env.GOOGLE_ACCOUNT_ID
+        && process.env.GOOGLE_LOCATION_ID && process.env.RYTR_API_KEY)) {
+        return
+    }
+
+    const docSnap = await documentRef.get()
+    const data = docSnap.data()
+    if (!data) {
+        throw new Error('Listing does not exist')
+    }
+
+    const accountId = process.env.GOOGLE_ACCOUNT_ID
+    const locationId = process.env.GOOGLE_LOCATION_ID
+    const summary = data['description']
+    const listingUrl = `https://anhnguyenre.com/listings/details/${data['id']}`
+
+    await admin.storage().bucket().file(data['coverImagePath']).makePublic()
+    const coverPhotoUrl = admin.storage().bucket().file(data['coverImagePath']).publicUrl()
+
+    const client = new OAuth2Client(
+        process.env.OAUTH_CLIENT_ID,
+        process.env.OAUTH_CLIENT_SECRET,
+        process.env.REDIRECT_URI
+    )
+
+    const accessTokenResp = await client.getAccessToken()
+    if (!accessTokenResp.token) {
+        throw new Error('Could not get OAuth access token')
+    }
+
+
+    const resp = await fetch(
+        `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/${locationId}/localPosts`,
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                languageCode: "en-US",
+                summary: `${summary}`,
+                callToAction: {
+                    actionType: "LEARN_MORE",
+                    url: `${listingUrl}`,
+                },
+                media: [
+                    {
+                        mediaFormat: "PHOTO",
+                        sourceUrl: `${coverPhotoUrl}`,
+                    }
+                ],
+                topicType: "OFFER"
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${accessTokenResp.token}`
+            }
+        }
+    )
+
+    if (!resp.ok) {
+        throw new Error(`Posting to Google Business failed: ${resp.json()}`)
+    }
 }

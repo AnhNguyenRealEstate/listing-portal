@@ -15,7 +15,9 @@
   "dependencies": {
     "currency.js": "^2.0.4",
     "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.24.0"
+    "firebase-functions": "^3.24.0",
+    "google-auth-library": "^8.7.0",
+    "node-fetch": "^3.3.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0",
