@@ -197,7 +197,11 @@ async function createGooglePost(documentRef: admin.firestore.DocumentReference) 
 
     const accountId = process.env.GOOGLE_ACCOUNT_ID
     const locationId = process.env.GOOGLE_LOCATION_ID
-    const summary = data['description']
+    const summary = await getSummaryFromRytr(data)
+    if (!summary) {
+        throw new Error('Cannot get response from Rytr')
+    }
+
     const listingUrl = `https://anhnguyenre.com/listings/details/${data['id']}`
 
     await admin.storage().bucket().file(data['coverImagePath']).makePublic()
@@ -241,4 +245,73 @@ async function createGooglePost(documentRef: admin.firestore.DocumentReference) 
             }
         }
     )
+}
+
+async function getSummaryFromRytr(data: any) {
+    if (!data) {
+        throw new Error('No data to summarize')
+    }
+
+    const amenitiesMap = new Map<string, string>([
+        ['amenities.gym', 'gym'],
+        ['amenities.pool', 'pool'],
+        ['amenities.conve_stores', 'convenient store'],
+        ['amenities.malls', 'malls'],
+        ['amenities.groceries', 'groceries'],
+        ['amenities.schools', 'schools'],
+        ['amenities.hospitals', 'hospitals'],
+        ['amenities.parks', 'parks'],
+        ['amenities.transit', 'transit'],
+        ['amenities.quiet', 'quiet'],
+        ['amenities.parking', 'parking']
+    ])
+
+    let amenities;
+    if (data['amenities']?.length) {
+        amenities = (data['amenities'] as string[])
+            .map(item => amenitiesMap.get(item))
+            .join(', ')
+    } else {
+        amenities = 'none'
+    }
+
+    const productDescr =
+        `${data['bedrooms']} bedroom(s). ${data['bathrooms']} bathroom(s). Nearby amenities: ${amenities}. ${data['price']} ${data['currency']} ${data['purpose']}`
+            .slice(0, 250)
+    const productNameLabel = `${data['location']} ${data['category']}`.slice(0, 25)
+
+    const apiKey = process.env.RYTR_API_KEY
+    const apiUrl = process.env.RYTR_API_URL
+    const languageIdEnglish = '607adac76f8fe5000c1e636d'
+    const toneIdConvincing = '60572a639bdd4272b8fe358b'
+    const useCaseIdProductDescr = '605832f78c0a4a000c69c960'
+
+    try {
+        const { data } = await axios.default({
+            method: 'post',
+            url: `${apiUrl}/ryte`,
+            headers: {
+                Authentication: `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+            },
+            data: {
+                languageId: languageIdEnglish,
+                toneId: toneIdConvincing,
+                useCaseId: useCaseIdProductDescr,
+                inputContexts: {
+                    ['PRODUCT_NAME_LABEL']: productNameLabel,
+                    ['ABOUT_PRODUCT_LABEL']: productDescr
+                },
+                variations: 1,
+                userId: 'FIREBASE_CLOUD_FUNCTION',
+                format: 'text',
+                creativityLevel: "low"   
+            },
+        })
+
+        return data ? data.data : ''
+    } catch (error) {
+        console.log(error)
+    }
+
 }
