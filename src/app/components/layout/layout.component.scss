@@ -61,11 +61,6 @@ mat-sidenav-content {
     }
 }
 
-::ng-deep.mat-menu-panel {
-    max-width: none !important;
-    width: 50vw;
-}
-
 ::ng-deep .listings-menu {
     .menu-heading {
         color: gray;

@@ -10,53 +10,53 @@
         <button mat-button [matMenuTriggerFor]="listingsMenu">
             {{ 'layout.listings' | translate }}<mat-icon>arrow_drop_down_icon</mat-icon>
         </button>
-        <mat-menu #listingsMenu [xPosition]="'before'">
+        <mat-menu id="listingsMenu" #listingsMenu [xPosition]="'before'">
             <ng-container matMenuContent>
                 <div class="listings-menu">
                     <div class="row">
-                        <div class="col-4">
-                            <a class="d-flex justify-content-start p-2 menu-item" mat-button
+                        <div class="col-12">
+                            <a class="d-flex justify-content-start py-2 menu-item" mat-button
                                 [routerLink]="['/listings']">
                                 <mat-icon>density_small</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'layout.view_all' | translate }}</span>
                             </a>
+                            <mat-divider inset="true"></mat-divider>
                         </div>
-                        <div class="col-4" style="
-                        border-right:  1px solid rgb(222, 222, 222);
-                        border-left:   1px solid  rgb(222, 222, 222);">
-                            <div class="py-2 ps-4 menu-heading">{{ 'layout.purpose' | translate }}</div>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end pe-4 py-2 menu-heading">{{ 'layout.purpose' | translate }}</div>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Rent'}"
-                                class="d-flex justify-content-start p-2 menu-item">
+                                class="d-flex justify-content-start py-2 menu-item">
                                 <mat-icon>description</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'layout.for_rent' | translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}"
-                                class="d-flex justify-content-start p-2 menu-item">
+                                class="d-flex justify-content-start py-2 menu-item">
                                 <mat-icon>price_check</mat-icon>
                                 <span class="ps-3 text-bold">
                                     {{ 'layout.for_sale' | translate }}
                                 </span>
                             </a>
+                            <mat-divider inset="true"></mat-divider>
                         </div>
-                        <div class="col-4">
-                            <div class="py-2 ps-4 menu-heading">{{ 'layout.by_category' | translate }}</div>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end pe-4 py-2 menu-heading">{{ 'layout.by_category' | translate }}</div>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
-                                class="d-flex justify-content-start p-2 menu-item">
+                                class="d-flex justify-content-start py-2 menu-item">
                                 <mat-icon>apartment</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.apartment' | translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}"
-                                class="d-flex justify-content-start p-2 menu-item">
+                                class="d-flex justify-content-start py-2 menu-item">
                                 <mat-icon>villa</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.villa' |translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Townhouse'}"
-                                class="d-flex justify-content-start p-2 menu-item">
+                                class="d-flex justify-content-start py-2 menu-item">
                                 <mat-icon>door_sliding</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.townhouse' | translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Commercial'}"
-                                class="d-flex justify-content-start p-2 menu-item">
+                                class="d-flex justify-content-start py-2 menu-item">
                                 <mat-icon>store_front</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.commercial' | translate }}</span>
                             </a>

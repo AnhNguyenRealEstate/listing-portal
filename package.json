@@ -40,7 +40,7 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "@tinymce/tinymce-angular": "^7.0.0",
     "autoprefixer": "10.4.9",
-    "bootstrap": "^5.2.1",
+    "bootstrap": "^5.2.2",
     "jquery": "^3.6.0",
     "merge-images": "^2.0.0",
     "ngx-image-compress": "^13.1.13",
