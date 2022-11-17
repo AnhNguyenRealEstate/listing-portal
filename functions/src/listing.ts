@@ -287,7 +287,7 @@ async function getSummaryFromRytr(data: any) {
     const useCaseIdProductDescr = '605832f78c0a4a000c69c960'
 
     try {
-        const { data } = await axios.default({
+        const response = await axios.default({
             method: 'post',
             url: `${apiUrl}/ryte`,
             headers: {
@@ -299,17 +299,17 @@ async function getSummaryFromRytr(data: any) {
                 toneId: toneIdConvincing,
                 useCaseId: useCaseIdProductDescr,
                 inputContexts: {
-                    ['PRODUCT_NAME_LABEL']: productNameLabel,
-                    ['ABOUT_PRODUCT_LABEL']: productDescr
+                    "PRODUCT_NAME_LABEL": productNameLabel,
+                    "ABOUT_PRODUCT_LABEL": productDescr
                 },
                 variations: 1,
                 userId: 'FIREBASE_CLOUD_FUNCTION',
                 format: 'text',
-                creativityLevel: "low"   
+                creativityLevel: "low"
             },
         })
 
-        return data ? data.data : ''
+        return response.data?.data?.length ? response.data.data[0].text : ''
     } catch (error) {
         console.log(error)
     }
