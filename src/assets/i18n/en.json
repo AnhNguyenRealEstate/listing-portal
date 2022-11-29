@@ -94,7 +94,8 @@
         "unfeature": "Unfeature listing",
         "clone": "Create new from this listing",
         "delete": "Delete listing",
-        "commercial": "Commercial property"
+        "commercial": "Commercial property",
+        "create_gad": "Create Google ad"
     },
     "listing_search.page_title": "Listings",
     "listing_details": {

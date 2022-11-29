@@ -184,4 +184,11 @@ export class ListingCardComponent implements OnInit, OnDestroy {
             }
         });
     }
+
+    async createGoogleAd(event: Event) {
+        event.stopPropagation();
+        if (this.listing.id) {
+            await this.listingCard.createGooglePost(this.listing.id)
+        }
+    }
 }

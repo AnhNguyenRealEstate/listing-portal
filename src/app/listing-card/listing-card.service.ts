@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { collection, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { listAll, ref, deleteObject, Storage } from '@angular/fire/storage';
+import { httpsCallableFromURL, httpsCallable, getFunctions } from '@angular/fire/functions';
+import { getApp } from '@angular/fire/app'
 import { Listing } from "./listing-card.data";
 import { FirebaseStorageConsts, FirestoreCollections } from '../shared/globals';
-import { I } from '@angular/cdk/keycodes';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class ListingCardService {
     constructor(
         private firestore: Firestore,
-        private storage: Storage
+        private storage: Storage,
+        private snackbar: MatSnackBar
     ) { }
 
     async featureListing(id: string) {
@@ -51,5 +54,12 @@ export class ListingCardService {
         deleteObject(ref(this.storage, coverImagePath));
 
         deleteDoc(doc(this.firestore, `${FirestoreCollections.listings}/${listing.id}`));
+    }
+
+    async createGooglePost(listingId: string) {
+        const functions = getFunctions(getApp(), 'asia-southeast1')
+        const _createGooglePost = httpsCallable(functions, 'listing-createGooglePost')
+        await _createGooglePost({ listingId: listingId })
+        this.snackbar.open('Created Google post', 'Dismiss', { duration: 3000 })
     }
 }

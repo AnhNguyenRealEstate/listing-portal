@@ -104,6 +104,8 @@
             <span>{{ 'listing_card.unfeature' | translate }}</span>
         </button>
 
+        <mat-divider inset="true"></mat-divider>
+
         <button mat-menu-item class="d-none d-lg-block" (click)="editListing($event)">
             <mat-icon color="accent">edit</mat-icon>
             <span>{{'listing_card.edit' | translate}}</span>
@@ -112,6 +114,11 @@
             <mat-icon color="accent">add_box</mat-icon>
             <span>{{ 'listing_card.clone' | translate }}</span>
         </button>
+        <!-- <button mat-menu-item class="d-none d-lg-block" (click)="createGoogleAd($event)">
+            <mat-icon color="accent">post_add</mat-icon>
+            <span>{{ 'listing_card.create_gad' | translate }}</span>
+        </button> -->
+        <mat-divider class="d-none d-lg-block" inset="true"></mat-divider>
         <button mat-menu-item class="d-none d-lg-block" (click)="deleteListing($event)">
             <mat-icon color="accent">delete</mat-icon>
             <span>{{ 'listing_card.delete' | translate }}</span>
@@ -125,6 +132,11 @@
             <mat-icon color="accent">add_box</mat-icon>
             <span>{{ 'listing_card.clone' | translate }}</span>
         </button>
+        <!-- <button mat-menu-item class="d-lg-none" (click)="createGoogleAd($event)">
+            <mat-icon color="accent">post_add</mat-icon>
+            <span>{{ 'listing_card.create_gad' | translate }}</span>
+        </button> -->
+        <mat-divider class="d-lg-none" inset="true"></mat-divider>
         <button mat-menu-item class="d-lg-none" (click)="deleteListing($event)">
             <mat-icon color="accent">delete</mat-icon>
             <span>{{ 'listing_card.delete' | translate }}</span>

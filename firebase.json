@@ -32,6 +32,7 @@
     "rules": "storage.rules"
   },
   "emulators": {
+    "single_project_mode": "false",
     "auth": {
       "port": 9099
     },

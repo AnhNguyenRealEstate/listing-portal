@@ -14,6 +14,7 @@ import { MatMenuModule, MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule, MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [ListingCardComponent],
@@ -28,7 +29,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
     ClipboardModule,
     MatTooltipModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDividerModule
   ],
   exports: [ListingCardComponent],
   providers: [

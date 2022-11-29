@@ -24,6 +24,7 @@ import { ListingCardModule } from './listing-card/listing-card.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
+import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -81,6 +82,13 @@ const maskConfig: Partial<IConfig> = {
       return auth;
     }),
     provideAnalytics(() => getAnalytics(getApp())),
+    provideFunctions(() => {
+      const functions = getFunctions();
+      if (!environment.production) {
+        connectFunctionsEmulator(functions, 'localhost', 5001);
+      }
+      return functions;
+    }),
     NgxUsefulSwiperModule
   ],
   bootstrap: [AppComponent]

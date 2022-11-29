@@ -2,7 +2,7 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { OAuth2Client } from 'google-auth-library';
 import { Timestamp } from "firebase-admin/firestore";
-import * as axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 /**
  * After a listing's creation
@@ -105,6 +105,16 @@ exports.shuffleFeaturedListings = functions.region('asia-southeast1')
         }
 
     });
+
+exports.createGooglePost = functions.region('asia-southeast1').https.onCall(async (data, _) => {
+    const listingId = data.listingId
+    if (!listingId) {
+        return
+    }
+
+    const snap = await admin.firestore().doc(`listings/${listingId}`).get()
+    await createGooglePost(snap.ref)
+});
 
 async function updateLocationsMetadata(location: string) {
     const listingMetadataSnap = await admin.firestore().doc('app-data/listing-data').get();
@@ -218,32 +228,34 @@ async function createGooglePost(documentRef: admin.firestore.DocumentReference) 
         throw new Error('Could not get OAuth access token')
     }
 
-
-    await axios.default.post(
-        `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/${locationId}/localPosts`,
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                languageCode: "en-US",
-                summary: `${summary}`,
-                callToAction: {
-                    actionType: "LEARN_MORE",
-                    url: `${listingUrl}`,
-                },
-                media: [
-                    {
-                        mediaFormat: "PHOTO",
-                        sourceUrl: `${coverPhotoUrl}`,
-                    }
-                ],
-                topicType: "STANDARD"
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${accessTokenResp.token}`
+    const googlePostData = {
+        languageCode: "en-US",
+        summary: `${summary}`,
+        callToAction: {
+            actionType: "LEARN_MORE",
+            url: `${listingUrl}`,
+        },
+        media: [
+            {
+                mediaFormat: "PHOTO",
+                sourceUrl: `${coverPhotoUrl}`,
             }
+        ],
+        topicType: "STANDARD"
+    }
+
+    const axiosRequestConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${accessTokenResp.token}`
         }
+    }
+
+    await axios.post(
+        `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/${locationId}/localPosts`,
+        googlePostData,
+        axiosRequestConfig
     )
 }
 
@@ -287,27 +299,32 @@ async function getSummaryFromRytr(data: any) {
     const useCaseIdProductDescr = '605832f78c0a4a000c69c960'
 
     try {
-        const response = await axios.default({
-            method: 'post',
-            url: `${apiUrl}/ryte`,
+        const data = {
+            languageId: languageIdEnglish,
+            toneId: toneIdConvincing,
+            useCaseId: useCaseIdProductDescr,
+            inputContexts: {
+                "PRODUCT_NAME_LABEL": productNameLabel,
+                "ABOUT_PRODUCT_LABEL": productDescr
+            },
+            variations: 3,
+            userId: 'FIREBASE_CLOUD_FUNCTION',
+            format: 'text',
+            creativityLevel: "low"
+        }
+
+        const axiosRequestConfig = {
             headers: {
                 Authentication: `Bearer ${apiKey}`,
                 'Content-Type': 'application/json',
-            },
-            data: {
-                languageId: languageIdEnglish,
-                toneId: toneIdConvincing,
-                useCaseId: useCaseIdProductDescr,
-                inputContexts: {
-                    "PRODUCT_NAME_LABEL": productNameLabel,
-                    "ABOUT_PRODUCT_LABEL": productDescr
-                },
-                variations: 1,
-                userId: 'FIREBASE_CLOUD_FUNCTION',
-                format: 'text',
-                creativityLevel: "low"
-            },
-        })
+            }
+        } as AxiosRequestConfig
+
+        const response = await axios.post(
+            `${apiUrl}/ryte`,
+            data,
+            axiosRequestConfig
+        )
 
         return response.data?.data?.length ? response.data.data[0].text : ''
     } catch (error) {

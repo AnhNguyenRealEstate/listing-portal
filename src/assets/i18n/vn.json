@@ -93,7 +93,8 @@
         "unfeature": "Tháo ưu tiên trên trang chủ",
         "clone": "Đăng mới từ sản phẩm",
         "delete": "Xoá sản phẩm",
-        "commercial": "Mặt bằng"
+        "commercial": "Mặt bằng",
+        "create_gad": "Tạo quảng cáo Google"
     },
     "listing_search.page_title": "Tìm sản phẩm",
     "listing_details": {
