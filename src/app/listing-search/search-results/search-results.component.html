@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-center" *ngIf="searchResults.length && !noMoreToLoad">
-                    <button mat-button [disabled]="isLoadingMore" (click)="loadMore()" style="width: 100%">
-                        <span>{{ 'search_results.view_more' | translate }}</span>
-                        <mat-icon *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                    <button mat-raised-button [disabled]="isLoadingMore" (click)="loadMore()">
+                        <mat-icon color="accent" *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <span class="ps-2">{{ 'search_results.view_more' | translate }}</span>
                         <div class="d-inline">
                             <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
                         </div>
@@ -56,9 +56,9 @@
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-center" *ngIf="searchResults.length && !noMoreToLoad">
-                    <button mat-button (click)="loadMore()">
-                        <span>{{ 'search_results.view_more' | translate }}</span>
-                        <mat-icon *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                    <button mat-raised-button (click)="loadMore()">
+                        <mat-icon color="accent" *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <span class="ps-2">{{ 'search_results.view_more' | translate }}</span>
                         <div class="d-inline">
                             <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
                         </div>
