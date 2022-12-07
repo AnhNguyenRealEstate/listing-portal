@@ -1,4 +1,4 @@
-<section class="pb-4 container d-none d-md-block listing-details-desktop">
+<section *ngIf="isDesktop" class="pb-4 container d-none d-md-block listing-details-desktop">
     <div *ngIf="!listing.location" class="pt-4">
         <ng-container *ngTemplateOutlet="desktopLoadingPlaceholder"></ng-container>
     </div>
@@ -45,21 +45,73 @@
             </div>
             <mat-divider></mat-divider>
         </div>
+
+        <div class="row d-flex justify-content-center pb-2">
+            <div class="col-2 important-information">
+                <div class="ps-1 pt-2 pb-4">
+                    <mat-icon color="accent" inline="true">gite</mat-icon>
+                </div>
+                <div class="ps-1 pb-2 important-info-text">
+                    <div>
+                        <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
+                        </ng-container>
+                    </div>
+                    <span *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
+                </div>
+            </div>
+            <div *ngIf="listing.bedrooms" class="col-2 important-information">
+                <div class="ps-1 pt-2 pb-4">
+                    <mat-icon color="accent" inline="true">bed</mat-icon>
+                </div>
+                <div class="ps-1 pb-2 important-info-text">
+                    <span>{{listing.bedrooms}} {{ 'listing_details.room' | translate }}<ng-container
+                            *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
+                    </span>
+                </div>
+            </div>
+            <div *ngIf="listing.bathrooms" class="col-2 important-information">
+                <div class="ps-1 pt-2 pb-4">
+                    <mat-icon color="accent" inline="true">bathtub</mat-icon>
+                </div>
+                <div class="ps-1 pb-2 important-info-text">
+                    <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
+                            *ngIf="listing.bathrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
+                    </span>
+                </div>
+            </div>
+            <div class="col-2 important-information">
+                <div class="ps-1 pt-2 pb-4">
+                    <mat-icon color="accent" inline="true">aspect_ratio</mat-icon>
+                </div>
+                <div class="ps-1 pb-2 important-info-text">
+                    <span>{{listing.propertySize}} (m<sup>2</sup>)</span>
+                </div>
+            </div>
+            <div *ngIf="listing.view" class="col-2 important-information">
+                <div class="ps-1 pt-2 pb-4">
+                    <mat-icon color="accent" inline="true">panorama_horizontal_icon</mat-icon>
+                </div>
+                <div class="ps-1 pb-2 important-info-text">
+                    <span>{{ 'listing_details.view' | translate }} {{listing.view | lowercase}}</span>
+                </div>
+            </div>
+        </div>
+
         <div class="row listing-body">
-            <div class="col-12 listing-photos">
+            <div class="col-12 pb-2 listing-photos">
                 <div class="pt-2" *ngIf="imageSources?.length && images.length && images[images.length - 1]">
-                    <swiper #usefulSwiper [config]="swiperDesktopConfig">
+                    <swiper id="desktopSwiper" #usefulSwiperDesktop [config]="swiperDesktopConfig">
                         <div class="swiper-wrapper">
                             <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
                         </div>
-                        <div class="swiper-button-next-desktop"></div>
-                        <div class="swiper-button-prev-desktop"></div>
+                        <div class="swiper-button-next swiper-button-next-desktop"></div>
+                        <div class="swiper-button-prev swiper-button-prev-desktop"></div>
                     </swiper>
                     <div class="row pt-4 d-flex">
                         <div [class.col-9]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
                             <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
                                 [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
-                                (imageClick)="cycleToSlide($event)">
+                                (imageClick)="cycleToSlide(usefulSwiperDesktop ,$event)">
                             </ng-image-slider>
                         </div>
                         <div class="col-3 pt-1">
@@ -79,59 +131,9 @@
                 </div>
             </div>
 
-            <div class="col-12 pt-5 listing-information">
-                <div class="row d-flex justify-content-center pb-2">
-                    <div class="col-2 important-information">
-                        <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent" inline="true">gite</mat-icon>
-                        </div>
-                        <div class="ps-1 pb-2 important-info-text">
-                            <div>
-                                <ng-container [ngTemplateOutlet]="category"
-                                    [ngTemplateOutletContext]="{listing: listing}">
-                                </ng-container>
-                            </div>
-                            <span *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
-                        </div>
-                    </div>
-                    <div *ngIf="listing.bedrooms" class="col-2 important-information">
-                        <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent" inline="true">bed</mat-icon>
-                        </div>
-                        <div class="ps-1 pb-2 important-info-text">
-                            <span>{{listing.bedrooms}} {{ 'listing_details.room' | translate }}<ng-container
-                                    *ngIf="listing.bedrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
-                            </span>
-                        </div>
-                    </div>
-                    <div *ngIf="listing.bathrooms" class="col-2 important-information">
-                        <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent" inline="true">bathtub</mat-icon>
-                        </div>
-                        <div class="ps-1 pb-2 important-info-text">
-                            <span>{{listing.bathrooms}} {{ 'listing_details.room' | translate }}<ng-container
-                                    *ngIf="listing.bathrooms! > 1 && translate.currentLang === 'en'">s</ng-container>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-2 important-information">
-                        <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent" inline="true">aspect_ratio</mat-icon>
-                        </div>
-                        <div class="ps-1 pb-2 important-info-text">
-                            <span>{{listing.propertySize}} (m<sup>2</sup>)</span>
-                        </div>
-                    </div>
-                    <div *ngIf="listing.view" class="col-2 important-information">
-                        <div class="ps-1 pt-2 pb-4">
-                            <mat-icon color="accent" inline="true">panorama_horizontal_icon</mat-icon>
-                        </div>
-                        <div class="ps-1 pb-2 important-info-text">
-                            <span>{{ 'listing_details.view' | translate }} {{listing.view | lowercase}}</span>
-                        </div>
-                    </div>
-                </div>
+            <mat-divider></mat-divider>
 
+            <div class="col-12 pt-2 listing-information">
                 <div *ngIf="listing?.amenities?.length">
                     <label class="pt-2 text-bold">{{ 'listing_upload.amenities' | translate }}</label>
                     <ul class="amenities-list-desktop">
@@ -154,7 +156,7 @@
     </div>
 </section>
 
-<section class="container d-md-none listing-details-mobile">
+<section *ngIf="!isDesktop" class="container d-md-none listing-details-mobile">
     <div class="pt-4" *ngIf="!listing.location">
         <ng-container *ngTemplateOutlet="mobileLoadingPlaceholder"></ng-container>
     </div>
@@ -202,7 +204,7 @@
             <div class="row pt-2 pb-2 listing-images"
                 *ngIf="imageSources?.length && images?.length && images[images.length - 1]">
                 <div class="col-12">
-                    <swiper #usefulSwiper [config]="swiperMobileConfig">
+                    <swiper id="mobileSwiper" #usefulSwiperMobile [config]="swiperMobileConfig">
                         <div class="swiper-wrapper">
                             <div *ngFor="let src of imageSources" class="swiper-slide">
                                 <div class="swiper-zoom-container">
@@ -210,11 +212,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
                         <!-- Add Arrows -->
-                        <div class="swiper-button-next-mobile"></div>
-                        <div class="swiper-button-prev-mobile"></div>
+                        <div class="swiper-button-next swiper-button-next-mobile"></div>
+                        <div class="swiper-button-prev swiper-button-prev-mobile"></div>
                     </swiper>
                 </div>
                 <div class="col-12 pt-2">

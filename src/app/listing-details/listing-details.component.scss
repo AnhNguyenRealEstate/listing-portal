@@ -28,8 +28,8 @@
     text-align: end;
 }
 
-::ng-deep .swiper-button-prev,
-::ng-deep .swiper-button-next {
+::ng-deep .swiper-button-prev-desktop, ::ng-deep .swiper-button-prev-mobile,
+::ng-deep .swiper-button-next-desktop, ::ng-deep .swiper-button-next-mobile {
     color: colors.$accent-300;
 }
 
@@ -68,9 +68,9 @@
 }
 
 ul.amenities-list-desktop {
-    columns: 3;
-    -webkit-columns: 3;
-    -moz-columns: 3;
+    columns: 5;
+    -webkit-columns: 5;
+    -moz-columns: 5;
     list-style: none;
 }
 

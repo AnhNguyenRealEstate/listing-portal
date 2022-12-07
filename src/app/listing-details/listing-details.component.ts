@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, SecurityContext, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, SecurityContext, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ListingDetailsService } from './listing-details.service';
@@ -6,7 +6,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { Title } from "@angular/platform-browser";
 import { SwiperComponent } from 'ngx-useful-swiper';
 import mergeImages from 'merge-images';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DOCUMENT } from '@angular/common';
 import { Listing } from "../listing-card/listing-card.data";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
@@ -63,7 +63,6 @@ export class ListingDetailsComponent implements OnInit {
 
     contactNumberUrl: SafeUrl = '';
 
-    @ViewChild('usefulSwiper') usefulSwiper!: SwiperComponent;
     swiperDesktopConfig: SwiperOptions = {
         navigation: {
             nextEl: '.swiper-button-next-desktop',
@@ -79,7 +78,7 @@ export class ListingDetailsComponent implements OnInit {
     };
 
     swiperMobileConfig: SwiperOptions = {
-        pagination: { el: '.swiper-pagination', clickable: false },
+        pagination: { el: '.swiper-pagination-mobile', clickable: false },
         navigation: {
             nextEl: '.swiper-button-next-mobile',
             prevEl: '.swiper-button-prev-mobile'
@@ -91,6 +90,7 @@ export class ListingDetailsComponent implements OnInit {
     };
 
     showFooter: boolean = false;
+    isDesktop: boolean = true;
 
     constructor(
         private sanitizer: DomSanitizer,
@@ -100,7 +100,12 @@ export class ListingDetailsComponent implements OnInit {
         private router: Router,
         private title: Title,
         private snackbar: MatSnackBar,
-        private changeDetector: ChangeDetectorRef) {
+        private changeDetector: ChangeDetectorRef,
+        @Inject(DOCUMENT) private document: Document) {
+
+        const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
+        const mobileDevicesWidth = 600;
+        this.isDesktop = width > mobileDevicesWidth;
     }
 
     async ngOnInit() {
@@ -149,8 +154,8 @@ export class ListingDetailsComponent implements OnInit {
         });
     }
 
-    cycleToSlide(slideId: number) {
-        this.usefulSwiper?.swiper.slideTo(slideId);
+    cycleToSlide(usefulSwiper: SwiperComponent, slideId: number) {
+        usefulSwiper.swiper.slideTo(slideId);
     }
 
     async getAllImages(isMobile?: boolean) {
