@@ -47,8 +47,7 @@
         </div>
         <div class="row listing-body">
             <div class="col-12 listing-photos">
-                <div class="pt-2"
-                    *ngIf="imageSources?.length && images.length && images[images.length - 1]">
+                <div class="pt-2" *ngIf="imageSources?.length && images.length && images[images.length - 1]">
                     <swiper #usefulSwiper [config]="swiperDesktopConfig">
                         <div class="swiper-wrapper">
                             <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
@@ -191,37 +190,40 @@
             <mat-divider></mat-divider>
         </div>
 
-        <div class="pt-2 pb-2" *ngIf="!images?.length">
-            <div class="ph-item">
-                <div class="ph-col-3">
-                    <div class="ph-picture"></div>
+        <div class="listing-photos">
+            <div class="pt-2 pb-2" *ngIf="!images?.length">
+                <div class="ph-item">
+                    <div class="ph-col-3">
+                        <div class="ph-picture"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row pt-2 pb-2 listing-images"
-            *ngIf="imageSources?.length && images?.length && images[images.length - 1]">
-            <div class="col-12">
-                <swiper #usefulSwiper [config]="swiperMobileConfig">
-                    <div class="swiper-wrapper">
-                        <div *ngFor="let src of imageSources" class="swiper-slide">
-                            <div class="swiper-zoom-container">
-                                <img [src]="src">
+
+            <div class="row pt-2 pb-2 listing-images"
+                *ngIf="imageSources?.length && images?.length && images[images.length - 1]">
+                <div class="col-12">
+                    <swiper #usefulSwiper [config]="swiperMobileConfig">
+                        <div class="swiper-wrapper">
+                            <div *ngFor="let src of imageSources" class="swiper-slide">
+                                <div class="swiper-zoom-container">
+                                    <img [src]="src">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next-mobile"></div>
-                    <div class="swiper-button-prev-mobile"></div>
-                </swiper>
-            </div>
-            <div class="col-12 pt-2">
-                <button mat-raised-button color="default" style="width: 100%" *ngIf="!allImagesLoaded"
-                    [disabled]="gettingAllImages" (click)="getAllImages(true);">
-                    <mat-icon color="accent">photo_library</mat-icon>
-                    <span class="ps-1">{{ 'listing_details.view_all' | translate }}</span>
-                </button>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next-mobile"></div>
+                        <div class="swiper-button-prev-mobile"></div>
+                    </swiper>
+                </div>
+                <div class="col-12 pt-2">
+                    <button mat-raised-button color="default" style="width: 100%" *ngIf="!allImagesLoaded"
+                        [disabled]="gettingAllImages" (click)="getAllImages(true);">
+                        <mat-icon color="accent">photo_library</mat-icon>
+                        <span class="ps-1">{{ 'listing_details.view_all' | translate }}</span>
+                    </button>
+                </div>
             </div>
         </div>
 
