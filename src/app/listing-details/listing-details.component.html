@@ -53,8 +53,8 @@
                         <div class="swiper-wrapper">
                             <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
                         </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next-desktop"></div>
+                        <div class="swiper-button-prev-desktop"></div>
                     </swiper>
                     <div class="row pt-4 d-flex">
                         <div [class.col-9]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
@@ -214,8 +214,8 @@
                             <!-- Add Pagination -->
                             <div class="swiper-pagination"></div>
                             <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next-mobile"></div>
+                            <div class="swiper-button-prev-mobile"></div>
                         </swiper>
                     </div>
                     <div class="col-12 pt-2">

@@ -63,12 +63,11 @@ export class ListingDetailsComponent implements OnInit {
 
     contactNumberUrl: SafeUrl = '';
 
-    @ViewChild('usefulSwiper', { static: false }) usefulSwiper!: SwiperComponent;
+    @ViewChild('usefulSwiper') usefulSwiper!: SwiperComponent;
     swiperDesktopConfig: SwiperOptions = {
-        pagination: { el: '.swiper-pagination', clickable: true },
         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
+            nextEl: '.swiper-button-next-desktop',
+            prevEl: '.swiper-button-prev-desktop'
         },
 
         effect: "coverflow",
@@ -82,8 +81,8 @@ export class ListingDetailsComponent implements OnInit {
     swiperMobileConfig: SwiperOptions = {
         pagination: { el: '.swiper-pagination', clickable: false },
         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
+            nextEl: '.swiper-button-next-mobile',
+            prevEl: '.swiper-button-prev-mobile'
         },
         spaceBetween: 16,
         effect: "coverflow",
