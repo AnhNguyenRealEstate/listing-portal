@@ -33,7 +33,7 @@ import { animate, query, style, transition, trigger } from '@angular/animations'
         trigger('listingMobileAnim', [
             transition(':enter', [
                 query('.listing-header', style({ opacity: 0.2, transform: 'translateY(40px)' })),
-                query('.listing-photos', style({ opacity: 0.2, transform: 'translateY(40px)' })),
+                query('.listing-photos', style({ opacity: 0.2, transform: 'translateY(40px)' }), {optional: true}),
                 query('.listing-body', style({ opacity: 0.2, transform: 'translateY(40px)' })),
                 query('.listing-header', animate(
                     '250ms 50ms ease-out',
@@ -89,8 +89,6 @@ export class ListingDetailsComponent implements OnInit {
         autoHeight: true,
         zoom: true
     };
-
-    highlightedThumbnailRef: any;
 
     showFooter: boolean = false;
 
