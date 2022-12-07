@@ -1,9 +1,8 @@
 @use "src/app/styles/colors" as colors;
 
 .swiper-image {
-    object-fit: contain;
-    width: 100%;
-    height: 400px;
+    object-fit: cover;
+    height: auto;
 }
 
 .listing-details-desktop,

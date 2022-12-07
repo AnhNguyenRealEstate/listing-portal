@@ -68,13 +68,14 @@ export class ListingDetailsComponent implements OnInit {
             nextEl: '.swiper-button-next-desktop',
             prevEl: '.swiper-button-prev-desktop'
         },
-
-        effect: "coverflow",
+        pagination: { el: '.swiper-pagination-desktop', clickable: false },
+        effect: "slide",
         autoHeight: true,
         zoom: true,
         slidesPerView: 3,
         centeredSlides: true,
-        initialSlide: 2
+        initialSlide: 2,
+        spaceBetween: 16
     };
 
     swiperMobileConfig: SwiperOptions = {
