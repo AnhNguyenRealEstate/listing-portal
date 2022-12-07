@@ -46,48 +46,43 @@
             <mat-divider></mat-divider>
         </div>
         <div class="row listing-body">
-            <div class="col-6 listing-photos">
-                <mat-tab-group mat-stretch-tabs color="accent">
-                    <mat-tab [label]="'listing_details.photos' | translate">
-                        <div class="pt-2"
-                            *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
-                            <swiper #usefulSwiper [config]="{}">
-                                <div class="swiper-wrapper">
-                                    <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
-                                </div>
-                            </swiper>
-                            <div class="row pt-4 d-flex">
-                                <div [class.col-9]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
-                                    <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
-                                        [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
-                                        (imageClick)="cycleToSlide($event)">
-                                    </ng-image-slider>
-                                </div>
-                                <div class="col-3 pt-1">
-                                    <button *ngIf="!allImagesLoaded" mat-raised-button (click)="getAllImages()">
-                                        <mat-icon color="accent">photo_library</mat-icon>
-                                        {{ 'listing_details.view_all' | translate }}
-                                    </button>
-                                </div>
-                            </div>
+            <div class="col-12 listing-photos">
+                <div class="pt-2"
+                    *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
+                    <swiper #usefulSwiper [config]="swiperDesktopConfig">
+                        <div class="swiper-wrapper">
+                            <img *ngFor="let src of imageSources" class="swiper-slide swiper-image" [src]="src">
                         </div>
-                        <div *ngIf="!(imageSources && imageSources!.length)">
-                            <div class="ph-item">
-                                <div class="ph-col-12">
-                                    <div class="ph-picture" style="height: 50vh"></div>
-                                </div>
-                            </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </swiper>
+                    <div class="row pt-4 d-flex">
+                        <div [class.col-9]="!allImagesLoaded" [class.col-12]="allImagesLoaded">
+                            <ng-image-slider [images]="images" [manageImageRatio]="true" [imagePopup]="false"
+                                [imageSize]="{height: '50px', width: '90px'}" [animationSpeed]="0.1"
+                                (imageClick)="cycleToSlide($event)">
+                            </ng-image-slider>
                         </div>
-                    </mat-tab>
-                    <mat-tab [label]="'listing_details.video' | translate" *ngIf="showVideo">
-                        <iframe [src]="videoLink" style="width:100%; height: 550px">
-                        </iframe>
-                    </mat-tab>
-                </mat-tab-group>
+                        <div class="col-3 pt-1">
+                            <button *ngIf="!allImagesLoaded" mat-raised-button (click)="getAllImages()">
+                                <mat-icon color="accent">photo_library</mat-icon>
+                                {{ 'listing_details.view_all' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!(imageSources && imageSources!.length)">
+                    <div class="ph-item">
+                        <div class="ph-col-12">
+                            <div class="ph-picture" style="height: 50vh"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6 listing-information">
-                <div class="row pb-2">
-                    <div class="col-3 important-information">
+
+            <div class="col-12 pt-5 listing-information">
+                <div class="row d-flex justify-content-center pb-2">
+                    <div class="col-2 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent" inline="true">gite</mat-icon>
                         </div>
@@ -100,7 +95,7 @@
                             <span *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
                         </div>
                     </div>
-                    <div *ngIf="listing.bedrooms" class="col-3 important-information">
+                    <div *ngIf="listing.bedrooms" class="col-2 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent" inline="true">bed</mat-icon>
                         </div>
@@ -110,7 +105,7 @@
                             </span>
                         </div>
                     </div>
-                    <div *ngIf="listing.bathrooms" class="col-3 important-information">
+                    <div *ngIf="listing.bathrooms" class="col-2 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent" inline="true">bathtub</mat-icon>
                         </div>
@@ -120,7 +115,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-3 important-information">
+                    <div class="col-2 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent" inline="true">aspect_ratio</mat-icon>
                         </div>
@@ -128,7 +123,7 @@
                             <span>{{listing.propertySize}} (m<sup>2</sup>)</span>
                         </div>
                     </div>
-                    <div *ngIf="listing.view" class="col-3 important-information">
+                    <div *ngIf="listing.view" class="col-2 important-information">
                         <div class="ps-1 pt-2 pb-4">
                             <mat-icon color="accent" inline="true">panorama_horizontal_icon</mat-icon>
                         </div>
@@ -198,7 +193,7 @@
 
         <mat-tab-group class="listing-photos" mat-stretch-tabs color="accent" dynamicHeight>
             <mat-tab [label]="'listing_details.photos' | translate">
-                <div class="pt-2 pb-2" *ngIf="!images.length">
+                <div class="pt-2 pb-2" *ngIf="!(imageSources && imageSources!.length && images.length && images[images.length - 1])">
                     <div class="ph-item">
                         <div class="ph-col-3">
                             <div class="ph-picture"></div>
@@ -208,7 +203,7 @@
                 <div class="row pt-2 pb-2 listing-images"
                     *ngIf="imageSources && imageSources!.length && images.length && images[images.length - 1]">
                     <div class="col-12">
-                        <swiper #usefulSwiper [config]="config">
+                        <swiper #usefulSwiper [config]="swiperMobileConfig">
                             <div class="swiper-wrapper">
                                 <div *ngFor="let src of imageSources" class="swiper-slide">
                                     <div class="swiper-zoom-container">
@@ -238,7 +233,7 @@
             </mat-tab>
         </mat-tab-group>
 
-        <div class=" listing-body">
+        <div class="listing-body">
             <div class="row pt-2 pb-2">
                 <div class="col-6 pb-1" style="overflow-wrap: anywhere">
                     <mat-icon color="accent" class="d-inline">gite</mat-icon>
