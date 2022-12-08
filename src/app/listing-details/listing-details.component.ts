@@ -74,7 +74,7 @@ export class ListingDetailsComponent implements OnInit {
         zoom: true,
         slidesPerView: 3,
         centeredSlides: true,
-        initialSlide: 2,
+        initialSlide: 1,
         spaceBetween: 16
     };
 
