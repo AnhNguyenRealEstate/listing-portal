@@ -93,12 +93,8 @@ ul.amenities-list-mobile li:before {
 }
 
 .amenity-icon-wrapper {
-    color: rgb(180, 90, 86);
-    mat-icon {
-        transform: scale(1.5);
-    }
-    display: flex;
-    justify-content: center;
+    display: inline;
+    color: colors.$accent-300;
 }
 
 .listing-information {

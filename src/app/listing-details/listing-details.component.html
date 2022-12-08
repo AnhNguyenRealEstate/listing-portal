@@ -83,8 +83,8 @@
 
             <mat-divider></mat-divider>
 
-            <div class="important-infos row d-flex justify-content-center py-3">
-                <div class="col-2 important-information">
+            <div class="important-infos row d-flex justify-content-start py-3">
+                <div class="col-2 important-information">   
                     <div class="ps-1 pt-2 pb-4">
                         <mat-icon color="accent" inline="true">gite</mat-icon>
                     </div>
@@ -407,10 +407,10 @@
 
 <ng-template #listOfAmenitiesDesktop let-amenities="amenities">
     <div class="row">
-        <div *ngFor="let amenity of amenities" class="col-4 pb-4">
+        <div *ngFor="let amenity of amenities" class="col-12 pb-3">
             <ng-container *ngIf="amenity === 'amenities.gym'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon class="">fitness_center</mat-icon>
+                    <mat-icon>fitness_center</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.pool'">
@@ -455,7 +455,7 @@
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.quiet'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>quiet_time</mat-icon>
+                    <mat-icon>dark_mode</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.parking'">
@@ -463,9 +463,9 @@
                     <mat-icon>local_parking</mat-icon>
                 </div>
             </ng-container>
-            <div class="pt-2 d-flex justify-content-center">
+            <span class="ps-3 text-bold">
                 {{amenity | translate}}
-            </div>
+            </span>
         </div>
     </div>
 </ng-template>
