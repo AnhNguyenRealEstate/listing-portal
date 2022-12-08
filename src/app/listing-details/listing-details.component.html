@@ -135,20 +135,21 @@
             </div>
 
             <div class="col-12 pt-2 listing-information">
-                <div *ngIf="listing?.amenities?.length">
-                    <label class="pt-2 pb-1 text-bold">{{ 'listing_upload.amenities' | translate }}</label>
-                    <ul class="amenities-list-desktop">
-                        <li *ngFor="let amenity of listing.amenities">{{ amenity | translate }}</li>
-                    </ul>
+                <div *ngIf="listing?.amenities?.length" class="pb-4">
+                    <label class="pt-2 pb-3 text-bold">{{ 'listing_upload.amenities' | translate }}</label>
+                    <div class="ps-4">
+                        <ng-container [ngTemplateOutlet]="listOfAmenitiesDesktop"
+                            [ngTemplateOutletContext]="{ amenities: listing.amenities }"></ng-container>
+                    </div>
                 </div>
 
-                <div>
-                    <label class="pt-2 pb-1 text-bold">{{ 'listing_details.address' | translate }}</label>
+                <div class="pb-4">
+                    <label class="pt-2 pb-2 text-bold">{{ 'listing_details.address' | translate }}</label>
                     <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
                 </div>
 
                 <div>
-                    <label class="pt-2 pb-1 text-bold">{{ 'listing_details.description' | translate }}</label>
+                    <label class="pt-2 pb-2 text-bold">{{ 'listing_details.description' | translate }}</label>
                     <p *ngIf="listing.description" [innerHtml]="listing.description">
                     </p>
                 </div>
@@ -399,6 +400,71 @@
 
                 <div class="ph-col-4 big"></div>
                 <div class="ph-col-8 big"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #listOfAmenitiesDesktop let-amenities="amenities">
+    <div class="row">
+        <div *ngFor="let amenity of amenities" class="col-4 pb-4">
+            <ng-container *ngIf="amenity === 'amenities.gym'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon class="">fitness_center</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.pool'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>pool</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.conve_stores'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>local_convenience_store</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.malls'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>local_mall</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.groceries'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>shopping_cart</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.schools'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>school</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.hospitals'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>home_health</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.parks'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>nature</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.transit'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>bus_alert</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.quiet'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>quiet_time</mat-icon>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="amenity === 'amenities.parking'">
+                <div class="amenity-icon-wrapper">
+                    <mat-icon>local_parking</mat-icon>
+                </div>
+            </ng-container>
+            <div class="pt-2 d-flex justify-content-center">
+                {{amenity | translate}}
             </div>
         </div>
     </div>
