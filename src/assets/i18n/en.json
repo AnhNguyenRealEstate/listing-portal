@@ -122,7 +122,8 @@
         "photos": "Photos",
         "video": "Video tour",
         "room": "room",
-        "commercial": "Commercial property"
+        "commercial": "Commercial property",
+        "key_information": "Key information"
     },
     "search_bar": {
         "filters": "Filters",

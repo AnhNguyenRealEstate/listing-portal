@@ -94,7 +94,7 @@ ul.amenities-list-mobile li:before {
 
 .amenity-icon-wrapper {
     display: inline;
-    color: colors.$accent-300;
+    color: gray
 }
 
 .listing-information {
@@ -104,5 +104,9 @@ ul.amenities-list-mobile li:before {
 }
 
 .section-label {
-    font-size: 18px;
+    font-size: 22px;
+}
+
+mat-card {
+    border-radius: 12px;
 }

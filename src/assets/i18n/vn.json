@@ -121,7 +121,8 @@
         "photos": "Hình ảnh",
         "video": "Video",
         "room": "phòng",
-        "commercial": "Mặt bằng kinh doanh"
+        "commercial": "Mặt bằng kinh doanh",
+        "key_information": "Tóm tắt"
     },
     "search_bar": {
         "filters": "Sàng lọc chi tiết",

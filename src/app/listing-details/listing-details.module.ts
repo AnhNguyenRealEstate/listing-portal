@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { ListingDetailsNotFound } from './not-found/not-found.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [ListingDetailsComponent, ListingDetailsNotFound],
@@ -28,7 +29,8 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
-        MatTabsModule
+        MatTabsModule,
+        MatCardModule
     ]
 })
 export class ListingDetailsModule { }
