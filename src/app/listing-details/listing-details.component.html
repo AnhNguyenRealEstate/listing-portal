@@ -83,8 +83,8 @@
 
             <mat-divider></mat-divider>
 
-            <div class="important-infos row d-flex justify-content-start py-3">
-                <div class="col-2 important-information">   
+            <div class="important-infos row d-flex justify-content-center py-3">
+                <div class="col-2 important-information">
                     <div class="ps-1 pt-2 pb-4">
                         <mat-icon color="accent" inline="true">gite</mat-icon>
                     </div>
@@ -133,26 +133,30 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-12 pt-2 listing-information">
+        <div class="row">
+            <div class="col-3">
                 <div *ngIf="listing?.amenities?.length" class="pb-4">
-                    <label class="pt-2 pb-3 text-bold">{{ 'listing_upload.amenities' | translate }}</label>
+                    <label class="pt-2 pb-3 text-bold section-label">{{ 'listing_upload.amenities' | translate }}</label>
                     <div class="ps-4">
-                        <ng-container [ngTemplateOutlet]="listOfAmenitiesDesktop"
-                            [ngTemplateOutletContext]="{ amenities: listing.amenities }"></ng-container>
+                        <ng-container [ngTemplateOutlet]="listOfAmenities"
+                            [ngTemplateOutletContext]="{ amenities: listing.amenities, isDesktop: true }"></ng-container>
                     </div>
                 </div>
 
                 <div class="pb-4">
-                    <label class="pt-2 pb-2 text-bold">{{ 'listing_details.address' | translate }}</label>
+                    <label class="pt-2 pb-2 text-bold section-label">{{ 'listing_details.address' | translate }}</label>
                     <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
                 </div>
-
-                <div>
-                    <label class="pt-2 pb-2 text-bold">{{ 'listing_details.description' | translate }}</label>
-                    <p *ngIf="listing.description" [innerHtml]="listing.description">
-                    </p>
-                </div>
+            </div>
+            <div class="col-1" style="display: flex; align-items: center">
+                <mat-divider vertical="true" style="height: 75%;"></mat-divider>
+            </div>
+            <div class="col-8">
+                <label class="pt-2 pb-2 text-bold section-label">{{ 'listing_details.description' | translate }}</label>
+                <p *ngIf="listing.description" [innerHtml]="listing.description">
+                </p>
             </div>
         </div>
     </div>
@@ -232,30 +236,30 @@
 
         <div class="listing-body">
             <div class="row pt-2 pb-2">
-                <div class="col-6 pb-1" style="overflow-wrap: anywhere">
+                <div class="col-6 pb-2" style="overflow-wrap: anywhere">
                     <mat-icon color="accent" class="d-inline">gite</mat-icon>
                     <span class="ps-1 pe-2 text-bold">{{ 'listing_details.category' | translate }}:</span>
                     <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
                     </ng-container>
                     <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
                 </div>
-                <div class="col-6 pb-1">
+                <div class="col-6 pb-2">
                     <mat-icon color="accent">aspect_ratio</mat-icon>
                     <span class="ps-1 pe-2 text-bold">{{ 'listing_details.propertySize' | translate }}
                         (m<sup>2</sup>):</span>
                     {{listing.propertySize}}
                 </div>
-                <div class="col-6 pb-1">
+                <div class="col-6 pb-2">
                     <mat-icon color="accent">bed</mat-icon>
                     <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bedrooms' | translate }}:</span>
                     {{listing.bedrooms}}
                 </div>
-                <div class="col-6 pb-1">
+                <div class="col-6 pb-2">
                     <mat-icon color="accent">bathtub</mat-icon>
                     <span class="ps-1 pe-2 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
                     {{listing.bathrooms}}
                 </div>
-                <div class="col-6 pb-1" *ngIf="listing.view">
+                <div class="col-6 pb-2" *ngIf="listing.view">
                     <mat-icon color="accent">panorama_horizontal_icon</mat-icon>
                     <span class="ps-1 pe-2 text-bold">{{ 'listing_details.view' | translate }}:</span>
                     {{listing.view}}
@@ -265,10 +269,9 @@
             <ng-container *ngIf="listing?.amenities?.length">
                 <mat-divider></mat-divider>
                 <div>
-                    <label class="pt-2 text-bold">{{ 'listing_upload.amenities' | translate }}</label>
-                    <ul class="amenities-list-mobile">
-                        <li *ngFor="let amenity of listing.amenities">{{ amenity | translate }}</li>
-                    </ul>
+                    <label class="py-2 text-bold">{{ 'listing_upload.amenities' | translate }}</label>
+                    <ng-container [ngTemplateOutlet]="listOfAmenities"
+                        [ngTemplateOutletContext]="{amenities: listing.amenities, isDesktop: false}"></ng-container>
                 </div>
             </ng-container>
 
@@ -405,62 +408,62 @@
     </div>
 </ng-template>
 
-<ng-template #listOfAmenitiesDesktop let-amenities="amenities">
+<ng-template #listOfAmenities let-amenities="amenities" let-isDesktop="isDesktop">
     <div class="row">
-        <div *ngFor="let amenity of amenities" class="col-12 pb-3">
+        <div *ngFor="let amenity of amenities" [class.col-12]="isDesktop" [class.col-6]="!isDesktop" class="pb-3">
             <ng-container *ngIf="amenity === 'amenities.gym'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>fitness_center</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">fitness_center</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.pool'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>pool</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">pool</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.conve_stores'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>local_convenience_store</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">local_convenience_store</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.malls'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>local_mall</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">local_mall</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.groceries'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>shopping_cart</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.schools'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>school</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">school</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.hospitals'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>home_health</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">medication_liquid</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.parks'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>nature</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">nature</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.transit'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>bus_alert</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">bus_alert</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.quiet'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>dark_mode</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">dark_mode</mat-icon>
                 </div>
             </ng-container>
             <ng-container *ngIf="amenity === 'amenities.parking'">
                 <div class="amenity-icon-wrapper">
-                    <mat-icon>local_parking</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">local_parking</mat-icon>
                 </div>
             </ng-container>
             <span class="ps-3 text-bold">
