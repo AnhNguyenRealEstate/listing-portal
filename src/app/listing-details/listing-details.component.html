@@ -65,7 +65,7 @@
                             </ng-image-slider>
                         </div>
                         <div *ngIf="!allImagesLoaded" class="col-12 d-flex justify-content-center pt-1">
-                            <button mat-raised-button (click)="getAllImages()">
+                            <button mat-raised-button (click)="getAllImages()" [disabled]="gettingAllImages">
                                 <mat-icon color="accent">photo_library</mat-icon>
                                 {{ 'listing_details.view_all' | translate }}
                             </button>
