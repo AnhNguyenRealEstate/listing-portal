@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, Optional, SecurityContext, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, Optional, Renderer2, SecurityContext, ViewChild } from '@angular/core';
 import { ListingImageFile } from '../listing-search/listing-search.data';
 import { Listing, AMENITIES as ALL_AMENITIES } from "../listing-card/listing-card.data";
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -65,6 +65,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         private sanitizer: DomSanitizer,
         public listingUploadService: ListingUploadService,
         private translate: TranslateService,
+        private renderer: Renderer2,
         @Optional() private dialogRef: MatDialogRef<ListingUploadComponent>,
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
@@ -359,7 +360,15 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         return true;
     }
 
-    closeDialog(){
+    closeDialog() {
         this.dialogRef.close();
+    }
+
+    showImgDeleteBtn(deleteBtn: HTMLElement) {
+        this.renderer.removeStyle(deleteBtn, 'display');
+    }
+
+    removeImgDeleteBtn(deleteBtn: HTMLElement) {
+        this.renderer.setStyle(deleteBtn, 'display', 'none');
     }
 }

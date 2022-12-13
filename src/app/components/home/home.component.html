@@ -68,7 +68,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="featuredListings?.length">
+                <ng-container *ngIf="featuredListings?.length">
                     <div class="featured-listings">
                         <div class="row p-4">
                             <div class="col-12 featured-listings-header ribbon">
@@ -88,7 +88,7 @@
                     </div>
 
                     <app-footer></app-footer>
-                </div>
+                </ng-container>
             </div>
         </section>
     </div>

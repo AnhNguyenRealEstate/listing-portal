@@ -17,7 +17,7 @@
     <form #uploadForm="ngForm">
         <div class="row pt-2">
             <div class="col-12 pb-2">
-                <div class="h5 text-bold">Thông tin cơ bản</div>
+                <div class="h5 text-bold">{{ 'listing_upload.basic_info' | translate }}</div>
             </div>
             <div class="col-3">
                 <mat-form-field color="accent">
@@ -52,14 +52,14 @@
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.bedrooms' | translate }}</mat-label>
                     <input matInput trim="blur" name="bedrooms" type="text" [(ngModel)]="listing.bedrooms"
-                        class="d-inline"  [placeholder]="'listing_upload.bedrooms_placeholder' | translate" required>
+                        class="d-inline" [placeholder]="'listing_upload.bedrooms_placeholder' | translate" required>
                 </mat-form-field>
             </div>
             <div class="col-3">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
                     <input matInput trim="blur" name="bathrooms" type="text" [(ngModel)]="listing.bathrooms"
-                        class="d-inline"  [placeholder]="'listing_upload.bathrooms_placeholder' | translate" required>
+                        class="d-inline" [placeholder]="'listing_upload.bathrooms_placeholder' | translate" required>
                 </mat-form-field>
             </div>
             <div class="col-3">
@@ -93,7 +93,7 @@
 
         <div class="row pt-4">
             <div class="col-12 pb-2">
-                <div class="h5 text-bold">Thông tin quan trọng</div>
+                <div class="h5 text-bold">{{ 'listing_upload.important_info' | translate }}</div>
             </div>
             <div class="col">
                 <mat-form-field color="accent">
@@ -272,20 +272,18 @@
         <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
     </button>
 
-    <div class="pt-2" cdkDropList (cdkDropListDropped)="uploadedMediaDrop($event)">
-        <div *ngFor="let imgSrc of imageSrcs; let i = index;" cdkDrag class="pb-2">
-            <mat-card class="uploaded-media-draggable">
-                <mat-card-content class="d-flex justify-content-between">
-                    <div class="d-inline">
-                        <img [src]="imgSrc" class="listing-image">
-                        <span class="ps-2 pe-2">{{imageFiles[i].file.size/1024 | number : '1.2-2'}} kB</span>
-                    </div>
-                    <button type="button" mat-icon-button [disabled]="compressionInProgress"
-                        (click)="removeUploadedMedia(imgSrc)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-card-content>
-            </mat-card>
-        </div>
+    <div class="d-flex pt-2 listing-images-container" style="overflow: scroll; white-space: nowrap; flex-grow: 1;
+    flex-basis: 0;" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="uploadedMediaDrop($event)">
+        <span class="mx-1 listing-image" cdkDrag *ngFor="let imgSrc of imageSrcs; let i = index;">
+            <img height="200px" width="200px" style="object-fit: cover; border-radius: 16px;" [src]="imgSrc">
+            <button #deleteBtn style="top: auto !important;
+                right: 25px !important;
+                bottom: 85px !important;
+                left: auto !important;
+                position: relative !important;" type="button" mat-mini-fab [disabled]="compressionInProgress"
+                (click)="removeUploadedMedia(imgSrc)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </span>
     </div>
 </ng-template>

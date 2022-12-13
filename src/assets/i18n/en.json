@@ -183,7 +183,9 @@
         "tiktok_link": "TikTok link",
         "amenities": "Notable amenities",
         "select_amenities": "Select amenities...",
-        "upload_images": "Upload images"
+        "upload_images": "Upload images",
+        "basic_info": "Basic information",
+        "important_info": "Important information"
     },
     "login": {
         "page_title": "Login",

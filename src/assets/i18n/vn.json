@@ -182,7 +182,9 @@
         "tiktok_link": "Link TikTok",
         "amenities": "Tiện ích nổi bật",
         "select_amenities": "Chọn tiện ích...",
-        "upload_images": "Hình ảnh"
+        "upload_images": "Hình ảnh",
+        "basic_info": "Thông tin cơ bản",
+        "important_info": "Thông tin quan trọng"
     },
     "login": {
         "page_title": "Đăng nhập",
