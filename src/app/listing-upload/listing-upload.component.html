@@ -253,9 +253,9 @@
     <button type="button" *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
         <mat-icon>upload</mat-icon>
     </button>
-    <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
-        <img height="90px" width="150px" [src]="coverImageSrc">
-        <button type="button" mat-icon-button (click)="removeCoverImage()">
+    <div *ngIf="coverImageSrc" class="mt-2 cover-image-container" style="position: relative">
+        <img style="border-radius: 16px;" width="400px" [src]="coverImageSrc">
+        <button class="img-delete-btn" type="button" mat-mini-fab (click)="removeCoverImage()">
             <mat-icon>delete</mat-icon>
         </button>
     </div>
@@ -275,12 +275,8 @@
     <div class="d-flex pt-2 listing-images-container" style="overflow: scroll; white-space: nowrap; flex-grow: 1;
     flex-basis: 0;" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="uploadedMediaDrop($event)">
         <span class="mx-1 listing-image" cdkDrag *ngFor="let imgSrc of imageSrcs; let i = index;">
-            <img height="200px" width="200px" style="object-fit: cover; border-radius: 16px;" [src]="imgSrc">
-            <button #deleteBtn style="top: auto !important;
-                right: 25px !important;
-                bottom: 85px !important;
-                left: auto !important;
-                position: relative !important;" type="button" mat-mini-fab [disabled]="compressionInProgress"
+            <img height="200px" width="200px" [src]="imgSrc">
+            <button #deleteBtn class="img-delete-btn" type="button" mat-mini-fab [disabled]="compressionInProgress"
                 (click)="removeUploadedMedia(imgSrc)">
                 <mat-icon>delete</mat-icon>
             </button>

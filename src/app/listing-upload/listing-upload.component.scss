@@ -10,6 +10,16 @@
     box-sizing: border-box;
     cursor: move;
     flex-basis: 0;
+    position: relative;
+
+    img {
+        object-fit: cover;
+        border-radius: 16px;
+    }
+}
+
+.cover-image-container {
+    width: fit-content;
 }
 
 .listing-image-group {
@@ -29,14 +39,6 @@
     width: 36px;
 }
 
-.uploaded-media-draggable {
-    width: 50%;
-}
-
-.uploaded-media-draggable:hover {
-    transform: translate3D(0, -1px, 0) scale(1.03);
-}
-
 .close-btn {
     position: absolute;
     top: 1vh;
@@ -53,4 +55,12 @@
 
 .listing-images-container.cdk-drop-list-dragging .listing-image:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.img-delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    font-size: 20px;
 }
