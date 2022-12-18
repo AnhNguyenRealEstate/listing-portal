@@ -165,7 +165,7 @@
                         <div class="col-12">
                             <swiper #usefulSwiper [config]="config">
                                 <div class="swiper-wrapper">
-                                    <div *ngFor="let listing of featuredListings" class="swiper-slide">
+                                    <div *ngFor="let listing of featuredListings" class="swiper-slide p-1">
                                         <listing-card [listing]="listing" (delete)="removeListing(listing)">
                                         </listing-card>
                                     </div>
