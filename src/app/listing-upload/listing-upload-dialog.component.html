@@ -69,7 +69,7 @@
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.bathrooms' | translate }}</mat-label>
                     <input matInput trim="blur" name="bathrooms" type="text" [(ngModel)]="listing.bathrooms"
-                        class="d-inline"  [placeholder]="'listing_upload.bathrooms_placeholder' | translate" required>
+                        class="d-inline" [placeholder]="'listing_upload.bathrooms_placeholder' | translate" required>
                 </mat-form-field>
             </div>
             <div class="col-12">
@@ -240,7 +240,7 @@
             <mat-icon>upload</mat-icon>
         </button>
         <div *ngIf="coverImageSrc" class="pt-2 mat-form-field-wrapper">
-            <img height="90px" width="150px" [src]="coverImageSrc">
+            <img height="90px" width="150px" [src]="coverImageSrc" style="object-fit: cover">
             <button type="submit" mat-icon-button (click)="removeCoverImage()">
                 <mat-icon>delete</mat-icon>
             </button>

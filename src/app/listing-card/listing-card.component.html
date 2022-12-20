@@ -2,7 +2,7 @@
     <section data-nosnippet>
         <mat-card class="mt-1 result-card mat-elevation-z2">
             <div *ngIf="!coverImageUrl" class="ph-picture"></div>
-            <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl">
+            <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl" style="object-fit: cover;">
             <ng-container *ngIf="showControls">
                 <ng-container *ngTemplateOutlet="cardControls"></ng-container>
             </ng-container>

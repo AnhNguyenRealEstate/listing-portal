@@ -90,11 +90,21 @@ ul.amenities-list-mobile li:before {
 ::ng-deep .ng-image-slider,
 ::ng-deep .ng-image-slider .ng-image-slider-container .main {
     height: 50px !important;
+
+    img {
+        object-fit: cover;
+    }
+
+    .selected-image {
+        img {
+            border: 2px solid colors.$accent;
+        }
+    }
 }
 
 .amenity-icon-wrapper {
     display: inline;
-    color: gray
+    color: gray;
 }
 
 .listing-information {
