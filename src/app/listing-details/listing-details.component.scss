@@ -97,8 +97,11 @@ ul.amenities-list-mobile li:before {
     }
 
     .selected-image {
-        transform: translateY(-8px);
-        transition: transform 250ms cubic-bezier(0.215, 0.610, 0.355, 1);
+        transform: translateY(-14px);
+        transition: transform 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
+        img {
+            border: 1px solid gray;
+        }
     }
 }
 
