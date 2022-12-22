@@ -90,6 +90,8 @@ export class AboutUsComponent implements OnInit {
             return;
         }
 
+        await this.aboutUs.subscribeEmailToPromotion(this.email);
+
         this.email = '';
 
         const emailSubmitted = this.translate.instant("about_us.email_submitted");
