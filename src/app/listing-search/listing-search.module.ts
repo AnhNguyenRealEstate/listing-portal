@@ -11,7 +11,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ListingCardModule } from '../listing-card/listing-card.module';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 
 @NgModule({
   declarations: [

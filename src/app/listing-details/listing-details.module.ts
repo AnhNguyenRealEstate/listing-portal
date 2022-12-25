@@ -9,10 +9,10 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterModule } from '../footer/footer.module';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { ListingDetailsNotFound } from './not-found/not-found.component';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 
 @NgModule({
     declarations: [ListingDetailsComponent, ListingDetailsNotFound],
