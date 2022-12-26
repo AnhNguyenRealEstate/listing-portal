@@ -1,12 +1,13 @@
-<a style="text-decoration: none" [href]="listingUrl" target="_blank">
+<a class="listing-card-a-wrapper" [href]="listingUrl" target="_blank">
     <section data-nosnippet>
         <mat-card class="mt-1 result-card mat-elevation-z2">
             <div *ngIf="!coverImageUrl" class="ph-picture"></div>
-            <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl" style="object-fit: cover;">
+            <img mat-card-image *ngIf="coverImageUrl" [src]="coverImageUrl"
+                style="object-fit: cover; aspect-ratio: 16/9;">
             <ng-container *ngIf="showControls">
                 <ng-container *ngTemplateOutlet="cardControls"></ng-container>
             </ng-container>
-            <mat-card-content>
+            <mat-card-content class="py-2 px-3">
                 <div class="row">
                     <div class="col-12 pb-2 text-vertical-align">
                         <span class="text-bold font-medium" *ngIf="listing.price">{{listing.price | currency:

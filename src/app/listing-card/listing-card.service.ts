@@ -6,7 +6,7 @@ import { getApp } from '@angular/fire/app'
 import { Listing } from "./listing-card.data";
 import { FirebaseStorageConsts, FirestoreCollections } from '../shared/globals';
 import { environment } from 'src/environments/environment';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class ListingCardService {

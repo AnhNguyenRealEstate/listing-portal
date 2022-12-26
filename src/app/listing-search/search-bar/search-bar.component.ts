@@ -65,6 +65,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
             this.searchCriteria.propertySize = map.get('propertySize') || '';
 
             this.getListings(this.searchCriteria);
+
+            this.updateFilterDescription();
         }));
     }
 

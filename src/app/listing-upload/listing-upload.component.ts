@@ -1,7 +1,6 @@
 import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, Optional, Renderer2, SecurityContext, ViewChild } from '@angular/core';
 import { ListingImageFile } from '../listing-search/listing-search.data';
 import { Listing, AMENITIES as ALL_AMENITIES } from "../listing-card/listing-card.data";
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { MetadataService } from 'src/app/shared/metadata.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ListingUploadService } from './listing-upload.service';
@@ -9,13 +8,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { AvailableContactChannels } from './listing-upload.data';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgForm } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
-import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'listing-upload',

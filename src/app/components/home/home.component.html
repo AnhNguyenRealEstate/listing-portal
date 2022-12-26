@@ -1,14 +1,16 @@
 <section class="d-none d-md-block home">
     <div class="home-background">
-        <div @searchBarAnim class="row d-flex justify-content-center pt-10 pb-10">
+        <div @searchBarAnim class="row d-flex justify-content-center pt-10 pb-10 search-bar">
             <mat-card class="col-8 backdrop mat-elevation-z3">
                 <mat-card-content>
                     <div class="row d-flex justify-content-center">
                         <mat-form-field color="accent" class="col-3">
                             <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
                             <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose">
-                                <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
-                                <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
+                                <mat-option value="For Rent">{{
+                                    'search_bar.for_rent' | translate }}</mat-option>
+                                <mat-option value="For Sale">{{
+                                    'search_bar.for_sale' | translate }}</mat-option>
                             </mat-select>
                         </mat-form-field>
 
@@ -39,7 +41,7 @@
                             </mat-form-field>
                         </ng-container>
 
-                        <button class="col-2" mat-button (click)="getListings()">
+                        <button class="col-2 mt-3" mat-button (click)="getListings()">
                             <mat-icon>search</mat-icon>
                             <span>{{'home.find' | translate}}</span>
                         </button>
@@ -95,7 +97,7 @@
 </section>
 
 <section class="d-md-none home-background-mobile">
-    <div @searchBarAnim class="ms-2 me-2" style="padding-top: 10vh; min-height: 60vh">
+    <div @searchBarAnim class="ms-2 me-2 search-bar" style="padding-top: 10vh; min-height: 60vh">
         <mat-card class="backdrop">
             <mat-card-content>
                 <div class="row d-flex justify-content-center pt-4 pb-2 rent-or-sale">

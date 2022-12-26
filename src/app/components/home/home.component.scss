@@ -1,5 +1,9 @@
 @use "src/app/styles/colors" as colors;
 
+::ng-deep .search-bar mat-form-field > .mat-mdc-text-field-wrapper {
+    background: transparent !important;
+}
+
 .browse-listing-link {
     color: gray;
     text-decoration: none;
@@ -79,7 +83,7 @@
 .btn-active {
     transform: translateY(-4px);
     span {
-        border-bottom: 10px solid #000;
+        border-bottom: 1px solid #000;
         padding-bottom: 3px;
     }
 }

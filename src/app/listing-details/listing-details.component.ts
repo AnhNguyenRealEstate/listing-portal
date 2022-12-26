@@ -8,10 +8,10 @@ import { SwiperComponent } from 'ngx-useful-swiper';
 import mergeImages from 'merge-images';
 import { CurrencyPipe, DOCUMENT } from '@angular/common';
 import { Listing } from "../listing-card/listing-card.data";
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
 import { SwiperOptions } from 'swiper';
 import { animate, query, style, transition, trigger } from '@angular/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'listing-details',

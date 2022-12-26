@@ -1,7 +1,7 @@
 import { animate, query, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Inquiry } from './about-us.data';
 import { AboutUsService } from './about-us.service';

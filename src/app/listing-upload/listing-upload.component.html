@@ -1,4 +1,4 @@
-<section class="container pt-2 d-none d-lg-block">
+<section class="container p-3 d-none d-lg-block">
     <app-spinner></app-spinner>
     <div class="close-btn">
         <button mat-fab color="default" (click)="closeDialog()">
@@ -120,19 +120,19 @@
                     <mat-label>
                         {{ 'listing_upload.amenities' | translate }}
                     </mat-label>
-                    <mat-chip-list #amenitiesList>
-                        <mat-chip *ngFor="let amenity of amenities"
+                    <mat-chip-grid #amenitiesList>
+                        <mat-chip-row *ngFor="let amenity of amenities"
                             (removed)="uploadForm.form.markAsDirty(); removeAmenity(amenity)">
                             {{ amenity | translate }}
                             <button matChipRemove>
                                 <mat-icon>cancel</mat-icon>
                             </button>
-                        </mat-chip>
+                        </mat-chip-row>
                         <input [placeholder]="'listing_upload.select_amenities' | translate" #amenitiesInput
                             [matChipInputFor]="amenitiesList" [matAutocomplete]="amenitiesAuto"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             (matChipInputTokenEnd)="uploadForm.form.markAsDirty(); addAmenity($event)">
-                    </mat-chip-list>
+                    </mat-chip-grid>
                     <mat-autocomplete #amenitiesAuto="matAutocomplete"
                         (optionSelected)="uploadForm.form.markAsDirty(); selectedAmenity($event)">
                         <mat-option *ngFor="let amenity of allAmenities" [value]="amenity">
@@ -178,14 +178,14 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12">
                 <mat-form-field color="accent">
                     <mat-label>{{ 'listing_upload.tiktok_link' | translate }}</mat-label>
                     <input matInput trim="blur" name="tiktokUrl" type="text" [(ngModel)]="listing.tiktokUrl">
                 </mat-form-field>
             </div>
-        </div>
+        </div> -->
 
         <hr>
 
@@ -225,7 +225,7 @@
             </div>
         </ng-container>
 
-        <div class="row pb-2">
+        <div class="row pt-2 pb-2">
             <div class="col-12 d-flex justify-content-end">
                 <button type="submit" *ngIf="!isEditMode" mat-fab color="default" (click)="publishListing()" [disabled]="!(uploadForm.valid && coverImageFile && imageFiles.length) 
                     || (listingUploadService.inProgress() | async)">

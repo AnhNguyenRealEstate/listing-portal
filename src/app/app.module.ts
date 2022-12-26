@@ -22,7 +22,7 @@ import { SharedModule } from './shared/shared.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ListingCardModule } from './listing-card/listing-card.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
 

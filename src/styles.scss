@@ -28,3 +28,11 @@ mat-spinner {
     width: initial !important;
     overflow-y: inherit !important;
 }
+
+span, div {
+    letter-spacing: normal !important;
+}
+
+.mat-mdc-menu-content {
+    background-color: white;
+}

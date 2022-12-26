@@ -251,7 +251,7 @@
                         <span class="ps-2 text-bold">{{ 'listing_details.key_information' | translate }}</span>
                     </mat-card-title>
                 </mat-card-header>
-                <mat-card-content>
+                <mat-card-content class="pt-1">
                     <div class="row">
                         <div class="col-6 py-1" style="overflow-wrap: anywhere">
                             <mat-icon color="accent" class="d-inline">gite</mat-icon>
@@ -295,7 +295,7 @@
                             <span class="ps-3 text-bold">{{ 'listing_upload.amenities' | translate }}</span>
                         </mat-card-title>
                     </mat-card-header>
-                    <mat-card-content>
+                    <mat-card-content class="pt-1">
                         <ng-container [ngTemplateOutlet]="listOfAmenities"
                             [ngTemplateOutletContext]="{amenities: listing.amenities, isDesktop: false}"></ng-container>
                     </mat-card-content>
@@ -325,7 +325,7 @@
                         <span class="ps-3 text-bold">{{ 'listing_details.description' | translate }}</span>
                     </mat-card-title>
                 </mat-card-header>
-                <mat-card-content>
+                <mat-card-content class="pt-1">
                     <p *ngIf="listing.description" [innerHtml]="listing.description"></p>
                 </mat-card-content>
             </mat-card>
@@ -338,7 +338,7 @@
                         <span class="ps-3 text-bold">{{ 'listing_details.contact' | translate }}</span>
                     </mat-card-title>
                 </mat-card-header>
-                <mat-card-content>
+                <mat-card-content class="pt-1">
                     <div class="pb-2">
                         <a mat-raised-button [href]="contactNumberUrl" style="border-radius: 35px">
                             <mat-icon color="accent">phone_in_talk</mat-icon>

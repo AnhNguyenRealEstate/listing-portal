@@ -4,12 +4,12 @@ import { ListingUploadDialogComponent } from './listing-upload-dialog.component'
 import { ListingUploadComponent } from './listing-upload.component';
 import { RTEditorModule } from '../rich-text-editor/rich-text-editor.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from '../shared/shared.module';
-import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [

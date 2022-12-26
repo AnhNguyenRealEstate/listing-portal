@@ -1,6 +1,6 @@
 import { Component, createNgModule, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -78,8 +78,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.dialog.open(listingUploadDialogComponent, config);
     }
 
-    useLanguage(event: any) {
-        this.translate.use(this.lang);
+    useLanguage(lang: string) {
+        this.translate.use(lang);
+        this.lang = lang;
         localStorage.setItem('lang', this.lang);
     }
 
