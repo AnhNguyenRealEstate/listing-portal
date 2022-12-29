@@ -3,7 +3,7 @@
         <div class="col-12">
             <mat-form-field color="accent">
                 <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
-                <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose">
+                <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose" (ngModelChange)="updatePriceSlider()">
                     <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
                     <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
                 </mat-select>
@@ -67,31 +67,54 @@
                             <mat-option value='3+'>3+</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field color="accent" class="col-6">
-                        <mat-label>
-                            {{ 'search_bar.min_price' | translate }}
-                            (<span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' |
-                                translate
-                                }}</span>
-                            <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' |
-                                translate
-                                }}</span>)
-                        </mat-label>
-                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
-                            id="minPrice">
-                    </mat-form-field>
-                    <mat-form-field color="accent" [floatLabel]="'always'" class="col-6">
-                        <mat-label>{{ 'search_bar.max_price' | translate }}
-                            (<span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' |
-                                translate
-                                }}</span>
-                            <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' |
-                                translate
-                                }}</span>)
-                        </mat-label>
-                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
-                            id="maxPrice">
-                    </mat-form-field>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between row">
+                            <div class="col-6 d-flex justify-content-start">
+                                <div>
+                                    <div class="text-bold">
+                                        {{ 'search_bar.min_price' | translate }}
+                                    </div>
+                                    <div style="color: gray">
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'"
+                                            class="pe-1">{{searchCriteria.minPrice}}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'"
+                                            class="pe-1">{{searchCriteria.minPrice | convertNumberToVND}}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' |
+                                            translate
+                                            }}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong'
+                                            |
+                                            translate
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end">
+                                <div>
+                                    <div class="text-bold">{{ 'search_bar.max_price' | translate }}</div>
+                                    <div style="color: gray">
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'" class="pe-1">
+                                            {{searchCriteria.maxPrice}}
+                                        </span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'" class="pe-1">
+                                            {{searchCriteria.maxPrice! | convertNumberToVND}}
+                                        </span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'">
+                                            {{ 'search_bar.us_dollar' | translate }}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'">
+                                            {{ 'search_bar.vietnam_dong' | translate }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-slider style="width: 100%" min="0" [max]="priceSliderMax" [step]="priceSliderStepSize">
+                            <input [(ngModel)]="searchCriteria.minPrice" (ngModelChange)="updateFilterDescription()"
+                                matSliderStartThumb>
+                            <input [(ngModel)]="searchCriteria.maxPrice" (ngModelChange)="updateFilterDescription()"
+                                matSliderEndThumb>
+                        </mat-slider>
+                    </div>
                     <button mat-button class="col-12" (click)="clearFilter()">{{ 'search_bar.clear' | translate
                         }}</button>
                 </div>

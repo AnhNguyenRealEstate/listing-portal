@@ -12,13 +12,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ListingCardModule } from '../listing-card/listing-card.module';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { MatMenuModule } from '@angular/material/menu';
+import { NumberToVNDPipe } from '../shared/custom-pipes';
 
 @NgModule({
   declarations: [
     SearchBarComponent,
     ListingSearchComponent,
     SearchResultsComponent,
-    ListingLocationComponent
+    ListingLocationComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +32,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatExpansionModule,
     MatMenuModule,
     ListingCardModule,
-    NgxPageScrollCoreModule
+    NgxPageScrollCoreModule,
+    NumberToVNDPipe
   ]
 })
 export class ListingSearchModule { }

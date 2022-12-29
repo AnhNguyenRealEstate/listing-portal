@@ -38,6 +38,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     resultCount!: number;
 
+    PRICE_SLIDER_MAX_BUY_PRICE: number = 100000000000;
+    PRICE_SLIDER_MAX_RENT_PRICE: number = 9999;
+    PRICE_SLIDER_RENT_STEP_SIZE: number = 100;
+    PRICE_SLIDER_BUY_STEP_SIZE: number = 1000000000;
+    priceSliderMax: number = 9999;
+    priceSliderStepSize: number = 100;
+
     constructor(
         public listingSearchService: ListingSearchService,
         private metadata: MetadataService,
@@ -63,6 +70,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
             this.searchCriteria.purpose = map.get('purpose') as 'For Rent' | 'For Sale' || 'For Rent';
             this.searchCriteria.category = map.get('category') || '';
             this.searchCriteria.propertySize = map.get('propertySize') || '';
+
+            this.updatePriceSlider();
 
             this.getListings(this.searchCriteria);
 
@@ -152,5 +161,18 @@ export class SearchBarComponent implements OnInit, OnDestroy {
                 bathrooms,
                 priceDescription
             ].filter(criterion => criterion?.length).join(', ')
+    }
+
+    updatePriceSlider() {
+        this.priceSliderMax =
+            this.searchCriteria.purpose === 'For Rent' ?
+                this.PRICE_SLIDER_MAX_RENT_PRICE :
+                this.PRICE_SLIDER_MAX_BUY_PRICE
+
+        this.priceSliderStepSize = this.searchCriteria.purpose === 'For Rent' ?
+            this.PRICE_SLIDER_RENT_STEP_SIZE :
+            this.PRICE_SLIDER_BUY_STEP_SIZE
+
+        this.searchCriteria.maxPrice = this.priceSliderMax
     }
 }

@@ -1,6 +1,9 @@
 {
     "app_title": "Bất Động Sản Anh Nguyễn",
-    "generics.any": "Bất kỳ",
+    "generics": {
+        "any": "Bất kỳ",
+        "billion": "tỷ"
+    },
     "property_category": {
         "apartment": "Căn hộ",
         "villa": "Biệt thự",

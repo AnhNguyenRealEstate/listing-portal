@@ -1,6 +1,9 @@
 {
     "app_title": "Anh Nguyen Real Estate",
-    "generics.any": "Any",
+    "generics": {
+        "any": "Any",
+        "billion": "billion"
+    },
     "property_category": {
         "apartment": "Apartment",
         "villa": "Villa",
