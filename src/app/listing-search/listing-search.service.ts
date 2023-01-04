@@ -52,7 +52,7 @@ export class ListingSearchService {
             this.currentSearchCriteria = newSearchCriteria;
             this.currentQuery = this.criteriaToQuery(
                 collection(this.firestore, FirestoreCollections.listings),
-                newSearchCriteria,
+                newSearchCriteria
             );
             this.querySnapshot = await getDocs(
                 this.currentQuery
@@ -203,7 +203,8 @@ export class ListingSearchService {
 
         this.lastResultOfCurrentPagination = docs[docs.length - 1];
 
-        for (const doc of docs) {
+        for (let i = 0; i < docs.length; i++) {
+            const doc = docs[i];
             const listing = doc.data() as Listing;
             const listingPassesCriteria = this.applyRangedQueries(listing, this.currentSearchCriteria);
             if (listingPassesCriteria) {
