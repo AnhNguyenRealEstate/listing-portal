@@ -8,8 +8,8 @@ export const routes: Routes = [
         component: ProjectShowcaseComponent
     },
     {
-        path: 'project/:projectId',
-        loadChildren: () => import('src/app/projects/project/project.module').then(mod => mod.ProjectModule)
+        path: 'details/:projectId',
+        loadChildren: () => import('src/app/projects/project-details/project-details.module').then(mod => mod.ProjectDetailsModule)
     },
     {
         path: '**',

@@ -11,7 +11,7 @@ const routes: Routes = [
         path: 'details/:listingId',
         loadChildren: () => import('src/app/listing-details/listing-details.module').then(mod => mod.ListingDetailsModule)
     },
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: '/listings' }
 ];
 
 @NgModule({

@@ -2,18 +2,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../shared/shared.module';
-import { ProjectRoutingModule } from './project-routing.module';
 
-import { ProjectComponent } from './project.component';
+import { ProjectCardComponent } from './project-card.component';
 
 @NgModule({
     imports: [
         CommonModule,
         TranslateModule.forChild({ extend: true }),
-        SharedModule,
-        ProjectRoutingModule
+        SharedModule
     ],
-    exports: [ProjectComponent],
-    declarations: [ProjectComponent]
+    exports: [ProjectCardComponent],
+    declarations: [ProjectCardComponent]
 })
 export class ProjectModule { }

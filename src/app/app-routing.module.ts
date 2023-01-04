@@ -15,6 +15,11 @@ const routes: Routes = [
     data: { title: 'layout.listings' }
   },
   {
+    path: 'projects',
+    loadChildren: () => import('./projects/project-showcase.module').then(mod => mod.ProjectShowcaseModule),
+    data: { title: 'layout.projects' }
+  },
+  {
     path: 'about-us',
     loadChildren: () => import('./about-us/about-us.module').then(mod => mod.AboutUsModule),
     data: { title: 'layout.about_us' }
