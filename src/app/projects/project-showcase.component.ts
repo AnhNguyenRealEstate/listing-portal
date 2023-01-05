@@ -1,12 +1,81 @@
 import { Component, OnInit } from '@angular/core';
+import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { Router } from '@angular/router';
+import { Project } from './project-card/project-card.data';
+import { ProjectShowcaseService } from './project-showcase.service';
 
 @Component({
     selector: 'project-showcase',
-    templateUrl: './project-showcase.component.html'
+    templateUrl: './project-showcase.component.html',
+    styleUrls: ['./project-showcase.component.scss']
 })
 
 export class ProjectShowcaseComponent implements OnInit {
-    constructor() { }
 
-    ngOnInit() { }
+    projects: Project[] = []
+    projectCoverImgUrls: string[] = []
+
+    currentProject: Project = {}
+    currentProjectIdx: number = 0
+    currentProjectCoverImgUrl: string = ''
+
+    constructor(
+        private projectShowcase: ProjectShowcaseService,
+        private storage: Storage,
+        private router: Router
+    ) { }
+
+    async ngOnInit() {
+        //this.projects = await this.projectShowcase.getProjectInfos()
+        this.projects = this.projectShowcase.generateMockProjects()
+
+        for (let i = 0; i < this.projects.length; i++) {
+            this.projectCoverImgUrls.push(await this.getCoverPhotoUrl(this.projects[i].coverImagePath!))
+        }
+
+        if (this.projects.length)
+            this.setCurrentProject(this.projects[0])
+    }
+
+    viewProject(id: string) {
+        this.setCurrentProject(this.projects.find(project => project.id === id)!)
+    }
+
+    setCurrentProject(project: Project) {
+        this.currentProject = project
+
+        // getDownloadURL(ref(this.storage, this.currentProject.coverImagePath)).then(url => {
+        //     this.currentProjectCoverImgUrl = `url("${url}")`
+        // })
+
+        this.currentProjectCoverImgUrl = `url("https://picsum.photos/1920/1080")`
+    }
+
+    async getCoverPhotoUrl(coverImgPath: string) {
+        //const url = await getDownloadURL(ref(this.storage, coverImgPath))
+        const url = 'https://picsum.photos/1920/1080'
+        return `url("${url}")`
+    }
+
+    viewProjectDetails(id: string) {
+        this.router.navigateByUrl(`/projects/details/${id}`)
+    }
+
+    scrollLeft() {
+        if (this.currentProjectIdx === 0) {
+            return;
+        }
+
+        this.setCurrentProject(this.projects[this.currentProjectIdx - 1])
+        this.currentProjectIdx -= 1
+    }
+
+    scrollRight() {
+        if (this.currentProjectIdx === this.projects.length - 1) {
+            return;
+        }
+
+        this.setCurrentProject(this.projects[this.currentProjectIdx + 1])
+        this.currentProjectIdx += 1
+    }
 }

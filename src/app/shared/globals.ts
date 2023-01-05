@@ -1,12 +1,14 @@
 export const FirestoreCollections = Object.freeze({
     metadata: 'app-data',
     listings: 'listings',
+    projects: 'projects',
     inquiries: 'inquiries',
     promotionSubscriberEmails: 'promotion-user-emails'
 });
 
 export const FirebaseStorageConsts = Object.freeze({
     listings: 'listings',
+    projects: 'projects',
     listingImgsVideos: 'images-videos',
     coverImage: 'cover-image'
 });

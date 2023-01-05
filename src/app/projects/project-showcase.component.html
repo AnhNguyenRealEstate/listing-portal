@@ -1,0 +1,51 @@
+<div class="project-showcase-page mt-2 mx-2">
+    <div class="project-info background-image" [style.background-image]="currentProjectCoverImgUrl"
+        *ngIf="projects.length">
+        <ng-container [ngTemplateOutlet]="currentProjectTpl" [ngTemplateOutletContext]="{
+            currentProject: currentProject
+        }"></ng-container>
+    </div>
+
+    <div class="other-projects">
+        <div class="project-info-wrapper" *ngFor="let project of projects | slice: currentProjectIdx; let i = index">
+            <ng-container *ngIf="i != 0" [ngTemplateOutlet]="otherProjectTpl"
+                [ngTemplateOutletContext]="{ otherProject: project, imgUrl: projectCoverImgUrls[i]}">
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" mat-icon-button [disabled]="currentProjectIdx === 0" (click)="scrollLeft()">
+            <mat-icon color="accent">arrow_back</mat-icon>
+        </button>
+        <button class="nav-btn ms-2" mat-icon-button [disabled]="currentProjectIdx === projects.length - 1"
+            (click)="scrollRight()">
+            <mat-icon color="accent">arrow_forward</mat-icon>
+        </button>
+    </div>
+</div>
+
+<ng-template #currentProjectTpl let-currentProject="currentProject">
+    <div *ngIf="currentProject?.name">
+        <div class="h1 project-name blur-background">
+            {{currentProject.name}}
+        </div>
+
+        <div class="project-description blur-background">
+            {{currentProject.description}}
+        </div>
+        <button mat-button color="accent" class="view-more blur-background" (click)="viewProjectDetails(currentProject.id!)">
+            <mat-icon>arrow_right_alt</mat-icon>
+            <span>View more</span>
+        </button>
+
+    </div>
+</ng-template>
+
+<ng-template #otherProjectTpl let-otherProject="otherProject" let-projectCoverImgUrl="imgUrl">
+    <div class="project-info">
+        <div class="background-image" [style.background-image]="projectCoverImgUrl">
+        </div>
+        <div class="pt-2">{{otherProject.name}}</div>
+    </div>
+</ng-template>
