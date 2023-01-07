@@ -1,0 +1,322 @@
+<section *ngIf="mode === 'desktop'" class="pb-3">
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
+                <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose" (ngModelChange)="updatePriceSlider()">
+                    <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
+                    <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-12">
+            <mat-expansion-panel [(expanded)]="panelOpenState">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span>{{ 'search_bar.filters' | translate }}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row">
+                    <mat-form-field color="accent" class="col-12">
+                        <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
+                        <mat-select id="category" [(ngModel)]="searchCriteria.category">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}</mat-option>
+                            <mat-option value="Villa">{{ 'property_category.villa' | translate }}</mat-option>
+                            <mat-option value="Townhouse">{{ 'property_category.townhouse' | translate }}</mat-option>
+                            <mat-option value="Commercial">{{ 'property_category.commercial' | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field color="accent" class="col-6">
+                        <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
+                        <mat-select id="locations" [(ngModel)]="searchCriteria.location">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option *ngFor="let loc of locations " value="{{loc}}">{{loc}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field color="accent" class="col-6">
+                        <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
+                        <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">
+                                {{type.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field color="accent" class="col-6">
+                        <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
+                        <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option value='1'>1</mat-option>
+                            <mat-option value='2'>2</mat-option>
+                            <mat-option value='3'>3</mat-option>
+                            <mat-option value='3+'>3+</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field color="accent" class="col-6">
+                        <mat-label>{{ 'search_bar.bathrooms' | translate }}</mat-label>
+                        <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option value='1'>1</mat-option>
+                            <mat-option value='2'>2</mat-option>
+                            <mat-option value='3'>3</mat-option>
+                            <mat-option value='3+'>3+</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between row">
+                            <div class="col-6 d-flex justify-content-start">
+                                <div>
+                                    <div class="text-bold">
+                                        {{ 'search_bar.min_price' | translate }}
+                                    </div>
+                                    <div style="color: gray">
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'"
+                                            class="pe-1">{{searchCriteria.minPrice}}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'"
+                                            class="pe-1">{{searchCriteria.minPrice | convertNumberToVND}}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' |
+                                            translate
+                                            }}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong'
+                                            |
+                                            translate
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end">
+                                <div>
+                                    <div class="text-bold">{{ 'search_bar.max_price' | translate }}</div>
+                                    <div style="color: gray">
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'" class="pe-1">
+                                            {{searchCriteria.maxPrice}}
+                                        </span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'" class="pe-1">
+                                            {{searchCriteria.maxPrice! | convertNumberToVND}}
+                                        </span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Rent'">
+                                            {{ 'search_bar.us_dollar' | translate }}</span>
+                                        <span *ngIf="searchCriteria.purpose === 'For Sale'">
+                                            {{ 'search_bar.vietnam_dong' | translate }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-slider style="width: 100%" min="0" [max]="priceSliderMax" [step]="priceSliderStepSize">
+                            <input [(ngModel)]="searchCriteria.minPrice" (ngModelChange)="updateFilterDescription()"
+                                matSliderStartThumb>
+                            <input [(ngModel)]="searchCriteria.maxPrice" (ngModelChange)="updateFilterDescription()"
+                                matSliderEndThumb>
+                        </mat-slider>
+                    </div>
+                    <button mat-button class="col-12" (click)="clearFilter()">{{ 'search_bar.clear' | translate
+                        }}</button>
+                </div>
+            </mat-expansion-panel>
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-12 d-flex justify-content-end align-items-center">
+            <div class="me-2">
+                <button mat-button [matMenuTriggerFor]="orderByMenu">
+                    <mat-icon>sort</mat-icon>
+                    <span class="text-small" style="font-weight:normal">{{ 'search_bar.order_by' | translate }}</span>
+                </button>
+                <mat-menu #orderByMenu="matMenu">
+                    <button mat-menu-item (click)="searchCriteria.orderBy = 'Most Recent'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Most Recent'">{{ 'search_bar.most_recent' |
+                            translate }}</span>
+                    </button>
+                    <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Least Recent'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Least Recent'">{{ 'search_bar.least_recent'
+                            |
+                            translate }}</span>
+                    </button>
+                    <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Most Affordable'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Most Affordable'">{{
+                            'search_bar.most_affordable' | translate }}</span>
+                    </button>
+                    <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Least Affordable'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Least Affordable'">{{
+                            'search_bar.least_affordable' | translate }}</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <button mat-raised-button color="accent" (click)="getListings(searchCriteria)"
+                [disabled]="listingSearchService.searchInProgress() | async">
+                <span>{{ 'search_bar.get_listings' | translate }}</span>
+            </button>
+        </div>
+    </div>
+    <div class="row" *ngIf="resultCount > 0">
+        <div class="col-12 d-flex justify-content-end">
+            <i>{{ 'search_bar.found_x_results' | translate:
+                {resultCount:
+                resultCount} }}</i>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="mode === 'mobile'" class="pt-2">
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field color="accent">
+                <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
+                <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose">
+                    <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
+                    <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-9">
+            <mat-expansion-panel [(expanded)]="panelOpenState">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>filter_alt</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <ng-container *ngIf="!(searchCriteria.category
+                        || searchCriteria.location 
+                        || searchCriteria.propertySize
+                        || searchCriteria.bedrooms
+                        || searchCriteria.bathrooms 
+                        || searchCriteria.minPrice 
+                        || searchCriteria.maxPrice); else selectedCriteria">
+                            {{ 'search_bar.filters' | translate }}
+                        </ng-container>
+                        <ng-template #selectedCriteria>
+                            <div class="selected-criteria-description" [innerHtml]="filterDescription"></div>
+                        </ng-template>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row">
+                    <mat-form-field color="accent">
+                        <mat-label>{{ 'search_bar.category' | translate }}</mat-label>
+                        <mat-select id="category" [(ngModel)]="searchCriteria.category"
+                            (ngModelChange)="updateFilterDescription()">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option value="Apartment">{{ 'property_category.apartment' | translate }}</mat-option>
+                            <mat-option value="Villa">{{ 'property_category.villa' | translate }}</mat-option>
+                            <mat-option value="Townhouse">{{ 'property_category.townhouse' | translate }}</mat-option>
+                            <mat-option value="Commercial">{{ 'property_category.commercial' | translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field color="accent">
+                        <mat-label>{{ 'search_bar.location' | translate }}</mat-label>
+                        <mat-select id="locations" [(ngModel)]="searchCriteria.location"
+                            (ngModelChange)="updateFilterDescription()">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option *ngFor="let loc of locations " value="{{loc}}">{{loc}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field color="accent">
+                        <mat-label>{{ 'search_bar.property_sizes' | translate }} (m<sup>2</sup>)</mat-label>
+                        <mat-select id="propertySizes" [(ngModel)]="searchCriteria.propertySize"
+                            (ngModelChange)="updateFilterDescription()">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option *ngFor="let type of propertySizes | keyvalue" value="{{type.key}}">
+                                {{type.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-6" color="accent">
+                        <mat-label>{{ 'search_bar.bedrooms' | translate }}</mat-label>
+                        <mat-select id="bedrooms" [(ngModel)]="searchCriteria.bedrooms"
+                            (ngModelChange)="updateFilterDescription()">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option value='1'>1</mat-option>
+                            <mat-option value='2'>2</mat-option>
+                            <mat-option value='3'>3</mat-option>
+                            <mat-option value='3+'>3+</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-6" color="accent">
+                        <mat-label>{{ 'search_bar.bathrooms' | translate }}</mat-label>
+                        <mat-select id="bathrooms" [(ngModel)]="searchCriteria.bathrooms"
+                            (ngModelChange)="updateFilterDescription()">
+                            <mat-option value=''>{{ 'generics.any' | translate }}</mat-option>
+                            <mat-option value='1'>1</mat-option>
+                            <mat-option value='2'>2</mat-option>
+                            <mat-option value='3'>3</mat-option>
+                            <mat-option value='3+'>3+</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-6" color="accent">
+                        <mat-label>
+                            {{ 'search_bar.min_price' | translate }}
+                            (<span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' | translate
+                                }}</span>
+                            <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
+                                }}</span>)
+                        </mat-label>
+                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.minPrice" class="d-inline"
+                            id="minPrice" (ngModelChange)="updateFilterDescription()">
+                    </mat-form-field>
+                    <mat-form-field class="col-6" color="accent" [floatLabel]="'always'">
+                        <mat-label>{{ 'search_bar.max_price' | translate }}
+                            (<span *ngIf="searchCriteria.purpose === 'For Rent'">{{ 'search_bar.us_dollar' | translate
+                                }}</span>
+                            <span *ngIf="searchCriteria.purpose === 'For Sale'">{{ 'search_bar.vietnam_dong' | translate
+                                }}</span>)
+                        </mat-label>
+                        <input matInput trim="blur" type="number" [(ngModel)]="searchCriteria.maxPrice" class="d-inline"
+                            id="maxPrice" (ngModelChange)="updateFilterDescription()">
+                    </mat-form-field>
+                    <button mat-button class="col-12" (click)="clearFilter()">{{ 'search_bar.clear' | translate
+                        }}</button>
+                </div>
+            </mat-expansion-panel>
+        </div>
+        <div class="col-3 d-flex align-items-center">
+            <button mat-raised-button color="accent" (click)="getListings(searchCriteria)"
+                [disabled]="listingSearchService.searchInProgress() | async">
+                <span>{{ 'search_bar.get_listings' | translate }}</span>
+            </button>
+        </div>
+        <div class="col-12 pt-3 d-flex align-items-center justify-content-between">
+            <div class="ps-2 d-inline">
+                <i *ngIf="resultCount > 0">{{ 'search_bar.found_x_results' | translate:
+                    {resultCount:
+                    resultCount} }}</i>
+            </div>
+            <div class="col-3 d-flex justify-content-end">
+                <button mat-button [matMenuTriggerFor]="orderByMenu">
+                    <mat-icon>sort</mat-icon>
+                    <span class="text-small" style="font-weight:normal">{{ 'search_bar.order_by' | translate }}</span>
+                </button>
+                <mat-menu #orderByMenu="matMenu">
+                    <button mat-menu-item (click)="searchCriteria.orderBy = 'Most Recent'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Most Recent'">{{ 'search_bar.most_recent' |
+                            translate }}</span>
+                    </button>
+                    <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Least Recent'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Least Recent'">{{ 'search_bar.least_recent'
+                            |
+                            translate }}</span>
+                    </button>
+                    <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Most Affordable'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Most Affordable'">{{
+                            'search_bar.most_affordable' | translate }}</span>
+                    </button>
+                    <button mat-menu-item
+                        (click)="searchCriteria.orderBy = 'Least Affordable'; getListings(searchCriteria)">
+                        <span [class.text-bold]="searchCriteria.orderBy === 'Least Affordable'">{{
+                            'search_bar.least_affordable' | translate }}</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+</section>

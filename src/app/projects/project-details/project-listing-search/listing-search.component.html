@@ -1,0 +1,22 @@
+<section #desktopSearchView class="container-flex pt-2 ms-4 me-4 d-none d-lg-block listing-search-desktop-section">
+    <div class="row">
+        <div class="col-4 search-bar-wrapper">
+            <search-bar [projectId]="projectId" [mode]="'desktop'"></search-bar>
+        </div>
+        <div class="col-8">
+            <search-results [mode]="'desktop'"></search-results>
+        </div>
+    </div>
+</section>
+
+<section #mobileSearchView class="container pt-2 py-2 d-lg-none listing-search-mobile-section">
+    <search-bar [projectId]="projectId" [mode]="'mobile'"></search-bar>
+    <mat-divider class="pb-1"></mat-divider>
+    <search-results [mode]="'mobile'"></search-results>
+
+    <div class="float-controls-mobile d-sm-none">
+        <button mat-mini-fab (click)="scrollTop()">
+            <mat-icon color="accent">keyboard_arrow_up</mat-icon>
+        </button>
+    </div>
+</section>

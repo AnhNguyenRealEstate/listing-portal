@@ -15,6 +15,7 @@ import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule, MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ListingCardComponent],
@@ -30,7 +31,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatMenuModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    ReactiveFormsModule
   ],
   exports: [ListingCardComponent],
   providers: [

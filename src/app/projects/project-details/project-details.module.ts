@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ProjectDetailsRoutingModule } from './project-details-routing.module';
 
 import { ProjectDetailsComponent } from './project-details.component';
+import { ProjectListingSearchModule } from './project-listing-search/listing-search.module';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { ProjectDetailsComponent } from './project-details.component';
         TranslateModule.forChild({
             extend: true
         }),
-        ListingCardModule
+        ListingCardModule,
+        ProjectListingSearchModule
     ],
     exports: [ProjectDetailsComponent],
     declarations: [ProjectDetailsComponent],

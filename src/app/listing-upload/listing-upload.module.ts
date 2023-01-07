@@ -10,6 +10,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from '../shared/shared.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { MatChipsModule } from '@angular/material/chips';
     DragDropModule,
     MatBadgeModule,
     MatAutocompleteModule,
-    MatChipsModule
+    MatChipsModule,
+    MatStepperModule,
+    ReactiveFormsModule
   ],
   exports: [
     ListingUploadComponent,

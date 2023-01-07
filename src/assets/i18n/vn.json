@@ -70,12 +70,13 @@
         "by_category": "Phân loại",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
-        "english": "Tiếng Anh 🇬🇧",
-        "vietnamese": "Tiếng Việt 🇻🇳",
+        "english": "🇬🇧 Tiếng Anh",
+        "vietnamese": "🇻🇳 Tiếng Việt",
         "purpose": "Mục đích",
         "for_rent": "Thuê",
         "for_sale": "Mua/bán",
-        "projects": "Dự án"
+        "projects": "Dự án",
+        "view_all_projects": "Xem toàn bộ"
     },
     "listing_edit": {
         "delete_msg": "Đã xoá sản phẩm 🗑",

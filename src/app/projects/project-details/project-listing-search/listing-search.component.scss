@@ -1,0 +1,62 @@
+@use "src/app/styles/colors" as colors;
+
+.search-results-desktop {
+  padding-bottom: 20px;
+}
+
+.float-search-controls-desktop {
+  position: fixed !important;
+  width: 30vw !important;
+  button {
+    background-color: white !important;
+  }
+  overflow-y: scroll;
+}
+
+.float-controls-mobile {
+  top: auto !important;
+  right: 20px !important;
+  bottom: 55px !important;
+  left: auto !important;
+  position: fixed !important;
+  button {
+    background-color: white !important;
+  }
+}
+
+.listing-search-desktop-section,
+.listing-search-mobile-section {
+  height: fit-content;
+  min-height: 100vh;
+}
+
+.mat-dialog-container {
+  background-color: white;
+}
+
+.sticky-criteria-panel {
+  position: sticky !important;
+  position: -webkit-sticky !important; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  background: white;
+  z-index: 1;
+  box-shadow: 0px 0px 1px 0px !important;
+  border-radius: 15px !important;
+  display: block; /* Need this on a component for sticky to work */
+}
+
+.no-result-icon {
+  color: colors.$accent-100;
+  font: 200px/1.25 Google Sans, Helvetica Neue, sans-serif;
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
+.result-card-wrapper:hover {
+  transform: translate3D(0, -1px, 0) scale(1.02);
+  transition: all 250ms ease-out;
+}
+
+.search-bar-wrapper {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}

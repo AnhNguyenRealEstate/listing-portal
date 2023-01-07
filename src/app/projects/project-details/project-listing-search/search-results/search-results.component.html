@@ -1,0 +1,72 @@
+<ng-container *ngIf="mode === 'desktop'">
+    <section>
+        <div class="search-results-desktop row">
+            <div class="col-12">
+                <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
+            </div>
+
+            <ng-container *ngIf="!(listingSearchService.searchInProgress() | async)">
+                <div *ngIf="searchResults.length === 0">
+                    <div class="d-flex justify-content-center no-result-icon">
+                        <mat-icon [inline]="true">search_off</mat-icon>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        {{ 'search_results.no_results' | translate }}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div [@searchResultsAnim]="searchResults.length" class="row">
+                        <div *ngFor="let result of searchResults" class="col-4 pb-3 result-card-wrapper">
+                            <listing-card [listing]="result" (delete)="removeListing(result)">
+                            </listing-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-center" *ngIf="searchResults.length && !noMoreToLoad">
+                    <button mat-raised-button [disabled]="isLoadingMore" (click)="loadMore()">
+                        <mat-icon color="accent" *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <span class="ps-2">{{ 'search_results.view_more' | translate }}</span>
+                        <div class="d-inline">
+                            <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
+                        </div>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</ng-container>
+
+<ng-container *ngIf="mode === 'mobile'">
+    <section class="container-flex ps-2 pe-2">
+        <div class="row">
+            <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
+
+            <ng-container *ngIf="!(listingSearchService.searchInProgress() | async)">
+                <div *ngIf="searchResults.length === 0" style="height: 70vh">
+                    <div class="d-flex justify-content-center no-result-icon">
+                        <mat-icon [inline]="true">search_off</mat-icon>
+                    </div>
+                    <div class="d-flex justify-content-center" style="font-size: larger">
+                        {{ 'search_results.no_results' | translate }}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row" [@searchResultsAnim]="searchResults.length">
+                        <div class="col-12 col-sm-6 pb-2" *ngFor="let result of searchResults">
+                            <listing-card [listing]="result" (delete)="removeListing(result)"></listing-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-center" *ngIf="searchResults.length && !noMoreToLoad">
+                    <button mat-raised-button (click)="loadMore()">
+                        <mat-icon color="accent" *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
+                        <span class="ps-2">{{ 'search_results.view_more' | translate }}</span>
+                        <div class="d-inline">
+                            <mat-spinner [diameter]="25" *ngIf="isLoadingMore"></mat-spinner>
+                        </div>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</ng-container>

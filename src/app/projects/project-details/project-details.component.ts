@@ -43,8 +43,6 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
             }
 
             this.coverImgUrl = `url("${await this.projectDetails.getCoverImgUrl(this.project.coverImagePath!)}")`
-
-            this.listings = await this.projectDetails.getListingsFromProject(this.project.id!)
         }))
     }
 

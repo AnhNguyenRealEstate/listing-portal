@@ -10,12 +10,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseStorageConsts } from 'src/app/shared/globals';
 import { AvailableContactChannels } from './listing-upload.data';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Project } from '../projects/projects.data';
 
 @Component({
     selector: 'listing-upload',
@@ -58,6 +59,10 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     separatorKeysCodes: number[] = [ENTER, COMMA];
     @ViewChild('amenitiesInput') amenitiesInput!: ElementRef<HTMLInputElement>;
 
+    projects: Project[] = []
+
+    projectNameForm: FormGroup;
+
     constructor(
         private snackbar: MatSnackBar,
         private metadata: MetadataService,
@@ -66,6 +71,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         public listingUploadService: ListingUploadService,
         private translate: TranslateService,
         private renderer: Renderer2,
+        private formBuilder: FormBuilder,
         @Optional() private dialogRef: MatDialogRef<ListingUploadComponent>,
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
     ) {
@@ -77,6 +83,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
         if (this.data?.isEditMode) {
             this.isEditMode = true;
         }
+
+        this.projectNameForm = this.formBuilder.group({ projectName: [''] });
     }
 
     async ngOnInit() {
@@ -91,6 +99,8 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
                 'listing_upload.changes_saved_msg',
                 'listing_upload.dismiss_msg']
         );
+
+        this.projects = await this.listingUploadService.getAvailableProjects()
     }
 
     ngOnDestroy(): void {

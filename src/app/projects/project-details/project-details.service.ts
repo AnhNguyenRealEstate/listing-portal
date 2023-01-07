@@ -18,20 +18,4 @@ export class ProjectDetailsService {
     async getCoverImgUrl(path: string) {
         return await getDownloadURL(ref(this.storage, path))
     }
-
-    async getListingsFromProject(projectId: string): Promise<Listing[]> {
-        if (!projectId) {
-            return []
-        }
-        
-        const snap = await getDocs(
-            query(
-                collection(this.firestore, `${FirestoreCollections.listings}`),
-                where('projectId', '==', projectId),
-                orderBy('creationDate', 'desc')
-            )
-        )
-
-        return snap.docs.map(doc => doc.data() as Listing)
-    }
 }

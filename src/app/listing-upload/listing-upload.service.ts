@@ -9,6 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 import { getMetadata } from '@firebase/storage';
 import { Auth } from '@angular/fire/auth';
 import { getAnalytics, logEvent } from '@angular/fire/analytics';
+import { Project } from '../projects/projects.data';
+import { getDocs } from '@firebase/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class ListingUploadService {
@@ -250,5 +252,10 @@ export class ListingUploadService {
      */
     inProgress() {
         return this.inProgress$;
+    }
+
+    async getAvailableProjects(): Promise<Project[]> {
+        const snap = await getDocs(collection(this.firestore, `${FirestoreCollections.projects}`))
+        return snap.docs.map(doc => doc.data() as Project)
     }
 }

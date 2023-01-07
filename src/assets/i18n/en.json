@@ -70,12 +70,13 @@
         "by_category": "Categories",
         "sign_in": "Sign in",
         "sign_out": "Sign out",
-        "english": "English 🇬🇧",
-        "vietnamese": "Vietnamese 🇻🇳",
+        "english": "🇬🇧 English",
+        "vietnamese": "🇻🇳 Vietnamese",
         "purpose": "Purpose",
         "for_rent": "For rent",
         "for_sale": "For sale",
-        "projects": "Projects"
+        "projects": "Projects",
+        "view_all_projects": "View all projects"
     },
     "listing_edit": {
         "delete_msg": "Listing deleted 🗑",

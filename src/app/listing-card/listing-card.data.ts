@@ -26,6 +26,7 @@ export interface Listing {
     tiktokUrl?: string
     tagID?: string
     amenities?: string[]
+    projectId?: string
 }
 
 export type Category = 'Apartment' | 'Villa' | 'Townhouse' | 'Commercial' | undefined;

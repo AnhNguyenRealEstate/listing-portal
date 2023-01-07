@@ -21,14 +21,10 @@
     {{project.introduction}}
 </div>
 
-<div class="mx-5" *ngIf="listings.length">
+<div class="mx-5" *ngIf="project.id">
     <div class="h1 ms-4">{{ 'project_details.listings' | translate }}</div>
     <mat-divider class="mx-4"></mat-divider>
-    <div class="row">
-        <div class="col-3" *ngFor="let listing of listings">
-            <listing-card [contentEditable]="true" [listing]="listing"></listing-card>
-        </div>
-    </div>
+    <project-listing-search [projectId]="project.id!"></project-listing-search>
 </div>
 
 
