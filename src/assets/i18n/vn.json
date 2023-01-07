@@ -64,6 +64,7 @@
     "layout": {
         "listings": "Sản phẩm",
         "upload_new": "Đăng sản phẩm",
+        "upload_new_project": "Đăng dự án",
         "about_us": "Giới thiệu",
         "view_all": "Xem toàn bộ",
         "by_category": "Phân loại",
@@ -73,7 +74,8 @@
         "vietnamese": "Tiếng Việt 🇻🇳",
         "purpose": "Mục đích",
         "for_rent": "Thuê",
-        "for_sale": "Mua/bán"
+        "for_sale": "Mua/bán",
+        "projects": "Dự án"
     },
     "listing_edit": {
         "delete_msg": "Đã xoá sản phẩm 🗑",
@@ -212,5 +214,22 @@
         "transit": "Giao thông công cộng",
         "quiet": "Yên tĩnh",
         "parking": "Chỗ đậu xe"
+    },
+    "project_showcase": {
+        "projects": "Dự án"
+    },
+    "project_upload": {
+        "new_project": "Dự án mới",
+        "edit_project": "Sửa thông tin dự án",
+        "project_name": "Tên dự án",
+        "project_descr": "Mô tả ngắn dự án",
+        "project_intro": "Mô tả dài dự án",
+        "cover_image": "Hình đại diện (chụp ngang)",
+        "publish": "Đăng",
+        "save": "Lưu"
+    },
+    "project_details": {
+        "edit": "Sửa thông tin",
+        "listings": "Danh sách sản phẩm"
     }
 }

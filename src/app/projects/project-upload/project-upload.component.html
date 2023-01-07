@@ -1,22 +1,38 @@
-<form #uploadForm="ngForm">
+<form class="p-2" #uploadForm="ngForm">
+    <div class="close-btn">
+        <button mat-icon-button color="default" (click)="closeDialog()">
+            <mat-icon color="accent">close</mat-icon>
+        </button>
+    </div>
+
+    <div class="h1 mb-2">
+        <ng-container *ngIf="!isEditMode">{{ 'project_upload.new_project' | translate }}</ng-container>
+        <ng-container *ngIf="isEditMode">{{ 'project_upload.edit_project' | translate }}</ng-container>
+    </div>
+
+    <mat-form-field color="accent" class="mb-2">
+        <mat-label>{{ 'project_upload.project_name' | translate }}</mat-label>
+        <input name="projectName" required matInput [(ngModel)]="project.name">
+    </mat-form-field>
+
+    <mat-form-field color="accent" class="mb-2">
+        <mat-label>{{ 'project_upload.project_descr' | translate }}</mat-label>
+        <input name="projectDescr" required matInput [(ngModel)]="project.description">
+    </mat-form-field>
+
+    <mat-form-field color="accent" class="mb-2">
+        <mat-label>{{ 'project_upload.project_intro' | translate }}</mat-label>
+        <textarea rows="5" name="projectIntro" required matInput [(ngModel)]="project.introduction">
+        </textarea>
+    </mat-form-field>
+
     <div class="cover-image mb-2">
         <ng-container [ngTemplateOutlet]="coverImageUpload"></ng-container>
     </div>
 
-    <div class="additional-images mb-2">
+    <!-- <div class="additional-images mb-2">
         <ng-container [ngTemplateOutlet]="additionalImageUpload"></ng-container>
-    </div>
-
-    <mat-form-field class="mb-2">
-        <mat-label>Project name</mat-label>
-        <input name="projectName" required matInput>
-    </mat-form-field>
-
-    <div class="d-flex mb-2">
-        <div>Project description</div>
-        <app-editor [text]="project.description!"
-            (textChange)="project.description = $event; uploadForm.form.markAsDirty()"></app-editor>
-    </div>
+    </div> -->
 
     <div class="d-flex justify-content-end">
         <ng-container [ngTemplateOutlet]="uploadSubmission"
@@ -25,11 +41,11 @@
 </form>
 
 <ng-template #coverImageUpload>
-    <mat-label class="pe-2">{{ 'project_upload.cover_image' | translate }}</mat-label>
+    <div class="d-inline text-bold pe-2">{{ 'project_upload.cover_image' | translate }}</div>
     <input #coverImageInput hidden="true" type="file" accept="image/*" onclick="this.value=null"
         (change)="onCoverImageUpload($event)" />
     <button type="button" *ngIf="!coverImageSrc" mat-button color="accent" (click)="coverImageInput.click()">
-        <mat-icon>upload</mat-icon>
+        <mat-icon>add_a_photo</mat-icon>
     </button>
     <div *ngIf="coverImageSrc" class="mt-2 cover-image-container" style="position: relative">
         <img style="border-radius: 16px; object-fit: cover" width="400px" [src]="coverImageSrc">
@@ -40,7 +56,7 @@
 </ng-template>
 
 <ng-template #additionalImageUpload>
-    <mat-label class="pe-2">{{ 'listing_upload.media_to_upload' | translate }}</mat-label>
+    <div class="d-inline text-bold pe-2">{{ 'project_upload.media_to_upload' | translate }}</div>
 
     <input #imageInput multiple hidden="true" type="file" accept="image/*" onclick="this.value=null"
         (change)="onMediaUpload($event)" />
@@ -50,9 +66,9 @@
         <mat-spinner *ngIf="compressionInProgress" [diameter]="25"></mat-spinner>
     </button>
 
-    <div class="d-flex pt-2 listing-images-container" style="overflow: scroll; white-space: nowrap; flex-grow: 1;
+    <div class="d-flex pt-2 project-images-container" style="overflow: scroll; white-space: nowrap; flex-grow: 1;
     flex-basis: 0;" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="uploadedMediaDrop($event)">
-        <span class="mx-1 listing-image" cdkDrag *ngFor="let imgSrc of imageSrcs; let i = index;">
+        <span class="mx-1 project-image" cdkDrag *ngFor="let imgSrc of imageSrcs; let i = index;">
             <img height="200px" width="200px" [src]="imgSrc" style="object-fit: cover;">
             <button #deleteBtn class="img-delete-btn" type="button" mat-mini-fab [disabled]="compressionInProgress"
                 (click)="removeUploadedMedia(imgSrc)">
@@ -62,19 +78,20 @@
     </div>
 </ng-template>
 
-<ng-template #uploadSubmission let-uploadForm>
-    <button type="submit" *ngIf="!isEditMode" mat-raised-button color="default" (click)="publishProject()" [disabled]="!(uploadForm.valid && coverImageFile && imageFiles.length) 
+<ng-template #uploadSubmission let-uploadForm="uploadForm">
+    <button type="submit" *ngIf="!isEditMode" mat-raised-button color="default" (click)="publishProject()" [disabled]="!(uploadForm.valid && coverImageFile) 
 || (projectUpload.inProgress() | async)">
         <mat-spinner *ngIf="projectUpload.inProgress() | async" [diameter]="35">
         </mat-spinner>
         <mat-icon color="accent" *ngIf="!(projectUpload.inProgress() | async)">publish</mat-icon>
+        {{ 'project_upload.publish' | translate }}
     </button>
     <button type="submit" *ngIf="isEditMode" mat-raised-button color="default" (click)="saveEdit()" [disabled]="uploadForm.pristine || !uploadForm.valid
-|| (imageFilesModified && !imageFiles.length)
 || (coverImageModified && !coverImageFile?.size)
 || (projectUpload.inProgress() | async)">
         <mat-spinner *ngIf="projectUpload.inProgress() | async" [diameter]="35">
         </mat-spinner>
         <mat-icon color="accent" *ngIf="!(projectUpload.inProgress() | async)">save</mat-icon>
+        {{ 'project_upload.save' | translate }}
     </button>
 </ng-template>

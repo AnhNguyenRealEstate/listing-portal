@@ -16,7 +16,7 @@ import { ListingSearchService } from '../listing-search.service';
                     stagger(100, [
                         animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' }))
                     ])
-                ]))
+                ], { optional: true }))
         ])
     ]
 })

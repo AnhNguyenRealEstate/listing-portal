@@ -20,4 +20,11 @@ import { ProjectUploadComponent } from './project-upload.component';
     exports: [ProjectUploadComponent],
     declarations: [ProjectUploadComponent]
 })
-export class ProjectUploadModule { }
+export class ProjectUploadModule {
+    constructor() { }
+
+    getProjectUploadComponent() {
+        return ProjectUploadComponent;
+    }
+
+}

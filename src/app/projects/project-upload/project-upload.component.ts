@@ -5,12 +5,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
-import { Project } from '../project-card/project-card.data';
+import { Project } from '../projects.data';
 import { ProjectUploadService } from './project-upload.service';
 
 @Component({
     selector: 'project-uload',
-    templateUrl: './project-upload.component.html'
+    templateUrl: './project-upload.component.html',
+    styleUrls: ['./project-upload.component.scss']
 })
 
 export class ProjectUploadComponent implements OnInit {
@@ -34,7 +35,15 @@ export class ProjectUploadComponent implements OnInit {
         private translate: TranslateService,
         @Optional() private dialogRef: MatDialogRef<ProjectUploadComponent>,
         @Optional() @Inject(MAT_DIALOG_DATA) private data: any
-    ) { }
+    ) { 
+        if (this.data?.project) {
+            this.project = this.data.project as Project;
+        }
+
+        if (this.data?.isEditMode) {
+            this.isEditMode = true;
+        }
+    }
 
     ngOnInit() { }
 
@@ -75,7 +84,6 @@ export class ProjectUploadComponent implements OnInit {
     removeCoverImage() {
         this.coverImageFile = undefined;
         this.coverImageSrc = undefined;
-        this.coverImageModified = true;
     }
 
     async onMediaUpload(event: any) {
@@ -165,7 +173,6 @@ export class ProjectUploadComponent implements OnInit {
         await this.projectUpload.saveEdit(
             this.project,
             this.project.id!,
-            this.imageFiles, this.imageFilesModified,
             this.coverImageFile!, this.coverImageModified
         );
 
@@ -177,5 +184,9 @@ export class ProjectUploadComponent implements OnInit {
                 duration: 3000
             }
         );
+    }
+
+    closeDialog() {
+        this.dialogRef.close();
     }
 }

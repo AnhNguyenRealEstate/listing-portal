@@ -16,7 +16,7 @@
                 <div class="listings-menu">
                     <div class="row">
                         <div class="col-12">
-                            <a class="d-flex justify-content-start py-2 menu-item" mat-button
+                            <a class="d-flex justify-content-start py-2 ps-3 menu-item" mat-button
                                 [routerLink]="['/listings']">
                                 <mat-icon>density_small</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'layout.view_all' | translate }}</span>
@@ -27,12 +27,12 @@
                             <div class="d-flex justify-content-end pe-4 py-2 menu-heading">{{ 'layout.purpose' |
                                 translate }}</div>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Rent'}"
-                                class="d-flex justify-content-start py-2 menu-item">
+                                class="d-flex justify-content-start py-2 ps-3 menu-item">
                                 <mat-icon>description</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'layout.for_rent' | translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{purpose: 'For Sale'}"
-                                class="d-flex justify-content-start py-2 menu-item">
+                                class="d-flex justify-content-start py-2 ps-3 menu-item">
                                 <mat-icon>price_check</mat-icon>
                                 <span class="ps-3 text-bold">
                                     {{ 'layout.for_sale' | translate }}
@@ -44,24 +44,53 @@
                             <div class="d-flex justify-content-end pe-4 py-2 menu-heading">{{ 'layout.by_category' |
                                 translate }}</div>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Apartment'}"
-                                class="d-flex justify-content-start py-2 menu-item">
+                                class="d-flex justify-content-start py-2 ps-3 menu-item">
                                 <mat-icon>apartment</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.apartment' | translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Villa'}"
-                                class="d-flex justify-content-start py-2 menu-item">
+                                class="d-flex justify-content-start py-2 ps-3 menu-item">
                                 <mat-icon>villa</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.villa' |translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Townhouse'}"
-                                class="d-flex justify-content-start py-2 menu-item">
+                                class="d-flex justify-content-start py-2 ps-3 menu-item">
                                 <mat-icon>door_sliding</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.townhouse' | translate }}</span>
                             </a>
                             <a mat-button [routerLink]="['/listings']" [queryParams]="{category: 'Commercial'}"
-                                class="d-flex justify-content-start py-2 menu-item">
+                                class="d-flex justify-content-start py-2 ps-3 menu-item">
                                 <mat-icon>store_front</mat-icon>
                                 <span class="ps-3 text-bold">{{ 'property_category.commercial' | translate }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </mat-menu>
+
+        <a class="me-2" mat-button [matMenuTriggerFor]="projectsMenu">
+            <mat-icon>arrow_drop_down_icon</mat-icon>
+            {{ 'layout.projects' | translate }}
+        </a>
+        <mat-menu id="projectsMenu" #projectsMenu [xPosition]="'before'">
+            <ng-container matMenuContent>
+                <div class="projects-menu">
+                    <div class="row">
+                        <div class="col-12">
+                            <a class="d-flex justify-content-start py-2 ps-3 menu-item" mat-button
+                                [routerLink]="['/projects']">
+                                <mat-icon>density_small</mat-icon>
+                                <span class="ms-2">{{ 'layout.view_all' | translate }}</span>
+                            </a>
+                            <mat-divider inset="true"></mat-divider>
+                        </div>
+                        <div class="col-12">
+                            <a *ngFor="let project of projects; let i = index" mat-button
+                                [routerLink]="['/projects', 'details', project.id]"
+                                class="d-flex justify-content-start py-2 ps-3 menu-item">
+                                <mat-icon color="accent">label</mat-icon>
+                                <span class="ms-2">{{project.name}}</span>
                             </a>
                         </div>
                     </div>
@@ -94,9 +123,14 @@
             </a>
             <mat-menu #menu="matMenu" class="employee-actions-menu">
                 <a mat-menu-item (click)="uploadNewListing()">
-                    <mat-icon>add</mat-icon>
+                    <mat-icon fontSet="material-symbols-outlined">add_home</mat-icon>
                     {{ 'layout.upload_new' | translate }}
                 </a>
+                <a mat-menu-item (click)="uploadNewProject()">
+                    <mat-icon fontSet="material-symbols-outlined">add_location</mat-icon>
+                    {{ 'layout.upload_new_project' | translate }}
+                </a>
+                <mat-divider inset="true"></mat-divider>
                 <a mat-menu-item (click)="logout()">
                     <mat-icon>logout</mat-icon> {{ 'layout.sign_out' | translate }}
                 </a>
@@ -116,7 +150,7 @@
     <mat-sidenav #sidenav position="end" autoFocus="false" mode="over" class="sidenav" (click)="sidenav.toggle()">
         <div class="d-flex justify-content-start pt-2">
             <a class="ps-4" mat-button [matMenuTriggerFor]="languageMenu" (click)="$event.stopPropagation()"
-            style="line-height: 1rem;">
+                style="line-height: 1rem;">
                 <mat-icon>language</mat-icon>
                 <span class="ms-2" *ngIf="lang === 'en'">{{ 'layout.english' | translate }}</span>
                 <span class="ms-2" *ngIf="lang === 'vn'">{{ 'layout.vietnamese' | translate }}</span>
@@ -134,28 +168,32 @@
 
         <mat-divider class="py-1" inset="true"></mat-divider>
 
-        <a class="d-flex justify-content-start ps-4" mat-button [routerLink]="['/listings']">
-            <mat-icon>view_list</mat-icon>
+        <a class="d-flex justify-content-center ps-4" mat-button [routerLink]="['/listings']">
             <span class="ms-2">{{ 'layout.listings' | translate }}</span>
         </a>
-        <a class="d-flex justify-content-start ps-4" mat-button [routerLink]="['/about-us']">
-            <mat-icon>real_estate_agent</mat-icon>
+        <a class="d-flex justify-content-center ps-4" mat-button [routerLink]="['/projects']">
+            <span class="ms-2">{{ 'layout.projects' | translate }}</span>
+        </a>
+        <a class="d-flex justify-content-center ps-4" mat-button [routerLink]="['/about-us']">
             <span class="ms-2">{{ 'layout.about_us' | translate }}</span>
         </a>
 
         <mat-divider class="py-1" inset="true"></mat-divider>
 
-        <a class="d-flex justify-content-start ps-4" *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
+        <a class="d-flex justify-content-center ps-4" *ngIf="!loggedIn" mat-button (click)="showLoginModal()">
             <mat-icon>login</mat-icon>
             <span class="ms-2"> {{ 'layout.sign_in' | translate }}</span>
         </a>
 
-        <a class="d-flex justify-content-start ps-4" *ngIf="loggedIn" mat-button (click)="uploadNewListingMobile()">
-            <mat-icon>add</mat-icon>
+        <a class="d-flex justify-content-center ps-4" *ngIf="loggedIn" mat-button (click)="uploadNewListingMobile()">
             <span class="ms-2">{{ 'layout.upload_new' | translate }}</span>
         </a>
 
-        <a class="d-flex justify-content-start ps-4" *ngIf="loggedIn" mat-button (click)="logout()">
+        <a class="d-flex justify-content-center ps-4" *ngIf="loggedIn" mat-button (click)="uploadNewProject()">
+            <span class="ms-2">{{ 'layout.upload_new_project' | translate }}</span>
+        </a>
+
+        <a class="d-flex justify-content-center ps-4" *ngIf="loggedIn" mat-button (click)="logout()">
             <mat-icon>logout</mat-icon>
             <span class="ms-2">{{ 'layout.sign_out' | translate }}</span>
         </a>

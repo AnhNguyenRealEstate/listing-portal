@@ -64,6 +64,7 @@
     "layout": {
         "listings": "Listings",
         "upload_new": "Upload listing",
+        "upload_new_project": "Upload project",
         "about_us": "About us",
         "view_all": "All listings",
         "by_category": "Categories",
@@ -73,7 +74,8 @@
         "vietnamese": "Vietnamese 🇻🇳",
         "purpose": "Purpose",
         "for_rent": "For rent",
-        "for_sale": "For sale"
+        "for_sale": "For sale",
+        "projects": "Projects"
     },
     "listing_edit": {
         "delete_msg": "Listing deleted 🗑",
@@ -213,5 +215,22 @@
         "transit": "Public transit",
         "quiet": "Quiet",
         "parking": "Parking"
+    },
+    "project_showcase": {
+        "projects": "Real estate projects"
+    },
+    "project_upload": {
+        "new_project": "Upload new project",
+        "edit_project": "Edit project",
+        "project_name": "Project name",
+        "project_descr": "Project description",
+        "project_intro": "Project introduction",
+        "cover_image": "Cover image (landscape)",
+        "publish": "Publish",
+        "save": "Save"
+    },
+    "project_details": {
+        "edit": "Edit project",
+        "listings": "Listings"
     }
 }

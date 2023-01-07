@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collection, Firestore, getDocs } from '@angular/fire/firestore';
 import { FirestoreCollections } from '../shared/globals';
-import { Project } from './project-card/project-card.data';
+import { Project } from './projects.data';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectShowcaseService {

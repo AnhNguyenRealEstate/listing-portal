@@ -1,0 +1,36 @@
+.close-btn {
+    position: absolute;
+    right: 0vw;
+    top: 0vw;
+}
+
+.project-images-container.cdk-drop-list-dragging .project-image:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cover-image-container {
+    width: fit-content;
+}
+
+.project-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: move;
+    flex-basis: 0;
+    position: relative;
+
+    img {
+        object-fit: cover;
+        border-radius: 16px;
+    }
+}
+
+.img-delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    font-size: 20px;
+}

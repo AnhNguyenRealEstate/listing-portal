@@ -4,8 +4,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { Project } from 'src/app/projects/projects.data';
 import { LoginComponent } from '../login/login-dialog.component';
 import { LoginService } from '../login/login.service';
+import { LayoutService } from './layout.service';
 
 @Component({
     selector: 'app-layout',
@@ -18,19 +20,24 @@ export class LayoutComponent implements OnInit, OnDestroy {
     lang!: string;
     sub = new Subscription();
 
+    projects: Project[] = []
+
     constructor(
         private router: Router,
         public auth: Auth,
         private loginService: LoginService,
         private dialog: MatDialog,
         private injector: Injector,
+        private layout: LayoutService,
         public translate: TranslateService) {
         this.sub.add(this.loginService.loggedIn$.subscribe(loggedIn => this.loggedIn = loggedIn));
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
         const sessionLang = localStorage.getItem('lang');
         this.lang = sessionLang || this.translate.getDefaultLang();
+
+        this.projects = await this.layout.getProjects()
     }
 
     ngOnDestroy(): void {
@@ -76,6 +83,21 @@ export class LayoutComponent implements OnInit, OnDestroy {
         const listingUploadDialogComponent = moduleRef.instance.getListingUploadDialogComponent();
 
         this.dialog.open(listingUploadDialogComponent, config);
+    }
+
+    async uploadNewProject() {
+        const config = {
+            height: '90%',
+            width: '100%',
+            autoFocus: false,
+            disableClose: true
+        } as MatDialogConfig;
+
+        const { ProjectUploadModule } = await import("src/app/projects/project-upload/project-upload.module");
+        const moduleRef = createNgModule(ProjectUploadModule, this.injector);
+        const projectUploadComp = moduleRef.instance.getProjectUploadComponent();
+
+        this.dialog.open(projectUploadComp, config);
     }
 
     useLanguage(lang: string) {

@@ -24,13 +24,16 @@
 }
 
 .sidenav {
-    background: colors.$alt-primary;
-    min-width: 220px;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    width: 100vw;
     a {
-        display: block;
+        color: white;
+        font-size: 16px;
         padding: 6px 24px;
         width: 100%;
-        text-align: left;
+        margin-top: 6px;
+        margin-bottom: 6px;
     }
 }
 
@@ -54,7 +57,8 @@ mat-sidenav-content {
     }
 }
 
-::ng-deep .listings-menu {
+::ng-deep .listings-menu,
+::ng-deep .projects-menu {
     .menu-heading {
         color: gray;
         font-weight: 400;
@@ -65,12 +69,9 @@ mat-sidenav-content {
         color: colors.$accent;
     }
 
-    .mat-button-wrapper {
-        font-weight: 400 !important;
-    }
-
-    .menu-item {
-        padding-left: 1.5rem;
+    .menu-item:hover {
+        transform: translateX(24px);
+        transition: transform 250ms ease-out;
     }
 }
 

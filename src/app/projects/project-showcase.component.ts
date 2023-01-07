@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import { Project } from './project-card/project-card.data';
+import { Project } from './projects.data';
 import { ProjectShowcaseService } from './project-showcase.service';
 
 @Component({
     selector: 'project-showcase',
     templateUrl: './project-showcase.component.html',
-    styleUrls: ['./project-showcase.component.scss']
+    styleUrls: ['./project-showcase.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class ProjectShowcaseComponent implements OnInit {
 
     projects: Project[] = []
-    projectCoverImgUrls: string[] = []
+    projectCoverImgUrls: Map<string, string> = new Map()
 
     currentProject: Project = {}
     currentProjectIdx: number = 0
@@ -22,15 +23,18 @@ export class ProjectShowcaseComponent implements OnInit {
     constructor(
         private projectShowcase: ProjectShowcaseService,
         private storage: Storage,
-        private router: Router
+        private router: Router,
+        private changeDetector: ChangeDetectorRef
     ) { }
 
     async ngOnInit() {
-        //this.projects = await this.projectShowcase.getProjectInfos()
-        this.projects = this.projectShowcase.generateMockProjects()
+        this.projects = await this.projectShowcase.getProjectInfos()
+        //this.projects = this.projectShowcase.generateMockProjects()
 
         for (let i = 0; i < this.projects.length; i++) {
-            this.projectCoverImgUrls.push(await this.getCoverPhotoUrl(this.projects[i].coverImagePath!))
+            this.projectCoverImgUrls.set(
+                this.projects[i].id!
+                , await this.getCoverPhotoUrl(this.projects[i].coverImagePath!))
         }
 
         if (this.projects.length)
@@ -44,16 +48,16 @@ export class ProjectShowcaseComponent implements OnInit {
     setCurrentProject(project: Project) {
         this.currentProject = project
 
-        // getDownloadURL(ref(this.storage, this.currentProject.coverImagePath)).then(url => {
-        //     this.currentProjectCoverImgUrl = `url("${url}")`
-        // })
+        getDownloadURL(ref(this.storage, this.currentProject.coverImagePath)).then(url => {
+            this.currentProjectCoverImgUrl = `url("${url}")`
+        })
 
-        this.currentProjectCoverImgUrl = `url("https://picsum.photos/1920/1080")`
+        // this.currentProjectCoverImgUrl = `url("https://picsum.photos/1920/1080")`
     }
 
     async getCoverPhotoUrl(coverImgPath: string) {
-        //const url = await getDownloadURL(ref(this.storage, coverImgPath))
-        const url = 'https://picsum.photos/1920/1080'
+        const url = await getDownloadURL(ref(this.storage, coverImgPath))
+        //const url = 'https://picsum.photos/1920/1080'
         return `url("${url}")`
     }
 
@@ -68,6 +72,7 @@ export class ProjectShowcaseComponent implements OnInit {
 
         this.setCurrentProject(this.projects[this.currentProjectIdx - 1])
         this.currentProjectIdx -= 1
+        this.changeDetector.detectChanges()
     }
 
     scrollRight() {
@@ -77,5 +82,7 @@ export class ProjectShowcaseComponent implements OnInit {
 
         this.setCurrentProject(this.projects[this.currentProjectIdx + 1])
         this.currentProjectIdx += 1
+        this.changeDetector.detectChanges()
+
     }
 }

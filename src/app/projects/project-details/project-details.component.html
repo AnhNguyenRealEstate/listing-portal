@@ -1,3 +1,35 @@
-<div class="project-banner">
-welcome
+<div class="project-banner" [style.background-image]="coverImgUrl">
+    <div class="project-name" *ngIf="project.name">{{project.name}}</div>
+    <div class="project-description" *ngIf="project.description">{{project.description}}</div>
+
+    <svg id="visual" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+        <path
+            d="M0 922L40 930.3C80 938.7 160 955.3 240 964.5C320 973.7 400 975.3 480 970.7C560 966 640 955 720 935.3C800 915.7 880 887.3 960 893.3C1040 899.3 1120 939.7 1200 959.7C1280 979.7 1360 979.3 1440 975.5C1520 971.7 1600 964.3 1680 948C1760 931.7 1840 906.3 1880 893.7L1920 881L1920 1081L1880 1081C1840 1081 1760 1081 1680 1081C1600 1081 1520 1081 1440 1081C1360 1081 1280 1081 1200 1081C1120 1081 1040 1081 960 1081C880 1081 800 1081 720 1081C640 1081 560 1081 480 1081C400 1081 320 1081 240 1081C160 1081 80 1081 40 1081L0 1081Z"
+            fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="miter"></path>
+    </svg>
 </div>
+
+<div class="logged-in-controls" *ngIf="login.loggedIn$ | async">
+    <button mat-raised-button (click)="editProject()">
+        <mat-icon color="accent">edit</mat-icon>
+        {{ 'project_details.edit' | translate }}
+    </button>
+</div>
+
+<div class="project-introduction mb-5" *ngIf="project.introduction">
+    {{project.introduction}}
+</div>
+
+<div class="mx-5" *ngIf="listings.length">
+    <div class="h1 ms-4">{{ 'project_details.listings' | translate }}</div>
+    <mat-divider class="mx-4"></mat-divider>
+    <div class="row">
+        <div class="col-3" *ngFor="let listing of listings">
+            <listing-card [contentEditable]="true" [listing]="listing"></listing-card>
+        </div>
+    </div>
+</div>
+
+
+<app-footer></app-footer>

@@ -1,0 +1,65 @@
+.project-banner {
+    height: 80vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: 50% 50%;
+    position: relative;
+
+    .project-name {
+        position: absolute;
+        top: 10vh;
+        right: 5vw;
+        font-size: 54px;
+        color: white;
+        backdrop-filter: blur(20px);
+        line-height: 54px;
+        padding: 1rem;
+    }
+
+    .project-description {
+        position: absolute;
+        top: 30vh;
+        right: 5vw;
+        font-size: 36px;
+        line-height: 36px;
+        color: white;
+        backdrop-filter: blur(20px);
+        padding: 0.75rem;
+    }
+
+    svg[id="visual"] {
+        position: absolute;
+        bottom: -5px;
+        z-index: 1;
+    }
+}
+
+.project-introduction {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    font-size: 16px;
+    line-height: 32px;
+    text-justify: distribute;
+    color: #131312;
+}
+
+.logged-in-controls {
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+}
+
+.project-introduction::first-letter {
+    -webkit-initial-letter: 2;
+    initial-letter: 2;
+    color: black;
+    font-weight: bold;
+    margin-right: 0.75em;
+}
+
+.result-card-wrapper:hover {
+    transform: translate3D(0, -1px, 0) scale(1.02);
+    transition: all 250ms ease-out;
+}

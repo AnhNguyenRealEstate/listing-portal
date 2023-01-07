@@ -34,6 +34,9 @@ import { NumberToVNDPipe } from '../shared/custom-pipes';
     ListingCardModule,
     NgxPageScrollCoreModule,
     NumberToVNDPipe
+  ],
+  exports: [
+    ListingSearchComponent
   ]
 })
 export class ListingSearchModule { }
