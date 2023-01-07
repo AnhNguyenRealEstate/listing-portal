@@ -80,7 +80,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
         const { ListingUploadModule } = await import("src/app/listing-upload/listing-upload.module");
         const moduleRef = createNgModule(ListingUploadModule, this.injector);
-        const listingUploadDialogComponent = moduleRef.instance.getListingUploadDialogComponent();
+        const listingUploadDialogComponent = moduleRef.instance.getListingUploadComponent();
 
         this.dialog.open(listingUploadDialogComponent, config);
     }

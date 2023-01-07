@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListingUploadDialogComponent } from './listing-upload-dialog.component';
 import { ListingUploadComponent } from './listing-upload.component';
 import { RTEditorModule } from '../rich-text-editor/rich-text-editor.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -15,8 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    ListingUploadComponent,
-    ListingUploadDialogComponent,
+    ListingUploadComponent
   ],
   imports: [
     CommonModule,
@@ -34,8 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [
-    ListingUploadComponent,
-    ListingUploadDialogComponent,
+    ListingUploadComponent
   ]
 })
 export class ListingUploadModule {
@@ -43,9 +40,5 @@ export class ListingUploadModule {
 
   getListingUploadComponent() {
     return ListingUploadComponent;
-  }
-
-  getListingUploadDialogComponent() {
-    return ListingUploadDialogComponent;
   }
 }

@@ -62,6 +62,7 @@ export class ListingUploadComponent implements OnInit, OnDestroy {
     projects: Project[] = []
 
     projectNameForm: FormGroup;
+    projectNameChanged: boolean = false;
 
     constructor(
         private snackbar: MatSnackBar,
