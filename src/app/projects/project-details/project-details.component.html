@@ -21,7 +21,7 @@
     {{project.introduction}}
 </div>
 
-<div class="mx-5" *ngIf="project.id">
+<div class="mx-sm-5" *ngIf="project.id">
     <div class="h1 ms-4">{{ 'project_details.listings' | translate }}</div>
     <mat-divider class="mx-4"></mat-divider>
     <project-listing-search [projectId]="project.id!"></project-listing-search>
