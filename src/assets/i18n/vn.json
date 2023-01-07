@@ -190,7 +190,10 @@
         "select_amenities": "Chọn tiện ích...",
         "upload_images": "Hình ảnh",
         "basic_info": "Thông tin cơ bản",
-        "important_info": "Thông tin quan trọng"
+        "important_info": "Thông tin quan trọng",
+        "project_info": "Thông tin dự án",
+        "project_name": "Tên dự án",
+        "listing_info": "Thông tin sản phẩm"
     },
     "login": {
         "page_title": "Đăng nhập",
@@ -227,7 +230,10 @@
         "project_intro": "Mô tả dài dự án",
         "cover_image": "Hình đại diện (chụp ngang)",
         "publish": "Đăng",
-        "save": "Lưu"
+        "save": "Lưu",
+        "published_msg": "Đã tạo dự án 🎉",
+        "changes_saved_msg": "Đã lưu thay đổi ✅",
+        "dismiss_msg": "Tắt"
     },
     "project_details": {
         "edit": "Sửa thông tin",

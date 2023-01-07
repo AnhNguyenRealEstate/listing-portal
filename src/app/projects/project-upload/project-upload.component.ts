@@ -157,7 +157,7 @@ export class ProjectUploadComponent implements OnInit {
         this.coverImageSrc = undefined;
 
         this.snackbar.open(
-            this.translate.instant('project_upload.listing_published_msg'),
+            this.translate.instant('project_upload.published_msg'),
             this.translate.instant('project_upload.dismiss_msg'),
             {
                 duration: 3000
@@ -178,8 +178,8 @@ export class ProjectUploadComponent implements OnInit {
 
         this.imageFilesModified = false;
         this.snackbar.open(
-            this.translate.instant('listing_upload.changes_saved_msg'),
-            this.translate.instant('listing_upload.dismiss_msg'),
+            this.translate.instant('project_upload.changes_saved_msg'),
+            this.translate.instant('project_upload.dismiss_msg'),
             {
                 duration: 3000
             }

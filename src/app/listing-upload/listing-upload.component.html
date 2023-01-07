@@ -18,11 +18,11 @@
     <mat-vertical-stepper linear="true" color="accent" [animationDuration]="'250'">
         <mat-step [stepControl]="projectNameForm" #step1>
             <ng-template matStepLabel>
-                Project information
+                {{ 'listing_upload.project_info' | translate }}
             </ng-template>
             <form [formGroup]="projectNameForm">
                 <mat-form-field color="accent" class="m-2">
-                    <mat-label>Project name</mat-label>
+                    <mat-label>{{ 'listing_upload.project_name' | translate }}</mat-label>
                     <mat-select formControlName="projectName" required [(ngModel)]="listing.projectId" (ngModelChange)="projectNameChanged = true">
                         <mat-option *ngFor="let project of projects" [value]="project.id">
                             {{project.name}}
@@ -35,7 +35,7 @@
 
         <mat-step #step2>
             <ng-template matStepLabel>
-                Listing information
+                {{ 'listing_upload.listing_info' | translate }}
             </ng-template>
             <form #uploadForm="ngForm">
                 <div class="row pt-2">

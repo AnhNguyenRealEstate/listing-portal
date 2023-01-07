@@ -191,7 +191,10 @@
         "select_amenities": "Select amenities...",
         "upload_images": "Upload images",
         "basic_info": "Basic information",
-        "important_info": "Important information"
+        "important_info": "Important information",
+        "project_info": "Project information",
+        "project_name": "Project name",
+        "listing_info": "Listing information"
     },
     "login": {
         "page_title": "Login",
@@ -228,7 +231,10 @@
         "project_intro": "Project introduction",
         "cover_image": "Cover image (landscape)",
         "publish": "Publish",
-        "save": "Save"
+        "save": "Save",
+        "published_msg": "Project published 🎉",
+        "changes_saved_msg": "Changes saved ✅",
+        "dismiss_msg": "Dismiss"
     },
     "project_details": {
         "edit": "Edit project",
