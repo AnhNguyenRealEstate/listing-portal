@@ -15,6 +15,7 @@ export class ProjectShowcaseComponent implements OnInit {
 
     projects: Project[] = []
     projectCoverImgUrls: Map<string, string> = new Map()
+    projectCoverImg: Map<string, string> = new Map
 
     currentProject: Project = {}
     currentProjectIdx: number = 0
