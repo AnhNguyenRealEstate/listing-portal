@@ -48,7 +48,7 @@
         "design": "Tư vấn, thiết kế nội thất",
         "transactions": "Tư vấn, môi giới bất động sản",
         "copyright": "@ {{year}} Anh Nguyen Real Estate",
-        "intro": "Được thành lập năm 2008, BĐS Anh Nguyễn tự hào là một công ty dịch vụ bất động sản lâu đời ở Quận 7, Tp.HCM, chuyên khu vực Phú Mỹ Hưng."
+        "intro": "Được thành lập năm 2008, BĐS Anh Nguyễn tự hào là một công ty dịch vụ bất động sản lâu đời ở Quận 7, Tp. Hồ Chí Minh."
     },
     "home": {
         "browse_listings": "Xem sản phẩm",
@@ -220,7 +220,8 @@
         "parking": "Chỗ đậu xe"
     },
     "project_showcase": {
-        "projects": "Dự án"
+        "projects": "Dự án",
+        "page_descr": "Xem sản phẩm theo dự án"
     },
     "project_upload": {
         "new_project": "Dự án mới",

@@ -48,7 +48,7 @@
         "design": "Interior design",
         "transactions": "Real estate transactions",
         "copyright": "@ {{year}} Anh Nguyen Real Estate",
-        "intro": "Founded in 2008, we are proud to be one of the longest-serving real estate agencies in District 7, Ho Chi Minh City. We specialize in the Phu My Hung area."
+        "intro": "Founded in 2008, we are proud to be one of the longest-serving real estate agencies in District 7, Ho Chi Minh City."
     },
     "home": {
         "browse_listings": "Browse our listings",
@@ -75,7 +75,7 @@
         "purpose": "Purpose",
         "for_rent": "For rent",
         "for_sale": "For sale",
-        "projects": "Real Estate Projects",
+        "projects": "Real estate projects",
         "view_all_projects": "View all projects"
     },
     "listing_edit": {
@@ -221,7 +221,8 @@
         "parking": "Parking"
     },
     "project_showcase": {
-        "projects": "Real estate projects"
+        "projects": "Real estate projects",
+        "page_descr": "View listings by project"
     },
     "project_upload": {
         "new_project": "Upload new project",

@@ -171,5 +171,6 @@ export class SearchBarComponent implements OnInit, OnChanges, OnDestroy {
             this.PRICE_SLIDER_BUY_STEP_SIZE
 
         this.searchCriteria.maxPrice = this.priceSliderMax
+        debugger;
     }
 }
