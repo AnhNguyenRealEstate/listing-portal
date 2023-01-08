@@ -57,6 +57,7 @@
                     }
 
                     .project-name {
+                        transition: all 500ms ease-in-out;
                         position: absolute;
                         margin-left: 5vw;
                         margin-top: 5vh;
@@ -68,6 +69,7 @@
                     }
 
                     .project-description {
+                        transition: all 500ms ease-in-out;
                         position: absolute;
                         margin-left: 5vw;
                         margin-top: 15vh;
@@ -148,10 +150,11 @@
                 .project-name-alt {
                     display: flex !important;
                     justify-content: center !important;
+                    transition: all 250ms ease-in-out;
                 }
 
                 .background-image {
-                    transition: all 500ms ease-in;
+                    transition: all 500ms ease-in-out;
 
                     border-radius: 15px;
                     height: 60vh;

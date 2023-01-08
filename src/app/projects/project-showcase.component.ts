@@ -62,15 +62,19 @@ export class ProjectShowcaseComponent implements OnInit {
         current.dataset['status'] = "inactive-right"
 
         const allInactiveLefts = document.querySelectorAll('.project-info-wrapper[data-status="inactive-left"]')
-        const next = allInactiveLefts.item(allInactiveLefts.length - 1) as HTMLElement
-        next.dataset['status'] = "active"
+        setTimeout(() => {
+            const next = allInactiveLefts.item(allInactiveLefts.length - 1) as HTMLElement
+            next.dataset['status'] = "active"
+        }, 100)
 
-        const translateOffset = `-${(allInactiveLefts.length - 1) * 60}vw`
-        const projectsContainer = document.querySelector('.all-projects') as HTMLElement
-        this.renderer.setStyle(projectsContainer, 'transform', `translateX(${translateOffset})`)
-        
+        setTimeout(()=> {
+            const translateOffset = `-${(allInactiveLefts.length - 1) * 60}vw`
+            const projectsContainer = document.querySelector('.all-projects') as HTMLElement
+            this.renderer.setStyle(projectsContainer, 'transform', `translateX(${translateOffset})`)
+    
+        }, 250)
+
         this.currentProjectIdx -= 1
-
     }
 
     scrollRight() {
