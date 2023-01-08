@@ -13,17 +13,4 @@ export class ProjectShowcaseService {
         const snap = await getDocs(collection(this.firestore, FirestoreCollections.projects))
         return snap.docs.map(doc => doc.data() as Project)
     }
-
-    generateMockProjects(): Project[] {
-        const projects: Project[] = []
-        for (let i = 0; i < 5; i++) {
-            projects.push({
-                id: i.toString(),
-                name: `Project ${i}`,
-                description: `A short, concise description of Project ${i}`
-            })
-        }
-
-        return projects
-    }
 }

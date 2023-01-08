@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Renderer2 } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { Project } from './projects.data';
@@ -17,20 +17,17 @@ export class ProjectShowcaseComponent implements OnInit {
     projectCoverImgUrls: Map<string, string> = new Map()
     projectCoverImg: Map<string, string> = new Map
 
-    currentProject: Project = {}
     currentProjectIdx: number = 0
-    currentProjectCoverImgUrl: string = ''
 
     constructor(
         private projectShowcase: ProjectShowcaseService,
         private storage: Storage,
-        private router: Router,
-        private changeDetector: ChangeDetectorRef
+        private renderer: Renderer2,
+        private router: Router
     ) { }
 
     async ngOnInit() {
         this.projects = await this.projectShowcase.getProjectInfos()
-        //this.projects = this.projectShowcase.generateMockProjects()
 
         for (let i = 0; i < this.projects.length; i++) {
             this.projectCoverImgUrls.set(
@@ -38,27 +35,17 @@ export class ProjectShowcaseComponent implements OnInit {
                 , await this.getCoverPhotoUrl(this.projects[i].coverImagePath!))
         }
 
-        if (this.projects.length)
-            this.setCurrentProject(this.projects[0])
-    }
-
-    viewProject(id: string) {
-        this.setCurrentProject(this.projects.find(project => project.id === id)!)
-    }
-
-    setCurrentProject(project: Project) {
-        this.currentProject = project
-
-        getDownloadURL(ref(this.storage, this.currentProject.coverImagePath)).then(url => {
-            this.currentProjectCoverImgUrl = `url("${url}")`
+        document.querySelectorAll('.project-info-wrapper').forEach((el, index) => {
+            if (index === 0) {
+                (el as HTMLElement).dataset['status'] = 'active'
+            } else {
+                (el as HTMLElement).dataset['status'] = 'inactive-right'
+            }
         })
-
-        // this.currentProjectCoverImgUrl = `url("https://picsum.photos/1920/1080")`
     }
 
     async getCoverPhotoUrl(coverImgPath: string) {
         const url = await getDownloadURL(ref(this.storage, coverImgPath))
-        //const url = 'https://picsum.photos/1920/1080'
         return `url("${url}")`
     }
 
@@ -71,9 +58,18 @@ export class ProjectShowcaseComponent implements OnInit {
             return;
         }
 
-        this.setCurrentProject(this.projects[this.currentProjectIdx - 1])
+        const current = document.querySelector('.project-info-wrapper[data-status="active"]') as HTMLElement
+        current.dataset['status'] = "inactive-right"
+
+        const allInactiveLefts = document.querySelectorAll('.project-info-wrapper[data-status="inactive-left"]')
+        const next = allInactiveLefts.item(allInactiveLefts.length - 1) as HTMLElement
+        next.dataset['status'] = "active"
+
+        const translateOffset = `-${(allInactiveLefts.length - 1) * 60}vw`
+        const projectsContainer = document.querySelector('.all-projects') as HTMLElement
+        this.renderer.setStyle(projectsContainer, 'transform', `translateX(${translateOffset})`)
         this.currentProjectIdx -= 1
-        this.changeDetector.detectChanges()
+
     }
 
     scrollRight() {
@@ -81,9 +77,16 @@ export class ProjectShowcaseComponent implements OnInit {
             return;
         }
 
-        this.setCurrentProject(this.projects[this.currentProjectIdx + 1])
-        this.currentProjectIdx += 1
-        this.changeDetector.detectChanges()
+        const translateOffset = `-${(this.currentProjectIdx + 1) * 60}vw`
+        const projectsContainer = document.querySelector('.all-projects') as HTMLElement
+        this.renderer.setStyle(projectsContainer, 'transform', `translateX(${translateOffset})`)
 
+        const current = document.querySelector('.project-info-wrapper[data-status="active"]') as HTMLElement
+        current.dataset['status'] = "inactive-left"
+
+        const next = document.querySelector('.project-info-wrapper[data-status="inactive-right"]') as HTMLElement
+        next.dataset['status'] = "active"
+
+        this.currentProjectIdx += 1
     }
 }

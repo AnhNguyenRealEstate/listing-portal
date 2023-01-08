@@ -1,24 +1,17 @@
 <div class="page-background">
-    <div class="page-title ms-5 mb-5">
+    <div class="page-title ms-5 mb-3">
         {{ 'project_showcase.projects' | translate }}
     </div>
-    
+
     <div class="project-showcase-page pt-2 mx-2">
-        <div class="project-info background-image mat-elevation-z3" [style.background-image]="currentProjectCoverImgUrl"
-            *ngIf=" projects.length" (click)="viewProjectDetails(currentProject.id!)">
-            <ng-container [ngTemplateOutlet]="currentProjectTpl" [ngTemplateOutletContext]="{
-                currentProject: currentProject
-            }"></ng-container>
-        </div>
-    
-        <div class="other-projects">
-            <div class="project-info-wrapper" *ngFor="let project of projects | slice:(currentProjectIdx + 1)">
+        <div class="all-projects">
+            <div class="project-info-wrapper" *ngFor="let project of projects">
                 <ng-container [ngTemplateOutlet]="otherProjectTpl"
                     [ngTemplateOutletContext]="{ otherProject: project }">
                 </ng-container>
             </div>
         </div>
-    
+
         <div class="navigation">
             <button class="nav-btn" mat-icon-button [disabled]="currentProjectIdx === 0" (click)="scrollLeft()">
                 <mat-icon color="accent">arrow_back</mat-icon>
@@ -33,22 +26,18 @@
 
 <app-footer></app-footer>
 
-<ng-template #currentProjectTpl let-currentProject="currentProject">
-    <div *ngIf="currentProject?.name">
-        <div class="h1 project-name blur-background">
-            {{currentProject.name}}
-        </div>
-
-        <div class="project-description blur-background">
-            {{currentProject.description}}
-        </div>
-    </div>
-</ng-template>
-
 <ng-template #otherProjectTpl let-otherProject="otherProject">
     <div class="project-info">
-        <div class="background-image mat-elevation-z2" (click)="viewProjectDetails(otherProject.id!)" [style.background-image]="projectCoverImgUrls.get(otherProject.id)">
+        <div class="background-image mat-elevation-z2" (click)="viewProjectDetails(otherProject.id!)"
+            [style.background-image]="projectCoverImgUrls.get(otherProject.id)">
+            <div class="d-none h1 project-name blur-background">
+                {{otherProject.name}}
+            </div>
+
+            <div class="d-none project-description blur-background">
+                {{otherProject.description}}
+            </div>
         </div>
-        <div class="pt-2 text-bold d-flex justify-content-center">{{otherProject.name}}</div>
+        <div class="pt-2 text-bold project-name-alt">{{otherProject.name}}</div>
     </div>
 </ng-template>

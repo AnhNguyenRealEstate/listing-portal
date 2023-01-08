@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/components/login/login.service';
 import { Listing } from 'src/app/listing-card/listing-card.data';
 import { Project } from '../projects.data';
 import { ProjectDetailsService } from './project-details.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'project-details',
@@ -27,7 +28,8 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
         private projectDetails: ProjectDetailsService,
         public login: LoginService,
         private injector: Injector,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private title: Title
     ) { }
 
     async ngOnInit() {
@@ -42,6 +44,8 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
                 this.router.navigateByUrl('/projects')
             }
 
+            this.title.setTitle(`${this.title.getTitle()} | ${this.project.name}`)
+            
             this.coverImgUrl = `url("${await this.projectDetails.getCoverImgUrl(this.project.coverImagePath!)}")`
         }))
     }

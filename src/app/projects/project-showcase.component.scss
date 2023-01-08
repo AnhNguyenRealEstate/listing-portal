@@ -21,70 +21,148 @@
     overflow-x: hidden;
     overflow-y: hidden;
     position: relative;
+    height: 100vh;
 
-    .project-info {
-        width: 60vw;
-        height: 100vh;
-        border-radius: 15px;
-    }
-
-    > .project-info:hover {
-        transform: scale(1.02);
-        transition: all 500ms ease-out;
-        cursor: pointer;
-    }
-
-    .background-image {
-        height: 95vh;
-        background-size: cover;
-        background-position: 50% 50%;
-        position: relative;
-        border-radius: 15px;
-
-        .blur-background {
-            backdrop-filter: blur(20px);
-            background: transparent;
-            height: fit-content;
-            width: fit-content;
-        }
-
-        .project-name {
-            margin-left: 5vw;
-            margin-top: 5vw;
-            color: white;
-            max-width: 50vw;
-            padding: 4px;
-            border-radius: 12px;
-        }
-
-        .project-description {
-            margin-left: 5vw;
-            margin-top: 5vw;
-            color: white;
-            max-width: 50vw;
-            padding: 4px;
-            border-radius: 12px;
-            font-size: 22px;
-            line-height: 22px;
-        }
-    }
-
-    .other-projects {
+    .all-projects {
+        transition: all 500ms ease-in-out;
         display: flex;
         width: 40vw;
         height: 100vh;
-        .project-info-wrapper {
+        position: absolute;
+
+        .project-info-wrapper[data-status="active"] {
             .project-info {
+                width: 60vw;
+                height: 100vh;
+                border-radius: 15px;
+
+                .project-name-alt {
+                    display: none;
+                }
+
+                .background-image {
+                    transition: all 500ms ease-in;
+
+                    height: 95vh;
+                    background-size: cover;
+                    background-position: 50% 50%;
+                    position: relative;
+                    border-radius: 15px;
+
+                    .blur-background {
+                        backdrop-filter: blur(20px);
+                        background: transparent;
+                        height: fit-content;
+                        width: fit-content;
+                    }
+
+                    .project-name {
+                        position: absolute;
+                        margin-left: 5vw;
+                        margin-top: 5vh;
+                        color: white;
+                        max-width: 50vw;
+                        padding: 4px;
+                        border-radius: 12px;
+                        display: block !important;
+                    }
+
+                    .project-description {
+                        position: absolute;
+                        margin-left: 5vw;
+                        margin-top: 15vh;
+                        color: white;
+                        max-width: 50vw;
+                        padding: 4px;
+                        border-radius: 12px;
+                        font-size: 22px;
+                        line-height: 22px;
+                        display: block !important;
+                    }
+                }
+            }
+
+            > .project-info:hover {
+                transform: scale(1.02);
+                transition: all 500ms ease-out;
+                cursor: pointer;
+            }
+        }
+
+        .project-info-wrapper[data-status="inactive-left"] {
+            transition: all 500ms ease-out;
+            opacity: 0;
+
+            .project-info {
+                width: 60vw;
+                height: 100vh;
+                border-radius: 15px;
+                .background-image {
+                    transition: all 500ms ease-in;
+
+                    height: 95vh;
+                    background-size: cover;
+                    background-position: 50% 50%;
+                    position: relative;
+                    border-radius: 15px;
+
+                    .blur-background {
+                        backdrop-filter: blur(20px);
+                        background: transparent;
+                        height: fit-content;
+                        width: fit-content;
+                    }
+
+                    .project-name {
+                        margin-left: 5vw;
+                        margin-top: 5vw;
+                        color: white;
+                        max-width: 50vw;
+                        padding: 4px;
+                        border-radius: 12px;
+                    }
+
+                    .project-description {
+                        margin-left: 5vw;
+                        margin-top: 5vw;
+                        color: white;
+                        max-width: 50vw;
+                        padding: 4px;
+                        border-radius: 12px;
+                        font-size: 22px;
+                        line-height: 22px;
+                    }
+                }
+            }
+        }
+
+        .project-info-wrapper[data-status="inactive-right"] {
+            transition: all 500ms ease-in-out;
+
+            .project-info {
+                transition: all 500ms ease-in;
                 padding-top: 5vh;
                 padding-left: 2vw;
                 width: fit-content;
 
+                .project-name-alt {
+                    display: flex;
+                    justify-content: center;
+                }
+
                 .background-image {
+                    transition: all 500ms ease-in;
+
                     border-radius: 15px;
                     height: 60vh;
                     background-size: cover;
                     background-position: 50% 50%;
                     aspect-ratio: 3/5;
+
+                    .project-name,
+                    .project-description {
+                        display: none;
+                    }
                 }
 
                 .background-image:hover {
