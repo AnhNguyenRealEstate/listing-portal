@@ -146,8 +146,8 @@
                 width: fit-content;
 
                 .project-name-alt {
-                    display: flex;
-                    justify-content: center;
+                    display: flex !important;
+                    justify-content: center !important;
                 }
 
                 .background-image {

@@ -68,6 +68,7 @@ export class ProjectShowcaseComponent implements OnInit {
         const translateOffset = `-${(allInactiveLefts.length - 1) * 60}vw`
         const projectsContainer = document.querySelector('.all-projects') as HTMLElement
         this.renderer.setStyle(projectsContainer, 'transform', `translateX(${translateOffset})`)
+        
         this.currentProjectIdx -= 1
 
     }
