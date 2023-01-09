@@ -2,6 +2,8 @@
 
 .page-background {
     background-image: url("https://img.freepik.com/free-vector/white-abstract-background_23-2148810353.jpg?w=1800&t=st=1672981370~exp=1672981970~hmac=62c562ce57a14e01dd76fcd0869ed55ca1a810250aad48be55be9c0685fd7380");
+    background-position: center;
+    background-size: cover;
 
     .page-title {
         font-size: 42px;
@@ -161,7 +163,7 @@
                     .project-name-alt {
                         display: flex !important;
                         justify-content: center !important;
-                        transition: all 250ms ease-in-out;
+                        transition: all 500ms ease-in-out;
                         color: gray;
                     }
 
@@ -176,7 +178,10 @@
 
                         .project-name,
                         .project-description {
-                            display: none;
+                            display: block !important;
+                            opacity: 0;
+                            transform: scale(0);
+                            transition: all 500ms ease-in-out;
                         }
                     }
 
@@ -194,12 +199,30 @@
 
         .navigation {
             position: absolute;
-            right: 5vw;
+            right: 2.5vw;
             bottom: 5vh;
+            display: flex;
+            justify-content: end;
 
             .nav-btn {
+                transition: all 250ms ease-in-out;
+
+                $btn-size: min(10vh, 10vw);
+                $icon-size: min(5vh, 5vw);
+
                 border: 1px solid colors.$accent-300;
                 transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+                width: $btn-size;
+                height: $btn-size;
+                padding: 0px !important;
+                margin-left: 0.5vw;
+                margin-right: 0.5vw;
+
+                .mat-icon {
+                    font-size: $icon-size;
+                    width: $icon-size;
+                    height: $icon-size;
+                }
             }
 
             .nav-btn:disabled {
