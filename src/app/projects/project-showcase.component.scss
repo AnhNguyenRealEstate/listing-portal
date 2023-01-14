@@ -6,8 +6,8 @@
     background-size: cover;
 
     .page-title {
-        font-size: 42px;
-        line-height: 42px;
+        font-size: 3rem;
+        line-height: 3rem;
         font-weight: 500;
         background: transparent;
         backdrop-filter: blur(1px);
@@ -18,8 +18,8 @@
     }
 
     .page-descr {
-        font-size: 22px;
-        line-height: 22px;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
         font-weight: 500;
         background: transparent;
         backdrop-filter: blur(1px);
@@ -30,6 +30,8 @@
     }
 
     .project-showcase-page {
+        --default-transition-effect: all 500ms ease-in-out;
+
         display: flex;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -37,7 +39,7 @@
         height: 100vh;
 
         .all-projects {
-            transition: all 500ms ease-in-out;
+            transition: var(--default-transition-effect);
             display: flex;
             width: 40vw;
             height: 100vh;
@@ -56,7 +58,7 @@
                     .background-image {
                         transition: all 500ms ease-in;
 
-                        height: 95vh;
+                        height: 90vh;
                         background-size: cover;
                         background-position: 50% 50%;
                         position: relative;
@@ -70,7 +72,7 @@
                         }
 
                         .project-name {
-                            transition: all 500ms ease-in-out;
+                            transition: var(--default-transition-effect);
                             position: absolute;
                             margin-left: 5vw;
                             margin-top: 5vh;
@@ -82,7 +84,7 @@
                         }
 
                         .project-description {
-                            transition: all 500ms ease-in-out;
+                            transition: var(--default-transition-effect);
                             position: absolute;
                             margin-left: 5vw;
                             margin-top: 15vh;
@@ -152,10 +154,10 @@
             }
 
             .project-info-wrapper[data-status="inactive-right"] {
-                transition: all 500ms ease-in-out;
+                transition: var(--default-transition-effect);
 
                 .project-info {
-                    transition: all 500ms ease-in;
+                    transition: var(--default-transition-effect);
                     padding-top: 5vh;
                     padding-left: 2vw;
                     width: fit-content;
@@ -163,12 +165,12 @@
                     .project-name-alt {
                         display: flex !important;
                         justify-content: center !important;
-                        transition: all 500ms ease-in-out;
+                        transition: var(--default-transition-effect);
                         color: gray;
                     }
 
                     .background-image {
-                        transition: all 500ms ease-in-out;
+                        transition: var(--default-transition-effect);
 
                         border-radius: 15px;
                         height: 60vh;
@@ -181,7 +183,7 @@
                             display: block !important;
                             opacity: 0;
                             transform: scale(0);
-                            transition: all 500ms ease-in-out;
+                            transition: var(--default-transition-effect);
                         }
                     }
 
@@ -200,12 +202,12 @@
         .navigation {
             position: absolute;
             right: 2.5vw;
-            bottom: 5vh;
+            bottom: 10vh;
             display: flex;
             justify-content: end;
 
             .nav-btn {
-                transition: all 250ms ease-in-out;
+                transition: var(--default-transition-effect);
 
                 $btn-size: min(10vh, 10vw);
                 $icon-size: min(5vh, 5vw);
