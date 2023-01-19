@@ -77,7 +77,7 @@
                                 <div class="content">{{ 'home.featured' | translate | titlecase}}</div>
                             </div>
                             <mat-divider class="pb-2"></mat-divider>
-                            <div *ngFor="let listing of featuredListings" class="col-4 result-card-wrapper pb-2">
+                            <div *ngFor="let listing of featuredListings" class="col-4 result-card-wrapper pt-2 pb-2">
                                 <listing-card [listing]="listing" (delete)="removeListing(listing)"></listing-card>
                             </div>
                         </div>
