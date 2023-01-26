@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { Project } from './projects.data';
@@ -18,6 +18,10 @@ export class ProjectShowcaseComponent implements OnInit {
     projectCoverImg: Map<string, string> = new Map
 
     currentProjectIdx: number = 0
+
+    private scrollDistanceX = window.innerWidth / 3; // one third screen width
+    private touchStartX: number = 0
+    private touchEndX: number = 0
 
     constructor(
         private projectShowcase: ProjectShowcaseService,
@@ -44,6 +48,24 @@ export class ProjectShowcaseComponent implements OnInit {
         })
     }
 
+    @HostListener('touchstart', ['$event']) onTouchStart(e: TouchEvent) {
+        this.touchStartX = e.changedTouches[0].screenX
+    }
+
+    @HostListener('touchend', ['$event']) onTouchEnd(e: TouchEvent) {
+        this.touchEndX = e.changedTouches[0].screenX
+
+        if (!(Math.abs(this.touchStartX - this.touchEndX) > this.scrollDistanceX)) {
+            return
+        }
+
+        if (this.touchEndX < this.touchStartX && this.currentProjectIdx < this.projects.length - 1) {
+            this.scrollRight()
+        } else if (this.touchEndX > this.touchStartX && this.currentProjectIdx > 0) {
+            this.scrollLeft()
+        }
+    }
+
     async getCoverPhotoUrl(coverImgPath: string) {
         const url = await getDownloadURL(ref(this.storage, coverImgPath))
         return `url("${url}")`
@@ -67,11 +89,11 @@ export class ProjectShowcaseComponent implements OnInit {
             next.dataset['status'] = "active"
         }, 100)
 
-        setTimeout(()=> {
+        setTimeout(() => {
             const translateOffset = `-${(allInactiveLefts.length - 1) * 60}vw`
             const projectsContainer = document.querySelector('.all-projects') as HTMLElement
             this.renderer.setStyle(projectsContainer, 'transform', `translateX(${translateOffset})`)
-    
+
         }, 250)
 
         this.currentProjectIdx -= 1

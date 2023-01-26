@@ -1,7 +1,10 @@
 @use "src/app/styles/colors" as colors;
 
 .page-background {
-    background-image: url("https://img.freepik.com/free-vector/white-abstract-background_23-2148810353.jpg?w=1800&t=st=1672981370~exp=1672981970~hmac=62c562ce57a14e01dd76fcd0869ed55ca1a810250aad48be55be9c0685fd7380");
+    background-image: linear-gradient(to bottom, white, transparent 10% 90%, white),
+        url("https://img.freepik.com/free-vector/white-background-with-wavy-lines_23-2149124446.jpg?w=1800&t=st=1674708372~exp=1674708972~hmac=2d74c08b41db4711e7fa01e092660d3152c8ec3d51aa67af25191151bfb16d1c");
+
+    //background-image: url("https://img.freepik.com/free-vector/white-background-with-wavy-lines_23-2149124446.jpg?w=1800&t=st=1674708372~exp=1674708972~hmac=2d74c08b41db4711e7fa01e092660d3152c8ec3d51aa67af25191151bfb16d1c");
     background-position: center;
     background-size: cover;
 
@@ -219,6 +222,8 @@
                 padding: 0px !important;
                 margin-left: 0.5vw;
                 margin-right: 0.5vw;
+
+                backdrop-filter: blur(10px);
 
                 .mat-icon {
                     font-size: $icon-size;

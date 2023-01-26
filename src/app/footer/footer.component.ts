@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-footer',
@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 
 export class FooterComponent {
-    year = (new Date()).getFullYear();
-
+    year = (new Date()).getFullYear()
     constructor() { }
 }

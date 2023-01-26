@@ -21,11 +21,27 @@
 }
 
 .home-background-mobile {
-    background-image: url("/assets/images/background_home_mobile.jpeg");
-    background-size: cover;
-    background-position: 60% 0%;
     position: relative;
-    height: 90vh;
+    background-image: linear-gradient(to bottom, transparent 90%, white), url("/assets/images/background_home.jpeg");
+    background-size: cover;
+    background-position: 50% 0%;
+    height: 70vh;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0.5;
+        background-image: linear-gradient(to bottom right, black, black);   
+        height: 60vh;
+    }
+
+    .search-bar {
+        opacity: 0.9;
+    }
 }
 
 .home-background {
@@ -52,7 +68,7 @@
 
     .search-bar {
         width: 100%;
-        opacity: 0.90;
+        opacity: 0.9;
     }
 
     .home-title {
@@ -70,8 +86,6 @@
 .featured-listings {
     padding-left: 5vw;
     padding-right: 5vw;
-    background: url("https://img.freepik.com/free-vector/white-abstract-background_23-2148810353.jpg?w=1800&t=st=1672981370~exp=1672981970~hmac=62c562ce57a14e01dd76fcd0869ed55ca1a810250aad48be55be9c0685fd7380");
-    border-radius: 10px;
 }
 
 .featured-listings-mobile {
@@ -134,16 +148,9 @@
     font-size: 1.5rem;
     font-weight: 450;
     line-height: 2rem;
-    color: colors.$accent;
-}
-
-.mat-divider {
-    border-top-color: colors.$accent-100;
 }
 
 .ribbon {
-    position: relative;
-    color: colors.$accent-300;
     font-size: 2rem;
-    line-height: 2.25rem;
+    line-height: 2rem;
 }

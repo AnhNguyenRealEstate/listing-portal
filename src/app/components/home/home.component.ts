@@ -63,6 +63,8 @@ export class HomeComponent implements OnInit {
         }
     };
 
+    isDesktop: boolean = true;
+
     constructor(
         private router: Router,
         private homeService: HomeService,
@@ -73,14 +75,14 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
         const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
         const mobileDevicesWidth = 600;
-        const isDesktop = width > mobileDevicesWidth;
+        this.isDesktop = width > mobileDevicesWidth;
 
         this.homeService.getFeaturedListings().then(listings => {
             this.featuredListings = listings;
         });
 
         logEvent(getAnalytics(), 'home_page_view', {
-            from_mobile: !isDesktop
+            from_mobile: !this.isDesktop
         });
     }
 
