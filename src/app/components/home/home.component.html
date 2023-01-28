@@ -80,17 +80,17 @@
 
             <ng-container *ngIf="featuredListings?.length">
                 <div class="featured-listings">
-                    <div class="row p-4">
-                        <div class="col-12 featured-listings-header ribbon">
-                            <div class="content">{{ 'home.featured' | translate | titlecase}}</div>
-                        </div>
-                        <mat-divider class="pb-2"></mat-divider>
+                    <div class="featured-listings-header ms-5 mb-3">
+                        <div class="content">{{ 'home.featured' | translate}}</div>
+                    </div>
+
+                    <div class="row mx-1 mb-3">
                         <div *ngFor="let listing of featuredListings" class="col-3 result-card-wrapper pt-2 pb-2">
                             <listing-card [listing]="listing" (delete)="removeListing(listing)"></listing-card>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center pb-4">
+                    <div class="d-flex justify-content-center mb-4">
                         <a mat-raised-button color="accent" [routerLink]="['/listings']">{{ 'home.view_all' |
                             translate
                             }}</a>
@@ -103,6 +103,10 @@
 
 <section class="d-block d-md-none" *ngIf="!isDesktop">
     <div class="home-background-mobile">
+        <div class="home-title ms-2 pt-5">
+            {{ 'home.find_your_home' | translate }}
+        </div>
+
         <div @searchBarAnim class="ms-2 me-2 search-bar" style="padding-top: 10vh; min-height: 60vh">
             <mat-card>
                 <mat-card-content>
@@ -169,13 +173,11 @@
             <div *ngIf="featuredListings?.length">
                 <div class="featured-listings-mobile">
                     <div class="row p-4">
-                        <div class="col-12 d-flex justify-content-center featured-listings-header-mobile">
-                            {{ 'home.featured' | translate | titlecase }}
+                        <div class="col-12 d-flex justify-content-start featured-listings-header-mobile">
+                            {{ 'home.featured' | translate }}
                         </div>
 
-                        <mat-divider class="pb-2"></mat-divider>
-
-                        <div class="col-12">
+                        <div class="col-12 pt-2">
                             <swiper #usefulSwiper [config]="config">
                                 <div class="swiper-wrapper">
                                     <div *ngFor="let listing of featuredListings" class="swiper-slide p-1">

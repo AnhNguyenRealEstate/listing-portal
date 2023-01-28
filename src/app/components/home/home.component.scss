@@ -21,7 +21,10 @@
 }
 
 .home-background-mobile {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     background-image: linear-gradient(to bottom, transparent 90%, white), url("/assets/images/background_home.jpeg");
     background-size: cover;
     background-position: 50% 0%;
@@ -35,12 +38,20 @@
         bottom: 0;
         left: 0;
         opacity: 0.5;
-        background-image: linear-gradient(to bottom right, black, black);   
+        background-image: linear-gradient(to bottom right, black, black);
         height: 60vh;
     }
 
     .search-bar {
         opacity: 0.9;
+        width: 90%;
+    }
+
+    .home-title {
+        font-size: 3rem;
+        color: white;
+        z-index: 2;
+        line-height: 3rem;
     }
 }
 
@@ -81,11 +92,6 @@
 .mock-listings {
     margin-left: 10vw;
     margin-right: 10vw;
-}
-
-.featured-listings {
-    padding-left: 5vw;
-    padding-right: 5vw;
 }
 
 .featured-listings-mobile {
@@ -139,18 +145,24 @@
 }
 
 .featured-listings-header {
-    font-size: 1rem;
-    font-weight: 450;
-    line-height: 1.5rem;
+    font-size: 2.5rem;
+    line-height: 3rem;
+    font-weight: 500;
+    background: transparent;
+    backdrop-filter: blur(1px);
+    width: fit-content;
+    height: fit-content;
+    border-radius: 12px;
 }
 
 .featured-listings-header-mobile {
-    font-size: 1.5rem;
-    font-weight: 450;
-    line-height: 2rem;
-}
-
-.ribbon {
-    font-size: 2rem;
-    line-height: 2rem;
+    font-size: 2.5rem;
+    line-height: 3rem;
+    font-weight: 500;
+    background: transparent;
+    backdrop-filter: blur(1px);
+    width: fit-content;
+    height: fit-content;
+    border-radius: 12px;
+    padding-left: 5vw;
 }
