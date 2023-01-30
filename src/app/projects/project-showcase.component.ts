@@ -19,7 +19,7 @@ export class ProjectShowcaseComponent implements OnInit {
 
     currentProjectIdx: number = 0
 
-    private scrollDistanceX = window.innerWidth / 10; // one fifth screen width
+    private scrollDistanceX = window.innerWidth / 10
     private touchStartX: number = 0
     private touchEndX: number = 0
 
