@@ -39,7 +39,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         position: relative;
-        height: 100vh;
+        height: 80vh;
 
         .all-projects {
             transition: var(--default-transition-effect);
@@ -51,7 +51,7 @@
             .project-info-wrapper[data-status="active"] {
                 .project-info {
                     width: 60vw;
-                    height: 100vh;
+                    height: 80vh;
                     border-radius: 15px;
 
                     .project-name-alt {
@@ -61,7 +61,7 @@
                     .background-image {
                         transition: all 500ms ease-in;
 
-                        height: 90vh;
+                        height: 70vh;
                         background-size: cover;
                         background-position: 50% 50%;
                         position: relative;
@@ -161,7 +161,7 @@
 
                 .project-info {
                     transition: var(--default-transition-effect);
-                    padding-top: 5vh;
+                    padding-top: 2.5vh;
                     padding-left: 2vw;
                     width: fit-content;
 
@@ -176,7 +176,7 @@
                         transition: var(--default-transition-effect);
 
                         border-radius: 15px;
-                        height: 60vh;
+                        height: 50vh;
                         background-size: cover;
                         background-position: 50% 50%;
                         aspect-ratio: 3/5;

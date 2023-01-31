@@ -38,7 +38,7 @@
                 {{otherProject.name}}
             </div>
 
-            <div class="d-none project-description blur-background">
+            <div *ngIf="translate.getDefaultLang() === 'vn'" class="d-none project-description blur-background">
                 {{otherProject.description}}
             </div>
         </div>

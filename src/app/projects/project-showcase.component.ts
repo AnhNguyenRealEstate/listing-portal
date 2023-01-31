@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Renderer2 } from '@angular/core';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { Project } from './projects.data';
 import { ProjectShowcaseService } from './project-showcase.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'project-showcase',
@@ -19,15 +20,12 @@ export class ProjectShowcaseComponent implements OnInit {
 
     currentProjectIdx: number = 0
 
-    private scrollDistanceX = window.innerWidth / 10
-    private touchStartX: number = 0
-    private touchEndX: number = 0
-
     constructor(
         private projectShowcase: ProjectShowcaseService,
         private storage: Storage,
         private renderer: Renderer2,
-        private router: Router
+        private router: Router,
+        public translate: TranslateService
     ) { }
 
     async ngOnInit() {
@@ -46,24 +44,6 @@ export class ProjectShowcaseComponent implements OnInit {
                 (el as HTMLElement).dataset['status'] = 'inactive-right'
             }
         })
-    }
-
-    @HostListener('touchstart', ['$event']) onTouchStart(e: TouchEvent) {
-        this.touchStartX = e.changedTouches[0].screenX
-    }
-
-    @HostListener('touchend', ['$event']) onTouchEnd(e: TouchEvent) {
-        this.touchEndX = e.changedTouches[0].screenX
-
-        if (!(Math.abs(this.touchStartX - this.touchEndX) > this.scrollDistanceX)) {
-            return
-        }
-
-        if (this.touchEndX < this.touchStartX && this.currentProjectIdx < this.projects.length - 1) {
-            this.scrollRight()
-        } else if (this.touchEndX > this.touchStartX && this.currentProjectIdx > 0) {
-            this.scrollLeft()
-        }
     }
 
     async getCoverPhotoUrl(coverImgPath: string) {
