@@ -64,10 +64,10 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
         let og = `<meta property="og:type" content="website">`;
         og += `<meta property="og:title" content="${ogTitle}" /> `;
         og += `<meta property="og:description" content="${ogDesc || defaultDesc}" /> `;
-        og += `<meta property="og:image" content ="${ogImage || defaultLogo}" />
-            <meta property="og:image:type" content ="image/*" />
-            <meta property="og:image:width" content ="1200" />
-            <meta property="og:image:height" content ="600" /> `;
+        og += `<meta property="og:image" content="${ogImage || defaultLogo}" />
+            <meta property="og:image:type" content="image/*" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="600" /> `;
         og += `<meta property="og:url" content="${ogUrl || defaultUrl}" /> `;
         return og;
     };
