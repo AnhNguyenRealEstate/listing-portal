@@ -243,119 +243,89 @@
             </div>
         </div>
 
-        <div class="listing-body">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>
-                        <mat-icon fontSet="material-symbols-outlined" color="accent">notification_important</mat-icon>
-                        <span class="ps-2 text-bold">{{ 'listing_details.key_information' | translate }}</span>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="pt-1">
-                    <div class="row">
-                        <div class="col-6 py-1" style="overflow-wrap: anywhere">
-                            <mat-icon color="accent" class="d-inline">gite</mat-icon>
-                            <span class="ps-2 pe-1 text-bold">{{ 'listing_details.category' | translate }}:</span>
-                            <ng-container [ngTemplateOutlet]="category" [ngTemplateOutletContext]="{listing: listing}">
-                            </ng-container>
-                            <span class="ps-1" *ngIf="listing.subcategory">({{listing.subcategory | lowercase}})</span>
-                        </div>
-                        <div class="col-6 py-1">
-                            <mat-icon color="accent">aspect_ratio</mat-icon>
-                            <span class="ps-2 pe-1 text-bold">{{ 'listing_details.propertySize' | translate }}
-                                (m<sup>2</sup>):</span>
-                            {{listing.propertySize}}
-                        </div>
-                        <div class="col-6 py-1">
-                            <mat-icon color="accent">bed</mat-icon>
-                            <span class="ps-2 pe-1 text-bold">{{ 'listing_details.bedrooms' | translate }}:</span>
-                            {{listing.bedrooms}}
-                        </div>
-                        <div class="col-6 py-1">
-                            <mat-icon color="accent">bathtub</mat-icon>
-                            <span class="ps-2 pe-1 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
-                            {{listing.bathrooms}}
-                        </div>
-                        <div class="col-6 py-1" *ngIf="listing.view">
-                            <mat-icon color="accent">panorama_horizontal_icon</mat-icon>
-                            <span class="ps-2 pe-1 text-bold">{{ 'listing_details.view' | translate }}:</span>
-                            {{listing.view}}
-                        </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+        <div class="listing-body mt-4 px-2">
+            <div class="row">
+                <div class="col-6 py-1">
+                    <mat-icon color="accent">bed</mat-icon>
+                    <span class="ps-2 pe-1 text-bold">{{ 'listing_details.bedrooms' | translate }}:</span>
+                    {{listing.bedrooms}}
+                </div>
+                <div class="col-6 py-1">
+                    <mat-icon color="accent">bathtub</mat-icon>
+                    <span class="ps-2 pe-1 text-bold">{{ 'listing_details.bathrooms' | translate }}:</span>
+                    {{listing.bathrooms}}
+                </div>
+                <div class="col-6 py-1">
+                    <mat-icon color="accent">aspect_ratio</mat-icon>
+                    <span class="ps-2 pe-1 text-bold">{{ 'listing_details.propertySize' | translate }}
+                        (m<sup>2</sup>):</span>
+                    {{listing.propertySize}}
+                </div>
+                <div class="col-6 py-1" *ngIf="listing.view">
+                    <mat-icon color="accent">panorama_horizontal_icon</mat-icon>
+                    <span class="ps-2 pe-1 text-bold">{{ 'listing_details.view' | translate }}:</span>
+                    {{listing.view}}
+                </div>
+            </div>
 
-            <ng-container *ngIf="listing?.amenities?.length">
-                <mat-card class="mt-2">
-                    <mat-card-header>
-                        <mat-card-title>
-                            <mat-icon fontSet="material-symbols-outlined" style="color: rgb(235, 193, 6)">
-                                magic_button
-                            </mat-icon>
-                            <span class="ps-3 text-bold">{{ 'listing_upload.amenities' | translate }}</span>
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content class="pt-1">
-                        <ng-container [ngTemplateOutlet]="listOfAmenities"
-                            [ngTemplateOutletContext]="{amenities: listing.amenities, isDesktop: false}"></ng-container>
-                    </mat-card-content>
-                </mat-card>
-            </ng-container>
+            <mat-divider class="my-4 mx-4"></mat-divider>
 
-            <mat-card class="mt-2">
-                <mat-card-header>
-                    <mat-card-title>
-                        <mat-icon fontSet="material-symbols-outlined"
-                            style="color: rgb(65, 87, 162)">pin_drop</mat-icon>
-                        <span class="ps-3 text-bold">{{ 'listing_details.address' | translate }}</span>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
-                </mat-card-content>
-            </mat-card>
+            <div *ngIf="listing?.amenities?.length">
+                <div class="section-label pb-4">
+                    <mat-icon fontSet="material-symbols-outlined" style="color: rgb(235, 193, 6)">
+                        magic_button
+                    </mat-icon>
+                    <span class="ps-3 text-bold">{{ 'listing_upload.amenities' | translate }}</span>
+                </div>
+                <ng-container [ngTemplateOutlet]="listOfAmenities"
+                    [ngTemplateOutletContext]="{amenities: listing.amenities, isDesktop: false}"></ng-container>
+            </div>
 
-            <mat-divider></mat-divider>
+            <mat-divider class="my-4 mx-4"></mat-divider>
 
-            <mat-card class="mt-2">
-                <mat-card-header>
-                    <mat-card-title>
-                        <mat-icon fontSet="material-symbols-outlined"
-                            style="color:rgb(0, 99, 97)">description</mat-icon>
-                        <span class="ps-3 text-bold">{{ 'listing_details.description' | translate }}</span>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="pt-1">
-                    <p *ngIf="listing.description" [innerHtml]="listing.description"></p>
-                </mat-card-content>
-            </mat-card>
+            <div>
+                <div class="section-label pb-4">
+                    <mat-icon fontSet="material-symbols-outlined" style="color: rgb(65, 87, 162)">pin_drop</mat-icon>
+                    <span class="ps-3 text-bold">{{ 'listing_details.address' | translate }}</span>
+                </div>
+                <p *ngIf="listing.address" [innerHtml]="listing.address"></p>
+            </div>
 
-            <mat-card class="mt-2 mb-4">
-                <mat-card-header>
-                    <mat-card-title>
-                        <mat-icon fontSet="material-symbols-outlined"
-                            style="color: rgb(229, 144, 44)">contact_phone</mat-icon>
-                        <span class="ps-3 text-bold">{{ 'listing_details.contact' | translate }}</span>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="pt-1">
-                    <div class="pb-2">
-                        <a mat-raised-button [href]="contactNumberUrl" style="border-radius: 35px">
-                            <mat-icon color="accent">phone_in_talk</mat-icon>
-                        </a>
-                        <span class="ps-2"></span>
-                        <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
-                        </span>
-                        <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate
-                            }}</span>
-                        <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
-                    </div>
-                    <div *ngIf="listing.contactChannels?.length">
-                        <span class="pe-1">{{ 'listing_details.available_on' | translate }}:</span>
-                        <span>{{listing.contactChannels!.join(', ') }}</span>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+            <mat-divider class="my-4 mx-4"></mat-divider>
+
+            <div>
+                <div class="section-label pb-4">
+                    <mat-icon fontSet="material-symbols-outlined" style="color:rgb(0, 99, 97)">description</mat-icon>
+                    <span class="ps-3 text-bold">{{ 'listing_details.description' | translate }}</span>
+                </div>
+                <p *ngIf="listing.description" [innerHtml]="listing.description"></p>
+            </div>
+
+            <mat-divider class="my-4 mx-4"></mat-divider>
+
+            <div class="pb-4">
+                <div class="section-label pb-4">
+                    <mat-icon fontSet="material-symbols-outlined"
+                        style="color: rgb(229, 144, 44)">contact_phone</mat-icon>
+                    <span class="ps-3 text-bold">{{ 'listing_details.contact' | translate }}</span>
+                </div>
+
+                <div class="pb-2">
+                    <a mat-stroked-button [href]="contactNumberUrl" style="border-radius: 35px">
+                        <mat-icon color="accent">phone_in_talk</mat-icon>
+                    </a>
+                    <span class="ps-2"></span>
+                    <span *ngIf="listing.contactNumber" [innerHtml]="listing.contactNumber | mask: '000 000 0000'">
+                    </span>
+                    <span *ngIf="!listing.contactNumber">{{ 'listing_details.default_contact_number' | translate
+                        }}</span>
+                    <span class="ps-1" *ngIf="listing.contactPerson">- {{listing.contactPerson}}</span>
+                </div>
+                <div *ngIf="listing.contactChannels?.length">
+                    <span class="pe-1">{{ 'listing_details.available_on' | translate }}:</span>
+                    <span>{{listing.contactChannels!.join(', ') }}</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
