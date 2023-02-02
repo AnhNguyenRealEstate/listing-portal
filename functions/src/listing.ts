@@ -79,8 +79,9 @@ exports.postProcessDelete = functions.region('asia-southeast1').firestore
     });
 
 exports.shuffleFeaturedListings = functions.region('asia-southeast1')
-    .pubsub.schedule('every wednesday 05:00').timeZone('Asia/Ho_Chi_Minh')
+    .pubsub.schedule('0 0 * * 1,4').timeZone('Asia/Ho_Chi_Minh')
     .onRun(async () => {
+        // Run every monday and thursday
         const numOfRecentlyUploadedToGet = 30;
         const recentUnfeaturedListings = (await admin.firestore().collection('listings')
             .orderBy('creationDate', 'desc')
