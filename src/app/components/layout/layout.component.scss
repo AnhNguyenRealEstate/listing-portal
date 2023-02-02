@@ -59,6 +59,10 @@ mat-sidenav-content {
     }
 }
 
+::ng-deep .mat-mdc-menu-panel {
+    overflow: hidden !important;
+}
+
 ::ng-deep .listings-menu,
 ::ng-deep .projects-menu {
     .menu-heading {
