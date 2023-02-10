@@ -11,6 +11,12 @@ export class ProjectShowcaseService {
 
     async getProjectInfos(): Promise<Project[]> {
         const snap = await getDocs(collection(this.firestore, FirestoreCollections.projects))
-        return snap.docs.map(doc => doc.data() as Project)
+        const projects = snap.docs.map(doc => doc.data() as Project)
+        const results: Project[] = []
+
+        results.push(projects.find(project => project.id === 'phu-my-hung')!)
+        results.push(...projects.filter(project => project.id !== 'phu-my-hung'))
+
+        return results
     }
 }
