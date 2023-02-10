@@ -13,6 +13,7 @@ import { ListingCardModule } from '../listing-card/listing-card.module';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { MatMenuModule } from '@angular/material/menu';
 import { NumberToVNDPipe } from '../shared/custom-pipes';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NumberToVNDPipe } from '../shared/custom-pipes';
     MatMenuModule,
     ListingCardModule,
     NgxPageScrollCoreModule,
-    NumberToVNDPipe
+    NumberToVNDPipe,
+    MatButtonToggleModule
   ],
   exports: [
     ListingSearchComponent

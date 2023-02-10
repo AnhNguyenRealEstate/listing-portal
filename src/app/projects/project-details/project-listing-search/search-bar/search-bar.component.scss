@@ -1,4 +1,11 @@
+@use 'src/app/styles/colors' as colors;
+
 .selected-criteria-description {
     white-space: nowrap;
     mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 0));
+}
+
+::ng-deep .mat-button-toggle-checked {
+    color: colors.$accent !important;
+    background-color: colors.$accent-100 !important;
 }

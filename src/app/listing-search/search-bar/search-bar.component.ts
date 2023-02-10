@@ -106,6 +106,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
                 bathrooms: ''
             }
         }
+        this.updatePriceSlider()
     }
 
     updateFilterDescription() {
