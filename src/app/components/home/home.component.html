@@ -111,16 +111,16 @@
             <mat-card>
                 <mat-card-content>
                     <div class="row d-flex justify-content-center pt-4 pb-2 rent-or-sale">
-                        <button class="col-5" mat-button [class.btn-active]="searchCriteria.purpose === 'For Rent'"
-                            (click)="findListingsForRent()">
-                            <span class="action-btn-text-mobile">{{ 'home.rent' | translate }}</span>
+                        <button class="col-5" mat-button [class.btn-active]="searchCriteria.purpose === 'For Sale'"
+                            (click)="findListingsForSale()">
+                            <span class="action-btn-text-mobile">{{ 'home.buy' | translate }}</span>
                         </button>
                         <div class="col-1 pt-2 d-flex justify-content-center">
                             <span class="divider-mobile"> / </span>
                         </div>
-                        <button class="col-5" mat-button [class.btn-active]="searchCriteria.purpose === 'For Sale'"
-                            (click)="findListingsForSale()">
-                            <span class="action-btn-text-mobile">{{ 'home.buy' | translate }}</span>
+                        <button class="col-5" mat-button [class.btn-active]="searchCriteria.purpose === 'For Rent'"
+                            (click)="findListingsForRent()">
+                            <span class="action-btn-text-mobile">{{ 'home.rent' | translate }}</span>
                         </button>
                     </div>
                     <div class="row d-flex justify-content-center">

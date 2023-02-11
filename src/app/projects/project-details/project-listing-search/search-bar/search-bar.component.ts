@@ -26,7 +26,7 @@ export class SearchBarComponent implements OnInit, OnChanges, OnDestroy {
         maxPrice: undefined,
         bedrooms: '',
         bathrooms: '',
-        purpose: 'For Rent',
+        purpose: 'For Sale',
         orderBy: 'Most Recent'
     } as SearchCriteria;
 

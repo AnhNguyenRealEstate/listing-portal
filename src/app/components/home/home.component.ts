@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
     featuredListings!: Listing[];
 
     searchCriteria: SearchCriteria = {
-        purpose: 'For Rent'
+        purpose: 'For Sale'
     } as SearchCriteria;
 
     propertySizes = PropertySizes;

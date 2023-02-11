@@ -2,8 +2,8 @@
 
     <mat-button-toggle-group class="d-flex mb-4" [(ngModel)]="searchCriteria.purpose"
         (ngModelChange)="updatePriceSlider(); getListings(searchCriteria)">
-        <mat-button-toggle class="col-6" value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-button-toggle>
         <mat-button-toggle class="col-6" value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-button-toggle>
+        <mat-button-toggle class="col-6" value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-button-toggle>
     </mat-button-toggle-group>
 
     <div class="row mb-2">
@@ -115,12 +115,12 @@
         <div class="col-12">
             <mat-button-toggle-group class="d-flex mb-3 mat-elevation-z1" [(ngModel)]="searchCriteria.purpose"
                 (ngModelChange)="updatePriceSlider(); getListings(searchCriteria)">
-                <mat-button-toggle class="col-6" value="For Rent"
-                    [class.text-bold]="searchCriteria.purpose === 'For Rent'">
-                    {{ 'search_bar.for_rent' | translate | uppercase }}</mat-button-toggle>
                 <mat-button-toggle class="col-6" value="For Sale"
                     [class.text-bold]="searchCriteria.purpose === 'For Sale'">
                     {{ 'search_bar.for_sale' | translate | uppercase }}</mat-button-toggle>
+                <mat-button-toggle class="col-6" value="For Rent"
+                    [class.text-bold]="searchCriteria.purpose === 'For Rent'">
+                    {{ 'search_bar.for_rent' | translate | uppercase }}</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
         <div class="col-12">
