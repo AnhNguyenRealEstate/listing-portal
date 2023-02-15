@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 d-flex justify-content-center" *ngIf="searchResults.length && !noMoreToLoad">
+                <div class="col-12 d-flex justify-content-center my-2" *ngIf="searchResults.length && !noMoreToLoad">
                     <button mat-raised-button (click)="loadMore()">
                         <mat-icon color="accent" *ngIf="!isLoadingMore">keyboard_double_arrow_down_icon</mat-icon>
                         <span class="ps-2">{{ 'search_results.view_more' | translate }}</span>

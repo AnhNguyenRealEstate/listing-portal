@@ -47,7 +47,7 @@ exports.customIndexHtml = functions.region('us-central1').https.onRequest(async 
         const category = listing['category'];
         if (category !== 'Commercial') {
             ogTitle += `${listing['location']} ${category} - ${priceText}`;
-        } else if (category !== 'Commercial') {
+        } else if (category === 'Commercial') {
             ogTitle += `${listing['location']} commercial property - ${priceText}`;
         } else {
             ogTitle += `${listing['location']} - ${priceText}`;
