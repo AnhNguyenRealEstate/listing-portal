@@ -26,6 +26,9 @@ exports.postProcessCreation = functions.region('asia-southeast1').firestore
                 'tagID': newTagID
             });
 
+        const location = snap.data()['location'] as string
+        await updateLocationsMetadata(location)
+
         createGooglePost(snap.ref)
     });
 
