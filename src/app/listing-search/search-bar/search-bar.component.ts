@@ -67,7 +67,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         }
 
         this.subs.add(this.route.queryParamMap.subscribe(map => {
-            this.searchCriteria.purpose = map.get('purpose') as 'For Rent' | 'For Sale' || 'For Rent';
+            this.searchCriteria.purpose = map.get('purpose') as 'For Rent' | 'For Sale' || 'For Sale';
             this.searchCriteria.category = map.get('category') || '';
             this.searchCriteria.propertySize = map.get('propertySize') || '';
 

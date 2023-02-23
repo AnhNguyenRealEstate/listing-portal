@@ -55,6 +55,16 @@
                             <mat-option value='3+'>3+</mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <mat-form-field color="accent" class="col-12">
+                        <mat-label>{{'search_bar.location' | translate}}</mat-label>
+                        <input type="text" [placeholder]="'generics.any' | translate" matInput [matAutocomplete]="auto"
+                            [(ngModel)]="searchCriteria.location">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of locations" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
                     <div class="col-12">
                         <ng-container [ngTemplateOutlet]="priceSliderTpl"></ng-container>
                     </div>
@@ -186,6 +196,17 @@
                             <mat-option value='3'>3</mat-option>
                             <mat-option value='3+'>3+</mat-option>
                         </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field color="accent" class="col-12">
+                        <mat-label>{{'search_bar.location' | translate}}</mat-label>
+                        <input type="text" [placeholder]="'generics.any' | translate" matInput [matAutocomplete]="auto"
+                            [(ngModel)]="searchCriteria.location">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of locations" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
 
                     <div class="col-12">

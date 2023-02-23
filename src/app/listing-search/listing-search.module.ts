@@ -14,13 +14,14 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { MatMenuModule } from '@angular/material/menu';
 import { NumberToVNDPipe } from '../shared/custom-pipes';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
     SearchBarComponent,
     ListingSearchComponent,
     SearchResultsComponent,
-    ListingLocationComponent,
+    ListingLocationComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +36,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ListingCardModule,
     NgxPageScrollCoreModule,
     NumberToVNDPipe,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatAutocompleteModule
   ],
   exports: [
     ListingSearchComponent

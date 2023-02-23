@@ -39,7 +39,9 @@
 <ng-container *ngIf="mode === 'mobile'">
     <section class="container-flex ps-2 pe-2">
         <div class="row">
-            <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
+            <div class="col-12">
+                <mat-spinner *ngIf="listingSearchService.searchInProgress() | async"></mat-spinner>
+            </div>
 
             <ng-container *ngIf="!(listingSearchService.searchInProgress() | async)">
                 <div *ngIf="searchResults.length === 0" style="height: 70vh">
