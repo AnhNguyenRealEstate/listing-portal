@@ -130,16 +130,20 @@
 <section *ngIf="mode === 'mobile'" class="pt-2">
     <div class="row">
         <div class="col-12">
-            <mat-button-toggle-group class="d-flex mb-3 mat-elevation-z1" [(ngModel)]="searchCriteria.purpose"
-                (ngModelChange)="updatePriceSlider(); getListings(searchCriteria)">
-                <mat-button-toggle class="col-6" value="For Sale"
-                    [class.text-bold]="searchCriteria.purpose === 'For Sale'">
-                    {{ 'search_bar.for_sale' | translate | uppercase }}</mat-button-toggle>
-                <mat-button-toggle class="col-6" value="For Rent"
-                    [class.text-bold]="searchCriteria.purpose === 'For Rent'">
-                    {{ 'search_bar.for_rent' | translate | uppercase }}</mat-button-toggle>
-            </mat-button-toggle-group>
+            <mat-form-field color="accent">
+                <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
+                <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose"
+                    (ngModelChange)="updatePriceSlider(); getListings(searchCriteria)">
+                    <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
+                    <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
+
+        <div class="col-12 px-3 mb-2">
+            <mat-divider></mat-divider>
+        </div>
+
         <div class="col-12">
             <mat-expansion-panel [(expanded)]="panelOpenState" class="mat-elevation-z1">
                 <mat-expansion-panel-header>
