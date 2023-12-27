@@ -1,10 +1,17 @@
 <section *ngIf="mode === 'desktop'" class="pb-3">
 
-    <mat-button-toggle-group class="d-flex mb-4" [(ngModel)]="searchCriteria.purpose"
-        (ngModelChange)="updatePriceSlider(); getListings(searchCriteria)">
-        <mat-button-toggle class="col-6" value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-button-toggle>
-        <mat-button-toggle class="col-6" value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-button-toggle>
-    </mat-button-toggle-group>
+    <mat-form-field color="accent">
+        <mat-label>{{ 'search_bar.purpose' | translate }}</mat-label>
+        <mat-select id="purpose" [(ngModel)]="searchCriteria.purpose"
+            (ngModelChange)="updatePriceSlider(); getListings(searchCriteria)">
+            <mat-option value="For Sale">{{ 'search_bar.for_sale' | translate }}</mat-option>
+            <mat-option value="For Rent">{{ 'search_bar.for_rent' | translate }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="px-3 mb-3">
+        <mat-divider></mat-divider>
+    </div>
 
     <div class="row mb-2">
         <div class="col-12">

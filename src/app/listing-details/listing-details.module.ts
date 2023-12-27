@@ -13,6 +13,8 @@ import { ListingDetailsNotFound } from './not-found/not-found.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [ListingDetailsComponent, ListingDetailsNotFound],
@@ -30,7 +32,9 @@ import { MatCardModule } from '@angular/material/card';
         MatDividerModule,
         MatButtonModule,
         MatTabsModule,
-        MatCardModule
+        MatCardModule,
+        MatBottomSheetModule,
+        MatTooltipModule
     ]
 })
 export class ListingDetailsModule { }

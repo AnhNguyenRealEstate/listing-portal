@@ -143,7 +143,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
         let maxPrice;
         if (this.searchCriteria.maxPrice) {
-            let value = String(this.searchCriteria.maxPrice);
+            let value = this.searchCriteria.maxPrice.toLocaleString();
             if (this.searchCriteria.purpose === 'For Rent') {
                 value = `$${value}`;
             } else if (this.searchCriteria.purpose === 'For Sale') {

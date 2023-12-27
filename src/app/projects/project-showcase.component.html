@@ -7,7 +7,7 @@
         {{ 'project_showcase.page_descr' | translate }}
     </div>
 
-    <div class="project-showcase-page pt-2 mx-2">
+    <div class="project-showcase-page pt-2 mx-2" *ngIf="projects.length">
         <div class="all-projects">
             <div class="project-info-wrapper" *ngFor="let project of projects">
                 <ng-container [ngTemplateOutlet]="otherProjectTpl"
@@ -31,7 +31,7 @@
 </div>
 
 <ng-template #otherProjectTpl let-otherProject="otherProject">
-    <div class="project-info">
+    <div class="project-info" *ngIf="otherProject?.id">
         <div class="background-image mat-elevation-z3" (click)="viewProjectDetails(otherProject.id!)"
             [style.background-image]="projectCoverImgUrls.get(otherProject.id)">
             <div class="d-none h1 project-name blur-background">

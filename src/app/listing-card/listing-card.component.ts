@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { LoginService } from '../components/login/login.service';
 import { Listing } from "./listing-card.data";
 import { ListingCardService } from './listing-card.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ListingDetailsComponent } from '../listing-details/listing-details.component';
 
 @Component({
     selector: 'listing-card',
@@ -38,6 +40,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
         private login: LoginService,
         private injector: Injector,
         public listingCard: ListingCardService,
+        private bottomSheet: MatBottomSheet,
         public translate: TranslateService) { }
 
     async ngOnInit() {
@@ -190,5 +193,16 @@ export class ListingCardComponent implements OnInit, OnDestroy {
         if (this.listing.id) {
             await this.listingCard.createGooglePost(this.listing.id)
         }
+    }
+
+    showListing() {
+        this.bottomSheet.open(
+            ListingDetailsComponent,
+            {
+                data: {
+                    listing: this.listing
+                }
+            }
+        )
     }
 }

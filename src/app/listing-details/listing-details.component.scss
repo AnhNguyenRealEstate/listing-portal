@@ -117,3 +117,20 @@ ul.amenities-list-mobile li:before {
 mat-card {
     border-radius: 12px;
 }
+
+.modal-close-btn-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+
+    .modal-close-btn {
+        top: 0;
+        right: 0;
+        width: 100px;
+        cursor: pointer;
+        background: colors.$accent-300;
+        border: 1px solid colors.$accent-300;
+        border-radius: 15px;
+    }
+}

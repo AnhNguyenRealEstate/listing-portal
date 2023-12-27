@@ -36,3 +36,9 @@ span, div {
 .mat-mdc-menu-content {
     background-color: white;
 }
+
+.mat-bottom-sheet-container {
+    min-height: 95vh;
+    min-width: 100vw !important;
+    border-radius: 16px 16px 0px 0px !important;
+}

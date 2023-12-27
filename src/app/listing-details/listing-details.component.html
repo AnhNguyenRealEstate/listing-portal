@@ -1,3 +1,7 @@
+<div class="d-flex justify-content-center modal-close-btn-container" *ngIf="isModal" (click)="closeDetails()">
+    <button class="modal-close-btn" [matTooltip]="'listing_details.close' | translate"></button>
+</div>
+
 <section *ngIf="isDesktop" class="pb-4 container d-none d-md-block listing-details-desktop">
     <div *ngIf="!listing.location" class="pt-4">
         <ng-container *ngTemplateOutlet="desktopLoadingPlaceholder"></ng-container>

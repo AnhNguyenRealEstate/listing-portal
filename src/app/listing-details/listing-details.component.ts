@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, SecurityContext, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, Optional, SecurityContext, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ListingDetailsService } from './listing-details.service';
@@ -12,6 +12,7 @@ import { getAnalytics, logEvent } from '@angular/fire/analytics';
 import { SwiperOptions } from 'swiper';
 import { animate, query, style, transition, trigger } from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 @Component({
     selector: 'listing-details',
@@ -93,6 +94,8 @@ export class ListingDetailsComponent implements OnInit {
     showFooter: boolean = false;
     isDesktop: boolean = true;
 
+    isModal: boolean = false;
+
     constructor(
         private sanitizer: DomSanitizer,
         public translate: TranslateService,
@@ -102,15 +105,22 @@ export class ListingDetailsComponent implements OnInit {
         private title: Title,
         private snackbar: MatSnackBar,
         private changeDetector: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: Document) {
-
+        @Inject(DOCUMENT) private document: Document,
+        private _bottomSheetRef: MatBottomSheetRef<ListingDetailsComponent>,
+        @Optional() @Inject(MAT_BOTTOM_SHEET_DATA) private data: { listing: Listing }
+    ) {
         const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
         const mobileDevicesWidth = 600;
         this.isDesktop = width > mobileDevicesWidth;
+
+        if (this.data?.listing) {
+            this.listing = this.data.listing;
+            this.isModal = true;
+        }
     }
 
     async ngOnInit() {
-        const id = this.route.snapshot.paramMap.get('listingId');
+        const id = this.route.snapshot.paramMap.get('listingId') || this.listing.id;
         if (!id) {
             this.router.navigate(['../'], { relativeTo: this.route });
             return;
@@ -310,5 +320,9 @@ export class ListingDetailsComponent implements OnInit {
                 this.title.setTitle(`${purpose} ${category} ${this.listing.location} ${numOfBeds} ${numOfBaths}`);
             }
         }
+    }
+
+    closeDetails() {    
+        this._bottomSheetRef.dismiss();
     }
 }

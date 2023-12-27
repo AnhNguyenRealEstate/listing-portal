@@ -130,7 +130,8 @@
         "video": "Video tour",
         "room": "room",
         "commercial": "Commercial property",
-        "key_information": "Key information"
+        "key_information": "Key information",
+        "close": "Close"
     },
     "search_bar": {
         "filters": "Filters",

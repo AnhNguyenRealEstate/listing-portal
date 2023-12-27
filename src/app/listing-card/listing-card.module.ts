@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule, MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { ListingDetailsModule } from '../listing-details/listing-details.module';
 
 @NgModule({
   declarations: [ListingCardComponent],
@@ -32,7 +34,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatMenuModule,
     MatDialogModule,
     MatDividerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatBottomSheetModule,
+    ListingDetailsModule
   ],
   exports: [ListingCardComponent],
   providers: [
