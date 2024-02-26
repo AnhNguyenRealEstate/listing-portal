@@ -106,7 +106,7 @@ export class ListingDetailsComponent implements OnInit {
         private snackbar: MatSnackBar,
         private changeDetector: ChangeDetectorRef,
         @Inject(DOCUMENT) private document: Document,
-        private _bottomSheetRef: MatBottomSheetRef<ListingDetailsComponent>,
+        @Optional() private _bottomSheetRef: MatBottomSheetRef<ListingDetailsComponent>,
         @Optional() @Inject(MAT_BOTTOM_SHEET_DATA) private data: { listing: Listing }
     ) {
         const width = this.document.defaultView ? this.document.defaultView.innerWidth : 0;
